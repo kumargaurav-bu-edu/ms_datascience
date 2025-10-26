@@ -1,0 +1,32 @@
+import os
+import nbformat
+from nbformat.v4 import new_notebook, new_markdown_cell, new_code_cell
+
+base = os.path.expanduser("/Users/gaurav/workspace/datascience/boston_university/ms_datascience/week_10122025/AI_leaders")
+data_dir = os.path.join(base, "data")
+nb_dir = os.path.join(base, "notebooks")
+os.makedirs(nb_dir, exist_ok=True)
+
+# Notebook 1: dataset analysis + quality graphs
+nb1 = new_notebook(cells=[
+    new_markdown_cell("# 01_dataset_analysis\n\nOverview: load datasets from ./data, summary stats, missingness, basic visualizations for quality and insights."),
+    new_code_cell(
+        "import os\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom pathlib import Path\n\nsns.set(style='whitegrid')\nbase = Path('..') / 'data'\nfiles = [p for p in base.iterdir() if p.is_file()]\nprint('data files found:', files)\n\ndef try_load(p):\n    suf = p.suffix.lower()\n    try:\n        if suf in {'.csv','.txt'}:\n            return pd.read_csv(p)\n        if suf in {'.xlsx','.xls'}:\n            return pd.read_excel(p)\n        if suf in {'.parquet'}:\n            return pd.read_parquet(p)\n    except Exception as e:\n        print('failed to load', p, e)\n    return None\n\nfor p in files:\n    df = try_load(p)\n    if df is None:\n        continue\n    print('\\n===', p.name, '===')\n    display(df.head())\n    print('shape:', df.shape)\n    print('dtypes:\\n', df.dtypes.value_counts())\n    print('\\nmissing values (%):')\n    print((df.isnull().mean()*100).sort_values(ascending=False).head(10))\n    print('\\nduplicates:', df.duplicated().sum())\n    # quick numeric summary\n    num = df.select_dtypes(include='number')\n    if not num.empty:\n        display(num.describe().T)\n        # simple histogram grid for first up to 6 numeric cols\n        cols = num.columns[:6].tolist()\n        ax = num[cols].hist(figsize=(12,6))\n        plt.suptitle(f'Histograms: {p.name}')\n        plt.show()\n    # correlation heatmap for numeric features (sampled if large)\n    if num.shape[1] > 1:\n        sample = num.sample(n=min(1000, len(num)), random_state=1)\n        plt.figure(figsize=(8,6))\n        sns.heatmap(sample.corr(), annot=False, cmap='vlag', center=0)\n        plt.title(f'Correlation (sample): {p.name}')\n        plt.show()\n"
+    )
+])
+
+# Notebook 2: EDA for model suitability and mapping to ML tasks
+nb2 = new_notebook(cells=[
+    new_markdown_cell("# 02_eda_model_suitability\n\nRun automated checks that suggest suitability for Regression, Classification, Clustering, Anomaly Detection, Neural Networks, and Learning Type."),
+    new_code_cell(
+        "import os\nimport pandas as pd\nimport numpy as np\nfrom pathlib import Path\nfrom sklearn.ensemble import IsolationForest\nfrom sklearn.cluster import KMeans\nfrom sklearn.metrics import silhouette_score\n\nbase = Path('..') / 'data'\nfiles = [p for p in base.iterdir() if p.is_file()]\n\ndef analyze(df):\n    out = {}\n    n = len(df)\n    out['rows'] = n\n    out['num_features'] = df.select_dtypes(include='number').shape[1]\n    out['cat_features'] = df.select_dtypes(include=['object','category']).shape[1]\n    # simple target heuristic: columns named like 'target','class','label','y' or common suffix\n    candidates = [c for c in df.columns if any(k in c.lower() for k in ('target','class','label','y','flag','churn','fraud','claim','score'))]\n    out['target_candidates'] = candidates\n    # imbalance check for candidate targets\n    if candidates:\n        for t in candidates[:3]:\n            vc = df[t].value_counts(dropna=False)\n            out[f'imbl_{t}'] = vc.to_dict()\n    # clustering feasibility\n    num = df.select_dtypes(include='number').dropna(axis=1, how='all')\n    if num.shape[1] >= 2 and len(num) >= 10:\n        sample = num.sample(n=min(2000, len(num)), random_state=1)\n        try:\n            kmeans = KMeans(n_clusters=3, random_state=1).fit(sample)\n            out['clustering_silhouette'] = float(silhouette_score(sample, kmeans.labels_))\n        except Exception as e:\n            out['clustering_error'] = str(e)\n    # anomaly estimation\n    if num.shape[1] >= 1 and len(num) >= 50:\n        iso = IsolationForest(contamination=0.01, random_state=1)\n        try:\n            preds = iso.fit_predict(num.sample(n=min(2000, len(num)), random_state=1))\n            out['anomaly_rate_est'] = float((preds==-1).mean())\n        except Exception as e:\n            out['anomaly_error'] = str(e)\n    return out\n\nfor p in files:\n    try:\n        suf = p.suffix.lower()\n        if suf in {'.csv','.txt'}:\n            df = pd.read_csv(p)\n        elif suf in {'.xlsx','.xls'}:\n            df = pd.read_excel(p)\n        elif suf in {'.parquet'}:\n            df = pd.read_parquet(p)\n        else:\n            print('skip', p.name)\n            continue\n    except Exception as e:\n        print('failed to load', p.name, e)\n        continue\n    print('\\n---', p.name, '---')\n    res = analyze(df)\n    for k,v in res.items():\n        print(k, ':', v)\n    # short recommendation heuristic\n    recs = []\n    if res['num_features'] >= 2 and res['rows'] > 100:\n        recs.append('Regression: possible (if continuous target present)')\n        recs.append('Classification: possible (if categorical target present)')\n    if res.get('clustering_silhouette'):\n        if res['clustering_silhouette'] > 0.1:\n            recs.append('Clustering: promising (silhouette > 0.1)')\n        else:\n            recs.append('Clustering: weak (low silhouette)')\n    if res.get('anomaly_rate_est', 0) > 0:\n        recs.append('Anomaly Detection: feasible (IsolationForest sample)')\n    if res['rows'] >= 10000 or res['num_features'] >= 50:\n        recs.append('Neural Networks: feasible at scale (consider embeddings for categorical features)')\n    if not recs:\n        recs.append('Small dataset / limited numeric features — careful feature engineering or data augmentation recommended')\n    print('\\nRecommendations:')\n    for r in recs:\n        print('-', r)\n"
+    )
+])
+
+# write notebooks
+with open(os.path.join(nb_dir, "01_dataset_analysis.ipynb"), "w", encoding="utf-8") as f:
+    nbformat.write(nb1, f)
+with open(os.path.join(nb_dir, "02_eda_model_suitability.ipynb"), "w", encoding="utf-8") as f:
+    nbformat.write(nb2, f)
+
+print("Notebooks created in:", nb_dir)

@@ -6,6 +6,7 @@ __pycache__/
 # No Files 
 *.csv
 *.tsv
+*.png
 
 # C extensions
 *.so
