@@ -1,0 +1,5 @@
+read my file - /Users/gkumargaur/workspace/datascience/boston_university/ms_datascience/week_11022025/practice/DX699.md. 
+help create 30 multiple choice quiz questions python program. 
+ensure each question is based on the content of the file subject matter.
+ensure each question are based on theorical concepts and help learner learn the subject concepts, associated formula and algorithm concepts.
+create the quiz in the folder - /Users/gkumargaur/workspace/datascience/boston_university/ms_datascience/week_11022025/practice
