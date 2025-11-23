@@ -1,0 +1,20 @@
+Learning Objectives
+At the end of this week, you should be able to:
+
+Compare ranking to classifying
+Explain profit curves
+Describe ROC curves (Receiver Operating Characteristic) 
+Describe lift curves
+Reflect on the process of developing a Capstone Proposal
+
+Think About It
+What are the advantages and disadvantages of a profit curve?
+What are the advantages and disadvantages of an ROC curve?
+What are the advantages and disadvantages of a lift curve?
+
+
+
+Read | Data Science for Business: What You Need to Know About Data Mining and Data-Analytic Thinking, Chapter 8: Visualizing Model Performance. In this chapter, you will learn about how to compare different models according to their performance.
+
+Read | AUC-ROC Curve in Machine Learning Clearly Explained. In this article, you will read a detailed example about ROC curves.
+https://www.kaggle.com/discussions/general/343302
