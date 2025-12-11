@@ -1,0 +1,16 @@
+At the end of this week, you should be able to:
+
+Explain accuracy
+Describe a confusion matrix
+Explain accuracy and unbalanced classes
+Compare accuracy and cost/benefit
+Explain expected value
+Identify some other metrics—these are important!
+Explain what is meant by “doing better than a baseline”
+Describe the characteristics of a dataset that can be useful for addressing a real-world problem
+Required Resources
+The following resources are required for your learning this week. Make sure you read and review everything linked below, as you may be tested on the information and concepts in an upcoming knowledge check or quiz.
+
+Read | Data Science for Business: What You Need to Know About Data Mining and Data-Analytic Thinking, Chapter 7: Decision Analytics Thinking I: What Makes a Good Model? In this chapter, you will learn about metrics (such as accuracy) that can tell us how a model is doing.
+
+Read | Failure of Classification Accuracy for Imbalanced Class Distributions. In this article, you will learn about unbalanced class distributions, which can mean that accuracy is not a meaningful statistic.
