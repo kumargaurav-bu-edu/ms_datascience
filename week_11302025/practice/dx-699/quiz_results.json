@@ -1,0 +1,306 @@
+{
+  "quiz_title": "Bayes' Rule, Na\u00efve Bayes, and Evidence Lift Quiz",
+  "score": 23,
+  "total": 30,
+  "percentage": 76.66666666666667,
+  "level_stats": {
+    "Advanced": {
+      "correct": 5,
+      "total": 7
+    },
+    "Intermediate": {
+      "correct": 7,
+      "total": 11
+    },
+    "Basic": {
+      "correct": 11,
+      "total": 12
+    }
+  },
+  "topic_stats": {
+    "Bayes' Rule": {
+      "correct": 9,
+      "total": 12
+    },
+    "Na\u00efve Bayes": {
+      "correct": 6,
+      "total": 10
+    },
+    "Evidence Lift": {
+      "correct": 8,
+      "total": 8
+    }
+  },
+  "results": [
+    {
+      "question_id": 21,
+      "question": "Scenario: A fraud detection system has two models. Model A: P(Fraud|Alert) = 0.30 with P(Alert) = 0.10. Model B: P(Fraud|Alert) = 0.25 with P(Alert) = 0.15. If P(Fraud) = 0.02, which model provides better evidence lift when it alerts?",
+      "topic": "Bayes' Rule",
+      "level": "Advanced",
+      "user_answer": "C",
+      "correct_answer": "C",
+      "is_correct": true
+    },
+    {
+      "question_id": 4,
+      "question": "In a fraud detection system, if P(Fraud) = 0.01, P(Alert|Fraud) = 0.95, and P(Alert) = 0.05, what is the probability that a transaction is fraudulent given an alert?",
+      "topic": "Bayes' Rule",
+      "level": "Intermediate",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true
+    },
+    {
+      "question_id": 28,
+      "question": "In a marketing campaign, if 10% of customers typically respond (P(Response) = 0.10), and customers who visited the website in the last week have a 30% response rate (P(Response|Website Visit) = 0.30), what is the evidence lift?",
+      "topic": "Bayes' Rule",
+      "level": "Intermediate",
+      "user_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true
+    },
+    {
+      "question_id": 17,
+      "question": "True or False: Bayes' Rule can be used to update probabilities as new evidence becomes available.",
+      "topic": "Bayes' Rule",
+      "level": "Basic",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true
+    },
+    {
+      "question_id": 8,
+      "question": "Why is Na\u00efve Bayes called 'na\u00efve'?",
+      "topic": "Na\u00efve Bayes",
+      "level": "Basic",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "is_correct": true
+    },
+    {
+      "question_id": 15,
+      "question": "What does an evidence lift of 0.5 indicate?",
+      "topic": "Evidence Lift",
+      "level": "Intermediate",
+      "user_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true
+    },
+    {
+      "question_id": 13,
+      "question": "If P(Fraud) = 0.02 and P(Fraud|Suspicious Transaction) = 0.40, what is the evidence lift?",
+      "topic": "Evidence Lift",
+      "level": "Basic",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "is_correct": true
+    },
+    {
+      "question_id": 29,
+      "question": "What is the main computational advantage of the Na\u00efve Bayes independence assumption?",
+      "topic": "Na\u00efve Bayes",
+      "level": "Basic",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true
+    },
+    {
+      "question_id": 23,
+      "question": "What type of Na\u00efve Bayes is most commonly used for text classification with word counts?",
+      "topic": "Na\u00efve Bayes",
+      "level": "Intermediate",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true
+    },
+    {
+      "question_id": 26,
+      "question": "In customer churn analysis, if the overall churn rate is 5% and a specific customer segment has a churn rate of 20%, what is the evidence lift? How should this be interpreted?",
+      "topic": "Evidence Lift",
+      "level": "Intermediate",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "is_correct": true
+    },
+    {
+      "question_id": 2,
+      "question": "In Bayes' Rule formula P(A|B) = P(B|A) \u00d7 P(A) / P(B), what does P(A) represent?",
+      "topic": "Bayes' Rule",
+      "level": "Basic",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "is_correct": true
+    },
+    {
+      "question_id": 12,
+      "question": "What is evidence lift?",
+      "topic": "Evidence Lift",
+      "level": "Basic",
+      "user_answer": "C",
+      "correct_answer": "C",
+      "is_correct": true
+    },
+    {
+      "question_id": 6,
+      "question": "In credit scoring, if P(Default) = 0.05, P(High Risk|Default) = 0.80, and P(High Risk|No Default) = 0.10, what is the probability of default given a high-risk classification?",
+      "topic": "Bayes' Rule",
+      "level": "Advanced",
+      "user_answer": "C",
+      "correct_answer": "C",
+      "is_correct": true
+    },
+    {
+      "question_id": 14,
+      "question": "In marketing response modeling, if the baseline response rate is 2% and a customer segment has a response rate of 8%, what is the evidence lift for that segment?",
+      "topic": "Evidence Lift",
+      "level": "Intermediate",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true
+    },
+    {
+      "question_id": 7,
+      "question": "What is the key assumption made by the Na\u00efve Bayes classifier?",
+      "topic": "Na\u00efve Bayes",
+      "level": "Basic",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "is_correct": true
+    },
+    {
+      "question_id": 9,
+      "question": "In a spam email classifier using Na\u00efve Bayes, if P(Spam) = 0.3, P('free'|Spam) = 0.4, P('free'|Not Spam) = 0.05, P('money'|Spam) = 0.3, and P('money'|Not Spam) = 0.01, what is the probability that an email containing both 'free' and 'money' is spam?",
+      "topic": "Na\u00efve Bayes",
+      "level": "Intermediate",
+      "user_answer": "C",
+      "correct_answer": "A",
+      "is_correct": false
+    },
+    {
+      "question_id": 24,
+      "question": "In a medical diagnosis scenario, if P(Disease) = 0.001, P(Test+|Disease) = 0.99, and P(Test+|No Disease) = 0.01, what is the evidence lift of a positive test result?",
+      "topic": "Bayes' Rule",
+      "level": "Advanced",
+      "user_answer": "D",
+      "correct_answer": "C",
+      "is_correct": false
+    },
+    {
+      "question_id": 1,
+      "question": "What is Bayes' Rule (Bayes' Theorem) used for?",
+      "topic": "Bayes' Rule",
+      "level": "Basic",
+      "user_answer": "C",
+      "correct_answer": "C",
+      "is_correct": true
+    },
+    {
+      "question_id": 25,
+      "question": "What does the denominator P(B) represent in Bayes' Rule?",
+      "topic": "Bayes' Rule",
+      "level": "Basic",
+      "user_answer": "C",
+      "correct_answer": "A",
+      "is_correct": false
+    },
+    {
+      "question_id": 20,
+      "question": "In a Na\u00efve Bayes classifier for sentiment analysis, what happens if a word in the test document was never seen in the training data?",
+      "topic": "Na\u00efve Bayes",
+      "level": "Intermediate",
+      "user_answer": "B",
+      "correct_answer": "D",
+      "is_correct": false
+    },
+    {
+      "question_id": 10,
+      "question": "What is a key advantage of Na\u00efve Bayes for text classification?",
+      "topic": "Na\u00efve Bayes",
+      "level": "Intermediate",
+      "user_answer": "A",
+      "correct_answer": "C",
+      "is_correct": false
+    },
+    {
+      "question_id": 18,
+      "question": "True or False: Na\u00efve Bayes can only be used for binary classification problems.",
+      "topic": "Na\u00efve Bayes",
+      "level": "Basic",
+      "user_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true
+    },
+    {
+      "question_id": 30,
+      "question": "Scenario: In fraud detection, Feature A has lift = 5 and Feature B has lift = 3. If both features are observed together and are conditionally independent given fraud status, what is the approximate combined lift?",
+      "topic": "Evidence Lift",
+      "level": "Advanced",
+      "user_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true
+    },
+    {
+      "question_id": 27,
+      "question": "Why might Na\u00efve Bayes perform well in practice despite violating the independence assumption?",
+      "topic": "Na\u00efve Bayes",
+      "level": "Advanced",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "is_correct": true
+    },
+    {
+      "question_id": 16,
+      "question": "In a credit scoring model, if P(Default) = 0.05 and we observe that customers with 'High Debt-to-Income Ratio' have P(Default|High DTI) = 0.25, and customers with 'Low Credit Score' have P(Default|Low Score) = 0.30, which feature provides stronger evidence?",
+      "topic": "Evidence Lift",
+      "level": "Advanced",
+      "user_answer": "C",
+      "correct_answer": "C",
+      "is_correct": true
+    },
+    {
+      "question_id": 11,
+      "question": "In customer churn prediction, a Na\u00efve Bayes model uses features: Age>50, High Usage, and Complaint History. If P(Churn) = 0.15, P(Age>50|Churn) = 0.6, P(High Usage|Churn) = 0.3, P(Complaint|Churn) = 0.8, and the corresponding probabilities for Not Churn are 0.4, 0.7, and 0.2, what is P(Churn|Age>50, High Usage, Complaint)?",
+      "topic": "Na\u00efve Bayes",
+      "level": "Advanced",
+      "user_answer": "B",
+      "correct_answer": "D",
+      "is_correct": false
+    },
+    {
+      "question_id": 3,
+      "question": "What does P(A|B) represent in Bayes' Rule?",
+      "topic": "Bayes' Rule",
+      "level": "Basic",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "is_correct": true
+    },
+    {
+      "question_id": 22,
+      "question": "What is the evidence lift if the posterior probability equals the prior probability?",
+      "topic": "Evidence Lift",
+      "level": "Basic",
+      "user_answer": "D",
+      "correct_answer": "D",
+      "is_correct": true
+    },
+    {
+      "question_id": 19,
+      "question": "Fill in the blank: In Bayes' Rule, P(B|A) is called the _____.",
+      "topic": "Bayes' Rule",
+      "level": "Intermediate",
+      "user_answer": "C",
+      "correct_answer": "C",
+      "is_correct": true
+    },
+    {
+      "question_id": 5,
+      "question": "A medical test for a disease has 99% sensitivity (P(Test+|Disease) = 0.99) and 99% specificity. If the disease prevalence is 0.1% (P(Disease) = 0.001), what is P(Disease|Test+)?",
+      "topic": "Bayes' Rule",
+      "level": "Intermediate",
+      "user_answer": "B",
+      "correct_answer": "A",
+      "is_correct": false
+    }
+  ]
+}
