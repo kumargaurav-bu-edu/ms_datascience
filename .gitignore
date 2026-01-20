@@ -220,3 +220,7 @@ extra/github-recovery-codes.txt
 .token
 .vscode/settings.json
 week_11162025/dx699-homework-12/quiz_results.json
+
+# Dataset cache directories (for dataset_utils.py)
+**/dataset_cache/
+**/dataset_cache/*.pkl
