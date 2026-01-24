@@ -1,0 +1,405 @@
+{
+  "quiz_metadata": {
+    "title": "Data Visualization and Storytelling Practice Quiz",
+    "description": "Interactive quiz covering data visualization, data storytelling, data quality, and descriptive statistics",
+    "version": "2.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Storytelling and Accessibility",
+      "question_text": "Data storytelling makes information accessible to a wider audience by translating complex data into ___________ that non-technical stakeholders can understand and act upon.",
+      "options": null,
+      "correct_answer": "clear narratives or stories",
+      "explanation": "Data storytelling bridges the gap between technical analysis and decision-making by presenting data insights in a narrative format. This makes complex information accessible to non-technical audiences, enabling them to understand the significance of the data and make informed decisions.",
+      "learning_objective": "Data storytelling importance",
+      "keywords": ["narrative", "story", "clear", "understand", "accessible", "stakeholder"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Storytelling and Accessibility",
+      "question_text": "The primary goal of data storytelling is to make data ___________ and ___________ through clear communication.",
+      "options": null,
+      "correct_answer": "accessible, actionable",
+      "explanation": "Data storytelling aims to make data both accessible (understandable to diverse audiences) and actionable (leading to clear decisions or actions). This dual purpose distinguishes effective data storytelling from simply presenting charts.",
+      "learning_objective": "Data storytelling importance",
+      "keywords": ["accessible", "actionable", "understandable", "decision"]
+    },
+    {
+      "number": 3,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Storytelling and Accessibility",
+      "question_text": "A credit scoring team presents a dashboard showing default rates by credit tier. The dashboard has 8 charts, uses 12 different colors, and includes raw data tables. Executives are confused about whether to tighten or relax lending criteria. Using Storytelling with Data principles, describe three specific visual changes you would make to help executives understand the key insight and decide on next steps. Be concrete: name specific chart types, colors, and annotations.",
+      "options": null,
+      "correct_answer": "Use a single slopegraph showing default rate trends by tier, highlight highest-risk tier in red with annotation showing percentage increase, add subtitle 'Tier C defaults rising 15% - consider tightening criteria', remove 7 other charts and data tables, end with callout box recommending 'Increase minimum credit score for Tier C by 20 points'",
+      "explanation": "This question requires concrete, executable design steps. The answer must specify: (1) exact chart type (slopegraph), (2) specific visual emphasis (red highlight, annotation with percentage), (3) concrete decluttering (remove 7 charts), (4) specific business action (increase credit score threshold). Generic answers about 'focus' or 'context' are insufficient.",
+      "learning_objective": "Data storytelling importance",
+      "keywords": ["slopegraph", "red", "annotation", "subtitle", "remove", "callout", "credit score", "tier", "default"]
+    },
+    {
+      "number": 4,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Extracting Data from Unconventional Formats",
+      "question_text": "A ___________ table reorganizes data by grouping rows and columns and performing aggregations like sums, averages, or counts.",
+      "options": null,
+      "correct_answer": "pivot",
+      "explanation": "A pivot table is a data summarization tool that reorganizes data by grouping and aggregating values. It's considered an 'unconventional format' because it presents a summary view rather than raw transactional data, making it challenging to extract underlying detail.",
+      "learning_objective": "Extract from unconventional formats",
+      "keywords": ["pivot"]
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Extracting Data from Unconventional Formats",
+      "question_text": "You receive a pivot table showing monthly fraud detection rates by region. The table has regions as rows, months as columns, and detection rates in cells. You need transaction-level data to analyze fraud patterns. What is the most critical limitation you face?",
+      "options": [
+        "A) The pivot table uses incorrect formulas",
+        "B) Individual transaction details are aggregated and hidden",
+        "C) The pivot table cannot be exported to Excel",
+        "D) The data is stored in an incompatible file format"
+      ],
+      "correct_answer": "B",
+      "explanation": "Pivot tables aggregate data, which means individual transaction details are lost. To analyze fraud patterns at the transaction level, you would need access to the source data before aggregation. This is the fundamental limitation of working with pivot tables.",
+      "learning_objective": "Extract from unconventional formats",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Extracting Data from Unconventional Formats",
+      "question_text": "A marketing team provides a PDF report with customer churn data. The PDF contains a table showing churn rates by product category and a bar chart. You need this data in a spreadsheet for analysis. Describe the specific steps you would take to extract the data, including tools you might use and how you would validate the extracted data.",
+      "options": null,
+      "correct_answer": "Use PDF extraction tool like Tabula or Adobe Acrobat to extract table data, manually verify first 10 rows against PDF, check for merged cells that may split incorrectly, use OCR if table is image-based, export to CSV, validate row counts match PDF table, check for formatting issues like currency symbols or date formats, create data dictionary documenting source",
+      "explanation": "This requires concrete steps, not abstract concepts. The answer must specify actual tools (Tabula, Adobe Acrobat, OCR), specific validation methods (check 10 rows, verify row counts), and concrete data quality checks (merged cells, formatting issues).",
+      "learning_objective": "Extract from unconventional formats",
+      "keywords": ["Tabula", "Adobe", "OCR", "CSV", "validate", "row count", "merged cells", "formatting", "data dictionary"]
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Descriptive Statistics Application",
+      "question_text": "The three measures of central tendency are mean, median, and ___________.",
+      "options": null,
+      "correct_answer": "mode",
+      "explanation": "Mean, median, and mode are the three primary measures of central tendency. Mean is the average, median is the middle value when data is sorted, and mode is the most frequently occurring value.",
+      "learning_objective": "Descriptive statistics",
+      "keywords": ["mode"]
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Descriptive Statistics Application",
+      "question_text": "If a dataset has values [10, 15, 20, 25, 30], the mean is ___________ and the median is ___________.",
+      "options": null,
+      "correct_answer": "20, 20",
+      "explanation": "Mean = (10+15+20+25+30)/5 = 20. Median (middle value) = 20. When the dataset is symmetric, mean and median are equal.",
+      "learning_objective": "Descriptive statistics",
+      "keywords": ["20"]
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Descriptive Statistics Application",
+      "question_text": "A customer purchase dataset has mean $50, median $35, and standard deviation $30. The distribution is right-skewed. This indicates that most customers spend around $___________, but a small group of high-value customers pulls the average higher.",
+      "options": null,
+      "correct_answer": "35",
+      "explanation": "When median ($35) is lower than mean ($50) in a right-skewed distribution, it indicates that most customers spend around the median value, but outliers (high spenders) pull the mean upward. The median better represents the 'typical' customer.",
+      "learning_objective": "Descriptive statistics",
+      "keywords": ["35", "median"]
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Descriptive Statistics Application",
+      "question_text": "A fraud detection model analyzes transaction amounts. Mean transaction is $200, median is $50, standard deviation is $500. The distribution is highly right-skewed. For a business presentation, which statistic should you emphasize to executives, and why?",
+      "options": [
+        "A) Mean ($200) because it represents the average customer value",
+        "B) Median ($50) because it represents typical transaction size without outlier distortion",
+        "C) Standard deviation ($500) because it shows transaction variability",
+        "D) All three equally because they provide complete information"
+      ],
+      "correct_answer": "B",
+      "explanation": "In a right-skewed distribution with large outliers, the median ($50) better represents typical transaction behavior. The mean ($200) is distorted by high-value transactions. For fraud detection, understanding typical transaction size is crucial for setting detection thresholds. However, you should also mention the skewness to explain why mean and median differ.",
+      "learning_objective": "Descriptive statistics",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Identifying Data Quality Issues",
+      "question_text": "___________ data refers to values that don't make logical sense, such as a person listed as 200 feet tall or 1000 years old.",
+      "options": null,
+      "correct_answer": "Inconsistent",
+      "explanation": "Inconsistent data violates logical constraints or relationships. Examples include impossible values (200 feet tall), contradictory fields (age 25 with birth year 1950), or values outside reasonable ranges. This is a fundamental data quality issue that must be identified before analysis.",
+      "learning_objective": "Identify data quality issues",
+      "keywords": ["inconsistent"]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Identifying Data Quality Issues",
+      "question_text": "When two rows contain exactly the same data in all columns, these are called ___________ rows.",
+      "options": null,
+      "correct_answer": "duplicate",
+      "explanation": "Duplicate rows are identical records that appear multiple times in a dataset. They may be legitimate (e.g., a customer making multiple purchases) or indicate data quality issues (e.g., accidental data entry errors). Investigation is needed to determine the cause.",
+      "learning_objective": "Identify data quality issues",
+      "keywords": ["duplicate"]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Identifying Data Quality Issues",
+      "question_text": "You're analyzing a customer churn dataset with 100,000 records. You discover: (1) 1,000 records have missing email addresses, (2) 500 records have customer ages over 150, (3) 200 records are exact duplicates, (4) 5,000 records have phone numbers in inconsistent formats. Which issue should be prioritized first for a data quality report?",
+      "options": [
+        "A) Missing email addresses, because email is essential for marketing",
+        "B) Ages over 150, because this is clearly inconsistent data that will skew analysis",
+        "C) Duplicate records, because they inflate customer counts",
+        "D) Inconsistent phone formats, because this affects the most records"
+      ],
+      "correct_answer": "B",
+      "explanation": "Ages over 150 are clearly inconsistent data that violate logical constraints. This will directly skew any age-based analysis and indicates a systematic data quality problem. While other issues are important, inconsistent data that affects analysis accuracy should be prioritized. Missing emails and phone format issues may not impact all analyses, and duplicates require investigation to determine if they're legitimate.",
+      "learning_objective": "Identify data quality issues",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Identifying Data Quality Issues",
+      "question_text": "A marketing response dataset has 50,000 records. You find: (1) 2,500 missing campaign IDs, (2) 300 records with response dates before campaign start dates, (3) 150 exact duplicate rows, (4) 1,000 records with email addresses in 5 different formats. Create a prioritized action plan with specific steps for each issue. Be concrete about what you would do.",
+      "options": null,
+      "correct_answer": "Priority 1: Fix 300 date inconsistencies by comparing response_date to campaign_start_date, flag records where response_date < campaign_start_date, investigate if these are data entry errors or system issues, create validation rule to prevent future occurrences. Priority 2: Investigate 150 duplicates by checking if same customer_id appears multiple times with identical data, determine if legitimate (multiple responses) or error, if error remove duplicates keeping first occurrence. Priority 3: Standardize 1,000 email formats using regex pattern to convert all to lowercase with @ symbol, validate email format, document the 5 original formats found. Priority 4: For 2,500 missing campaign IDs, determine if missingness is random or systematic, if random impute with 'UNKNOWN' category, if systematic investigate data pipeline issue.",
+      "explanation": "This requires a concrete, prioritized action plan with specific steps, not abstract concepts. Each priority must include: (1) what data to check, (2) specific validation or cleaning steps, (3) how to handle the issue. Generic answers about 'investigating' or 'cleaning' are insufficient.",
+      "learning_objective": "Identify data quality issues",
+      "keywords": ["date", "inconsistency", "duplicate", "email", "format", "regex", "campaign ID", "missing", "impute", "validate"]
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Impact of Data Quality Issues",
+      "question_text": "Data quality issues can lead to ___________ visualizations that support incorrect conclusions and poor decision-making.",
+      "options": null,
+      "correct_answer": "misleading",
+      "explanation": "Data quality issues (missing values, outliers, duplicates, inconsistencies) can create visualizations that misrepresent reality. For example, outliers can skew scales, missing data can create gaps that are misinterpreted, and duplicates can inflate counts. This leads to incorrect insights and poor business decisions.",
+      "learning_objective": "Impact of data quality",
+      "keywords": ["misleading", "incorrect"]
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Impact of Data Quality Issues",
+      "question_text": "If a sales dataset has 15% missing revenue values and you create a bar chart showing average revenue by region without handling missing data, the chart may show ___________ because regions with more complete data will appear to perform differently than regions with more missing data.",
+      "options": null,
+      "correct_answer": "biased results or unfair comparisons",
+      "explanation": "When missing data is not handled, calculations exclude those values, potentially biasing results if missingness is not random. Regions with more complete data may appear to have different performance patterns than regions with more missing data, leading to unfair comparisons and incorrect business decisions.",
+      "learning_objective": "Impact of data quality",
+      "keywords": ["bias", "unfair", "comparison", "missing", "random"]
+    },
+    {
+      "number": 17,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Impact of Data Quality Issues",
+      "question_text": "You're preparing a quarterly report showing customer churn rates by product category. During data preparation, you discover: (1) Some customers appear in multiple categories due to data entry errors, (2) Churn dates are missing for 20% of churned customers, (3) The definition of 'churn' changed mid-quarter. Which issue would most severely impact the accuracy of your visualization?",
+      "options": [
+        "A) Missing churn dates, because 20% is a large portion of the data",
+        "B) Customers in multiple categories, because this causes double-counting and inflates churn rates",
+        "C) Definition change mid-quarter, because this makes before/after comparisons invalid",
+        "D) All three issues have equal impact on visualization accuracy"
+      ],
+      "correct_answer": "C",
+      "explanation": "A definition change mid-quarter makes data from different time periods incomparable. Churn rates calculated before and after the definition change are measuring different things, making trend analysis and comparisons invalid. While the other issues are serious, they can be addressed through data cleaning or documentation, but a definition change requires separating the analysis by time period or recalculating historical data with the new definition.",
+      "learning_objective": "Impact of data quality",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Effective vs. Ineffective Graphs",
+      "question_text": "An effective graph has a clear ___________ , labeled ___________ , and focuses on the key message rather than visual effects.",
+      "options": null,
+      "correct_answer": "title, axes",
+      "explanation": "Effective graphs prioritize clarity and communication. Key elements include: (1) a clear, descriptive title that explains what the chart shows, (2) properly labeled axes with units and context, (3) focus on the key message rather than decorative elements like 3D effects or excessive colors.",
+      "learning_objective": "Effective vs ineffective graphs",
+      "keywords": ["title", "axes", "axis"]
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Effective vs. Ineffective Graphs",
+      "question_text": "A marketing dashboard shows customer acquisition by channel using a 3D pie chart with 8 segments, similar pastel colors, no data labels, and a vague title 'Acquisition Data.' What is the primary weakness of this visualization?",
+      "options": [
+        "A) The 3D effect makes segments hard to compare accurately",
+        "B) The pie chart format is inappropriate for time series data",
+        "C) The colors are not bright enough to be visible",
+        "D) The dashboard lacks interactive features"
+      ],
+      "correct_answer": "A",
+      "explanation": "3D pie charts distort proportions, making it difficult to accurately compare segment sizes. Combined with similar colors and no data labels, viewers cannot determine which channel performs best. While other issues exist (vague title, too many segments), the 3D distortion is the primary visual problem that prevents accurate interpretation.",
+      "learning_objective": "Effective vs ineffective graphs",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Effective vs. Ineffective Graphs",
+      "question_text": "A company dashboard shows monthly website traffic using a line chart with: light gray line on white background, no gridlines, unlabeled data points, y-axis from 0 to 1,000,000, and title 'Traffic.' Identify five specific weaknesses and propose concrete improvements. Name specific visual elements to change.",
+      "options": null,
+      "correct_answer": "Weakness 1: Vague title 'Traffic' - Improvement: Change to 'Monthly Website Traffic: January 2023 - December 2024'. Weakness 2: Light gray line hard to see - Improvement: Use dark blue or black line with 2px thickness. Weakness 3: No gridlines - Improvement: Add light gray dashed gridlines to aid value reading. Weakness 4: Unlabeled data points - Improvement: Add labels for peak months (highest traffic) and valley months (lowest traffic) with values. Weakness 5: Large y-axis range may compress trends - Improvement: If traffic ranges 800K-950K, adjust y-axis to 750K-1M with clear labeling, or use log scale if appropriate.",
+      "explanation": "This requires specific, concrete improvements with exact changes, not abstract principles. Each weakness must be paired with a concrete fix: exact title text, specific color (dark blue), specific line thickness (2px), specific gridline style (light gray dashed), specific labels (peak/valley months with values). Generic answers about 'improving clarity' are insufficient.",
+      "learning_objective": "Effective vs ineffective graphs",
+      "keywords": ["title", "dark blue", "2px", "gridline", "dashed", "label", "peak", "valley", "y-axis", "750K", "1M"]
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Creating Visualizations with Matplotlib",
+      "question_text": "Matplotlib is a Python library used to create and customize various types of ___________ and ___________.",
+      "options": null,
+      "correct_answer": "charts, graphs",
+      "explanation": "Matplotlib is a Python library specifically designed for creating static, animated, and interactive visualizations including charts and graphs. While it's often used alongside data cleaning and statistical libraries, its core purpose is visualization creation and customization.",
+      "learning_objective": "Matplotlib visualization",
+      "keywords": ["charts", "graphs", "visualizations"]
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Creating Visualizations with Matplotlib",
+      "question_text": "When creating a line chart in Matplotlib to show sales trends, you should always include: a descriptive ___________ , properly labeled ___________ (x-axis for time period, y-axis for sales amount), and appropriate ___________ (date formatting, readable tick marks).",
+      "options": null,
+      "correct_answer": "title, axes, formatting",
+      "explanation": "Effective Matplotlib visualizations require attention to both code and design principles. Key elements include: (1) a clear, descriptive title that explains what the chart shows and the time period, (2) properly labeled axes with units and context, (3) appropriate formatting for dates, numbers, and tick marks to ensure readability.",
+      "learning_objective": "Matplotlib visualization",
+      "keywords": ["title", "axes", "axis", "formatting", "label"]
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Creating Visualizations with Matplotlib",
+      "question_text": "You need to create a Matplotlib visualization comparing quarterly revenue across three product lines (A, B, C) over two years (2023-2024). Describe the specific chart type you would create, three key Matplotlib code components (function calls), and three concrete visual design choices to follow data storytelling principles. Be specific: name the chart type, actual Matplotlib functions, and exact design elements.",
+      "options": null,
+      "correct_answer": "Chart type: Grouped bar chart using plt.bar() with x-position offsets for each product line. Code components: (1) plt.bar() to create bars for each product line, (2) plt.xlabel() and plt.ylabel() to label axes as 'Quarter' and 'Revenue ($)', (3) plt.title() with text 'Quarterly Revenue by Product Line: 2023-2024'. Design choices: (1) Use distinct colors - blue for Product A, green for Product B, orange for Product C, (2) Add plt.legend() to identify product lines, (3) Add plt.grid(axis='y', alpha=0.3) for subtle horizontal gridlines to aid value reading.",
+      "explanation": "This requires concrete, executable answers: specific chart type (grouped bar chart), actual Matplotlib functions (plt.bar, plt.xlabel, plt.ylabel, plt.title, plt.legend, plt.grid), and exact design specifications (blue/green/orange colors, horizontal gridlines with alpha=0.3). Generic answers about 'using matplotlib' or 'good design' are insufficient.",
+      "learning_objective": "Matplotlib visualization",
+      "keywords": ["grouped bar chart", "plt.bar", "plt.xlabel", "plt.ylabel", "plt.title", "plt.legend", "plt.grid", "blue", "green", "orange", "alpha"]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Reproducing Graphs/Visualizations",
+      "question_text": "When reproducing a graph, the first step is to identify the chart ___________ , data ___________ , and key visual ___________ before coding.",
+      "options": null,
+      "correct_answer": "type, structure, elements",
+      "explanation": "Before coding, you must understand what you're recreating: (1) the chart type (bar, line, scatter, etc.), (2) how the data is structured (what variables, what groupings), (3) what visual elements are present (colors, labels, annotations, gridlines). This analysis guides the reproduction process.",
+      "learning_objective": "Reproduce graphs",
+      "keywords": ["type", "structure", "elements", "visual"]
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Reproducing Graphs/Visualizations",
+      "question_text": "You're asked to reproduce a complex dashboard with 6 charts showing customer metrics. What systematic approach would ensure accuracy?",
+      "options": [
+        "A) Recreate all charts simultaneously to maintain consistency",
+        "B) Break down into individual components, identify each chart type and data requirements, recreate one chart at a time starting with simplest, compare each recreated chart side-by-side with original",
+        "C) Use the same software the original was created in",
+        "D) Copy the exact colors and fonts first, then add data"
+      ],
+      "correct_answer": "B",
+      "explanation": "A systematic approach requires: (1) breaking down the dashboard into individual components, (2) identifying each chart type, data requirements, and visual elements, (3) recreating charts one at a time starting with the simplest, (4) comparing each recreated chart side-by-side with the original for accuracy. This ensures completeness and allows for iterative refinement.",
+      "learning_objective": "Reproduce graphs",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Reproducing Graphs/Visualizations",
+      "question_text": "A colleague shows you a publication-quality graph from a research paper with specific color palette (hex codes #2E86AB, #A23B72, #F18F01), custom font (Georgia), and annotations. You need to recreate it in Matplotlib for a presentation. Describe three specific challenges you would face and three concrete solutions using actual Matplotlib functions or techniques.",
+      "options": null,
+      "correct_answer": "Challenge 1: Matching exact colors - Solution: Use hex codes directly in plt.plot(color='#2E86AB') or create color list ['#2E86AB', '#A23B72', '#F18F01']. Challenge 2: Matching custom font - Solution: Use plt.rcParams['font.family'] = 'Georgia' or plt.text(fontfamily='Georgia'). Challenge 3: Precise annotation placement - Solution: Use plt.annotate() with xy coordinates for data point and xytext for annotation position, set arrowprops=dict(arrowstyle='->') for arrow, adjust fontsize and bbox for styling.",
+      "explanation": "This requires concrete solutions with actual Matplotlib code: specific hex codes, actual function calls (plt.plot, plt.rcParams, plt.annotate), and exact parameters (arrowstyle, fontsize, bbox). Generic answers about 'matching colors' or 'using annotations' are insufficient.",
+      "learning_objective": "Reproduce graphs",
+      "keywords": ["hex", "#2E86AB", "plt.plot", "plt.rcParams", "font", "Georgia", "plt.annotate", "xy", "xytext", "arrowstyle", "fontsize"]
+    },
+    {
+      "number": 27,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Analyzing Data Visualizations",
+      "question_text": "When analyzing a data visualization, you should evaluate data ___________ , visual ___________ , clarity of ___________ , and appropriateness of chart ___________ .",
+      "options": null,
+      "correct_answer": "accuracy, design, message, type",
+      "explanation": "Comprehensive analysis of visualizations requires evaluating multiple dimensions: (1) whether the data is accurately represented, (2) if the visual design supports understanding, (3) whether the message is clear, (4) if the chart type is appropriate for the data and purpose. Aesthetic preference alone is insufficient.",
+      "learning_objective": "Analyze visualizations",
+      "keywords": ["accuracy", "design", "message", "type", "chart"]
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Analyzing Data Visualizations",
+      "question_text": "A visualization shows accurate data but uses cluttered design with 15 colors, 3D effects, and unclear labels. Is this visualization effective?",
+      "options": [
+        "A) Yes, because data accuracy is the only requirement for effectiveness",
+        "B) No, because effective visualizations require both accurate data and appropriate design choices",
+        "C) Yes, because 3D effects make charts more engaging",
+        "D) No, because all visualizations should use only 2 colors"
+      ],
+      "correct_answer": "B",
+      "explanation": "While data accuracy is essential, effective visualizations also require appropriate design choices. Poor design (cluttered charts, confusing colors, unclear labels, inappropriate chart types) can make even accurate data difficult to understand or can mislead viewers. Accuracy and effective design work together to create meaningful visualizations.",
+      "learning_objective": "Analyze visualizations",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "You're creating a quarterly business review slide showing that Customer Acquisition Cost (CAC) increased 40% while Customer Lifetime Value (LTV) remained flat, creating a profitability concern. Using Storytelling with Data principles, describe five concrete visual design steps you would take. Be specific: name chart type, colors, annotations, layout changes, and business actions.",
+      "options": null,
+      "correct_answer": "Step 1: Use a slopegraph comparing CAC and LTV from Q1 2023 to Q4 2024, not a bar chart. Step 2: Color CAC line red and LTV line gray to highlight the problem. Step 3: Add annotation arrow pointing to CAC increase with text '+40% since Q1 2023' and add reference line at Q1 2023 baseline. Step 4: Add subtitle 'Rising acquisition costs erode profitability margin' below main title. Step 5: Remove gridlines and background shading, add callout box at bottom with specific action 'Reduce paid media spend by 25% or increase premium plan pricing by 15%'.",
+      "explanation": "This requires five concrete, executable design steps: (1) specific chart type (slopegraph, not bar chart), (2) exact colors (red for CAC, gray for LTV), (3) specific annotations (+40% text, reference line), (4) exact subtitle text, (5) specific decluttering (remove gridlines) and business action (reduce media spend 25% or raise pricing 15%). Generic answers about 'focus' or 'context' are insufficient.",
+      "learning_objective": "SWD principles",
+      "keywords": ["slopegraph", "red", "gray", "annotation", "+40%", "reference line", "subtitle", "remove gridlines", "callout", "reduce media", "25%", "pricing", "15%"]
+    },
+    {
+      "number": 30,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "Decluttering in Storytelling with Data means removing non-essential visual elements like heavy ___________ , 3D effects, excessive ___________ , and redundant ___________ to reduce cognitive load.",
+      "options": null,
+      "correct_answer": "gridlines, borders, labels",
+      "explanation": "Decluttering removes non-essential visual elements that don't contribute to understanding, reducing cognitive load so viewers can focus on the data and message. Examples include: removing heavy gridlines (use subtle ones or remove), eliminating 3D effects or shadows, removing excessive borders and background fills, and eliminating redundant labels. The result is a cleaner chart where the data stands out clearly.",
+      "learning_objective": "SWD principles",
+      "keywords": ["gridlines", "borders", "labels", "3D", "remove"]
+    }
+  ]
+}

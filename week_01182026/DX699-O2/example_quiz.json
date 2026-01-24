@@ -1,0 +1,51 @@
+{
+  "quiz_metadata": {
+    "title": "Example Quick Quiz",
+    "description": "A simple example quiz demonstrating the JSON format",
+    "version": "1.0",
+    "total_questions": 3
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Basics",
+      "question_text": "What is the capital of France?",
+      "options": [
+        "A) London",
+        "B) Berlin",
+        "C) Paris",
+        "D) Madrid"
+      ],
+      "correct_answer": "C",
+      "explanation": "Paris is the capital and largest city of France.",
+      "learning_objective": "Geography basics",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Basics",
+      "question_text": "The Earth is round.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "The Earth is approximately spherical (an oblate spheroid).",
+      "learning_objective": "Science basics",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Advanced",
+      "question_text": "Name three benefits of using JSON for data storage.",
+      "options": null,
+      "correct_answer": "human readable, lightweight, language independent",
+      "explanation": "JSON is human-readable, lightweight (less verbose than XML), and language-independent, making it ideal for data exchange.",
+      "learning_objective": "Data formats",
+      "keywords": ["readable", "lightweight", "language", "independent", "simple", "portable"]
+    }
+  ]
+}
