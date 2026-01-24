@@ -1,0 +1,433 @@
+{
+  "title": "Text Representation: Bag of Words, TF-IDF, N-grams, and Named Entity Extraction Quiz",
+  "description": "Comprehensive quiz covering text representation methods, bag of words, TF-IDF, n-grams, and named entity extraction",
+  "total_questions": 30,
+  "learning_objectives": [
+    "Explain representation",
+    "Explain bag of words",
+    "Explain term frequency-inverse document frequency (TF-IDF)",
+    "Explain n-grams",
+    "Describe named entity extraction"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "level": "Basic",
+      "topic": "Representation",
+      "question": "What is text representation in the context of machine learning?",
+      "options": [
+        "The process of converting raw text into a numerical format that machine learning algorithms can process",
+        "The process of summarizing text documents",
+        "The process of translating text from one language to another",
+        "The process of formatting text for display"
+      ],
+      "correct": "A",
+      "explanation": "Text representation is the fundamental process of converting raw text (words, sentences, documents) into numerical vectors or matrices that machine learning algorithms can understand and process. This is essential because ML algorithms work with numbers, not text."
+    },
+    {
+      "id": 2,
+      "level": "Basic",
+      "topic": "Representation",
+      "question": "Why is text representation necessary for machine learning?",
+      "options": [
+        "Machine learning algorithms can directly process text without any conversion",
+        "Machine learning algorithms require numerical input, so text must be converted to numbers",
+        "Text representation is optional and not necessary",
+        "It makes text easier to read for humans"
+      ],
+      "correct": "B",
+      "explanation": "Machine learning algorithms (neural networks, linear models, etc.) operate on numerical data. Text representation converts words, sentences, and documents into numerical vectors or matrices so that these algorithms can learn patterns and make predictions."
+    },
+    {
+      "id": 3,
+      "level": "Intermediate",
+      "topic": "Representation",
+      "question": "What are the key challenges in text representation?",
+      "options": [
+        "Text is already numerical, so there are no challenges",
+        "Capturing semantic meaning, handling vocabulary size, preserving word order, and dealing with synonyms and context",
+        "Only handling punctuation",
+        "Only converting text to lowercase"
+      ],
+      "correct": "B",
+      "explanation": "Key challenges include: (1) Capturing semantic meaning - words with similar meanings should be close in the representation space, (2) Vocabulary size - large vocabularies create high-dimensional sparse vectors, (3) Word order - some methods lose sequential information, (4) Context - the same word can have different meanings in different contexts, and (5) Synonyms - different words with similar meanings need to be handled."
+    },
+    {
+      "id": 4,
+      "level": "Basic",
+      "topic": "Bag of Words",
+      "question": "What is the bag of words (BoW) representation?",
+      "options": [
+        "A method that preserves the exact order of words in a document",
+        "A method that represents a document as a vector of word counts or frequencies, ignoring word order and grammar",
+        "A method that only counts unique words",
+        "A method that requires all documents to have the same length"
+      ],
+      "correct": "B",
+      "explanation": "Bag of words represents a document as a vector where each dimension corresponds to a word in the vocabulary, and the value is the count (or frequency) of that word in the document. It's called 'bag' because it treats the document as an unordered collection of words, ignoring word order, grammar, and context."
+    },
+    {
+      "id": 5,
+      "level": "Basic",
+      "topic": "Bag of Words",
+      "question": "True or False: Bag of words representation keeps track of word order in documents.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correct": "B",
+      "explanation": "False. Bag of words explicitly ignores word order. It treats documents as unordered collections (bags) of words. This is both a strength (simplicity, efficiency) and a weakness (loses sequential information that may be important for meaning)."
+    },
+    {
+      "id": 6,
+      "level": "Intermediate",
+      "topic": "Bag of Words",
+      "question": "What problems can arise from bag of words not keeping track of word order?",
+      "options": [
+        "No problems - word order is never important",
+        "Documents with different meanings but same word counts become identical, context-dependent meanings are lost, and phrases like 'not good' and 'good' are treated similarly",
+        "The representation becomes too accurate",
+        "It makes the algorithm run slower"
+      ],
+      "correct": "B",
+      "explanation": "Losing word order can cause serious problems: (1) 'The cat chased the dog' and 'The dog chased the cat' become identical, (2) Negation is lost - 'not good' and 'good' are treated similarly, (3) Context-dependent meanings are lost - 'bank' (financial) vs 'bank' (river) are treated the same, (4) Idiomatic expressions may be misinterpreted."
+    },
+    {
+      "id": 7,
+      "level": "Intermediate",
+      "topic": "Bag of Words",
+      "question": "In a bag of words representation with vocabulary ['cat', 'dog', 'chased', 'the'], how would the document 'the cat chased the dog' be represented?",
+      "options": [
+        "[1, 1, 1, 2]",
+        "[2, 1, 1, 1]",
+        "[1, 1, 1, 1]",
+        "[0, 0, 0, 0]"
+      ],
+      "correct": "A",
+      "explanation": "Assuming the vocabulary order is ['cat', 'dog', 'chased', 'the'], the document 'the cat chased the dog' contains: cat=1, dog=1, chased=1, the=2. So the vector is [1, 1, 1, 2]. Note that word order is completely ignored - this same vector would represent 'the dog chased the cat'."
+    },
+    {
+      "id": 8,
+      "level": "Advanced",
+      "topic": "Bag of Words",
+      "question": "In a spam email classifier using bag of words, why might 'free money' and 'money free' be treated identically, and what are the implications?",
+      "options": [
+        "They are different and would be treated differently",
+        "Both phrases become identical vectors, which is problematic if 'free money' is a stronger spam indicator than 'money free' due to word order",
+        "Bag of words always distinguishes word order",
+        "This scenario never occurs"
+      ],
+      "correct": "B",
+      "explanation": "In bag of words, both 'free money' and 'money free' become the same vector (free=1, money=1), losing any distinction. If 'free money' (as a phrase) is a stronger spam indicator than 'money free', this nuance is lost. This is why n-grams (which preserve word pairs) can be more effective for certain tasks."
+    },
+    {
+      "id": 9,
+      "level": "Basic",
+      "topic": "TF-IDF",
+      "question": "What does TF-IDF stand for?",
+      "options": [
+        "Term Frequency - Inverse Document Frequency",
+        "Text Feature - Information Density Factor",
+        "Total Frequency - Individual Document Frequency",
+        "Term Filter - Inverse Data Frequency"
+      ],
+      "correct": "A",
+      "explanation": "TF-IDF stands for Term Frequency-Inverse Document Frequency. It's a numerical statistic that reflects how important a word is to a document in a collection of documents."
+    },
+    {
+      "id": 10,
+      "level": "Basic",
+      "topic": "TF-IDF",
+      "question": "What does the TF (Term Frequency) component of TF-IDF measure?",
+      "options": [
+        "How rare a word is across all documents",
+        "How frequently a word appears in a specific document",
+        "The total number of documents",
+        "The length of the document"
+      ],
+      "correct": "B",
+      "explanation": "Term Frequency (TF) measures how frequently a word appears in a specific document. Common formulas include: TF(t,d) = count(t,d) / total_words(d) or TF(t,d) = count(t,d). Higher TF means the word is more important to that particular document."
+    },
+    {
+      "id": 11,
+      "level": "Basic",
+      "topic": "TF-IDF",
+      "question": "What does the IDF (Inverse Document Frequency) component of TF-IDF measure?",
+      "options": [
+        "How frequently a word appears in a document",
+        "How rare or common a word is across the entire document collection - rarer words get higher IDF",
+        "The total number of words in a document",
+        "The average document length"
+      ],
+      "correct": "B",
+      "explanation": "Inverse Document Frequency (IDF) measures how rare or common a word is across the entire document collection. Words that appear in many documents (like 'the', 'a', 'is') get low IDF scores, while rare words get high IDF scores. This helps downweight common words that don't carry much discriminative information."
+    },
+    {
+      "id": 12,
+      "level": "Intermediate",
+      "topic": "TF-IDF",
+      "question": "In TF-IDF, why does the IDF get bigger when there are fewer instances of the given word across documents? Why is that a good thing for the algorithm?",
+      "options": [
+        "IDF gets smaller when a word is rare, which is bad for the algorithm",
+        "IDF = log(N/df), so when df (document frequency) is small, IDF is large. Rare words are more discriminative and informative, so higher IDF helps identify important, distinctive words",
+        "IDF doesn't change based on word frequency",
+        "Rare words are always less important"
+      ],
+      "correct": "B",
+      "explanation": "IDF = log(N/df) where N is total documents and df is documents containing the word. When df is small (word appears in few documents), N/df is large, so IDF is large. Rare words are more discriminative - they help distinguish documents. For example, 'machine learning' in a tech document collection is more informative than 'the' or 'is'. Higher IDF for rare words helps the algorithm focus on distinctive, meaningful terms."
+    },
+    {
+      "id": 13,
+      "level": "Intermediate",
+      "topic": "TF-IDF",
+      "question": "Given a corpus of 1000 documents, if the word 'python' appears in 10 documents, what is the IDF value for 'python'? (Use base-10 logarithm)",
+      "options": [
+        "1",
+        "2",
+        "10",
+        "100"
+      ],
+      "correct": "B",
+      "explanation": "IDF = log(N/df) = log(1000/10) = log(100) = 2 (using base-10 logarithm). This high IDF value indicates that 'python' is a rare, discriminative word that appears in only 1% of documents, making it valuable for distinguishing relevant documents."
+    },
+    {
+      "id": 14,
+      "level": "Intermediate",
+      "topic": "TF-IDF",
+      "question": "If word 'the' appears in 950 out of 1000 documents, and word 'algorithm' appears in 50 documents, which word will have a higher IDF score?",
+      "options": [
+        "'the' will have higher IDF",
+        "'algorithm' will have higher IDF",
+        "They will have the same IDF",
+        "IDF cannot be calculated"
+      ],
+      "correct": "B",
+      "explanation": "IDF('the') = log(1000/950) = log(1.05) ≈ 0.02. IDF('algorithm') = log(1000/50) = log(20) ≈ 1.30. 'algorithm' has much higher IDF because it's rarer and more discriminative. Common words like 'the' get low IDF scores, which is why TF-IDF effectively downweights stopwords."
+    },
+    {
+      "id": 15,
+      "level": "Advanced",
+      "topic": "TF-IDF",
+      "question": "In a search engine using TF-IDF, why would a document containing 'machine learning' multiple times rank higher for the query 'machine learning' than a document containing it once, even if both documents are about machine learning?",
+      "options": [
+        "This wouldn't happen - both would rank equally",
+        "The TF component gives higher weight to documents where the query term appears more frequently, indicating stronger relevance",
+        "IDF is the only factor that matters",
+        "Search engines don't use TF-IDF"
+      ],
+      "correct": "B",
+      "explanation": "TF-IDF = TF × IDF. If both documents have the same IDF (same word, same corpus), the document with higher TF (more occurrences of 'machine learning') gets a higher TF-IDF score. This makes sense - a document that mentions the topic more frequently is likely more relevant. However, this assumes the term appears proportionally more, not just because the document is longer."
+    },
+    {
+      "id": 16,
+      "level": "Basic",
+      "topic": "N-grams",
+      "question": "What are n-grams?",
+      "options": [
+        "Single words only",
+        "Contiguous sequences of n words (or characters) from a text",
+        "Random word combinations",
+        "Only word pairs"
+      ],
+      "correct": "B",
+      "explanation": "N-grams are contiguous sequences of n items (words or characters) from a text. Common types: unigrams (1-grams) = single words, bigrams (2-grams) = word pairs, trigrams (3-grams) = word triplets. For example, 'machine learning' is a bigram, and 'natural language processing' contains the trigram 'natural language processing'."
+    },
+    {
+      "id": 17,
+      "level": "Basic",
+      "topic": "N-grams",
+      "question": "What is a bigram?",
+      "options": [
+        "A single word",
+        "A sequence of two consecutive words",
+        "A sequence of three consecutive words",
+        "Any word combination"
+      ],
+      "correct": "B",
+      "explanation": "A bigram (2-gram) is a sequence of two consecutive words. For example, in 'machine learning algorithms', the bigrams are: 'machine learning' and 'learning algorithms'. Bigrams help capture some word order information that bag of words loses."
+    },
+    {
+      "id": 18,
+      "level": "Intermediate",
+      "topic": "N-grams",
+      "question": "N-grams use word pairs. How long do you think a document has to be before the word pairs will usually repeat? If the word pairs never repeat, is that okay?",
+      "options": [
+        "Word pairs never repeat in any document, and this is always a problem",
+        "In short documents, word pairs may not repeat, creating very sparse representations. This is generally okay for classification but can lead to overfitting if the vocabulary becomes too large",
+        "All word pairs always repeat, so this is never a concern",
+        "Word pair repetition is not relevant to n-grams"
+      ],
+      "correct": "B",
+      "explanation": "In short documents, many bigrams may appear only once or not at all, creating sparse representations. For example, a 100-word document might have 99 unique bigrams. This is generally acceptable for classification tasks, but can lead to: (1) Very high-dimensional feature spaces, (2) Overfitting if the model memorizes rare bigrams, (3) Poor generalization. Longer documents naturally have more repeated bigrams, which can be more informative."
+    },
+    {
+      "id": 19,
+      "level": "Intermediate",
+      "topic": "N-grams",
+      "question": "What is a key advantage of using bigrams over unigrams (single words) in text representation?",
+      "options": [
+        "Bigrams are always more efficient",
+        "Bigrams capture some word order and phrase-level information, helping distinguish phrases like 'not good' from 'good'",
+        "Bigrams require less storage",
+        "Bigrams are easier to compute"
+      ],
+      "correct": "B",
+      "explanation": "Bigrams capture word order and phrase-level information that unigrams lose. For example, 'not good' (bigram) is different from 'good' (unigram), allowing the model to distinguish negative sentiment. Bigrams also capture common phrases like 'machine learning', 'credit card', 'New York' that have meaning beyond individual words."
+    },
+    {
+      "id": 20,
+      "level": "Advanced",
+      "topic": "N-grams",
+      "question": "In sentiment analysis, why might 'not good' (as a bigram) be more useful than treating 'not' and 'good' as separate unigrams?",
+      "options": [
+        "It's not more useful - unigrams work just as well",
+        "The bigram 'not good' captures negation and creates a distinct feature that represents negative sentiment, whereas separate unigrams would treat 'not' and 'good' independently, losing the negation relationship",
+        "Bigrams are always worse than unigrams",
+        "Sentiment analysis doesn't use n-grams"
+      ],
+      "correct": "B",
+      "explanation": "The bigram 'not good' creates a single feature that represents the negated phrase, which is crucial for sentiment. With unigrams, 'not' and 'good' are separate features, and the model might learn that 'good' indicates positive sentiment, missing the negation. The bigram approach preserves this important linguistic relationship."
+    },
+    {
+      "id": 21,
+      "level": "Basic",
+      "topic": "Named Entity Extraction",
+      "question": "What is named entity extraction (also called named entity recognition)?",
+      "options": [
+        "Extracting all words from a document",
+        "Identifying and classifying named entities in text into predefined categories such as person names, organizations, locations, dates, etc.",
+        "Removing stopwords from text",
+        "Counting word frequencies"
+      ],
+      "correct": "B",
+      "explanation": "Named Entity Extraction (NER) is the task of identifying and classifying named entities - specific real-world objects with proper names - into predefined categories. Common categories include: Person (Barack Obama), Organization (Microsoft), Location (Boston), Date (January 2025), Money ($1000), etc."
+    },
+    {
+      "id": 22,
+      "level": "Basic",
+      "topic": "Named Entity Extraction",
+      "question": "What are common categories of named entities that extraction systems identify?",
+      "options": [
+        "Only person names",
+        "Person names, organizations, locations, dates, monetary values, percentages, and other specific entities",
+        "Only common nouns",
+        "Only verbs"
+      ],
+      "correct": "B",
+      "explanation": "Common named entity categories include: Person (names of people), Organization (companies, institutions), Location (cities, countries, geographical places), Date/Time (specific dates, times), Money (monetary amounts), Percentage, Product names, and more. The exact categories depend on the application domain."
+    },
+    {
+      "id": 23,
+      "level": "Intermediate",
+      "topic": "Named Entity Extraction",
+      "question": "In the sentence 'Apple announced a new iPhone in Cupertino on January 15, 2025', what named entities would a typical NER system identify?",
+      "options": [
+        "No named entities",
+        "Apple (Organization), iPhone (Product), Cupertino (Location), January 15, 2025 (Date)",
+        "Only 'Apple' and 'iPhone'",
+        "All words are named entities"
+      ],
+      "correct": "B",
+      "explanation": "A NER system would identify: 'Apple' as an Organization (the company), 'iPhone' as a Product, 'Cupertino' as a Location (city in California), and 'January 15, 2025' as a Date. This structured information is valuable for information extraction, knowledge graphs, and downstream applications."
+    },
+    {
+      "id": 24,
+      "level": "Intermediate",
+      "topic": "Named Entity Extraction",
+      "question": "What is a challenge in named entity extraction when the same word can refer to different entity types?",
+      "options": [
+        "This challenge doesn't exist",
+        "Context disambiguation - the same word like 'Apple' can be an Organization (company) or a Fruit, requiring context to determine the correct entity type",
+        "All words always have the same entity type",
+        "NER systems don't handle this"
+      ],
+      "correct": "B",
+      "explanation": "Context disambiguation is a major challenge. 'Apple' can be an Organization ('Apple Inc.') or a Fruit ('I ate an apple'). 'Washington' can be a Person (George Washington), Location (Washington D.C.), or Organization (University of Washington). NER systems must use surrounding context, capitalization, and other linguistic cues to determine the correct entity type."
+    },
+    {
+      "id": 25,
+      "level": "Advanced",
+      "topic": "Named Entity Extraction",
+      "question": "How can named entity extraction be useful in a customer support system analyzing support tickets?",
+      "options": [
+        "It's not useful for customer support",
+        "It can identify product names mentioned in tickets (for routing to product teams), extract dates (for SLA tracking), identify customer names and locations (for personalization), and extract monetary values (for billing issues)",
+        "It only extracts email addresses",
+        "It only counts words"
+      ],
+      "correct": "B",
+      "explanation": "NER is highly valuable for customer support: (1) Product names - route tickets to appropriate teams, (2) Dates - track SLA compliance, identify time-sensitive issues, (3) Customer names/locations - personalize responses, (4) Monetary values - prioritize billing issues, (5) Organization names - identify enterprise customers. This structured extraction enables automated routing, analytics, and improved response times."
+    },
+    {
+      "id": 26,
+      "level": "Intermediate",
+      "topic": "TF-IDF",
+      "question": "Fill in the formula: TF-IDF(t,d) = _____ × _____",
+      "options": [
+        "TF(t,d) × IDF(t)",
+        "TF(t) × IDF(d)",
+        "TF(d) × IDF(t,d)",
+        "Count(t) × Total(d)"
+      ],
+      "correct": "A",
+      "explanation": "TF-IDF(t,d) = TF(t,d) × IDF(t), where TF(t,d) is the term frequency of term t in document d, and IDF(t) is the inverse document frequency of term t across the entire corpus. This combines local importance (TF) with global rarity (IDF)."
+    },
+    {
+      "id": 27,
+      "level": "Advanced",
+      "topic": "Comparing Methods",
+      "question": "Scenario: You're building a spam email classifier. When would you prefer bigrams over unigrams, and when would TF-IDF be more useful than simple word counts?",
+      "options": [
+        "Always use unigrams and word counts - they're simpler",
+        "Use bigrams when phrase-level patterns matter (e.g., 'free money', 'click here'). Use TF-IDF when common words like 'the', 'is' should be downweighted and rare discriminative words should be emphasized",
+        "Bigrams and TF-IDF are never useful",
+        "Use the same method for all problems"
+      ],
+      "correct": "B",
+      "explanation": "Bigrams are preferred when phrase-level patterns are important - spam often uses specific phrases like 'free money', 'limited time offer', 'click here now'. TF-IDF is valuable because spam emails and legitimate emails share many common words ('the', 'is', 'you'), but spam has distinctive rare words ('viagra', 'lottery winner') that get high IDF scores. TF-IDF helps the model focus on these discriminative terms."
+    },
+    {
+      "id": 28,
+      "level": "Intermediate",
+      "topic": "Real-World Application",
+      "question": "In a news article classification system, why might TF-IDF be more effective than simple word counts for distinguishing between 'Sports' and 'Technology' articles?",
+      "options": [
+        "TF-IDF is never more effective",
+        "Common words like 'the', 'is', 'was' appear in both categories equally, so simple counts don't help. TF-IDF downweights these common words (low IDF) and emphasizes distinctive words like 'touchdown', 'algorithm', 'quarterback', 'software' (high IDF) that better distinguish categories",
+        "Word counts are always better",
+        "Both methods work identically"
+      ],
+      "correct": "B",
+      "explanation": "TF-IDF is more effective because: (1) Common words ('the', 'is') appear in all articles - simple counts don't help distinguish categories, (2) Distinctive words ('touchdown', 'quarterback' for Sports; 'algorithm', 'software' for Technology) are rare across the corpus but frequent in their category, getting high TF-IDF scores, (3) This helps the classifier focus on meaningful, discriminative terms rather than noise from common words."
+    },
+    {
+      "id": 29,
+      "level": "Advanced",
+      "topic": "Error Analysis",
+      "question": "A data scientist uses bag of words for sentiment analysis and finds that 'not bad' is classified as positive sentiment when it should be neutral or slightly positive. What is the likely cause and how could it be addressed?",
+      "options": [
+        "The model is working correctly - 'not bad' is positive",
+        "Bag of words treats 'not' and 'bad' as separate features, so the model learns 'bad' = negative but misses the negation. Using bigrams ('not bad') or more sophisticated methods (word embeddings, transformers) that capture context would help",
+        "The problem cannot be solved",
+        "Using more unigrams would help"
+      ],
+      "correct": "B",
+      "explanation": "Bag of words loses the negation relationship. The model learns that 'bad' indicates negative sentiment, but 'not bad' (which means 'okay' or 'acceptable') is treated as separate 'not' and 'bad' features. The model might see 'bad' and classify as negative, or see both and be confused. Bigrams ('not bad') create a distinct feature that captures this phrase's true meaning. More advanced methods (word embeddings, BERT) better handle context and negation."
+    },
+    {
+      "id": 30,
+      "level": "Advanced",
+      "topic": "Trade-offs",
+      "question": "What are the trade-offs between using unigrams, bigrams, and higher-order n-grams in text representation?",
+      "options": [
+        "There are no trade-offs - always use the highest n-gram order",
+        "Unigrams: simple, lower dimensionality, but lose word order. Bigrams: capture some phrases and order, moderate dimensionality. Higher n-grams: capture more context but exponentially increase dimensionality and sparsity, risking overfitting. The choice depends on the task, data size, and computational resources",
+        "Always use unigrams - they're always best",
+        "N-grams don't have trade-offs"
+      ],
+      "correct": "B",
+      "explanation": "Trade-offs: (1) Unigrams: Simple, lower dimensionality, efficient, but lose word order and phrase information. (2) Bigrams: Balance between capturing phrases/order and manageable dimensionality. (3) Higher n-grams (trigrams, 4-grams): Capture more context but exponentially increase feature space (vocabulary^3, vocabulary^4), create extreme sparsity, risk overfitting, and require more data. Best practice: Start with unigrams+bigrams, add higher n-grams only if needed and if you have sufficient data."
+    }
+  ]
+}
+
