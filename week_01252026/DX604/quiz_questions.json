@@ -1,0 +1,434 @@
+{
+  "quiz_metadata": {
+    "title": "DX604 Week 2: Data Integration and ETL/ELT Quiz",
+    "description": "Comprehensive quiz covering data integration principles, interoperability among data systems, ETL/ELT processes, data integration tools and techniques, and data wrangling",
+    "version": "1.0",
+    "total_questions": 32
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Integration Principles",
+      "question_text": "Data integration is the process of combining data from multiple ___________ sources into a unified, consistent view for analysis and decision-making.",
+      "options": null,
+      "correct_answer": "disparate or different",
+      "explanation": "Data integration combines data from multiple disparate (different) sources - such as databases, files, APIs, cloud services - into a unified, consistent view. This allows organizations to analyze data holistically rather than in silos, enabling better decision-making and insights.",
+      "learning_objective": "Understand and apply the principles of data integration",
+      "keywords": ["disparate", "different", "sources", "unified", "consistent"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Integration Principles",
+      "question_text": "The three main challenges in data integration are: ___________ (different data formats and structures), ___________ (conflicting or duplicate data), and ___________ (ensuring data quality and accuracy).",
+      "options": null,
+      "correct_answer": "heterogeneity, redundancy, quality",
+      "explanation": "Data integration faces three primary challenges: (1) Heterogeneity - different data formats (CSV, JSON, XML), structures (relational, NoSQL), and schemas across sources, (2) Redundancy - duplicate or conflicting data that must be resolved, (3) Quality - ensuring integrated data is accurate, complete, and consistent. Addressing these challenges is essential for successful integration.",
+      "learning_objective": "Understand and apply the principles of data integration",
+      "keywords": ["heterogeneity", "redundancy", "quality", "formats", "structures", "duplicate"]
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Integration Principles",
+      "question_text": "A company has customer data in three systems: CRM (relational database), email marketing platform (JSON API), and sales spreadsheet (CSV). They want to create a unified customer view. What is the primary data integration challenge they face?",
+      "options": [
+        "A) All systems use the same data format, so integration is straightforward",
+        "B) Heterogeneity - different data formats (relational, JSON, CSV) and structures require transformation to create a unified schema",
+        "C) The data is already integrated, no action needed",
+        "D) Only the volume of data matters, format doesn't"
+      ],
+      "correct_answer": "B",
+      "explanation": "The primary challenge is heterogeneity - the three systems use different formats (relational database, JSON API, CSV file) and likely different schemas (field names, data types, structures). Data integration requires transforming these disparate formats into a unified schema with consistent field names, data types, and relationships. This is a fundamental principle of data integration.",
+      "learning_objective": "Understand and apply the principles of data integration",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Integration Principles",
+      "question_text": "A retail company integrates data from point-of-sale systems (transactional data), inventory management (product data), and customer loyalty program (customer data). They discover: (1) Product IDs are different across systems (SKU vs barcode), (2) Customer records have duplicates with slight variations (John Smith vs J. Smith), (3) Transaction dates use different formats (MM/DD/YYYY vs YYYY-MM-DD). Describe a concrete data integration strategy addressing each issue with specific steps.",
+      "options": null,
+      "correct_answer": "Issue 1 (Product ID mismatch): Create mapping table linking SKU to barcode, use fuzzy matching if exact match unavailable, validate mapping by checking product names and prices, establish master product ID system. Issue 2 (Customer duplicates): Use record linkage techniques - match on name (normalize to uppercase, remove punctuation), email address, phone number, apply similarity scoring (e.g., Jaro-Winkler), merge duplicates keeping most complete record, flag potential matches for manual review. Issue 3 (Date format inconsistency): Standardize all dates to ISO format (YYYY-MM-DD) during transformation, parse each format using appropriate parser (datetime.strptime), validate dates are within reasonable range, handle timezone differences if applicable.",
+      "explanation": "This requires concrete solutions for each integration challenge: specific techniques (mapping tables, fuzzy matching, record linkage, similarity scoring, date parsing), specific formats (ISO date format), and specific validation steps. Generic answers about 'transforming data' are insufficient.",
+      "learning_objective": "Understand and apply the principles of data integration",
+      "keywords": ["mapping table", "SKU", "barcode", "fuzzy matching", "record linkage", "similarity scoring", "Jaro-Winkler", "merge", "ISO format", "YYYY-MM-DD", "datetime.strptime", "timezone"]
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Interoperability Among Data Systems",
+      "question_text": "___________ refers to the ability of different data systems, software applications, and databases to exchange and use data seamlessly, even if they use different technologies or formats.",
+      "options": null,
+      "correct_answer": "Interoperability",
+      "explanation": "Interoperability is the capability of different systems to work together and exchange data seamlessly, despite using different technologies, formats, or protocols. For example, a MySQL database can exchange data with a MongoDB database, or a REST API can provide data to a Python application. Interoperability enables data integration across heterogeneous systems.",
+      "learning_objective": "Discuss interoperability among different data systems",
+      "keywords": ["interoperability", "exchange", "seamlessly", "different technologies", "formats"]
+    },
+    {
+      "number": 6,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Interoperability Among Data Systems",
+      "question_text": "Common interoperability standards include ___________ (for web services), ___________ (for data exchange), and ___________ (for database connectivity).",
+      "options": null,
+      "correct_answer": "REST API or SOAP, JSON or XML, ODBC or JDBC",
+      "explanation": "Interoperability relies on standards: (1) REST API or SOAP - protocols for web services that allow different applications to communicate, (2) JSON or XML - data interchange formats that systems can parse, (3) ODBC or JDBC - database connectivity standards that allow applications to connect to different database systems. These standards enable systems to communicate despite different underlying technologies.",
+      "learning_objective": "Discuss interoperability among different data systems",
+      "keywords": ["REST API", "SOAP", "JSON", "XML", "ODBC", "JDBC", "standards"]
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Interoperability Among Data Systems",
+      "question_text": "A company uses Oracle database for transactions, MongoDB for document storage, and needs to integrate with a Salesforce CRM that uses REST APIs. What interoperability challenge must they address?",
+      "options": [
+        "A) All systems use the same technology, so no challenges exist",
+        "B) Different data models (relational vs document vs API) require data transformation and standardized interfaces (APIs, connectors) to enable interoperability",
+        "C) Only the database size matters, not the technology",
+        "D) Interoperability is automatic and requires no configuration"
+      ],
+      "correct_answer": "B",
+      "explanation": "Different data models (relational/Oracle, document/MongoDB, API/Salesforce) require interoperability solutions: (1) Data transformation to convert between models (relational tables ↔ documents ↔ JSON), (2) Standardized interfaces like REST APIs or database connectors (ODBC/JDBC), (3) Middleware or ETL tools that can connect to all systems. Interoperability doesn't happen automatically - it requires deliberate design and tools.",
+      "learning_objective": "Discuss interoperability among different data systems",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Interoperability Among Data Systems",
+      "question_text": "A healthcare organization needs to integrate patient data from: (1) Epic EHR system (proprietary database), (2) Lab system (HL7 messages), (3) Billing system (SQL Server). Each system uses different patient ID formats and data structures. Describe three concrete interoperability solutions and explain how each addresses the integration challenge.",
+      "options": null,
+      "correct_answer": "Solution 1: Use HL7 interface engine or integration platform (like MuleSoft, Informatica) that can connect to all three systems, translate between formats (proprietary ↔ HL7 ↔ SQL), and route messages. Solution 2: Create master patient index (MPI) that maps patient IDs across systems (Epic ID ↔ Lab ID ↔ Billing ID), use deterministic matching (exact match on SSN, DOB) and probabilistic matching (name, address similarity) to link records. Solution 3: Implement API gateway that exposes standardized REST API for each system, transform data to common format (FHIR or custom JSON schema) at the gateway layer, allowing applications to consume unified interface regardless of backend system. Each solution addresses format/structure differences through transformation and provides unified access.",
+      "explanation": "This requires three concrete interoperability solutions with specific technologies (HL7 interface engine, MuleSoft, Informatica, MPI, API gateway, FHIR), specific techniques (deterministic matching, probabilistic matching, transformation), and explanation of how each addresses the challenge. Generic answers are insufficient.",
+      "learning_objective": "Discuss interoperability among different data systems",
+      "keywords": ["HL7", "interface engine", "MuleSoft", "Informatica", "MPI", "master patient index", "deterministic matching", "probabilistic matching", "API gateway", "REST API", "FHIR", "transformation"]
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "ETL/ELT Processes",
+      "question_text": "ETL stands for ___________ , ___________ , and ___________ - the process of extracting data from sources, transforming it to fit target schema, and loading it into a destination system.",
+      "options": null,
+      "correct_answer": "Extract, Transform, Load",
+      "explanation": "ETL (Extract, Transform, Load) is a data integration process: (1) Extract - pull data from source systems (databases, files, APIs), (2) Transform - clean, validate, restructure, and enrich data to fit target schema and business rules, (3) Load - write transformed data into destination system (data warehouse, data lake). This traditional approach transforms data before loading, which works well for structured data and predefined schemas.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": ["Extract", "Transform", "Load", "ETL", "source", "destination"]
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "ETL/ELT Processes",
+      "question_text": "ELT stands for ___________ , ___________ , and ___________ - a modern approach where data is extracted, loaded into a destination system first, then transformed using the destination system's processing power.",
+      "options": null,
+      "correct_answer": "Extract, Load, Transform",
+      "explanation": "ELT (Extract, Load, Transform) is a modern data integration approach: (1) Extract - pull data from sources, (2) Load - load raw data directly into destination (often a data lake or cloud data warehouse), (3) Transform - transform data using the destination system's processing power (e.g., Spark, BigQuery, Snowflake). ELT is preferred for big data, cloud environments, and when transformation logic may change, as it preserves raw data and leverages scalable compute.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": ["Extract", "Load", "Transform", "ELT", "raw data", "data lake"]
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "ETL/ELT Processes",
+      "question_text": "A company needs to integrate data from multiple sources into a data warehouse. They have well-defined transformation rules and structured data. Which approach is most appropriate?",
+      "options": [
+        "A) ELT, because it's always faster",
+        "B) ETL, because they have defined transformation rules and structured data, making pre-load transformation efficient",
+        "C) Neither approach works for data warehouses",
+        "D) Load data without any transformation"
+      ],
+      "correct_answer": "B",
+      "explanation": "ETL is appropriate when: (1) Transformation rules are well-defined and stable, (2) Data is structured and fits predefined schemas, (3) You want to ensure data quality before loading (validation, cleaning), (4) Destination system has limited processing power. ELT is better for big data, cloud environments, or when transformation logic is exploratory. For this scenario with defined rules and structured data, ETL provides better control and efficiency.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "ETL/ELT Processes",
+      "question_text": "A company is integrating streaming data from IoT sensors (high volume, semi-structured JSON) into a cloud data lake. They want to preserve raw data and use cloud compute for transformations. Which approach is best?",
+      "options": [
+        "A) ETL, because transformation must always happen first",
+        "B) ELT, because it loads raw data first and leverages cloud processing power for scalable transformations",
+        "C) Skip transformation entirely",
+        "D) Use only traditional databases"
+      ],
+      "correct_answer": "B",
+      "explanation": "ELT is ideal for: (1) High-volume streaming data where you want to capture everything quickly, (2) Cloud data lakes that can store raw data cost-effectively, (3) Leveraging cloud compute (Spark, BigQuery, Snowflake) for scalable transformations, (4) Preserving raw data for future analysis or changing transformation logic. ETL would require transformation infrastructure before loading, which is less flexible for streaming and big data scenarios.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "ETL/ELT Processes",
+      "question_text": "A retail company integrates daily sales data from 50 stores. Each store sends CSV files with different schemas (some have 'ProductID', others have 'SKU', date formats vary). They need this data in a data warehouse for reporting. Describe a concrete ETL process with specific steps for Extract, Transform, and Load phases. Be specific about transformation tasks.",
+      "options": null,
+      "correct_answer": "Extract phase: (1) Connect to file storage (S3, FTP, or local directory), (2) Read all CSV files from 50 stores, (3) Validate file existence and basic structure (header row present), (4) Log extraction metadata (file name, timestamp, record count). Transform phase: (1) Standardize column names - map 'ProductID' and 'SKU' to unified 'product_id', (2) Normalize date formats - parse all date variations (MM/DD/YYYY, YYYY-MM-DD, DD-MM-YYYY) to ISO format YYYY-MM-DD, (3) Data type conversion - ensure numeric fields (price, quantity) are numeric, not strings, (4) Data validation - check for missing required fields, invalid values (negative prices), (5) Deduplication - remove duplicate records based on store_id + transaction_id + timestamp, (6) Data enrichment - add store metadata (store name, region) from master data. Load phase: (1) Connect to data warehouse (e.g., Redshift, Snowflake), (2) Create/update target table schema if needed, (3) Perform upsert operation (update existing records, insert new ones) based on primary key, (4) Log load results (records inserted, updated, failed), (5) Send notification on completion or errors.",
+      "explanation": "This requires a concrete ETL process with specific steps: Extract (file reading, validation, logging), Transform (column mapping, date normalization, data type conversion, validation, deduplication, enrichment with specific examples), Load (database connection, schema management, upsert operations, logging). Must be actionable with specific techniques, not abstract.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": ["Extract", "file storage", "S3", "FTP", "CSV", "Transform", "column mapping", "ProductID", "SKU", "date format", "ISO", "data type", "validation", "deduplication", "enrichment", "Load", "data warehouse", "Redshift", "Snowflake", "upsert", "schema"]
+    },
+    {
+      "number": 14,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Integration Tools and Techniques",
+      "question_text": "Common data integration tools include ___________ (open-source ETL), ___________ (cloud-based integration), and ___________ (enterprise data integration platform).",
+      "options": null,
+      "correct_answer": "Apache Airflow or Talend, AWS Glue or Azure Data Factory, Informatica or IBM DataStage",
+      "explanation": "Data integration tools span different categories: (1) Open-source ETL tools like Apache Airflow (workflow orchestration), Talend (data integration platform), (2) Cloud-based services like AWS Glue (serverless ETL), Azure Data Factory (cloud data integration), (3) Enterprise platforms like Informatica (comprehensive data integration), IBM DataStage (enterprise ETL). Each serves different needs from open-source to enterprise-scale solutions.",
+      "learning_objective": "Utilize data integration tools and techniques",
+      "keywords": ["Apache Airflow", "Talend", "AWS Glue", "Azure Data Factory", "Informatica", "IBM DataStage", "ETL"]
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Integration Tools and Techniques",
+      "question_text": "Data ___________ techniques include data profiling (analyzing data quality), data ___________ (matching and merging records), and data ___________ (standardizing formats and values).",
+      "options": null,
+      "correct_answer": "quality, deduplication, normalization",
+      "explanation": "Key data integration techniques: (1) Data profiling - analyzing source data to understand structure, quality, completeness, patterns, and issues before integration, (2) Data deduplication - identifying and merging duplicate records using matching algorithms (exact match, fuzzy match, similarity scoring), (3) Data normalization - standardizing data formats (dates, phone numbers, addresses), values (uppercase/lowercase), and structures to ensure consistency. These techniques ensure integrated data is clean and reliable.",
+      "learning_objective": "Utilize data integration tools and techniques",
+      "keywords": ["data profiling", "data deduplication", "data normalization", "quality", "matching", "merging", "standardizing"]
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Integration Tools and Techniques",
+      "question_text": "A startup needs to integrate data from 5 different SaaS applications (Salesforce, HubSpot, Stripe, Google Analytics, Zendesk) into a data warehouse for analytics. They have limited budget and technical resources. Which tool category is most appropriate?",
+      "options": [
+        "A) Enterprise platform like Informatica, because it handles all integrations",
+        "B) Cloud-based integration platform like Zapier, Stitch, or Fivetran that offers pre-built connectors for common SaaS applications with minimal coding",
+        "C) Build custom ETL scripts from scratch for maximum control",
+        "D) Manual data export and import using Excel"
+      ],
+      "correct_answer": "B",
+      "explanation": "For a startup with limited resources integrating common SaaS applications, cloud-based integration platforms (Zapier, Stitch, Fivetran) are ideal because: (1) Pre-built connectors for popular SaaS apps (Salesforce, HubSpot, Stripe, etc.), (2) Low-code/no-code setup, (3) Cost-effective compared to enterprise platforms, (4) Automated scheduling and monitoring. Enterprise platforms are overkill for this use case, custom scripts require significant development time, and manual processes don't scale.",
+      "learning_objective": "Utilize data integration tools and techniques",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Data Integration Tools and Techniques",
+      "question_text": "___________ is a data integration technique that creates a mapping between source and target fields, handling differences in field names, data types, and structures during transformation.",
+      "options": null,
+      "correct_answer": "Schema mapping or field mapping",
+      "explanation": "Schema mapping (or field mapping) is a fundamental data integration technique that defines how source fields correspond to target fields. It handles: (1) Field name differences (source 'CustomerName' → target 'customer_name'), (2) Data type conversions (string '123' → integer 123), (3) Structural transformations (flattening nested JSON to relational tables). Schema mapping is typically done in ETL tools through visual interfaces or configuration files.",
+      "learning_objective": "Utilize data integration tools and techniques",
+      "keywords": ["schema mapping", "field mapping", "source", "target", "transformation"]
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Integration Tools and Techniques",
+      "question_text": "A company integrates customer data from CRM (has fields: FirstName, LastName, Email, Phone) and e-commerce platform (has fields: first_name, last_name, email_address, phone_number, purchase_history). They want unified customer records. Describe a concrete data integration approach using specific techniques: schema mapping, data deduplication, and data enrichment. Be specific about the steps.",
+      "options": null,
+      "correct_answer": "Step 1 (Schema Mapping): Create mapping - CRM FirstName → unified first_name, CRM LastName → unified last_name, CRM Email → unified email, CRM Phone → unified phone, e-commerce first_name → unified first_name, e-commerce last_name → unified last_name, e-commerce email_address → unified email, e-commerce phone_number → unified phone, e-commerce purchase_history → unified purchase_history. Step 2 (Data Deduplication): Use deterministic matching on email (exact match), if match found merge records, use probabilistic matching on name + phone (fuzzy match with similarity threshold 0.85), create master customer ID linking both source IDs. Step 3 (Data Enrichment): For matched records, combine data - use CRM email if present (preferred source), merge purchase_history from e-commerce, add data source flag (CRM, e-commerce, or both), add last_updated timestamp. For unmatched records, keep as separate with source flag. Step 4: Load unified records into target system with schema: customer_id, first_name, last_name, email, phone, purchase_history, source_systems, last_updated.",
+      "explanation": "This requires a concrete integration approach with specific steps: schema mapping with exact field mappings, data deduplication with specific matching techniques (deterministic on email, probabilistic on name+phone with threshold), data enrichment with specific merge logic, and target schema definition. Must be actionable, not abstract.",
+      "learning_objective": "Utilize data integration tools and techniques",
+      "keywords": ["schema mapping", "FirstName", "first_name", "email", "phone", "deterministic matching", "probabilistic matching", "fuzzy match", "similarity threshold", "0.85", "master customer ID", "data enrichment", "merge", "source flag", "target schema"]
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Wrangling",
+      "question_text": "Data ___________ is the process of cleaning, transforming, and organizing raw data into a format suitable for analysis, often involving handling missing values, correcting errors, and standardizing formats.",
+      "options": null,
+      "correct_answer": "wrangling",
+      "explanation": "Data wrangling (also called data munging) is the process of cleaning, transforming, and organizing raw, unstructured, or messy data into a clean, structured format ready for analysis. It involves tasks like: handling missing values, correcting errors, standardizing formats, removing duplicates, parsing and restructuring data. Data wrangling is often a significant portion of data integration and ETL processes.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": ["wrangling", "munging", "cleaning", "transforming", "organizing", "raw data"]
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Wrangling",
+      "question_text": "During data wrangling, you discover a dataset has: missing values (10% of records), inconsistent date formats (MM/DD/YYYY and YYYY-MM-DD), and duplicate records (5% duplicates). What is the correct order of operations?",
+      "options": [
+        "A) Handle duplicates first, then standardize dates, then handle missing values",
+        "B) Standardize dates first, then handle missing values, then remove duplicates - because you need consistent structure before cleaning",
+        "C) Handle missing values first, standardize dates, then remove duplicates - establishing data structure and format before deduplication",
+        "D) Order doesn't matter, do them in any sequence"
+      ],
+      "correct_answer": "C",
+      "explanation": "The recommended order: (1) Handle missing values first - decide on imputation strategy or removal, establishing complete records, (2) Standardize dates - normalize formats so all records have consistent structure, (3) Remove duplicates - after data is clean and standardized, duplicates are easier to identify accurately. This order ensures data structure is established before deduplication, and format consistency helps with duplicate detection. Order matters because later steps depend on earlier cleaning.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Data Wrangling",
+      "question_text": "Common data wrangling tasks include: ___________ (filling in missing values), ___________ (converting data types), ___________ (splitting or combining columns), and ___________ (filtering rows based on conditions).",
+      "options": null,
+      "correct_answer": "imputation, type conversion, column manipulation, filtering",
+      "explanation": "Data wrangling involves multiple tasks: (1) Imputation - filling missing values using strategies like mean/median, forward fill, or predictive models, (2) Type conversion - converting strings to numbers, dates to datetime objects, etc., (3) Column manipulation - splitting columns (e.g., 'Full Name' → 'First Name' + 'Last Name'), combining columns, or creating derived columns, (4) Filtering - removing rows that don't meet criteria (outliers, invalid values). These tasks prepare data for analysis.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": ["imputation", "type conversion", "column manipulation", "filtering", "missing values", "data types"]
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Wrangling",
+      "question_text": "You're wrangling a customer dataset with these issues: (1) 'Full Name' column contains 'John Smith', 'J. Smith', 'Smith, John' in different formats, (2) 'Email' has 15% missing values, (3) 'Phone' column mixes formats: '(555) 123-4567', '555-123-4567', '5551234567', (4) 'Age' column has values like '25', 'twenty-five', 'N/A'. Describe concrete wrangling steps for each issue with specific techniques.",
+      "options": null,
+      "correct_answer": "Issue 1 (Name format): Parse 'Full Name' using regex or string splitting - detect pattern (comma-separated 'Last, First' vs space-separated 'First Last'), split into 'first_name' and 'last_name' columns, handle middle initials (extract to 'middle_initial'), normalize to title case, handle edge cases (single name goes to last_name). Issue 2 (Missing emails): Determine if missingness is random or systematic - check if missing emails correlate with other fields, if random use imputation (forward fill from previous record if time-ordered, or mode if categorical), if systematic create 'email_missing' flag and leave as NULL, document imputation strategy. Issue 3 (Phone format): Standardize all phones to single format - remove all non-digit characters using regex, format as '(XXX) XXX-XXXX', validate phone length (10 digits for US), flag invalid phones (wrong length) for review. Issue 4 (Age format): Convert to numeric - use regex to extract digits from '25' and 'twenty-five' (may need text-to-number mapping for words), convert 'N/A' to NULL, validate age range (0-120), flag outliers for review.",
+      "explanation": "This requires concrete wrangling steps with specific techniques: regex parsing for names, imputation strategies for missing emails, regex standardization for phones, text-to-number conversion for ages. Must include specific formats, validation rules, and edge case handling. Generic answers are insufficient.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": ["regex", "parse", "split", "first_name", "last_name", "imputation", "forward fill", "mode", "flag", "standardize", "phone format", "(XXX) XXX-XXXX", "validate", "text-to-number", "age range", "outliers"]
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data Integration Principles",
+      "question_text": "True or False: Data integration always requires transforming data to match a single, unified schema, even if it means losing some information from source systems.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "False. While data integration often involves schema transformation, it should preserve important information. Good integration practices: (1) Map all relevant source fields to target schema, (2) Preserve source system metadata (source system ID, extraction timestamp), (3) Handle schema differences through transformation, not deletion, (4) Use flexible schemas (data lakes) or multiple target schemas if needed. Losing information defeats the purpose of integration. The goal is unified access, not necessarily a single rigid schema.",
+      "learning_objective": "Understand and apply the principles of data integration",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "ETL/ELT Processes",
+      "question_text": "In an ETL process, where does data validation typically occur?",
+      "options": [
+        "A) Only in the Extract phase, to check if data exists",
+        "B) Primarily in the Transform phase, where data quality checks, format validation, and business rule validation are performed",
+        "C) Only in the Load phase, after data is already transformed",
+        "D) Validation is not necessary in ETL processes"
+      ],
+      "correct_answer": "B",
+      "explanation": "Data validation primarily occurs in the Transform phase, where you: (1) Check data quality (missing values, outliers, invalid ranges), (2) Validate formats (date formats, phone number patterns, email formats), (3) Apply business rules (e.g., 'price must be positive', 'order date cannot be in future'), (4) Check referential integrity (foreign keys exist). Some basic validation happens in Extract (file exists, readable), and final validation in Load (target schema constraints), but comprehensive validation is in Transform to catch issues before loading bad data.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Interoperability Among Data Systems",
+      "question_text": "___________ is an interoperability approach where a middleware layer acts as a translator between different systems, converting data formats and protocols so systems can communicate without direct integration.",
+      "options": null,
+      "correct_answer": "Middleware or integration layer",
+      "explanation": "Middleware (or integration layer) is software that sits between different systems, acting as a translator and facilitator. It: (1) Converts data formats (JSON ↔ XML ↔ CSV), (2) Translates protocols (REST ↔ SOAP ↔ database protocols), (3) Routes messages between systems, (4) Handles authentication and security. This allows systems to communicate without each system needing to understand the other's native format. Examples include message queues, API gateways, and enterprise service buses (ESB).",
+      "learning_objective": "Discuss interoperability among different data systems",
+      "keywords": ["middleware", "integration layer", "translator", "protocols", "message queue", "API gateway", "ESB"]
+    },
+    {
+      "number": 26,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Integration Tools and Techniques",
+      "question_text": "A company wants to integrate real-time transaction data from point-of-sale systems (streaming JSON) with batch customer data from CRM (daily CSV exports) into a data warehouse. Describe a concrete integration architecture specifying: (1) Tools/technologies for each data type, (2) How to handle the different data velocities (streaming vs batch), (3) Transformation approach, (4) Loading strategy. Be specific about technologies and techniques.",
+      "options": null,
+      "correct_answer": "Architecture: (1) Streaming data (JSON) - Use Apache Kafka or AWS Kinesis for message queuing/streaming, Apache Spark Streaming or Flink for stream processing, transform JSON to structured format in real-time. (2) Batch data (CSV) - Use scheduled ETL tool (Apache Airflow, AWS Glue) to extract CSV files daily, process in batches. (3) Handling different velocities - Use Lambda architecture: hot path (streaming) for real-time analytics, cold path (batch) for historical analysis, or use unified platform (Snowflake, Databricks) that handles both streaming and batch. (4) Transformation - For streaming: transform JSON to Parquet/Delta format in stream, apply schema validation, for batch: standardize CSV to same schema, handle data quality. (5) Loading - Load both streams into same data warehouse (Snowflake, Redshift) with unified schema, use upsert for streaming (update existing, insert new), bulk load for batch, create unified view joining both sources.",
+      "explanation": "This requires a concrete architecture with specific technologies: Kafka/Kinesis for streaming, Spark/Flink for processing, Airflow/Glue for batch, Snowflake/Databricks for unified platform, specific data formats (JSON, CSV, Parquet, Delta), specific loading strategies (upsert for streaming, bulk load for batch), and unified schema approach. Must address the velocity difference concretely.",
+      "learning_objective": "Utilize data integration tools and techniques",
+      "keywords": ["Apache Kafka", "AWS Kinesis", "Apache Spark Streaming", "Flink", "Apache Airflow", "AWS Glue", "Lambda architecture", "hot path", "cold path", "Snowflake", "Databricks", "Parquet", "Delta", "upsert", "bulk load", "unified schema"]
+    },
+    {
+      "number": 27,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Integration Principles",
+      "question_text": "Data integration helps organizations break down ___________ , where data is isolated in different departments or systems, preventing a holistic view of the business.",
+      "options": null,
+      "correct_answer": "data silos",
+      "explanation": "Data silos occur when data is isolated in different departments, systems, or applications, preventing access to a unified view. For example, sales data in CRM, marketing data in email platform, finance data in ERP - each department only sees their own data. Data integration breaks down these silos by combining data from all sources, enabling cross-functional analysis, better decision-making, and a 360-degree view of customers, products, or operations.",
+      "learning_objective": "Understand and apply the principles of data integration",
+      "keywords": ["data silos", "isolated", "departments", "systems", "holistic view"]
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Integration Tools and Techniques",
+      "question_text": "What is the primary purpose of data profiling in the data integration process?",
+      "options": [
+        "A) To transform data into the target format",
+        "B) To analyze source data structure, quality, completeness, and patterns before integration to understand what you're working with and identify issues",
+        "C) To load data into the destination system",
+        "D) To delete unnecessary data"
+      ],
+      "correct_answer": "B",
+      "explanation": "Data profiling analyzes source data to understand: (1) Structure - what fields exist, data types, relationships, (2) Quality - completeness (missing values), accuracy (invalid values), consistency (format variations), (3) Patterns - value distributions, outliers, relationships between fields, (4) Issues - duplicates, anomalies, data quality problems. This analysis happens before integration to plan transformations, identify challenges, and ensure successful integration. It's a discovery phase, not a transformation phase.",
+      "learning_objective": "Utilize data integration tools and techniques",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "ETL/ELT Processes",
+      "question_text": "In ETL processes, ___________ refers to the ability to track data lineage - understanding where data came from, what transformations were applied, and where it's being used.",
+      "options": null,
+      "correct_answer": "data lineage or data provenance",
+      "explanation": "Data lineage (or data provenance) tracks the complete journey of data: (1) Source systems and extraction timestamps, (2) All transformations applied (cleaning, mapping, enrichment), (3) Target systems and load timestamps, (4) Dependencies between processes. Data lineage is crucial for: debugging issues, compliance (GDPR, audit trails), impact analysis (what breaks if source changes), and data governance. Modern ETL tools provide lineage visualization and metadata management.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": ["data lineage", "data provenance", "tracking", "transformations", "source", "target", "metadata"]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Interoperability Among Data Systems",
+      "question_text": "A financial institution needs to integrate data from: (1) Core banking system (mainframe, proprietary format), (2) Mobile banking app (REST API, JSON), (3) Legacy reporting system (flat files, fixed-width format). Each system has different security requirements, data update frequencies (real-time vs daily), and cannot directly connect. Describe three concrete interoperability solutions addressing format differences, connectivity, and real-time vs batch requirements. Be specific about technologies and approaches.",
+      "options": null,
+      "correct_answer": "Solution 1 (Format interoperability): Use enterprise service bus (ESB) or integration platform (MuleSoft, IBM Integration Bus) that supports multiple protocols - connect mainframe via message queue (IBM MQ), REST API via HTTP connector, flat files via file adapter, transform all to canonical format (XML or JSON schema), route to target systems. Solution 2 (Connectivity): Implement API gateway (Kong, AWS API Gateway) that exposes unified REST API, backend adapters translate between REST and native protocols (mainframe adapter, file adapter), handles authentication/authorization per source, provides rate limiting and monitoring. Solution 3 (Real-time vs batch): Use hybrid approach - real-time integration for mobile app (event-driven, publish-subscribe pattern with Kafka or RabbitMQ), batch integration for mainframe and flat files (scheduled ETL jobs with Airflow, extract during off-peak hours), use change data capture (CDC) for mainframe to minimize batch window, load both into unified data platform (data lake or data warehouse) with different update frequencies documented.",
+      "explanation": "This requires three concrete interoperability solutions addressing: (1) Format differences with specific technologies (ESB, MuleSoft, canonical format, adapters), (2) Connectivity with specific solutions (API gateway, Kong, AWS API Gateway, adapters), (3) Real-time vs batch with specific patterns (event-driven, Kafka, RabbitMQ, CDC, Airflow, scheduled jobs). Must be specific about technologies and approaches, not abstract.",
+      "learning_objective": "Discuss interoperability among different data systems",
+      "keywords": ["ESB", "enterprise service bus", "MuleSoft", "IBM Integration Bus", "message queue", "IBM MQ", "REST API", "HTTP connector", "file adapter", "canonical format", "API gateway", "Kong", "AWS API Gateway", "event-driven", "publish-subscribe", "Kafka", "RabbitMQ", "CDC", "change data capture", "Airflow", "data lake", "data warehouse"]
+    },
+    {
+      "number": 31,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "ETL/ELT Processes",
+      "question_text": "True or False: ELT (Extract, Load, Transform) always requires more storage than ETL (Extract, Transform, Load) because raw data is loaded before transformation.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "True. ELT loads raw data first, then transforms, which means: (1) Raw data must be stored in the destination system (data lake or data warehouse), (2) Transformed data is also stored, (3) This results in storing both raw and processed data. ETL transforms before loading, so only transformed data is stored. However, ELT's advantage is preserving raw data for reprocessing, audit trails, and changing transformation logic. The storage cost is often acceptable given the flexibility benefits, especially with cost-effective cloud storage.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": []
+    },
+    {
+      "number": 32,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Data Wrangling",
+      "question_text": "In data wrangling, ___________ involves identifying and handling values that fall outside expected ranges or patterns, such as negative ages or transaction amounts that are unreasonably high.",
+      "options": null,
+      "correct_answer": "outlier detection or anomaly detection",
+      "explanation": "Outlier detection (or anomaly detection) identifies data points that deviate significantly from expected patterns or ranges. Examples: negative ages, transaction amounts 100x higher than average, dates in the future for historical data. Outliers may be: (1) Errors to correct, (2) Legitimate but rare events to flag, (3) Data quality issues to investigate. Handling strategies include: removal, capping (winsorization), flagging for review, or statistical methods (Z-score, IQR). Outlier detection is crucial for data quality in integration.",
+      "learning_objective": "Apply ETL/ELT processes for data integration",
+      "keywords": ["outlier detection", "anomaly detection", "unexpected", "ranges", "patterns", "errors", "winsorization", "Z-score", "IQR"]
+    }
+  ]
+}

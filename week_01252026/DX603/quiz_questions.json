@@ -1,0 +1,434 @@
+{
+  "quiz_metadata": {
+    "title": "DX603 Week 2: Linear and Multiple Regression Quiz",
+    "description": "Comprehensive quiz covering linear regression, multiple regression, polynomial regression, gradient descent, evaluation metrics (MSE, RMSE, MAE, R-squared), assumptions, and hyperparameters",
+    "version": "1.0",
+    "total_questions": 32
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Types of Problems for Regression",
+      "question_text": "Regression is used to predict ___________ variables, which are continuous numerical values such as house prices, sales revenue, or temperature.",
+      "options": null,
+      "correct_answer": "continuous or quantitative",
+      "explanation": "Regression models predict continuous (quantitative) dependent variables. Unlike classification which predicts categories, regression predicts numerical values that can take any value within a range. Examples include prices, temperatures, salaries, and measurements.",
+      "learning_objective": "Describe the types of problems to which regression applies",
+      "keywords": ["continuous", "quantitative", "numerical", "dependent"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Types of Problems for Regression",
+      "question_text": "A real estate company wants to predict house prices based on square footage, number of bedrooms, and location. This is a ___________ problem suitable for regression analysis.",
+      "options": null,
+      "correct_answer": "prediction or forecasting",
+      "explanation": "Predicting house prices from features (square footage, bedrooms, location) is a prediction/forecasting problem. Regression models are ideal for this because the target variable (price) is continuous and we want to estimate a numerical value based on input features.",
+      "learning_objective": "Describe the types of problems to which regression applies",
+      "keywords": ["prediction", "forecasting", "continuous", "numerical"]
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Types of Problems for Regression",
+      "question_text": "A marketing team wants to understand how advertising spend affects monthly sales revenue. They have data on ad spend (in dollars) and sales revenue (in dollars) for the past 24 months. Which type of problem is this?",
+      "options": [
+        "A) Classification problem, because they need to categorize sales as high or low",
+        "B) Regression problem, because they are predicting a continuous numerical value (sales revenue) from a continuous input (ad spend)",
+        "C) Clustering problem, because they need to group similar months together",
+        "D) Time series problem only, regression cannot be used"
+      ],
+      "correct_answer": "B",
+      "explanation": "This is a regression problem because the target variable (sales revenue) is continuous and numerical. While it involves time, the core task is predicting a continuous value from input features, which is the domain of regression. Classification would be used if predicting categories (e.g., 'high sales' vs 'low sales'), not numerical values.",
+      "learning_objective": "Describe the types of problems to which regression applies",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Assumptions and Limitations of Linear Regression",
+      "question_text": "The ___________ assumption states that the relationship between the independent and dependent variables should be linear, meaning changes in X produce proportional changes in Y.",
+      "options": null,
+      "correct_answer": "linearity",
+      "explanation": "The linearity assumption requires that the relationship between independent variables (X) and the dependent variable (Y) can be modeled as a straight line. If the true relationship is curved or exponential, linear regression will produce poor predictions. This is a fundamental assumption of linear regression models.",
+      "learning_objective": "Compare the assumptions and limitations of linear regression",
+      "keywords": ["linearity", "linear", "straight line", "proportional"]
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Assumptions and Limitations of Linear Regression",
+      "question_text": "___________ means that the variance of errors should be constant across all levels of the independent variables. When this assumption is violated, we have heteroscedasticity.",
+      "options": null,
+      "correct_answer": "Homoscedasticity",
+      "explanation": "Homoscedasticity (also called constant variance) means the error terms have the same variance across all values of the independent variables. When violated (heteroscedasticity), errors have different variances at different X values, which can lead to inefficient estimates and incorrect standard errors. This is one of the key assumptions of linear regression.",
+      "learning_objective": "Compare the assumptions and limitations of linear regression",
+      "keywords": ["homoscedasticity", "constant variance", "heteroscedasticity"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Assumptions and Limitations of Linear Regression",
+      "question_text": "In a housing price dataset, which situation would most likely violate the independence of errors assumption?",
+      "options": [
+        "A) Houses in the same neighborhood have similar prices",
+        "B) Errors for houses sold by the same real estate agent are correlated because the agent uses similar pricing strategies",
+        "C) Larger houses tend to have higher prices",
+        "D) Price predictions are more accurate for houses in urban areas than rural areas"
+      ],
+      "correct_answer": "B",
+      "explanation": "The independence assumption requires that errors for different observations are uncorrelated. If houses sold by the same agent have correlated errors (because the agent uses similar pricing strategies), this violates independence. Option A describes a legitimate relationship (location affects price), not error correlation. Option C describes linearity (size affects price), and Option D describes heteroscedasticity, not independence violation.",
+      "learning_objective": "Compare the assumptions and limitations of linear regression",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Assumptions and Limitations of Linear Regression",
+      "question_text": "A dataset shows the relationship between years of experience and salary. The relationship appears exponential (salaries increase rapidly with experience), and residuals show increasing variance as experience increases. Identify which two assumptions of linear regression are violated and explain why each violation is problematic for this model.",
+      "options": null,
+      "correct_answer": "Assumption 1: Linearity is violated because the relationship is exponential, not linear. Linear regression assumes a straight-line relationship, so it will systematically underpredict salaries for experienced workers and overpredict for new workers. Assumption 2: Homoscedasticity is violated because error variance increases with experience (heteroscedasticity). This means predictions become less reliable for higher experience levels, and standard errors are incorrect, leading to invalid confidence intervals and hypothesis tests.",
+      "explanation": "This requires identifying two specific assumptions (linearity and homoscedasticity) and explaining why each violation causes problems. The answer must be concrete: exponential relationship violates linearity, increasing variance violates homoscedasticity, and explain the consequences (underprediction/overprediction, incorrect standard errors).",
+      "learning_objective": "Compare the assumptions and limitations of linear regression",
+      "keywords": ["linearity", "exponential", "homoscedasticity", "heteroscedasticity", "variance", "underpredict", "overpredict", "standard error"]
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Basic Algorithm and Formulae",
+      "question_text": "In simple linear regression with one independent variable, the equation is Y = β₀ + β₁X + ε, where β₀ is the ___________ and β₁ is the ___________.",
+      "options": null,
+      "correct_answer": "intercept, slope",
+      "explanation": "In the linear regression equation Y = β₀ + β₁X + ε, β₀ (beta-zero) is the intercept (the value of Y when X = 0), and β₁ (beta-one) is the slope (the change in Y for a one-unit change in X). These are the parameters we estimate from the data.",
+      "learning_objective": "Apply the basic algorithm and determine solutions using formulae",
+      "keywords": ["intercept", "slope", "beta", "β₀", "β₁"]
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "calculation",
+      "section": "Basic Algorithm and Formulae",
+      "question_text": "Given the following data points: (2, 5), (4, 9), (6, 13), calculate the slope (β₁) using the formula: β₁ = Σ(Xi - X̄)(Yi - Ȳ) / Σ(Xi - X̄)². Show your calculation steps.",
+      "options": null,
+      "correct_answer": "Mean X = (2+4+6)/3 = 4, Mean Y = (5+9+13)/3 = 9. Numerator: (2-4)(5-9) + (4-4)(9-9) + (6-4)(13-9) = (-2)(-4) + 0 + (2)(4) = 8 + 0 + 8 = 16. Denominator: (2-4)² + (4-4)² + (6-4)² = 4 + 0 + 4 = 8. Slope β₁ = 16/8 = 2",
+      "explanation": "This tests the ability to apply the slope formula step-by-step. First calculate means, then compute the numerator (sum of (X-X̄)(Y-Ȳ)) and denominator (sum of (X-X̄)²), then divide. The slope of 2 means Y increases by 2 units for each 1-unit increase in X.",
+      "learning_objective": "Apply the basic algorithm and determine solutions using formulae",
+      "keywords": ["mean", "numerator", "denominator", "slope", "2", "calculation"]
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Basic Algorithm and Formulae",
+      "question_text": "You have a simple linear regression model: Price = 50,000 + 200 × SquareFeet. A house has 1,500 square feet. What is the predicted price, and what does the intercept (50,000) represent?",
+      "options": [
+        "A) Predicted price = $350,000. The intercept represents the minimum house price regardless of size",
+        "B) Predicted price = $350,000. The intercept represents the base price when square footage is zero (though this may not be practically meaningful)",
+        "C) Predicted price = $300,000. The intercept represents the average price increase per square foot",
+        "D) Predicted price = $250,000. The intercept represents the price of a house with average square footage"
+      ],
+      "correct_answer": "B",
+      "explanation": "Predicted price = 50,000 + 200 × 1,500 = 50,000 + 300,000 = $350,000. The intercept (50,000) is the predicted price when square footage = 0, which is the mathematical interpretation, though it may not be practically meaningful (you can't have a house with 0 square feet). The slope (200) represents the price increase per square foot.",
+      "learning_objective": "Apply the basic algorithm and determine solutions using formulae",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Evaluation Metrics: MSE, RMSE, MAE, R-squared",
+      "question_text": "MSE stands for ___________ and is calculated as the average of squared differences between actual and predicted values.",
+      "options": null,
+      "correct_answer": "Mean Squared Error",
+      "explanation": "MSE (Mean Squared Error) measures the average squared difference between actual values (Y) and predicted values (Ŷ). Formula: MSE = (1/n) × Σ(Yi - Ŷi)². Squaring the errors penalizes larger errors more heavily than smaller ones, making MSE sensitive to outliers.",
+      "learning_objective": "Explain the MSE, RMSE, MAE, and R squared metrics and how they characterize optimal solutions",
+      "keywords": ["Mean Squared Error", "MSE", "squared", "average"]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Evaluation Metrics: MSE, RMSE, MAE, R-squared",
+      "question_text": "RMSE is the ___________ of MSE, which brings the error metric back to the original units of the dependent variable Y.",
+      "options": null,
+      "correct_answer": "square root",
+      "explanation": "RMSE (Root Mean Squared Error) is the square root of MSE. While MSE is in squared units (e.g., dollars²), RMSE is in the original units (e.g., dollars), making it more interpretable. Formula: RMSE = √MSE = √[(1/n) × Σ(Yi - Ŷi)²]. Both MSE and RMSE penalize large errors more than small errors.",
+      "learning_objective": "Explain the MSE, RMSE, MAE, and R squared metrics and how they characterize optimal solutions",
+      "keywords": ["square root", "RMSE", "original units"]
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Evaluation Metrics: MSE, RMSE, MAE, R-squared",
+      "question_text": "MAE stands for ___________ and is calculated as the average of absolute differences between actual and predicted values, preserving the original units without squaring.",
+      "options": null,
+      "correct_answer": "Mean Absolute Error",
+      "explanation": "MAE (Mean Absolute Error) measures the average absolute difference between actual and predicted values. Formula: MAE = (1/n) × Σ|Yi - Ŷi|. Unlike MSE/RMSE, MAE treats all errors equally (no squaring), making it less sensitive to outliers. It's in the original units of Y, like RMSE.",
+      "learning_objective": "Explain the MSE, RMSE, MAE, and R squared metrics and how they characterize optimal solutions",
+      "keywords": ["Mean Absolute Error", "MAE", "absolute", "original units"]
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Evaluation Metrics: MSE, RMSE, MAE, R-squared",
+      "question_text": "A regression model makes predictions for 5 houses. Actual prices: [200k, 250k, 300k, 350k, 400k]. Predicted prices: [210k, 240k, 310k, 340k, 400k]. Calculate MSE, RMSE, and MAE. Show your work.",
+      "options": null,
+      "correct_answer": "Errors: [10k, -10k, 10k, -10k, 0]. Squared errors: [100, 100, 100, 100, 0] (in thousands²). MSE = (100+100+100+100+0)/5 = 400/5 = 80 (thousands²) = 80,000,000. RMSE = √80,000,000 = 8,944.27 ≈ $8,944. MAE = (|10|+|−10|+|10|+|−10|+|0|)/5 = 40/5 = 8 (thousands) = $8,000",
+      "explanation": "This tests calculation of all three error metrics. First compute errors (actual - predicted), then squared errors for MSE, take square root for RMSE, and use absolute errors for MAE. Note units: MSE is in squared units, RMSE and MAE are in original units (dollars).",
+      "learning_objective": "Explain the MSE, RMSE, MAE, and R squared metrics and how they characterize optimal solutions",
+      "keywords": ["MSE", "RMSE", "MAE", "80,000,000", "8,944", "8,000", "calculation"]
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Evaluation Metrics: MSE, RMSE, MAE, R-squared",
+      "question_text": "R-squared (R²) measures the proportion of variance in the dependent variable Y that is explained by the regression model. R² ranges from ___________ to ___________, where 1.0 means the model explains all variance perfectly.",
+      "options": null,
+      "correct_answer": "0, 1",
+      "explanation": "R² (coefficient of determination) ranges from 0 to 1. R² = 0 means the model explains none of the variance (no better than predicting the mean). R² = 1 means the model explains all variance perfectly (all predictions are exactly correct). R² = 0.75 means the model explains 75% of the variance in Y. Higher R² generally indicates better fit, though it can be misleading with overfitting.",
+      "learning_objective": "Explain the MSE, RMSE, MAE, and R squared metrics and how they characterize optimal solutions",
+      "keywords": ["0", "1", "variance", "proportion", "R-squared", "R²"]
+    },
+    {
+      "number": 16,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Evaluation Metrics: MSE, RMSE, MAE, R-squared",
+      "question_text": "Two regression models predict house prices. Model A has MSE = 10,000,000 and R² = 0.85. Model B has MSE = 12,000,000 and R² = 0.82. A real estate agent asks which model is better. What should you tell them?",
+      "options": [
+        "A) Model A is better because it has lower MSE and higher R², indicating better predictive accuracy",
+        "B) Model B is better because R² closer to 1.0 is always preferred",
+        "C) Both models are equally good because the differences are small",
+        "D) You need to check RMSE and MAE as well, and consider the business context (e.g., acceptable error margin in dollars)"
+      ],
+      "correct_answer": "D",
+      "explanation": "While Model A appears better (lower MSE, higher R²), a complete evaluation should consider: (1) RMSE to understand error in interpretable units (dollars), (2) MAE to see typical error without outlier influence, (3) business context (is $3,000 average error acceptable for a $500k house?). R² alone doesn't tell you the actual dollar error, and MSE in squared units is hard to interpret. A comprehensive answer considers multiple metrics and practical implications.",
+      "learning_objective": "Explain the MSE, RMSE, MAE, and R squared metrics and how they characterize optimal solutions",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Explicit Formula vs Gradient Descent",
+      "question_text": "The explicit formula (normal equation) for linear regression uses matrix operations: β = (X^T X)^(-1) X^T Y, where β are the coefficients, X is the feature matrix, and Y is the target vector. This method gives the ___________ solution in one step.",
+      "options": null,
+      "correct_answer": "exact or optimal",
+      "explanation": "The normal equation (explicit formula) computes the optimal coefficients directly using matrix algebra in a single calculation. It solves for β that minimizes the sum of squared errors exactly. This is efficient for small to medium datasets but becomes computationally expensive (O(n³) for matrix inversion) for very large datasets or when X^T X is not invertible.",
+      "learning_objective": "Compare the methods for solving a problem using an explicit formula and using gradient descent",
+      "keywords": ["exact", "optimal", "normal equation", "matrix", "one step"]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Explicit Formula vs Gradient Descent",
+      "question_text": "___________ is an iterative optimization algorithm that starts with initial parameter values and gradually adjusts them by moving in the direction of steepest descent (negative gradient) to minimize the error function.",
+      "options": null,
+      "correct_answer": "Gradient Descent",
+      "explanation": "Gradient descent is an iterative algorithm that finds optimal parameters by: (1) starting with initial guesses, (2) calculating the gradient (slope) of the error function, (3) moving parameters in the direction that reduces error (negative gradient), (4) repeating until convergence. Unlike the explicit formula, it works iteratively and is scalable to very large datasets, but requires tuning the learning rate hyperparameter.",
+      "learning_objective": "Compare the methods for solving a problem using an explicit formula and using gradient descent",
+      "keywords": ["Gradient Descent", "iterative", "optimization", "gradient", "learning rate"]
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Explicit Formula vs Gradient Descent",
+      "question_text": "You have a dataset with 10 million records and 50 features. You need to fit a linear regression model. Which method should you prefer and why?",
+      "options": [
+        "A) Explicit formula (normal equation), because it gives the exact solution faster",
+        "B) Gradient descent, because matrix inversion for (X^T X) with 50×50 matrix is computationally expensive (O(n³)), and gradient descent scales better to large datasets",
+        "C) Both methods will work equally well for any dataset size",
+        "D) Explicit formula, because it always converges to the optimal solution"
+      ],
+      "correct_answer": "B",
+      "explanation": "For large datasets (10 million records), gradient descent is preferred because: (1) The explicit formula requires computing (X^T X)^(-1), which is O(n³) complexity and memory-intensive, (2) Gradient descent processes data in batches (stochastic/mini-batch), making it memory-efficient, (3) For linear regression, both methods find the same optimal solution, but gradient descent is more scalable. The explicit formula is better for small datasets where the exact solution can be computed quickly.",
+      "learning_objective": "Compare the methods for solving a problem using an explicit formula and using gradient descent",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Explicit Formula vs Gradient Descent",
+      "question_text": "A data scientist is training a linear regression model. They set the learning rate too high (0.5) and observe that the error increases with each iteration instead of decreasing. Explain what is happening and what they should do. Also, explain what would happen if the learning rate is too low (0.0001).",
+      "options": null,
+      "correct_answer": "With learning rate too high (0.5): The algorithm takes steps that are too large, overshooting the minimum. Instead of converging, it 'bounces' around or diverges, causing error to increase. Solution: Reduce learning rate (try 0.01, 0.001) or use adaptive learning rate methods. With learning rate too low (0.0001): The algorithm takes very small steps, requiring many iterations to converge. It will eventually find the minimum but very slowly, wasting computational resources. Solution: Increase learning rate or use learning rate scheduling. Optimal learning rate balances convergence speed with stability.",
+      "explanation": "This requires explaining both scenarios: (1) High learning rate causes overshooting/divergence (error increases), solution is to reduce it, (2) Low learning rate causes slow convergence (many iterations needed), solution is to increase it. Must be concrete about the problems and solutions, not abstract.",
+      "learning_objective": "Compare the methods for solving a problem using an explicit formula and using gradient descent",
+      "keywords": ["learning rate", "high", "overshoot", "diverge", "low", "slow", "convergence", "reduce", "increase", "0.01", "0.001"]
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Multiple Regression for Higher-Dimensional Data",
+      "question_text": "Multiple regression extends linear regression to model the relationship between a dependent variable Y and ___________ independent variables (X₁, X₂, ..., Xₚ), fitting a hyperplane instead of a line.",
+      "options": null,
+      "correct_answer": "multiple or several",
+      "explanation": "Multiple regression handles multiple independent variables (predictors) simultaneously. Instead of a 2D line (Y = β₀ + β₁X), it fits a hyperplane in higher dimensions: Y = β₀ + β₁X₁ + β₂X₂ + ... + βₚXₚ. This allows modeling complex relationships where the outcome depends on several factors, such as house price depending on size, bedrooms, location, age, etc.",
+      "learning_objective": "Explain how multiple regression can be used for higher-dimensional data",
+      "keywords": ["multiple", "several", "independent variables", "predictors", "hyperplane"]
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Multiple Regression for Higher-Dimensional Data",
+      "question_text": "In multiple regression, each coefficient βᵢ represents the change in the dependent variable Y when predictor Xᵢ increases by one unit, ___________ all other predictors constant.",
+      "options": null,
+      "correct_answer": "holding or keeping",
+      "explanation": "In multiple regression, each coefficient βᵢ represents the partial effect of Xᵢ on Y, holding all other predictors constant. This is different from simple regression where we only consider one variable. For example, β₁ for square footage means 'the change in price per square foot, assuming number of bedrooms and location stay the same.' This allows isolating the effect of each predictor.",
+      "learning_objective": "Explain how multiple regression can be used for higher-dimensional data",
+      "keywords": ["holding", "keeping", "constant", "partial effect", "other predictors"]
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Multiple Regression for Higher-Dimensional Data",
+      "question_text": "A real estate model predicts house price using: square footage, number of bedrooms, age, and zip code. The coefficient for 'number of bedrooms' is 15,000. What does this mean?",
+      "options": [
+        "A) Each additional bedroom increases price by $15,000, regardless of other factors",
+        "B) Each additional bedroom increases price by $15,000, holding square footage, age, and zip code constant",
+        "C) Houses with more bedrooms cost $15,000 more on average",
+        "D) The model cannot determine the effect of bedrooms when other variables are included"
+      ],
+      "correct_answer": "B",
+      "explanation": "In multiple regression, coefficients represent partial effects—the change in Y when that predictor changes by one unit, holding all other predictors constant. So β_bedrooms = 15,000 means 'each additional bedroom increases price by $15,000, assuming square footage, age, and zip code remain the same.' This isolates the bedroom effect from other factors. Option A ignores the 'holding other factors constant' requirement.",
+      "learning_objective": "Explain how multiple regression can be used for higher-dimensional data",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Multiple Regression for Higher-Dimensional Data",
+      "question_text": "A sales prediction model uses 20 predictors including product features, marketing spend, seasonality, and competitor prices. The model has R² = 0.95 on training data but R² = 0.60 on test data. Explain what this indicates and how increasing the number of predictors affects model interpretability.",
+      "options": null,
+      "correct_answer": "The large gap between training R² (0.95) and test R² (0.60) indicates overfitting: the model memorized training patterns that don't generalize. With 20 predictors, the model becomes less interpretable because: (1) It's hard to understand which predictors truly matter, (2) Coefficients may be counterintuitive due to multicollinearity, (3) Business stakeholders struggle to understand 20-factor relationships, (4) Feature interactions become complex. Solutions: Use regularization (Ridge/Lasso), feature selection, or dimensionality reduction to improve generalization and interpretability.",
+      "explanation": "This requires identifying overfitting (training vs test R² gap) and explaining how many predictors reduce interpretability. Must be concrete: mention multicollinearity, stakeholder understanding, feature interactions, and specific solutions (regularization, feature selection).",
+      "learning_objective": "Explain how multiple regression can be used for higher-dimensional data",
+      "keywords": ["overfitting", "training", "test", "R²", "interpretability", "multicollinearity", "regularization", "Ridge", "Lasso", "feature selection"]
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Polynomial Regression and Issues",
+      "question_text": "Polynomial regression adapts the linear model by adding ___________ terms (like X², X³) to capture non-linear relationships, transforming the equation to Y = β₀ + β₁X + β₂X² + ...",
+      "options": null,
+      "correct_answer": "higher-order or polynomial",
+      "explanation": "Polynomial regression extends linear regression by adding polynomial terms (X², X³, etc.) to model curved relationships. For example, Y = β₀ + β₁X + β₂X² creates a parabola. This allows modeling non-linear patterns, but comes with risks: overfitting with high-degree polynomials, increased complexity, and reduced interpretability.",
+      "learning_objective": "Explain how the linear model can be adapted for polynomial models and the issues with this approach",
+      "keywords": ["higher-order", "polynomial", "X²", "X³", "non-linear", "curved"]
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Polynomial Regression and Issues",
+      "question_text": "A major risk of polynomial regression is ___________ , where high-degree polynomials (e.g., degree 10) fit training data perfectly but fail to generalize to new data, creating wiggly curves that capture noise.",
+      "options": null,
+      "correct_answer": "overfitting",
+      "explanation": "High-degree polynomial regression can overfit by creating complex curves that pass through every training point, including noise. A degree-10 polynomial can have 11 parameters and create 9 turning points, fitting training data perfectly but producing erratic predictions on new data. This is why we typically use low-degree polynomials (degree 2-3) or regularization techniques.",
+      "learning_objective": "Explain how the linear model can be adapted for polynomial models and the issues with this approach",
+      "keywords": ["overfitting", "high-degree", "generalize", "noise", "wiggly"]
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Polynomial Regression and Issues",
+      "question_text": "A data scientist fits polynomial regression models of different degrees to predict sales from advertising spend. Degree 2 (quadratic) has R² = 0.75, degree 5 has R² = 0.98, and degree 10 has R² = 0.99 on training data. Which model should they choose?",
+      "options": [
+        "A) Degree 10, because it has the highest R² and best fit to training data",
+        "B) Degree 2, because higher R² on training doesn't guarantee better test performance, and degree 10 likely overfits",
+        "C) Degree 5, because it's a compromise between fit and complexity",
+        "D) All models are equally valid, choose based on computational cost"
+      ],
+      "correct_answer": "B",
+      "explanation": "Degree 2 is likely best because: (1) High training R² (0.98-0.99) for degree 5-10 suggests overfitting—these models likely have poor test performance, (2) Degree 2 (quadratic) captures non-linearity without excessive complexity, (3) We should evaluate on test/validation data, not just training R². The goal is generalization, not perfect training fit. Always validate polynomial degree using cross-validation or test sets.",
+      "learning_objective": "Explain how the linear model can be adapted for polynomial models and the issues with this approach",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Polynomial Regression and Issues",
+      "question_text": "A housing price model uses polynomial regression with degree 4, including terms for square footage, square footage², square footage³, and square footage⁴. The model fits well but stakeholders complain it's 'a black box.' Explain three specific issues with this approach and propose concrete alternatives.",
+      "options": null,
+      "correct_answer": "Issue 1: Interpretability—stakeholders can't understand what 'square footage³ coefficient = 0.0001' means in business terms. Issue 2: Overfitting risk—degree 4 creates complex curves that may not generalize. Issue 3: Multicollinearity—high correlation between X, X², X³, X⁴ makes coefficients unstable and hard to interpret. Alternatives: (1) Use degree 2 (quadratic) for simpler interpretation, (2) Use piecewise linear regression (splines) to model non-linearity with interpretable segments, (3) Transform variables (e.g., log(square footage)) to linearize relationship, (4) Use regularization to prevent overfitting while keeping polynomial terms.",
+      "explanation": "This requires identifying three concrete issues (interpretability, overfitting, multicollinearity) and proposing specific alternatives (degree 2, splines, transformations, regularization). Must be actionable, not abstract.",
+      "learning_objective": "Explain how the linear model can be adapted for polynomial models and the issues with this approach",
+      "keywords": ["interpretability", "overfitting", "multicollinearity", "degree 2", "quadratic", "splines", "transform", "log", "regularization"]
+    },
+    {
+      "number": 29,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Hyperparameters",
+      "question_text": "A ___________ is a parameter whose value is set before training begins and controls the learning process, such as learning rate in gradient descent or polynomial degree in polynomial regression.",
+      "options": null,
+      "correct_answer": "hyperparameter",
+      "explanation": "Hyperparameters are configuration settings that control the learning algorithm's behavior but are not learned from data. Examples include: learning rate (gradient descent), polynomial degree (polynomial regression), regularization strength (Ridge/Lasso), number of iterations. Unlike model parameters (coefficients β), hyperparameters must be chosen by the data scientist through experimentation or cross-validation.",
+      "learning_objective": "Understand hyperparameters in regression",
+      "keywords": ["hyperparameter", "learning rate", "polynomial degree", "before training"]
+    },
+    {
+      "number": 30,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Hyperparameters",
+      "question_text": "In gradient descent for linear regression, which of the following is a hyperparameter that must be set before training?",
+      "options": [
+        "A) The regression coefficients (β₀, β₁), because they are learned during training",
+        "B) The learning rate, because it controls step size and must be chosen before iterations begin",
+        "C) The mean squared error, because it measures model performance",
+        "D) The number of data points, because it determines dataset size"
+      ],
+      "correct_answer": "B",
+      "explanation": "The learning rate is a hyperparameter—it controls how large steps gradient descent takes and must be set before training begins. The coefficients (β) are model parameters learned during training. MSE is an evaluation metric, not a hyperparameter. The number of data points is a property of the dataset, not a hyperparameter. Other hyperparameters in gradient descent include: number of iterations, convergence threshold, and batch size (for stochastic gradient descent).",
+      "learning_objective": "Understand hyperparameters in regression",
+      "keywords": []
+    },
+    {
+      "number": 31,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Hyperparameters",
+      "question_text": "A data scientist is tuning hyperparameters for a polynomial regression model. They test polynomial degrees 1, 2, 3, 4, 5 and learning rates 0.001, 0.01, 0.1 for gradient descent. They find degree 5 with learning rate 0.1 gives the best training R². Explain why this approach is flawed and describe a proper hyperparameter tuning strategy.",
+      "options": null,
+      "correct_answer": "Flaw: Selecting based on training R² leads to overfitting—degree 5 with high learning rate likely memorizes training data but fails on new data. Proper strategy: (1) Split data into training/validation/test sets, (2) Use cross-validation on training set to evaluate each (degree, learning rate) combination, (3) Select hyperparameters with best validation performance (not training), (4) Evaluate final model on held-out test set. Alternatively use grid search or random search with cross-validation. Goal is generalization, not training fit. Degree 2-3 with moderate learning rate (0.01) is often more robust than high-degree polynomials.",
+      "explanation": "This requires identifying the flaw (overfitting from training R² selection) and describing a concrete hyperparameter tuning strategy: train/validation/test split, cross-validation, validation-based selection, test set evaluation. Must be specific about the process, not abstract.",
+      "learning_objective": "Understand hyperparameters in regression",
+      "keywords": ["overfitting", "training", "validation", "test", "cross-validation", "grid search", "generalization", "degree 2", "degree 3", "0.01"]
+    },
+    {
+      "number": 32,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Assumptions and Limitations of Linear Regression",
+      "question_text": "True or False: Linear regression techniques can still work reasonably well even when some assumptions (like perfect linearity or homoscedasticity) are slightly violated, as long as the violations are not severe.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "True. Linear regression is robust to minor violations of assumptions. For example, slight non-linearity can often be handled adequately, and mild heteroscedasticity may not severely impact predictions. However, severe violations (strong non-linearity, extreme heteroscedasticity, strong error correlation) will significantly degrade model performance. This is why we say 'the techniques still usually work quite well'—they're practical tools that don't require perfect conditions, though checking assumptions helps ensure reliability.",
+      "learning_objective": "Compare the assumptions and limitations of linear regression",
+      "keywords": []
+    }
+  ]
+}

@@ -1,0 +1,470 @@
+{
+  "quiz_metadata": {
+    "title": "DX699-O2 Week 2: Data Visualization and Storytelling Quiz",
+    "description": "Comprehensive quiz covering audience identification, descriptive statistics, data quality, Matplotlib visualizations, graph reproduction, visualization analysis, and Storytelling with Data principles",
+    "version": "1.0",
+    "total_questions": 35
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Audience, Message, and Story Identification",
+      "question_text": "When creating a data visualization, you must identify three key elements: the ___________ (who will see it), the ___________ (what insight to communicate), and the ___________ (how to present it visually).",
+      "options": null,
+      "correct_answer": "audience, message, story or data graphs",
+      "explanation": "Effective data visualization requires understanding: (1) Audience (who) - executives, analysts, general public, which determines technical level and detail, (2) Message (what) - the key insight or action you want to communicate, (3) Story/data graphs (how) - the visual approach, chart types, and narrative structure that best convey the message to that audience.",
+      "learning_objective": "Identify the audience (who), the message (what), and the story/data graphs (how) for a data visualization",
+      "keywords": ["audience", "message", "story", "data graphs", "who", "what", "how"]
+    },
+    {
+      "number": 2,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Audience, Message, and Story Identification",
+      "question_text": "You're creating a visualization about customer churn rates for a presentation to the CEO. The CEO has 10 minutes and needs to decide whether to invest in retention programs. What should be your primary focus?",
+      "options": [
+        "A) Include all technical details, statistical tests, and raw data tables so the CEO can verify your analysis",
+        "B) Focus on the key message (churn trend and business impact) with a clear visual that drives action, using executive-friendly language",
+        "C) Create multiple complex charts showing every possible angle of the data",
+        "D) Use the same visualization you would show to data scientists"
+      ],
+      "correct_answer": "B",
+      "explanation": "For a CEO audience with limited time, focus on: (1) Clear key message (churn trend and business impact), (2) Action-oriented visualization (what decision to make), (3) Executive-friendly language (avoid technical jargon), (4) Single focused chart rather than multiple complex ones. The audience (CEO) and context (decision-making) determine the message and visual approach.",
+      "learning_objective": "Identify the audience (who), the message (what), and the story/data graphs (how) for a data visualization",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Audience, Message, and Story Identification",
+      "question_text": "A data analyst needs to present quarterly sales performance to three different audiences: (1) Sales team (needs detailed breakdown by region and product), (2) CFO (needs financial impact and trends), (3) Marketing team (needs customer segment performance). For each audience, identify the specific message (what) and recommend a specific chart type (how). Be concrete.",
+      "options": null,
+      "correct_answer": "Audience 1 (Sales team): Message = 'Which regions and products are underperforming and need attention?' Chart = Grouped bar chart showing sales by region and product with color coding for performance thresholds. Audience 2 (CFO): Message = 'What is the revenue trend and profitability impact?' Chart = Line chart showing quarterly revenue trend with annotation for percentage change, plus a secondary metric for profit margin. Audience 3 (Marketing): Message = 'Which customer segments drive the most revenue and growth?' Chart = Stacked bar chart showing revenue by customer segment over time, or a slopegraph comparing segment performance across quarters.",
+      "explanation": "This requires identifying specific messages and concrete chart types for each audience. Must be actionable: specific chart types (grouped bar, line chart, stacked bar, slopegraph), specific metrics (revenue, profit margin, customer segments), and specific visual elements (color coding, annotations). Generic answers about 'appropriate charts' are insufficient.",
+      "learning_objective": "Identify the audience (who), the message (what), and the story/data graphs (how) for a data visualization",
+      "keywords": ["grouped bar chart", "line chart", "stacked bar", "slopegraph", "region", "product", "revenue", "trend", "customer segment", "color coding", "annotation"]
+    },
+    {
+      "number": 4,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Descriptive Statistics Application",
+      "question_text": "The three measures of central tendency are ___________ (average), ___________ (middle value), and ___________ (most frequent value).",
+      "options": null,
+      "correct_answer": "mean, median, mode",
+      "explanation": "Measures of central tendency describe the center of a dataset: (1) Mean - the arithmetic average (sum of values divided by count), (2) Median - the middle value when data is sorted (50th percentile), (3) Mode - the most frequently occurring value. Each has different uses: mean for symmetric data, median for skewed data with outliers, mode for categorical or discrete data.",
+      "learning_objective": "Apply descriptive statistics and data quality practices to student-determined data/dataset",
+      "keywords": ["mean", "median", "mode", "central tendency", "average", "middle", "frequent"]
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Descriptive Statistics Application",
+      "question_text": "Measures of spread include ___________ (average distance from mean), ___________ (square root of variance), and ___________ (difference between max and min).",
+      "options": null,
+      "correct_answer": "variance, standard deviation, range",
+      "explanation": "Measures of spread describe variability in data: (1) Variance - average squared distance from mean, (2) Standard deviation - square root of variance, in original units, (3) Range - difference between maximum and minimum values. These help understand how spread out the data is around the center.",
+      "learning_objective": "Apply descriptive statistics and data quality practices to student-determined data/dataset",
+      "keywords": ["variance", "standard deviation", "range", "spread", "variability"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Descriptive Statistics Application",
+      "question_text": "A dataset has customer purchase amounts: [$25, $30, $35, $40, $200]. Calculate the mean, median, and explain which measure better represents 'typical' customer spending and why.",
+      "options": null,
+      "correct_answer": "Mean = (25+30+35+40+200)/5 = 330/5 = $66. Median = $35 (middle value when sorted). Median ($35) better represents typical spending because the data is right-skewed with an outlier ($200). The mean ($66) is pulled upward by the outlier and doesn't represent most customers. For skewed data with outliers, median is more robust.",
+      "explanation": "This requires calculating both mean and median, then explaining why median is better for skewed data. Must identify the skewness and outlier, and explain how they affect the mean. Concrete reasoning about which measure represents 'typical' customers.",
+      "learning_objective": "Apply descriptive statistics to real-world data/datasets",
+      "keywords": ["mean", "66", "median", "35", "skewed", "outlier", "robust"]
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Descriptive Statistics Application",
+      "question_text": "You're analyzing a sales dataset with monthly revenue. The mean is $50,000, median is $45,000, and standard deviation is $15,000. The distribution is slightly right-skewed. For a business presentation, which statistics should you emphasize?",
+      "options": [
+        "A) Only the mean ($50,000) because it represents average performance",
+        "B) Both mean ($50,000) and median ($45,000), explaining that median better represents typical months while mean is influenced by high-revenue months",
+        "C) Only the standard deviation ($15,000) because it shows variability",
+        "D) None of these, use only the maximum value"
+      ],
+      "correct_answer": "B",
+      "explanation": "For right-skewed data, present both mean and median with context: median ($45,000) represents typical monthly performance, while mean ($50,000) is higher due to some high-revenue months pulling it up. This gives a complete picture. Standard deviation ($15,000) is also useful to show variability. A complete answer includes multiple measures with interpretation.",
+      "learning_objective": "Apply descriptive statistics to real-world data/datasets",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Quality Issues",
+      "question_text": "___________ values are missing data points that can appear as NULL, NaN, empty cells, or placeholder values like 'N/A' or -999.",
+      "options": null,
+      "correct_answer": "Missing",
+      "explanation": "Missing values are data points that are not recorded or available. They can appear in various forms: NULL, NaN (Not a Number), empty cells, or placeholder values like 'N/A', -999, or 'Unknown'. Missing data must be identified and handled (removed, imputed, or flagged) before analysis, as they can bias results or cause errors in calculations.",
+      "learning_objective": "Identify data quality issues of a given dataset",
+      "keywords": ["missing", "NULL", "NaN", "empty", "N/A"]
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Quality Issues",
+      "question_text": "___________ data refers to values that violate logical constraints, such as a person's age being 200 years or a date being in the future when it should be historical.",
+      "options": null,
+      "correct_answer": "Inconsistent",
+      "explanation": "Inconsistent data contains values that don't make logical sense or violate expected relationships. Examples include: impossible ages (200 years), future dates for historical events, negative values for counts, or contradictory fields (age 25 with birth year 1950). Inconsistent data must be identified and corrected or removed before analysis.",
+      "learning_objective": "Identify data quality issues of a given dataset",
+      "keywords": ["inconsistent", "logical", "constraints", "impossible"]
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Quality Issues",
+      "question_text": "You're analyzing a customer dataset with 10,000 records. You find: (1) 500 records have missing email addresses, (2) 50 records have customer ages over 150, (3) 100 records are exact duplicates, (4) 200 records have phone numbers in 3 different formats. Which issue should be addressed first?",
+      "options": [
+        "A) Missing email addresses, because email is essential for marketing",
+        "B) Ages over 150, because these are clearly inconsistent values that will skew age-based analysis",
+        "C) Duplicate records, because they inflate customer counts",
+        "D) Phone number format inconsistencies, because this affects the most records"
+      ],
+      "correct_answer": "B",
+      "explanation": "Ages over 150 are inconsistent data that violate logical constraints and will directly skew any age-based analysis (e.g., average age, age distributions). This should be prioritized because it affects data accuracy. Missing emails may not impact all analyses, duplicates require investigation (may be legitimate), and phone format inconsistencies are formatting issues that may not affect analysis depending on use case.",
+      "learning_objective": "Identify data quality issues of a given dataset",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Quality Issues",
+      "question_text": "A sales dataset has 5,000 transactions. You discover: (1) 200 transactions have missing sale dates, (2) 30 transactions have sale amounts of $0 or negative values, (3) 50 transactions are exact duplicates, (4) 100 transactions have customer IDs that don't exist in the customer master table. Create a prioritized action plan with specific steps for each issue. Be concrete about what you would do.",
+      "options": null,
+      "correct_answer": "Priority 1: Fix 30 transactions with $0 or negative amounts - these are inconsistent and will skew revenue calculations. Steps: Flag these records, investigate if they are refunds (should be separate), returns (should be negative in different field), or errors. If errors, remove or correct. Priority 2: Investigate 100 invalid customer IDs - these break referential integrity. Steps: Check if customer IDs are typos (e.g., 'CUST001' vs 'CUSTO01'), if customers were deleted, or if these are test transactions. Create lookup to correct typos, flag deleted customers, remove test data. Priority 3: Handle 50 duplicates - determine if legitimate (same customer, multiple purchases) or errors. Steps: Check if all fields identical, if legitimate keep, if error remove duplicates keeping first occurrence, document decision. Priority 4: Address 200 missing sale dates - determine if random or systematic. Steps: Check if missing dates correlate with specific sales reps or regions, if random impute with median date or flag as 'UNKNOWN', if systematic investigate data pipeline issue.",
+      "explanation": "This requires a concrete, prioritized action plan with specific steps for each data quality issue. Each priority must include: (1) what to check, (2) specific validation or cleaning steps, (3) how to handle the issue. Generic answers about 'investigating' or 'cleaning' are insufficient. Must be actionable.",
+      "learning_objective": "Identify data quality issues of a given dataset",
+      "keywords": ["priority", "negative", "zero", "customer ID", "referential integrity", "duplicate", "missing date", "impute", "flag", "investigate"]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Effective vs Ineffective Graphs",
+      "question_text": "An effective graph has a clear, descriptive ___________ , properly labeled ___________ with units, and focuses on the key message rather than decorative elements like 3D effects.",
+      "options": null,
+      "correct_answer": "title, axes",
+      "explanation": "Effective graphs prioritize clarity and communication: (1) Clear, descriptive title that explains what the chart shows and the context, (2) Properly labeled axes with units (e.g., 'Revenue ($)' not just 'Revenue'), (3) Focus on the key message with minimal decorative elements. Avoid 3D effects, excessive colors, or visual clutter that distract from the data.",
+      "learning_objective": "Describe effective (good) and ineffective (bad) graphs",
+      "keywords": ["title", "axes", "axis", "units", "clear", "descriptive"]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Effective vs Ineffective Graphs",
+      "question_text": "A dashboard shows quarterly sales using a 3D pie chart with 8 segments, similar pastel colors, no data labels, and title 'Sales Data.' What is the primary weakness?",
+      "options": [
+        "A) The 3D effect distorts proportions, making it impossible to accurately compare segment sizes",
+        "B) Pie charts are never appropriate for any data",
+        "C) The colors are not bright enough",
+        "D) The dashboard needs more charts"
+      ],
+      "correct_answer": "A",
+      "explanation": "3D pie charts distort the visual proportions of segments, making accurate comparison impossible. Combined with similar colors and no data labels, viewers cannot determine which quarter performed best. While pie charts have limitations (hard to compare many segments), the 3D distortion is the primary visual problem. A bar chart or line chart would be more effective for comparing quarterly sales.",
+      "learning_objective": "Describe effective (good) and ineffective (bad) graphs",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Effective vs Ineffective Graphs",
+      "question_text": "A company dashboard shows monthly website traffic using a line chart with: light gray line on white background, no gridlines, unlabeled data points, y-axis from 0 to 1,000,000, and vague title 'Traffic.' Identify five specific weaknesses and propose concrete improvements. Name specific visual elements to change.",
+      "options": null,
+      "correct_answer": "Weakness 1: Vague title 'Traffic' - Improvement: Change to 'Monthly Website Traffic: January 2023 - December 2024' with specific time period. Weakness 2: Light gray line hard to see - Improvement: Use dark blue or black line with 2px thickness for visibility. Weakness 3: No gridlines - Improvement: Add light gray dashed horizontal gridlines to aid value reading. Weakness 4: Unlabeled data points - Improvement: Add labels for peak months (highest traffic) and valley months (lowest traffic) with actual values. Weakness 5: Large y-axis range may compress trends - Improvement: If traffic ranges 800K-950K, adjust y-axis to 750K-1M with clear tick marks, or use log scale if appropriate for wide range.",
+      "explanation": "This requires specific, concrete improvements with exact changes: specific title text with dates, exact color (dark blue), specific line thickness (2px), specific gridline style (light gray dashed), specific labels (peak/valley months with values), specific y-axis range (750K-1M). Generic answers about 'improving clarity' are insufficient.",
+      "learning_objective": "Describe effective (good) and ineffective (bad) graphs",
+      "keywords": ["title", "dark blue", "2px", "gridline", "dashed", "label", "peak", "valley", "y-axis", "750K", "1M"]
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Creating Visualizations with Matplotlib",
+      "question_text": "Matplotlib is a Python library used to create and customize various types of ___________ and ___________ for data visualization.",
+      "options": null,
+      "correct_answer": "charts, graphs",
+      "explanation": "Matplotlib is a Python library specifically designed for creating static, animated, and interactive visualizations including charts and graphs. It provides functions like plt.plot(), plt.bar(), plt.scatter() for different chart types, and extensive customization options for colors, labels, titles, and formatting.",
+      "learning_objective": "Create data visualizations using Matplotlib",
+      "keywords": ["charts", "graphs", "visualizations", "Matplotlib", "Python"]
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Creating Visualizations with Matplotlib",
+      "question_text": "When creating a line chart in Matplotlib to show sales trends, you should use ___________ to set the title, ___________ and ___________ to label the axes, and ___________ to display the chart.",
+      "options": null,
+      "correct_answer": "plt.title(), plt.xlabel(), plt.ylabel(), plt.show()",
+      "explanation": "Essential Matplotlib functions for a complete line chart: (1) plt.title() - sets the chart title, (2) plt.xlabel() - labels the x-axis, (3) plt.ylabel() - labels the y-axis, (4) plt.show() - displays the chart. Additional functions include plt.plot() to create the line, plt.grid() for gridlines, and plt.legend() for multiple series.",
+      "learning_objective": "Create data visualizations using Matplotlib",
+      "keywords": ["plt.title", "plt.xlabel", "plt.ylabel", "plt.show", "Matplotlib"]
+    },
+    {
+      "number": 17,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Creating Visualizations with Matplotlib",
+      "question_text": "You need to create a Matplotlib visualization comparing quarterly revenue across three product lines (A, B, C) over two years (2023-2024). Describe the specific chart type you would create, three key Matplotlib code components (function calls), and three concrete visual design choices. Be specific: name the chart type, actual Matplotlib functions, and exact design elements.",
+      "options": null,
+      "correct_answer": "Chart type: Grouped bar chart using plt.bar() with x-position offsets for each product line. Code components: (1) plt.bar() to create bars for each product line with x-position offsets, (2) plt.xlabel('Quarter') and plt.ylabel('Revenue ($)') to label axes, (3) plt.title('Quarterly Revenue by Product Line: 2023-2024') to set descriptive title. Design choices: (1) Use distinct colors - blue for Product A, green for Product B, orange for Product C, (2) Add plt.legend(['Product A', 'Product B', 'Product C']) to identify product lines, (3) Add plt.grid(axis='y', alpha=0.3, linestyle='--') for subtle horizontal dashed gridlines to aid value reading.",
+      "explanation": "This requires concrete, executable answers: specific chart type (grouped bar chart), actual Matplotlib functions (plt.bar, plt.xlabel, plt.ylabel, plt.title, plt.legend, plt.grid), and exact design specifications (blue/green/orange colors, horizontal dashed gridlines with alpha=0.3). Generic answers about 'using matplotlib' or 'good design' are insufficient.",
+      "learning_objective": "Create data visualizations using Matplotlib",
+      "keywords": ["grouped bar chart", "plt.bar", "plt.xlabel", "plt.ylabel", "plt.title", "plt.legend", "plt.grid", "blue", "green", "orange", "alpha", "dashed"]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Reproducing Graphs/Visualizations",
+      "question_text": "When reproducing a graph, the first step is to identify the chart ___________ , data ___________ , and key visual ___________ before writing any code.",
+      "options": null,
+      "correct_answer": "type, structure, elements",
+      "explanation": "Before coding, analyze what you're recreating: (1) Chart type - bar, line, scatter, pie, etc., (2) Data structure - what variables, what groupings, what time periods, (3) Visual elements - colors, labels, annotations, gridlines, legends. This analysis guides the reproduction process and ensures accuracy.",
+      "learning_objective": "Reproduce a graph/data visualization from an example graph/data visualization",
+      "keywords": ["type", "structure", "elements", "visual", "chart"]
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Reproducing Graphs/Visualizations",
+      "question_text": "You're asked to reproduce a complex dashboard with 6 charts showing customer metrics. What systematic approach ensures accuracy?",
+      "options": [
+        "A) Recreate all charts simultaneously to maintain consistency",
+        "B) Break down into individual components, identify each chart type and data requirements, recreate one chart at a time starting with simplest, compare each recreated chart side-by-side with original",
+        "C) Use the same software the original was created in",
+        "D) Copy the exact colors and fonts first, then add data"
+      ],
+      "correct_answer": "B",
+      "explanation": "A systematic approach requires: (1) Breaking down the dashboard into individual components, (2) Identifying each chart type, data requirements, and visual elements, (3) Recreating charts one at a time starting with the simplest, (4) Comparing each recreated chart side-by-side with the original for accuracy. This ensures completeness and allows for iterative refinement. Working on all charts simultaneously increases errors.",
+      "learning_objective": "Reproduce a graph/data visualization from an example graph/data visualization",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Reproducing Graphs/Visualizations",
+      "question_text": "A colleague shows you a publication-quality graph from a research paper with specific color palette (hex codes #2E86AB, #A23B72, #F18F01), custom font (Georgia), and annotations. You need to recreate it in Matplotlib for a presentation. Describe three specific challenges you would face and three concrete solutions using actual Matplotlib functions or techniques.",
+      "options": null,
+      "correct_answer": "Challenge 1: Matching exact colors - Solution: Use hex codes directly in plt.plot(color='#2E86AB') or create color list ['#2E86AB', '#A23B72', '#F18F01'] and pass to color parameter. Challenge 2: Matching custom font - Solution: Use plt.rcParams['font.family'] = 'Georgia' to set default font, or plt.text(fontfamily='Georgia') for specific text elements. Challenge 3: Precise annotation placement - Solution: Use plt.annotate() with xy coordinates for data point and xytext for annotation position, set arrowprops=dict(arrowstyle='->', color='black') for arrow, adjust fontsize and bbox=dict(boxstyle='round', facecolor='white') for styling.",
+      "explanation": "This requires concrete solutions with actual Matplotlib code: specific hex codes, actual function calls (plt.plot, plt.rcParams, plt.annotate), and exact parameters (arrowstyle, fontsize, bbox, boxstyle). Generic answers about 'matching colors' or 'using annotations' are insufficient.",
+      "learning_objective": "Reproduce a graph/data visualization from an example graph/data visualization",
+      "keywords": ["hex", "#2E86AB", "plt.plot", "plt.rcParams", "font", "Georgia", "plt.annotate", "xy", "xytext", "arrowstyle", "fontsize", "bbox"]
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Analyzing Data Visualizations",
+      "question_text": "When analyzing a data visualization, you should evaluate data ___________ , visual ___________ , clarity of ___________ , and appropriateness of chart ___________ .",
+      "options": null,
+      "correct_answer": "accuracy, design, message, type",
+      "explanation": "Comprehensive analysis of visualizations requires evaluating multiple dimensions: (1) Data accuracy - is the data correctly represented, are calculations correct, (2) Visual design - do colors, labels, formatting support understanding, (3) Clarity of message - is the key insight clear, (4) Appropriateness of chart type - does the chart type match the data and purpose. Aesthetic preference alone is insufficient.",
+      "learning_objective": "Analyze existing data visualizations to identify strengths and weaknesses",
+      "keywords": ["accuracy", "design", "message", "type", "chart"]
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Analyzing Data Visualizations",
+      "question_text": "A visualization shows accurate data but uses cluttered design with 15 colors, 3D effects, and unclear labels. Is this visualization effective?",
+      "options": [
+        "A) Yes, because data accuracy is the only requirement for effectiveness",
+        "B) No, because effective visualizations require both accurate data and appropriate design choices that support understanding",
+        "C) Yes, because 3D effects make charts more engaging",
+        "D) No, because all visualizations should use only 2 colors"
+      ],
+      "correct_answer": "B",
+      "explanation": "While data accuracy is essential, effective visualizations also require appropriate design choices. Poor design (cluttered charts, confusing colors, unclear labels, inappropriate chart types) can make even accurate data difficult to understand or can mislead viewers. Accuracy and effective design work together to create meaningful visualizations. The number of colors should be appropriate to the data, not arbitrarily limited to 2.",
+      "learning_objective": "Analyze existing data visualizations to identify strengths and weaknesses",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Analyzing Data Visualizations",
+      "question_text": "A sales dashboard shows monthly revenue using a 3D pie chart with 12 segments (one per month), rainbow colors, no data labels, and title 'Sales.' Analyze this visualization by identifying four specific weaknesses and explaining why each is problematic. Then recommend a better chart type with concrete improvements.",
+      "options": null,
+      "correct_answer": "Weakness 1: 3D pie chart distorts proportions - makes it impossible to accurately compare monthly revenue, as 3D perspective skews segment sizes. Weakness 2: 12 segments are too many for a pie chart - human perception struggles to compare more than 5-6 segments accurately. Weakness 3: Rainbow colors with no pattern - no logical color scheme (e.g., sequential for time), making it hard to identify trends. Weakness 4: No data labels - viewers cannot determine exact revenue values for any month. Better chart: Use a line chart with plt.plot() showing revenue trend over 12 months, add plt.xlabel('Month'), plt.ylabel('Revenue ($)'), use sequential color (blue gradient or single color), add data labels for peak and valley months, title 'Monthly Revenue Trend: 2024'.",
+      "explanation": "This requires identifying four specific weaknesses with explanations, then recommending a concrete alternative: specific chart type (line chart), specific Matplotlib functions, specific design elements (sequential color, data labels for peaks/valleys), specific title. Generic answers about 'better charts' are insufficient.",
+      "learning_objective": "Analyze existing data visualizations to identify strengths and weaknesses",
+      "keywords": ["3D", "pie chart", "12 segments", "rainbow", "no labels", "line chart", "plt.plot", "sequential", "blue", "data labels", "peak", "valley"]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "Decluttering in Storytelling with Data means removing non-essential visual elements like heavy ___________ , 3D effects, excessive ___________ , and redundant ___________ to reduce cognitive load.",
+      "options": null,
+      "correct_answer": "gridlines, borders, labels",
+      "explanation": "Decluttering removes non-essential visual elements that don't contribute to understanding, reducing cognitive load so viewers can focus on the data and message. Examples include: removing heavy gridlines (use subtle ones or remove), eliminating 3D effects or shadows, removing excessive borders and background fills, and eliminating redundant labels. The result is a cleaner chart where the data stands out clearly.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": ["gridlines", "borders", "labels", "3D", "remove", "declutter"]
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "In Storytelling with Data, ___________ means using visual emphasis (color, size, position) to draw attention to the most important data point or insight, while ___________ other elements.",
+      "options": null,
+      "correct_answer": "highlighting or emphasizing, de-emphasizing or muting",
+      "explanation": "Visual hierarchy in SWD uses emphasis techniques: (1) Highlighting/emphasizing the key insight using bold colors, larger size, or strategic positioning, (2) De-emphasizing/muting other elements using gray colors, smaller size, or background positioning. This guides the viewer's eye to what matters most. For example, highlight the problem metric in red and mute comparison metrics in gray.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": ["highlighting", "emphasizing", "de-emphasizing", "muting", "visual hierarchy", "color", "size"]
+    },
+    {
+      "number": 26,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "You're creating a quarterly business review slide showing that Customer Acquisition Cost (CAC) increased 40% while Customer Lifetime Value (LTV) remained flat, creating a profitability concern. Using Storytelling with Data principles, describe five concrete visual design steps you would take. Be specific: name chart type, colors, annotations, layout changes, and business actions.",
+      "options": null,
+      "correct_answer": "Step 1: Use a slopegraph comparing CAC and LTV from Q1 2023 to Q4 2024, not a bar chart, to show the trend change clearly. Step 2: Color CAC line red and LTV line gray to highlight the problem (CAC rising) and de-emphasize LTV (flat). Step 3: Add annotation arrow pointing to CAC increase with text '+40% since Q1 2023' and add reference line at Q1 2023 baseline. Step 4: Add subtitle 'Rising acquisition costs erode profitability margin' below main title to provide context. Step 5: Remove gridlines and background shading, add callout box at bottom with specific action 'Reduce paid media spend by 25% or increase premium plan pricing by 15%' to drive decision.",
+      "explanation": "This requires five concrete, executable design steps: (1) specific chart type (slopegraph, not bar chart), (2) exact colors (red for CAC, gray for LTV), (3) specific annotations (+40% text, reference line), (4) exact subtitle text, (5) specific decluttering (remove gridlines) and business action (reduce media spend 25% or raise pricing 15%). Generic answers about 'focus' or 'context' are insufficient.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": ["slopegraph", "red", "gray", "annotation", "+40%", "reference line", "subtitle", "remove gridlines", "callout", "reduce media", "25%", "pricing", "15%"]
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Context-Driven Data Visualizations",
+      "question_text": "You're creating a visualization for a technical team meeting where data scientists need to validate your analysis methodology. What should be your primary focus?",
+      "options": [
+        "A) Use simple charts with minimal detail, as technical audiences prefer simplicity",
+        "B) Include detailed statistical information, methodology notes, confidence intervals, and multiple chart views to allow thorough validation",
+        "C) Use only pie charts because they're visually appealing",
+        "D) Focus only on the final conclusion without showing the data"
+      ],
+      "correct_answer": "B",
+      "explanation": "For a technical audience (data scientists) who need to validate methodology, include: detailed statistical information (means, standard deviations, sample sizes), methodology notes (how data was processed), confidence intervals or error bars, multiple chart views (different angles of the same data), and raw data access if possible. This allows peer review and validation, which is different from executive presentations that focus on key insights and actions.",
+      "learning_objective": "Apply context-driven decisions to create data visualizations (using Matplotlib)",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Context-Driven Data Visualizations",
+      "question_text": "Context-driven visualization means choosing chart types, detail level, and visual design based on the ___________ (who will see it), ___________ (what decision or action is needed), and ___________ (presentation format, time constraints).",
+      "options": null,
+      "correct_answer": "audience, purpose, context",
+      "explanation": "Context-driven visualization adapts the visual approach to: (1) Audience - technical team needs detail, executives need high-level insights, (2) Purpose - exploratory analysis vs. decision-making vs. validation, (3) Context - presentation format (slide vs. report), time constraints (5 minutes vs. 30 minutes), medium (print vs. digital). The same data requires different visualizations for different contexts.",
+      "learning_objective": "Apply context-driven decisions to create data visualizations (using Matplotlib)",
+      "keywords": ["audience", "purpose", "context", "who", "what", "decision"]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Context-Driven Data Visualizations",
+      "question_text": "You have sales data showing regional performance across 12 months. You need to present this data in three contexts: (1) 5-minute executive briefing (decision: allocate budget), (2) 30-minute regional manager meeting (decision: identify underperforming regions), (3) Written report for data team (purpose: methodology validation). For each context, specify the chart type, key message, and three concrete design choices. Be specific.",
+      "options": null,
+      "correct_answer": "Context 1 (Executive briefing): Chart type = Single slopegraph or bar chart showing Q4 vs Q1 performance by region. Key message = 'Which regions need budget increase?' Design: (1) Highlight top 3 and bottom 3 regions in contrasting colors (green/red), (2) Add annotation showing percentage change, (3) Remove all gridlines and use large fonts for quick reading. Context 2 (Regional managers): Chart type = Grouped bar chart showing monthly performance by region. Key message = 'Which months and regions underperformed?' Design: (1) Use color intensity to show performance (darker = better), (2) Add data labels for each bar showing exact values, (3) Include reference line at target performance level. Context 3 (Data team report): Chart type = Multiple views: line chart for trends, heatmap for patterns, summary statistics table. Key message = 'Methodology and findings validated.' Design: (1) Include confidence intervals or error bars on line chart, (2) Add statistical summary (mean, std dev, sample size) below charts, (3) Use consistent color scheme across all charts with color legend explaining methodology.",
+      "explanation": "This requires context-specific answers: different chart types for each context (slopegraph/bar, grouped bar, line/heatmap/table), specific key messages, and three concrete design choices per context (colors, annotations, gridlines, data labels, reference lines, statistical details). Must show how the same data is visualized differently based on audience, purpose, and context.",
+      "learning_objective": "Apply context-driven decisions to create data visualizations (using Matplotlib)",
+      "keywords": ["slopegraph", "bar chart", "grouped bar", "line chart", "heatmap", "color", "annotation", "gridlines", "data labels", "reference line", "confidence interval", "statistical summary"]
+    },
+    {
+      "number": 30,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Descriptive Statistics Application",
+      "question_text": "A customer satisfaction dataset has scores from 1-10: [7, 8, 9, 6, 8, 7, 10, 8, 7, 9]. Calculate the mean, median, mode, and standard deviation. Show your work.",
+      "options": null,
+      "correct_answer": "Mean = (7+8+9+6+8+7+10+8+7+9)/10 = 79/10 = 7.9. Median = middle value when sorted [6,7,7,7,8,8,8,9,9,10] = (8+8)/2 = 8. Mode = 7 and 8 (both appear 3 times, bimodal). Standard deviation: Variance = Σ(xi - mean)²/n = [(7-7.9)²+(8-7.9)²+(9-7.9)²+(6-7.9)²+(8-7.9)²+(7-7.9)²+(10-7.9)²+(8-7.9)²+(7-7.9)²+(9-7.9)²]/10 = [0.81+0.01+1.21+3.61+0.01+0.81+4.41+0.01+0.81+1.21]/10 = 12.9/10 = 1.29. Standard deviation = √1.29 = 1.14",
+      "explanation": "This tests calculation of all four descriptive statistics: mean (sum divided by count), median (middle value, average of two middle values if even count), mode (most frequent, can be multiple), and standard deviation (square root of variance). Must show step-by-step work, especially for standard deviation calculation.",
+      "learning_objective": "Apply descriptive statistics to real-world data/datasets",
+      "keywords": ["mean", "7.9", "median", "8", "mode", "7", "8", "standard deviation", "1.14", "variance", "calculation"]
+    },
+    {
+      "number": 31,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data Quality Practices",
+      "question_text": "True or False: Data quality issues like missing values, duplicates, and inconsistent data should always be fixed by removing all problematic records before any analysis or visualization.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "False. While data quality issues must be addressed, the solution depends on the issue and context: (1) Missing values - may be imputed, flagged, or removed depending on whether missingness is random or systematic, (2) Duplicates - may be legitimate (same customer, multiple transactions) or errors, requiring investigation before removal, (3) Inconsistent data - may be corrected if the correct value can be determined, or removed if uncorrectable. Blindly removing all problematic records can introduce bias if the issues are systematic. Always investigate the cause and impact before deciding on treatment.",
+      "learning_objective": "Apply descriptive statistics and data quality practices to student-determined data/dataset",
+      "keywords": []
+    },
+    {
+      "number": 32,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "In Storytelling with Data, the principle of ___________ means starting with the context and background, then presenting the data, and finally ending with a clear call-to-action or recommendation.",
+      "options": null,
+      "correct_answer": "story structure or narrative flow",
+      "explanation": "Effective data storytelling follows a narrative structure: (1) Context/background - set the scene, explain why this matters, (2) Data presentation - show the evidence through visualizations, (3) Call-to-action/recommendation - what should the audience do based on the insights. This structure guides viewers through understanding (context) → evidence (data) → action (decision). Without this flow, data visualizations may be accurate but fail to drive decisions.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": ["story structure", "narrative flow", "context", "data", "call-to-action", "recommendation"]
+    },
+    {
+      "number": 33,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Creating Visualizations with Matplotlib",
+      "question_text": "You want to create a bar chart in Matplotlib showing sales by product category. Which sequence of function calls is correct?",
+      "options": [
+        "A) plt.bar(categories, sales), plt.title('Sales by Category'), plt.xlabel('Category'), plt.ylabel('Sales ($)'), plt.show()",
+        "B) plt.show(), plt.bar(categories, sales), plt.title('Sales by Category')",
+        "C) plt.title('Sales by Category'), plt.bar(categories, sales), plt.show()",
+        "D) plt.bar(categories, sales), plt.show(), then add labels later"
+      ],
+      "correct_answer": "A",
+      "explanation": "The correct sequence: (1) Create the chart with plt.bar(), (2) Add title with plt.title(), (3) Label axes with plt.xlabel() and plt.ylabel(), (4) Display with plt.show(). plt.show() should be called last to ensure all customizations are applied. Adding labels after plt.show() won't work because the chart is already displayed.",
+      "learning_objective": "Create data visualizations using Matplotlib",
+      "keywords": []
+    },
+    {
+      "number": 34,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Effective vs Ineffective Graphs",
+      "question_text": "A marketing dashboard shows customer acquisition by channel using a 3D pie chart with 8 segments, rainbow colors, no data labels, and title 'Acquisition.' A stakeholder says 'I can't tell which channel is best.' Identify four specific problems with this visualization and propose a concrete alternative with specific Matplotlib code elements you would use.",
+      "options": null,
+      "correct_answer": "Problem 1: 3D pie chart distorts segment proportions, making accurate comparison impossible. Problem 2: 8 segments are too many for a pie chart - human perception struggles with more than 5-6 segments. Problem 3: Rainbow colors with no logical order make it hard to identify patterns or rank channels. Problem 4: No data labels prevent viewers from knowing exact percentages or values for any channel. Alternative: Use horizontal bar chart with plt.barh(channels, values), sort bars descending by value, use sequential color scheme (blue gradient from light to dark based on value), add data labels with plt.text() showing exact percentages, title 'Customer Acquisition by Channel (Sorted by Performance)', add plt.xlabel('Number of Customers') and remove y-axis label or use 'Channel'.",
+      "explanation": "This requires identifying four specific problems, then proposing a concrete alternative: specific chart type (horizontal bar chart), specific Matplotlib functions (plt.barh, plt.text), specific design choices (sort descending, sequential blue colors, data labels with percentages), specific title and axis labels. Generic answers are insufficient.",
+      "learning_objective": "Describe effective (good) and ineffective (bad) graphs",
+      "keywords": ["3D", "pie chart", "8 segments", "rainbow", "horizontal bar chart", "plt.barh", "sort", "descending", "sequential", "blue", "plt.text", "data labels", "percentage"]
+    },
+    {
+      "number": 35,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Analyzing Data Visualizations",
+      "question_text": "When analyzing a visualization's effectiveness, you should check if the chart type matches the data ___________ (categorical, continuous, time series) and the analysis ___________ (comparison, trend, distribution, relationship).",
+      "options": null,
+      "correct_answer": "type, purpose",
+      "explanation": "Effective visualizations match: (1) Data type - categorical data works with bar charts, continuous data with histograms or line charts, time series with line charts, relationships with scatter plots, (2) Analysis purpose - comparison needs bar charts, trends need line charts, distributions need histograms, relationships need scatter plots. Mismatched chart types (e.g., pie chart for time series) create ineffective visualizations even if the data is accurate.",
+      "learning_objective": "Analyze existing data visualizations to identify strengths and weaknesses",
+      "keywords": ["data type", "categorical", "continuous", "time series", "purpose", "comparison", "trend", "distribution", "relationship"]
+    }
+  ]
+}
