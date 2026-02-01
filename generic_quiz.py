@@ -177,12 +177,12 @@ class Quiz:
             return user_letter == correct, question.explanation
         
         elif question.question_type == QuestionType.TRUE_FALSE:
-            # Normalize true/false answers
+            # Normalize true/false answers (user -> "True"/"False"; correct is already .upper() -> "TRUE"/"FALSE")
             user_answer_lower = user_answer.lower()
             if user_answer_lower in ['true', 't', '1', 'yes', 'y']:
-                user_normalized = "True"
+                user_normalized = "TRUE"
             elif user_answer_lower in ['false', 'f', '0', 'no', 'n']:
-                user_normalized = "False"
+                user_normalized = "FALSE"
             else:
                 return False, question.explanation
             
