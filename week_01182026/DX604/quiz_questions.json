@@ -1,0 +1,340 @@
+{
+  "quiz_metadata": {
+    "title": "DX604 Week 1: Data Science Lifecycle and Data Fundamentals Quiz",
+    "description": "Interactive quiz covering Data Science Lifecycle stages, data elements and value, data structure and curation, and schema design levels",
+    "version": "1.0",
+    "total_questions": 25
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Science Lifecycle",
+      "question_text": "The Data Science Lifecycle begins with ___________ business requirements to understand what data is needed and why.",
+      "options": null,
+      "correct_answer": "defining",
+      "explanation": "The first stage of the Data Science Lifecycle involves clearly defining business requirements. This ensures that data collection and analysis are aligned with business objectives and that the right data is acquired to address specific challenges or questions.",
+      "learning_objective": "Identify stages of the Data Science Lifecycle",
+      "keywords": ["defining", "requirements", "business"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Science Lifecycle",
+      "question_text": "After acquiring data, the next critical stage is ensuring ongoing ___________ between data collection and evolving business needs.",
+      "options": null,
+      "correct_answer": "alignment",
+      "explanation": "Maintaining alignment between data collection and evolving business needs is essential throughout the Data Science Lifecycle. As business requirements change, data acquisition and analysis strategies must adapt to remain relevant and valuable.",
+      "learning_objective": "Identify stages of the Data Science Lifecycle",
+      "keywords": ["alignment", "evolving", "business needs"]
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Science Lifecycle",
+      "question_text": "A retail company wants to reduce customer churn. They start by collecting customer purchase history, support tickets, and survey responses. However, after three months, they realize they're missing data on customer engagement with marketing emails. What stage of the Data Science Lifecycle did they fail to properly execute?",
+      "options": [
+        "A) Data acquisition, because they didn't collect all necessary data sources initially",
+        "B) Business requirement definition, because they didn't fully identify all data needs upfront",
+        "C) Data analysis, because they should have analyzed existing data first",
+        "D) Data storage, because the missing data wasn't stored properly"
+      ],
+      "correct_answer": "B",
+      "explanation": "This represents a failure in the business requirement definition stage. When defining requirements, all data sources needed to address the business challenge should be identified. Missing marketing email engagement data indicates incomplete requirement definition, which then impacts data acquisition.",
+      "learning_objective": "Identify stages of the Data Science Lifecycle",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Science Lifecycle",
+      "question_text": "A healthcare organization wants to predict patient readmission rates. They've defined their business requirement as 'reduce 30-day readmissions by 20%'. Describe the specific stages of the Data Science Lifecycle they should follow, including what data they need to acquire and how they'll maintain alignment with evolving needs. Be concrete about data sources and alignment mechanisms.",
+      "options": null,
+      "correct_answer": "Stage 1: Define requirements - identify that readmission prediction requires patient demographics, diagnosis codes, treatment history, discharge instructions compliance, and follow-up appointment attendance. Stage 2: Acquire data from EHR systems, discharge records, appointment scheduling systems, and patient surveys. Stage 3: Structure data into unified patient records with consistent formats. Stage 4: Establish quarterly review process to check if new factors (e.g., new treatments, policy changes) require additional data sources. Stage 5: Create feedback loop where model performance metrics inform whether data collection needs adjustment.",
+      "explanation": "This requires concrete stages with specific data sources (EHR, discharge records, scheduling systems) and concrete alignment mechanisms (quarterly reviews, feedback loops). Generic answers about 'collecting data' or 'analyzing' are insufficient.",
+      "learning_objective": "Identify stages of the Data Science Lifecycle",
+      "keywords": ["EHR", "demographics", "diagnosis", "discharge", "appointment", "quarterly review", "feedback loop", "model performance"]
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Elements, Uses, and Value",
+      "question_text": "The DIKW model represents the hierarchy: Data → Information → Knowledge → ___________.",
+      "options": null,
+      "correct_answer": "Wisdom",
+      "explanation": "The DIKW (Data-Information-Knowledge-Wisdom) model illustrates how raw data, when processed and contextualized, becomes information, which when understood becomes knowledge, and when applied becomes wisdom. This hierarchy shows how data gains value through transformation.",
+      "learning_objective": "Discuss simple data elements, uses, and value",
+      "keywords": ["Wisdom", "DIKW"]
+    },
+    {
+      "number": 6,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Elements, Uses, and Value",
+      "question_text": "Data can only be considered valuable if it can be used to satisfy what is required for ___________.",
+      "options": null,
+      "correct_answer": "analysis",
+      "explanation": "The value of data is determined by its usefulness for analysis. Raw data that cannot be structured, processed, or analyzed to answer business questions has limited value. Value increases when data is properly structured and can support decision-making processes.",
+      "learning_objective": "Discuss simple data elements, uses, and value",
+      "keywords": ["analysis", "decision-making"]
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Elements, Uses, and Value",
+      "question_text": "A company has raw transaction logs showing timestamps, product IDs, and customer IDs. This raw data has low value. To increase its value according to the DIKW model, what should they do first?",
+      "options": [
+        "A) Store the data in a database immediately",
+        "B) Structure the data by organizing transactions into customer purchase histories and product sales summaries",
+        "C) Delete old transactions to reduce storage costs",
+        "D) Encrypt the data for security"
+      ],
+      "correct_answer": "B",
+      "explanation": "According to the DIKW model, raw data gains value when it's structured and organized into meaningful patterns. Organizing transactions into customer purchase histories and product sales summaries transforms raw data into information that can be analyzed and used for decision-making. Simply storing or securing unstructured data doesn't increase its analytical value.",
+      "learning_objective": "Discuss simple data elements, uses, and value",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Data Elements, Uses, and Value",
+      "question_text": "When raw data is structured and organized to show patterns (e.g., 'Customer X purchased Product Y three times in the last month'), it becomes ___________ that can be used to make decisions.",
+      "options": null,
+      "correct_answer": "information",
+      "explanation": "In the DIKW hierarchy, raw data becomes information when it's structured and organized to reveal patterns or relationships. Information provides context and meaning that can support decision-making, unlike raw data which is just individual facts or observations.",
+      "learning_objective": "Discuss simple data elements, uses, and value",
+      "keywords": ["information", "structured", "patterns"]
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Elements, Uses, and Value",
+      "question_text": "A fraud detection system receives raw transaction data: timestamps, amounts, merchant IDs, and card numbers. The data currently has low value because it's unstructured. Describe three specific ways to structure this data to increase its value for fraud detection, and explain how each transformation moves the data up the DIKW hierarchy. Be concrete about data structures and fraud detection use cases.",
+      "options": null,
+      "correct_answer": "Transformation 1: Group transactions by card number and calculate spending patterns (average transaction size, frequency, typical merchant categories) - transforms raw data to information showing normal behavior patterns. Transformation 2: Create time-series features (transactions per hour, velocity of spending, geographic distance between transactions) - transforms information to knowledge by identifying suspicious patterns that indicate fraud. Transformation 3: Build customer risk profiles combining spending patterns, velocity, and merchant types to assign fraud probability scores - transforms knowledge to wisdom by enabling actionable fraud prevention decisions.",
+      "explanation": "This requires three concrete transformations with specific data structures (spending patterns, time-series features, risk profiles) and clear explanation of how each moves up DIKW (data→information→knowledge→wisdom). Generic answers about 'organizing data' are insufficient.",
+      "learning_objective": "Discuss simple data elements, uses, and value",
+      "keywords": ["spending patterns", "time-series", "velocity", "geographic", "risk profiles", "fraud probability", "DIKW", "information", "knowledge", "wisdom"]
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Structure and Curation",
+      "question_text": "Determining the ___________ of data involves deciding how data will be organized, formatted, and stored to make it usable for analysis.",
+      "options": null,
+      "correct_answer": "structure",
+      "explanation": "Data structure refers to how data is organized, formatted, and stored. The structure must align with how the data will be used for analysis. Different structures (tables, hierarchies, graphs) serve different analytical purposes and determine the data's usability.",
+      "learning_objective": "Determine the framing structure of data and various ways it can be curated for adding value",
+      "keywords": ["structure", "organized", "formatted"]
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Structure and Curation",
+      "question_text": "Data curation involves processes that ___________ the value of data by organizing, cleaning, and preparing it for analysis.",
+      "options": null,
+      "correct_answer": "increase",
+      "explanation": "Data curation encompasses all activities that increase data value: organizing data into logical structures, cleaning inconsistencies, standardizing formats, and preparing data for analysis. Well-curated data is more valuable than raw, unprocessed data.",
+      "learning_objective": "Determine the framing structure of data and various ways it can be curated for adding value",
+      "keywords": ["increase", "organizing", "cleaning", "preparing"]
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Structure and Curation",
+      "question_text": "A company has customer data in three formats: CSV files with purchase history, JSON files with website behavior, and a relational database with contact information. To add value through curation, what should they do?",
+      "options": [
+        "A) Keep all formats separate to maintain data integrity",
+        "B) Transform all data into a unified structure (e.g., a single database or data warehouse) with consistent schemas, enabling cross-analysis of purchases, behavior, and contact data",
+        "C) Convert everything to CSV format for simplicity",
+        "D) Store each format in its own cloud bucket"
+      ],
+      "correct_answer": "B",
+      "explanation": "Data curation adds value by creating unified structures that enable analysis across different data sources. Transforming diverse formats (CSV, JSON, relational) into a unified structure with consistent schemas allows for cross-analysis, such as correlating purchase history with website behavior and contact information. This increases data value significantly compared to keeping formats separate.",
+      "learning_objective": "Determine the framing structure of data and various ways it can be curated for adding value",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Data Structure and Curation",
+      "question_text": "Three ways data can be curated to add value are: standardizing formats, creating relationships between data elements, and ___________ data quality issues like missing values or inconsistencies.",
+      "options": null,
+      "correct_answer": "addressing",
+      "explanation": "Data curation involves multiple processes: standardizing formats ensures consistency, creating relationships enables complex analysis, and addressing data quality issues (missing values, inconsistencies, duplicates) ensures data reliability. All three processes work together to increase data value.",
+      "learning_objective": "Determine the framing structure of data and various ways it can be curated for adding value",
+      "keywords": ["addressing", "quality", "missing", "inconsistencies"]
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Structure and Curation",
+      "question_text": "An e-commerce company has product data scattered across spreadsheets, a customer database, and supplier APIs. The data has inconsistent product naming (e.g., 'iPhone 14', 'iPhone-14', 'Apple iPhone 14'), missing categories, and no relationships between products and suppliers. Describe four specific curation steps to structure this data and add value. Be concrete about data transformations, standardization rules, and relationship structures.",
+      "options": null,
+      "correct_answer": "Step 1: Standardize product names using a master product catalog - create mapping rules (remove hyphens, standardize to 'Brand Model' format like 'Apple iPhone 14'), apply to all sources. Step 2: Create unified product schema with fields: product_id (unique), standardized_name, category, brand, supplier_id, price. Step 3: Build product-supplier relationship table linking product_id to supplier_id, enabling queries like 'which suppliers provide products in Electronics category'. Step 4: Fill missing categories using product name analysis (e.g., products with 'iPhone' → 'Electronics > Mobile Phones') or supplier data, create validation rules to prevent future missing categories.",
+      "explanation": "This requires four concrete curation steps: specific standardization rules (remove hyphens, format), exact schema fields (product_id, standardized_name, category, brand, supplier_id, price), specific relationship structure (product-supplier table), and concrete methods for handling missing data (name analysis, supplier data). Generic answers about 'organizing' or 'cleaning' are insufficient.",
+      "learning_objective": "Determine the framing structure of data and various ways it can be curated for adding value",
+      "keywords": ["standardize", "master catalog", "mapping rules", "schema", "product_id", "supplier_id", "relationship table", "missing categories", "validation rules"]
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Schema Design Levels",
+      "question_text": "The three levels of schema design are: conceptual, logical, and ___________.",
+      "options": null,
+      "correct_answer": "physical",
+      "explanation": "Schema design progresses through three levels: conceptual (high-level business concepts and relationships), logical (detailed data structures independent of technology), and physical (implementation-specific details like storage formats and indexing). Each level builds upon the previous one.",
+      "learning_objective": "Differentiate the schema types (conceptual, logical, and physical)",
+      "keywords": ["physical"]
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Schema Design Levels",
+      "question_text": "The ___________ schema level focuses on high-level business concepts and relationships without technical implementation details.",
+      "options": null,
+      "correct_answer": "conceptual",
+      "explanation": "The conceptual schema represents the highest level of abstraction, focusing on business concepts, entities, and their relationships. It describes what the system needs to represent from a business perspective, without concern for how it will be implemented technically.",
+      "learning_objective": "Differentiate the schema types (conceptual, logical, and physical)",
+      "keywords": ["conceptual", "business", "concepts"]
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Schema Design Levels",
+      "question_text": "The ___________ schema level defines detailed data structures, attributes, and relationships but remains independent of specific database technologies or storage systems.",
+      "options": null,
+      "correct_answer": "logical",
+      "explanation": "The logical schema provides detailed data structures including tables, columns, data types, keys, and relationships. It specifies how data will be organized but doesn't include implementation details like storage formats, indexing strategies, or specific database technologies.",
+      "learning_objective": "Differentiate the schema types (conceptual, logical, and physical)",
+      "keywords": ["logical", "data structures", "attributes"]
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Schema Design Levels",
+      "question_text": "A data architect creates a diagram showing 'Customer' and 'Order' entities with a 'places' relationship. This represents which schema level?",
+      "options": [
+        "A) Physical schema, because it shows how data is stored",
+        "B) Logical schema, because it defines table structures",
+        "C) Conceptual schema, because it shows business entities and relationships without technical details",
+        "D) Implementation schema, because it's ready for coding"
+      ],
+      "correct_answer": "C",
+      "explanation": "A diagram showing entities (Customer, Order) and their relationships (places) without technical implementation details represents the conceptual schema level. It focuses on business concepts and relationships, not on how they'll be stored or implemented in a database system.",
+      "learning_objective": "Differentiate the schema types (conceptual, logical, and physical)",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Schema Design Levels",
+      "question_text": "A database designer creates a table definition: 'CREATE TABLE customers (customer_id INT PRIMARY KEY, name VARCHAR(100), email VARCHAR(255), created_at TIMESTAMP)'. This represents which schema level?",
+      "options": [
+        "A) Conceptual schema, because it defines business entities",
+        "B) Logical schema, because it defines data structures with attributes and types but is technology-independent",
+        "C) Physical schema, because it uses SQL syntax",
+        "D) Implementation schema, because it's ready to execute"
+      ],
+      "correct_answer": "B",
+      "explanation": "This table definition represents the logical schema level. It defines detailed data structures (table, columns, data types, keys) but uses generic SQL that could be implemented in various database systems. The physical schema would include implementation-specific details like storage engines, indexes, partitioning, or file formats.",
+      "learning_objective": "Differentiate the schema types (conceptual, logical, and physical)",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Schema Design Levels",
+      "question_text": "The physical schema includes implementation-specific details like storage ___________ , indexing strategies, partitioning schemes, and file ___________.",
+      "options": null,
+      "correct_answer": "engines, formats",
+      "explanation": "The physical schema level includes all implementation-specific details: storage engines (e.g., InnoDB, MyISAM), indexing strategies (B-tree, hash indexes), partitioning schemes, and file formats (Parquet, CSV, JSON). This is the lowest level where technical decisions are made about how data is actually stored and accessed.",
+      "learning_objective": "Differentiate the schema types (conceptual, logical, and physical)",
+      "keywords": ["engines", "formats", "indexing", "partitioning"]
+    },
+    {
+      "number": 21,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Schema Design Levels",
+      "question_text": "A company needs to design a data system for tracking customer orders. Describe how you would approach this using the three levels of schema design. Be specific: what would you define at the conceptual level (entities and relationships), what would you specify at the logical level (tables, columns, data types), and what would you decide at the physical level (storage, indexing). Provide concrete examples for each level.",
+      "options": null,
+      "correct_answer": "Conceptual level: Define entities 'Customer' (has attributes: identity, contact info, preferences) and 'Order' (has attributes: items, total, date), with relationship 'Customer places Order' (one-to-many). Logical level: Create table 'customers' with columns customer_id (INTEGER, PRIMARY KEY), name (VARCHAR(100)), email (VARCHAR(255)), phone (VARCHAR(20)); table 'orders' with columns order_id (INTEGER, PRIMARY KEY), customer_id (INTEGER, FOREIGN KEY to customers), order_date (DATE), total_amount (DECIMAL(10,2)); establish foreign key relationship. Physical level: Use InnoDB storage engine for transaction support, create B-tree index on customer_id in orders table for fast lookups, partition orders table by order_date (monthly partitions), store in Parquet format for analytics queries.",
+      "explanation": "This requires concrete specifications at all three levels: conceptual (specific entities Customer/Order with attributes and one-to-many relationship), logical (exact table structures with column names, data types, and foreign keys), and physical (specific storage engine InnoDB, index type B-tree, partitioning strategy monthly, file format Parquet). Generic answers about 'designing tables' are insufficient.",
+      "learning_objective": "Differentiate the schema types (conceptual, logical, and physical)",
+      "keywords": ["Customer", "Order", "entities", "one-to-many", "customers table", "orders table", "customer_id", "INTEGER", "VARCHAR", "FOREIGN KEY", "InnoDB", "B-tree index", "partition", "Parquet"]
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Schema Design Levels",
+      "question_text": "The conceptual schema must be completed before designing the logical schema, and the logical schema must be completed before designing the physical schema.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Schema design follows a top-down approach where each level builds upon the previous one. The conceptual schema establishes business requirements and entity relationships. The logical schema translates these into detailed data structures. The physical schema implements these structures with specific technologies. This progression ensures that technical decisions are grounded in business needs.",
+      "learning_objective": "Differentiate the schema types (conceptual, logical, and physical)",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Structure and Curation",
+      "question_text": "A data analyst receives customer feedback data in three formats: free-text survey responses, structured ratings (1-5 stars), and social media comments. To curate this data for sentiment analysis, what structure would add the most value?",
+      "options": [
+        "A) Keep all formats separate and analyze each independently",
+        "B) Convert everything to free text and analyze as one dataset",
+        "C) Create a unified structure with fields: feedback_id, source_type, text_content, rating (if applicable), timestamp, customer_id - enabling cross-source sentiment analysis",
+        "D) Only use structured ratings and ignore text data"
+      ],
+      "correct_answer": "C",
+      "explanation": "Creating a unified structure that preserves the unique characteristics of each source (text content, ratings, timestamps) while enabling cross-source analysis adds the most value. This structure allows sentiment analysis across all feedback types, correlation between ratings and text sentiment, and time-series analysis of customer sentiment trends.",
+      "learning_objective": "Determine the framing structure of data and various ways it can be curated for adding value",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Elements, Uses, and Value",
+      "question_text": "A credit scoring company has raw application data: applicant names, addresses, income statements, employment history, and credit bureau reports. Currently, this data has limited value because it's unstructured. Describe how structuring this data moves it through the DIKW hierarchy to create value for credit scoring decisions. Be specific about what transformations create information, knowledge, and wisdom, and how each supports credit scoring.",
+      "options": null,
+      "correct_answer": "Data to Information: Structure raw data into applicant profiles with standardized fields (income as numeric, employment duration in months, credit score as integer) - creates information showing applicant characteristics. Information to Knowledge: Calculate derived features (debt-to-income ratio, employment stability score, credit utilization rate) and identify patterns (applicants with DTI > 40% have 3x default rate) - creates knowledge about risk factors. Knowledge to Wisdom: Build credit risk model combining features to assign risk scores (e.g., 0-850), create decision rules (approve if score > 650 and DTI < 35%), enable actionable lending decisions - creates wisdom for making credit approval decisions.",
+      "explanation": "This requires concrete DIKW transformations: specific data structures (standardized fields, numeric formats), specific knowledge creation (derived features like DTI, patterns like 3x default rate), and specific wisdom application (risk scores, decision rules, approval criteria). Generic answers about 'organizing data' are insufficient.",
+      "learning_objective": "Discuss simple data elements, uses, and value",
+      "keywords": ["applicant profiles", "standardized", "debt-to-income", "DTI", "employment stability", "credit utilization", "risk factors", "risk model", "risk scores", "decision rules", "approval", "DIKW"]
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Data Science Lifecycle",
+      "question_text": "The Data Science Lifecycle is a critical model for addressing business challenges through effective data ___________.",
+      "options": null,
+      "correct_answer": "management",
+      "explanation": "The Data Science Lifecycle provides a structured approach to managing data throughout its journey from business requirements to actionable insights. Effective data management ensures that data is acquired, structured, analyzed, and maintained in ways that support business decision-making.",
+      "learning_objective": "Identify stages of the Data Science Lifecycle",
+      "keywords": ["management", "business challenges"]
+    }
+  ]
+}
