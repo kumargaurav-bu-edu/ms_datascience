@@ -1,0 +1,406 @@
+{
+  "quiz_metadata": {
+    "title": "DX699-O2 Week 3: Charts, Visualizations & Storytelling with Data Quiz",
+    "description": "Quiz covering chart types (histogram, bar, stacked bar, KDE, swarm, violin, box), strengths and weaknesses of visualizations, selecting appropriate charts, univariate analysis, audience interpretation, Matplotlib, reproducing and analyzing visualizations, and Storytelling with Data (SWD) principles.",
+    "version": "1.0",
+    "total_questions": 28
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Chart Types (Histogram, Bar, KDE, Swarm, Violin, Box)",
+      "question_text": "A ___________ displays the distribution of a single continuous variable by dividing the data into bins and showing the count or frequency in each bin.",
+      "options": null,
+      "correct_answer": "histogram",
+      "explanation": "A histogram shows the distribution of one continuous variable using bins (intervals) on the x-axis and frequency (count) on the y-axis. It is used for univariate continuous data to see shape, center, and spread.",
+      "learning_objective": "Distinguish between various types of charts and graphs",
+      "keywords": ["histogram", "bins", "frequency", "distribution", "continuous"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Chart Types (Histogram, Bar, KDE, Swarm, Violin, Box)",
+      "question_text": "A ___________ plot shows a smooth estimate of the probability density of a continuous variable, often overlaid on a histogram.",
+      "options": null,
+      "correct_answer": "KDE or kernel density estimation",
+      "explanation": "KDE (kernel density estimation) produces a smooth curve estimating the probability density function. It avoids the binning choice of histograms and is useful for comparing distributions. It does not show individual data points.",
+      "learning_objective": "Distinguish between various types of charts and graphs",
+      "keywords": ["KDE", "kernel density", "density", "smooth", "continuous"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Chart Types (Histogram, Bar, KDE, Swarm, Violin, Box)",
+      "question_text": "A violin plot combines a box plot (median, quartiles) with a rotated KDE shape, so you see both summary statistics and the full distribution shape.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "True. A violin plot shows the full distribution shape (like KDE) mirrored on both sides of a central axis, and often includes a box plot inside. It is good for comparing distributions across categories.",
+      "learning_objective": "Distinguish between various types of charts and graphs",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Strengths and Weaknesses of Visualization Formats",
+      "question_text": "Which chart type is strongest for showing individual data points without overlapping, while still revealing distribution shape?",
+      "options": [
+        "A) Histogram, because it bins data and shows frequency",
+        "B) Box plot, because it shows quartiles and outliers",
+        "C) Swarm plot, because it jitters points so each is visible and position shows distribution",
+        "D) Stacked bar chart, because it shows part-to-whole by category"
+      ],
+      "correct_answer": "C",
+      "explanation": "A swarm plot (beeswarm) places each point so they do not overlap, using jitter or stacking along an axis. You see every observation and the distribution shape. Histograms and box plots hide individual points; stacked bar is for categorical composition.",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Strengths and Weaknesses of Visualization Formats",
+      "question_text": "What is a main weakness of a box plot compared to a violin or KDE plot?",
+      "options": [
+        "A) Box plots cannot show categorical variables",
+        "B) Box plots hide the full shape of the distribution (e.g., bimodal vs unimodal)",
+        "C) Box plots require more data than histograms",
+        "D) Box plots cannot show the median"
+      ],
+      "correct_answer": "B",
+      "explanation": "Box plots show only five numbers (min, Q1, median, Q3, max) and optionally outliers. They do not show whether the distribution is unimodal, bimodal, or skewed in detail. Violin and KDE plots show the full density shape.",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Selecting Appropriate Visualization",
+      "question_text": "You have one continuous variable (e.g., customer age) and want to see if the distribution is roughly symmetric or skewed. Which visualization is most appropriate?",
+      "options": [
+        "A) Stacked bar chart",
+        "B) Histogram or KDE plot",
+        "C) Swarm plot only (no other choice)",
+        "D) Line chart"
+      ],
+      "correct_answer": "B",
+      "explanation": "For a single continuous variable, a histogram or KDE plot directly shows the shape of the distribution (symmetric, left-skewed, right-skewed). Stacked bar is for categorical composition; line chart is for trends over a continuous axis (e.g., time); swarm is good but histogram/KDE are standard for shape.",
+      "learning_objective": "Select the most appropriate visualization based on the type of data",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Selecting Appropriate Visualization",
+      "question_text": "You want to compare the distribution of sales amount across three regions (North, South, West) and see both central tendency and spread. Which is most appropriate?",
+      "options": [
+        "A) A single histogram of all sales combined",
+        "B) Box plots or violin plots for each region side by side",
+        "C) A pie chart of total sales by region",
+        "D) A line chart with one line per region"
+      ],
+      "correct_answer": "B",
+      "explanation": "Box plots or violin plots by category (region) let you compare center (median), spread (IQR), and distribution shape across groups. A single histogram would mix regions; pie chart shows only totals, not distributions; line chart is for trends, not distribution comparison.",
+      "learning_objective": "Select the most appropriate visualization based on the type of data",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Univariate Analysis",
+      "question_text": "___________ analysis examines a single variable at a time, including its distribution, center (e.g., mean, median), spread (e.g., standard deviation, IQR), and shape (e.g., skewness).",
+      "options": null,
+      "correct_answer": "Univariate",
+      "explanation": "Univariate analysis focuses on one variable: distribution (histogram, KDE, box), measures of center (mean, median), spread (std, range, IQR), and shape (symmetric, skewed). It is the foundation before bivariate or multivariate analysis.",
+      "learning_objective": "Describe univariate analysis",
+      "keywords": ["univariate", "single variable", "distribution", "center", "spread"]
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Univariate Analysis",
+      "question_text": "Name three visualizations commonly used in univariate analysis for a continuous variable, and state what each is best for in one phrase.",
+      "options": null,
+      "correct_answer": "Histogram: shape and frequency in bins. Box plot: median, quartiles, and outliers. KDE: smooth distribution shape. (Also acceptable: violin for shape and summary; swarm for individual points and shape.)",
+      "explanation": "Univariate continuous visuals: (1) Histogram – bin-based shape and frequency; (2) Box plot – median, IQR, outliers; (3) KDE – smooth density shape. Violin combines box and KDE; swarm shows individual points.",
+      "learning_objective": "Describe univariate analysis",
+      "keywords": ["histogram", "box plot", "KDE", "violin", "swarm", "distribution", "median", "outliers"]
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Audience Interpretation and Visualization Impact",
+      "question_text": "You show the same dataset as (1) a histogram with 5 bins and (2) a histogram with 25 bins. How can this affect audience interpretation?",
+      "options": [
+        "A) It cannot; histograms always show the same story",
+        "B) Fewer bins can hide multimodality or detail; more bins can look noisy or suggest patterns that may be sampling noise",
+        "C) More bins always lead to better decisions",
+        "D) Only color choice affects interpretation, not bin count"
+      ],
+      "correct_answer": "B",
+      "explanation": "Bin choice changes what the audience sees: too few bins can hide multiple modes or skewness; too many bins can create noise and false peaks. The same data can be perceived as smooth vs lumpy, so bin selection affects the story and decisions.",
+      "learning_objective": "Analyze how different visualizations can affect audience interpretation",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "scenario",
+      "section": "Audience Interpretation and Visualization Impact",
+      "question_text": "Two analysts present the same revenue data: Analyst A uses a bar chart with bars sorted descending (highest to lowest). Analyst B uses the same bar chart but sorted alphabetically by category. Which presentation is more likely to drive action on the worst-performing categories, and why?",
+      "options": null,
+      "correct_answer": "Analyst A. Sorting descending makes the lowest-performing categories appear at the end and draws attention to the largest bars first; sorting descending also makes it easy to see the bottom performers at a glance. Alphabetical order obscures performance and does not guide the eye to what needs action.",
+      "explanation": "Sorting bars by value (e.g., descending) supports the message (e.g., 'these are top and bottom performers') and makes comparison and action easier. Alphabetical order hides the story and forces the audience to work to find what matters.",
+      "learning_objective": "Analyze how different visualizations can affect audience interpretation",
+      "keywords": ["sort", "descending", "alphabetical", "attention", "action", "bottom", "performance"]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Matplotlib and Graph Creation",
+      "question_text": "In Matplotlib, the ___________ is the figure-level container, and ___________ are the individual plots (axes) inside it where you draw charts.",
+      "options": null,
+      "correct_answer": "figure, axes",
+      "explanation": "In Matplotlib, the Figure is the top-level object (the whole window or image). Axes (subplots) are the rectangular areas inside the figure where you plot data (e.g., line, bar, histogram). You create figures and axes with plt.subplots() or plt.figure().",
+      "learning_objective": "Create data visualizations using Matplotlib",
+      "keywords": ["figure", "axes", "subplot", "matplotlib"]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Matplotlib and Graph Creation",
+      "question_text": "To create a box plot of a column 'amount' by category 'region' in a DataFrame df using Matplotlib-style APIs (e.g., seaborn or pyplot), which type of call is conceptually correct?",
+      "options": [
+        "A) A single call that specifies x=category, y=numeric (e.g., box plot by region for amount)",
+        "B) One separate histogram per region only",
+        "C) A line chart with region on the x-axis",
+        "D) A pie chart of region counts"
+      ],
+      "correct_answer": "A",
+      "explanation": "A box plot by category uses one categorical variable (e.g., region) on x and one numeric variable (e.g., amount) on y. So the call should specify x=region, y=amount (or equivalent). Histograms would not compare across regions in one chart; line and pie are not for distribution comparison.",
+      "learning_objective": "Create data visualizations using Matplotlib",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Reproducing and Analyzing Visualizations",
+      "question_text": "You are asked to reproduce a published bar chart that shows 'Revenue by Quarter' with quarters on the x-axis and revenue on the y-axis, with bars in blue and a title 'Quarterly Revenue'. List three concrete steps you would take (chart type, data, and one visual detail).",
+      "options": null,
+      "correct_answer": " (1) Use a bar chart with quarters on x-axis and revenue on y-axis. (2) Use the same data (quarter labels and revenue values) as the original. (3) Set bar color to blue and add the title 'Quarterly Revenue'. (Other valid: set axis labels, use same order of quarters, add gridlines if present.)",
+      "explanation": "Reproducing a graph requires: (1) Same chart type (bar chart), (2) Same data and axis mapping (quarters, revenue), (3) Matching visual details (color blue, title 'Quarterly Revenue'). Axis labels, order, and optional gridlines also matter for faithful reproduction.",
+      "learning_objective": "Reproduce a graph/data visualization from an example",
+      "keywords": ["bar chart", "quarter", "revenue", "blue", "title", "axis", "data"]
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Analyzing Existing Data Visualizations",
+      "question_text": "A dashboard shows a pie chart with 12 slices for 'Sales by Product'. What is a key weakness of this design?",
+      "options": [
+        "A) Pie charts are always wrong for any data",
+        "B) Too many slices make it hard to compare values and distinguish segments; a bar chart (e.g., horizontal bars sorted by value) would be easier to read",
+        "C) Pie charts cannot show sales data",
+        "D) The only problem is that it is not a line chart"
+      ],
+      "correct_answer": "B",
+      "explanation": "Pie charts with many slices are hard to compare and label. A horizontal bar chart (or vertical bar chart) with bars sorted by value makes comparison and ranking much easier. The weakness is cognitive load and comparability, not that pie charts are never usable.",
+      "learning_objective": "Analyze existing data visualizations to identify strengths and weaknesses",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Analyzing Existing Data Visualizations",
+      "question_text": "An existing visualization shows 'Monthly CAC' (customer acquisition cost) as a line chart over 12 months, with no annotation or reference line. Name two specific improvements that would strengthen the story (use concrete visual actions, not abstract terms).",
+      "options": null,
+      "correct_answer": " (1) Add a reference line for the prior year's average CAC or target CAC so the audience can see if current CAC is above/below. (2) Add a callout annotation (e.g., '+40%' or 'Peak') on the month with the highest CAC to direct attention. (Other valid: add a subtitle explaining business impact; remove unnecessary gridlines; highlight the trend in bold color.)",
+      "explanation": "Concrete improvements: (1) Reference line (prior year or target) for comparison; (2) Annotation (e.g., +40% or 'Peak') on key points; (3) Subtitle or title that states the insight; (4) Declutter (remove gridlines/legend if not needed); (5) Emphasize the metric of concern with color.",
+      "learning_objective": "Analyze existing data visualizations to identify strengths and weaknesses",
+      "keywords": ["reference line", "annotation", "callout", "prior year", "target", "subtitle", "gridlines", "highlight"]
+    },
+    {
+      "number": 17,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "You need to present a slide that shows rising CAC is eroding margin and want the audience to act. Which set of actions best applies SWD principles with concrete steps?",
+      "options": [
+        "A) Use a good chart type, add context, and focus the story",
+        "B) Use a slopegraph or line chart comparing CAC vs LTV (or margin) over time; highlight the CAC trend in red and add a callout annotation (e.g., '+40% CAC'); add a subtitle such as 'Rising acquisition cost is eroding margin'",
+        "C) Use any visualization and ensure it has a clear message",
+        "D) Add a legend and gridlines so the chart looks professional"
+      ],
+      "correct_answer": "B",
+      "explanation": "SWD requires concrete actions: (1) Chart choice – e.g., slopegraph or line chart for CAC vs LTV/margin; (2) Visual emphasis – e.g., CAC in red, callout +40%; (3) Narrative – subtitle stating 'Rising acquisition cost is eroding margin'. A and C are vague; D does not drive the story or action.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "Leadership asks what they should do after seeing a graph that shows customer churn is highest in the first 90 days. Give one explicit business action they could take (concrete, not abstract).",
+      "options": null,
+      "correct_answer": "Improve onboarding to reduce early churn, or run retention campaigns in the first 90 days, or add a dedicated onboarding team, or offer a trial extension in the first 90 days.",
+      "explanation": "Answers must be actionable business decisions: e.g., improve onboarding, run retention campaigns in the first 90 days, add onboarding support, or adjust pricing/trial length for new customers. Abstract answers like 'focus on retention' are insufficient without a concrete action.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": ["onboarding", "retention", "campaign", "first 90 days", "trial", "support", "reduce churn"]
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "For a single slide showing 'Revenue by Product' where the message is 'Product A drives half of revenue; Products B and C need growth', list at least three concrete design steps (chart type and visual actions).",
+      "options": null,
+      "correct_answer": " (1) Use a bar chart (or horizontal bar chart) with products on one axis and revenue on the other. (2) Sort bars descending so Product A is first and low performers are visible at the end. (3) Highlight Product A in a bold color (e.g., blue) and B/C in a muted color (e.g., gray), or add an annotation like '50% of revenue' on Product A. (4) Add a subtitle or callout such as 'B and C need growth' or remove unnecessary gridlines/legend.",
+      "explanation": "Concrete SWD steps: (1) Bar chart (or horizontal) for revenue by product; (2) Sort descending to support the message; (3) Emphasize Product A (color/annotation) and mute B/C; (4) Subtitle or annotation stating that B and C need growth; (5) Declutter (e.g., remove gridlines if not needed).",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": ["bar chart", "sort", "descending", "highlight", "Product A", "annotation", "subtitle", "muted", "50%"]
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Chart Types (Histogram, Bar, KDE, Swarm, Violin, Box)",
+      "question_text": "A stacked bar chart is used to show part-to-whole relationships across categories (e.g., total sales broken down by product within each region).",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "True. A stacked bar chart shows totals per category (e.g., per region) with segments stacked to show composition (e.g., product share within each region). It is for part-to-whole and composition, not for comparing individual segment values across categories.",
+      "learning_objective": "Distinguish between various types of charts and graphs",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Strengths and Weaknesses of Visualization Formats",
+      "question_text": "When is a swarm plot a poor choice?",
+      "options": [
+        "A) When you have fewer than 10 data points",
+        "B) When you have hundreds or thousands of points, because overplotting or crowding makes it unreadable",
+        "C) When you have one continuous variable",
+        "D) When you want to show the median"
+      ],
+      "correct_answer": "B",
+      "explanation": "Swarm plots show every point by jittering/stacking. With very large samples (hundreds or thousands), the plot becomes crowded or unreadable. For large N, a histogram, box plot, or violin is more appropriate. Swarm is good for moderate N when you want to see individual points.",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Selecting Appropriate Visualization",
+      "question_text": "You have categorical data (e.g., product names) and a numeric value per category (e.g., sales count). You want to compare magnitudes across categories. Which is most appropriate?",
+      "options": [
+        "A) Histogram",
+        "B) Box plot",
+        "C) Bar chart (one bar per category, height = value)",
+        "D) KDE plot"
+      ],
+      "correct_answer": "C",
+      "explanation": "Categorical (product names) vs numeric (sales count) is best shown with a bar chart: one bar per category, length/height = value. Histogram and KDE are for continuous distributions; box plot is for distribution of a continuous variable (often by category), not for a single value per category.",
+      "learning_objective": "Select the most appropriate visualization based on the type of data",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Chart Types (Histogram, Bar, KDE, Swarm, Violin, Box)",
+      "question_text": "A ___________ plot displays the median, quartiles (Q1, Q3), and often outliers as individual points, giving a compact summary of a distribution.",
+      "options": null,
+      "correct_answer": "box",
+      "explanation": "A box plot (box-and-whisker) shows the median (line inside box), Q1 and Q3 (box edges), and whiskers to min/max or to 1.5*IQR with outliers plotted separately. It summarizes center, spread, and outliers in one view.",
+      "learning_objective": "Distinguish between various types of charts and graphs",
+      "keywords": ["box", "median", "quartile", "outlier", "IQR"]
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "scenario",
+      "section": "Create Plots in a Variety of Formats",
+      "question_text": "You have continuous data (response times in ms) and need to show whether the distribution is roughly normal or has a long tail. Name two different plot types you could use (be specific).",
+      "options": null,
+      "correct_answer": "Histogram and KDE plot; or box plot and histogram; or violin plot. (Any two of: histogram, KDE, box plot, violin plot.)",
+      "explanation": "For shape and tails: (1) Histogram – bins show frequency and shape; (2) KDE – smooth density, shows tail; (3) Box plot – shows median and outliers (long tail); (4) Violin – full shape. Any two distinct types that address distribution shape are acceptable.",
+      "learning_objective": "Create plots/graphs in a variety of formats",
+      "keywords": ["histogram", "KDE", "box plot", "violin", "distribution", "normal", "tail"]
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Audience Interpretation and Visualization Impact",
+      "question_text": "Showing revenue as a line chart over time (with an upward trend) versus showing the same data as a bar chart with a truncated y-axis starting at $90K instead of $0 is likely to:",
+      "options": [
+        "A) Have no effect on audience perception",
+        "B) Make the trend look more dramatic with the truncated axis (potential misinterpretation); starting the y-axis at zero is often fairer for bar charts",
+        "C) Always be misleading and should never be done",
+        "D) Improve accuracy of all statistics"
+      ],
+      "correct_answer": "B",
+      "explanation": "Truncating the y-axis (e.g., starting at $90K) can exaggerate the visual magnitude of changes and lead the audience to overstate the trend. For bar charts, starting at zero is a common convention so bar lengths match proportions; for line charts, truncation is sometimes used but can be misleading if not annotated.",
+      "learning_objective": "Analyze how different visualizations can affect audience interpretation",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "analysis",
+      "section": "Reproducing and Analyzing Visualizations",
+      "question_text": "You are given a figure that uses a red line for 'Cost' and a blue line for 'Revenue' over 12 months, with a legend. To reproduce it, what three elements must you match (data, encoding, or design)?",
+      "options": null,
+      "correct_answer": " (1) Same data (month labels and cost/revenue values). (2) Same visual encoding: red for Cost, blue for Revenue (or exact colors). (3) Same structural elements: legend, axis labels, title if present. (Other: line style, order of series.)",
+      "explanation": "Reproduction requires: (1) Data – same months and values for Cost and Revenue; (2) Encoding – red = Cost, blue = Revenue; (3) Structure – legend, axis labels, title. Matching these ensures the reproduction is faithful.",
+      "learning_objective": "Reproduce a graph/data visualization from an example",
+      "keywords": ["data", "red", "blue", "cost", "revenue", "legend", "axis", "title"]
+    },
+    {
+      "number": 27,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Storytelling with Data (SWD) Principles",
+      "question_text": "A slide shows 'Marketing spend by channel' as a table with numbers. The goal is to drive action: reallocate budget. Which approach is most aligned with SWD with concrete steps?",
+      "options": [
+        "A) Keep the table and add a generic title like 'Budget Overview'",
+        "B) Replace or supplement with a horizontal bar chart sorted by spend descending; highlight the top channel in one color and the bottom in another; add a subtitle such as 'Shift spend from Channel X to Channel Y' or a callout with the recommended action",
+        "C) Use a 3D pie chart for visual impact",
+        "D) Add more rows to the table for detail"
+      ],
+      "correct_answer": "B",
+      "explanation": "SWD favors: (1) Visual over table when the message is comparison – e.g., horizontal bar chart; (2) Sort by value (descending) to show ranking; (3) Highlight top/bottom or underperformers with color; (4) Subtitle or callout with the recommended action (e.g., shift spend). B provides these concrete steps; A, C, D do not.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Chart Types (Histogram, Bar, KDE, Swarm, Violin, Box)",
+      "question_text": "A bar chart is typically used for categorical x-axis (e.g., product names or regions) with bar heights or lengths representing a numeric value (e.g., count or sum).",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "True. Bar charts use categories on one axis (often x) and a numeric scale on the other; each bar’s length or height represents the value for that category. They are for comparing discrete categories, not for showing distribution of a single continuous variable (that would be histogram or KDE).",
+      "learning_objective": "Distinguish between various types of charts and graphs",
+      "keywords": []
+    }
+  ]
+}
