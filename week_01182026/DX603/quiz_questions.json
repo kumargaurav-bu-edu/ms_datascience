@@ -1,0 +1,434 @@
+{
+  "quiz_metadata": {
+    "title": "DX603 Week 1: Machine Learning Fundamentals Quiz",
+    "description": "Interactive quiz covering ML algorithm types, generalization, prediction vs inference, accuracy vs interpretability, reducible vs irreducible error, bias-variance tradeoff, and data bias",
+    "version": "1.0",
+    "total_questions": 32
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Types of Machine Learning Algorithms",
+      "question_text": "___________ learning is a type of ML where models learn from labeled data to predict outcomes.",
+      "options": null,
+      "correct_answer": "Supervised",
+      "explanation": "Supervised learning uses labeled data where the correct answers (labels) are provided during training. The model learns to map inputs to outputs based on these examples, enabling it to make predictions on new, unseen data.",
+      "learning_objective": "Describe the basic types of machine learning algorithms and the problems they address",
+      "keywords": ["Supervised", "labeled"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Types of Machine Learning Algorithms",
+      "question_text": "___________ is a supervised ML technique used to predict real-valued outcomes, such as predicting house prices or temperature.",
+      "options": null,
+      "correct_answer": "Regression",
+      "explanation": "Regression is a supervised learning technique that predicts continuous, real-valued outcomes. Unlike classification which predicts categories, regression predicts numerical values like prices, temperatures, or quantities.",
+      "learning_objective": "Describe the basic types of machine learning algorithms and the problems they address",
+      "keywords": ["Regression", "real-valued", "continuous"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Types of Machine Learning Algorithms",
+      "question_text": "___________ is a supervised ML technique for categorizing data into distinct classes, such as spam vs. not spam.",
+      "options": null,
+      "correct_answer": "Classification",
+      "explanation": "Classification is a supervised learning technique that assigns data points to predefined categories or classes. Examples include email spam detection (spam/not spam), medical diagnosis (disease/no disease), or image recognition (cat/dog/bird).",
+      "learning_objective": "Describe the basic types of machine learning algorithms and the problems they address",
+      "keywords": ["Classification", "categories", "classes"]
+    },
+    {
+      "number": 4,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Types of Machine Learning Algorithms",
+      "question_text": "___________ learning is a type of ML where models find patterns or structures in unlabeled data without predefined outcomes.",
+      "options": null,
+      "correct_answer": "Unsupervised",
+      "explanation": "Unsupervised learning works with unlabeled data where no correct answers are provided. The model discovers hidden patterns, structures, or relationships in the data, such as grouping similar customers or identifying anomalies.",
+      "learning_objective": "Describe the basic types of machine learning algorithms and the problems they address",
+      "keywords": ["Unsupervised", "unlabeled", "patterns"]
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Types of Machine Learning Algorithms",
+      "question_text": "A data scientist wants to group customers into segments based on their purchasing behavior without knowing how many segments exist. Which ML technique should they use?",
+      "options": [
+        "A) Classification, because it categorizes data into classes",
+        "B) Regression, because it predicts numerical values",
+        "C) Clustering, because it groups similar data points without predefined labels",
+        "D) Dimensionality reduction, because it reduces the number of features"
+      ],
+      "correct_answer": "C",
+      "explanation": "Clustering is an unsupervised learning technique that groups similar data points together without requiring predefined labels or knowing the number of groups in advance. This is ideal for customer segmentation when you don't know how many segments exist.",
+      "learning_objective": "Describe the basic types of machine learning algorithms and the problems they address",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Types of Machine Learning Algorithms",
+      "question_text": "A healthcare organization has patient data with 200 features (symptoms, lab results, demographics) and wants to visualize patient similarities in 2D. They also need to predict which patients will develop diabetes. Describe which ML techniques to use for each task and why. Be specific about algorithm types and what problems they address.",
+      "options": null,
+      "correct_answer": "Task 1 (2D visualization): Use dimensionality reduction (e.g., PCA or t-SNE) to reduce 200 features to 2 dimensions while preserving important patterns, enabling visualization of patient similarities. Task 2 (diabetes prediction): Use classification (supervised learning) with labeled data (patients with/without diabetes) to train a model that predicts diabetes risk for new patients. Dimensionality reduction addresses high-dimensional data visualization, while classification addresses the prediction problem with categorical outcomes.",
+      "explanation": "This requires identifying two distinct ML problems: visualization (unsupervised, dimensionality reduction) and prediction (supervised, classification). The answer must specify algorithm types (PCA/t-SNE for reduction, classification for prediction) and explain what problems each addresses. Generic answers about 'using ML' are insufficient.",
+      "learning_objective": "Describe the basic types of machine learning algorithms and the problems they address",
+      "keywords": ["dimensionality reduction", "PCA", "t-SNE", "classification", "supervised", "unsupervised", "visualization", "prediction"]
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Generalization",
+      "question_text": "___________ is the ability of a machine learning model to perform well on new, unseen data by effectively capturing underlying patterns during training rather than memorizing the specific details of the training set.",
+      "options": null,
+      "correct_answer": "Generalization",
+      "explanation": "Generalization is crucial for ML models. A model that generalizes well captures the underlying patterns in the training data and applies them to new data. Poor generalization occurs when a model memorizes training examples (overfitting) and fails on unseen data.",
+      "learning_objective": "Explain the importance of creating ML models that generalize to unseen data",
+      "keywords": ["Generalization", "unseen data", "patterns"]
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Generalization",
+      "question_text": "A ___________ set is a dataset used to evaluate the performance of a trained model and estimate its generalization to new, unseen data.",
+      "options": null,
+      "correct_answer": "testing",
+      "explanation": "The testing set (or test set) is separate from the training data and is used to evaluate how well the model generalizes to unseen data. Good performance on the test set indicates the model has learned general patterns rather than memorized training examples.",
+      "learning_objective": "Explain the importance of creating ML models that generalize to unseen data",
+      "keywords": ["testing", "test set", "evaluate"]
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Generalization",
+      "question_text": "A model achieves 99% accuracy on the training set but only 65% accuracy on the test set. What does this indicate?",
+      "options": [
+        "A) The model has excellent generalization and will perform well on new data",
+        "B) The model has poor generalization because it memorized training data rather than learning patterns",
+        "C) The test set is too small to be reliable",
+        "D) The model needs more training data"
+      ],
+      "correct_answer": "B",
+      "explanation": "A large gap between training accuracy (99%) and test accuracy (65%) indicates poor generalization. The model likely overfit the training data, memorizing specific examples rather than learning generalizable patterns. This means it won't perform well on new, unseen data.",
+      "learning_objective": "Explain the importance of creating ML models that generalize to unseen data",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Generalization",
+      "question_text": "A credit scoring model trained on 2019-2021 loan data performs well on the test set from that period but fails on 2023 loan applications. Describe three specific reasons why generalization might have failed and three concrete strategies to improve generalization for future data. Be specific about data issues and model improvements.",
+      "options": null,
+      "correct_answer": "Reasons for failure: (1) Data distribution shift - economic conditions changed (e.g., inflation, unemployment rates) making 2023 patterns different from 2019-2021, (2) Feature drift - new loan types or customer segments emerged that weren't in training data, (3) Overfitting to historical patterns - model learned patterns specific to 2019-2021 period rather than general credit risk factors. Strategies: (1) Regular retraining with recent data (e.g., quarterly updates) to adapt to distribution shifts, (2) Feature engineering to capture generalizable risk factors (e.g., debt-to-income ratio, credit history length) rather than time-specific features, (3) Use cross-validation with time-based splits to ensure model works across different time periods, and monitor model performance continuously to detect degradation.",
+      "explanation": "This requires specific reasons (data distribution shift, feature drift, overfitting) and concrete strategies (retraining schedule, feature engineering approaches, validation methods). Generic answers about 'improving the model' are insufficient.",
+      "learning_objective": "Explain the importance of creating ML models that generalize to unseen data",
+      "keywords": ["distribution shift", "feature drift", "overfitting", "retraining", "feature engineering", "cross-validation", "time-based splits", "monitor performance"]
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Prediction vs Inference",
+      "question_text": "___________ involves using a model to calculate outcomes based on new data not included in the training set.",
+      "options": null,
+      "correct_answer": "Prediction",
+      "explanation": "Prediction focuses on using a trained model to forecast outcomes for new data points. The goal is accuracy in forecasting, not necessarily understanding why the model makes specific predictions. Prediction is common in applications like weather forecasting, stock price prediction, or recommendation systems.",
+      "learning_objective": "Compare prediction and inference in obtaining results",
+      "keywords": ["Prediction", "outcomes", "new data"]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Prediction vs Inference",
+      "question_text": "___________ involves drawing conclusions about relationships between variables in the data.",
+      "options": null,
+      "correct_answer": "Inference",
+      "explanation": "Inference focuses on understanding relationships and causality between variables. The goal is to understand how variables influence each other, such as determining which factors cause customer churn or how treatment affects patient outcomes. Inference prioritizes interpretability over pure prediction accuracy.",
+      "learning_objective": "Compare prediction and inference in obtaining results",
+      "keywords": ["Inference", "relationships", "variables"]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Prediction vs Inference",
+      "question_text": "A medical researcher wants to understand which patient characteristics (age, BMI, exercise frequency) most strongly influence diabetes risk. Should they focus on prediction or inference?",
+      "options": [
+        "A) Prediction, because they want to predict diabetes risk accurately",
+        "B) Inference, because they want to understand relationships between patient characteristics and diabetes risk",
+        "C) Both equally, because prediction and inference are the same",
+        "D) Neither, because this requires a different approach"
+      ],
+      "correct_answer": "B",
+      "explanation": "The researcher's goal is to understand relationships and identify which factors influence diabetes risk. This is an inference problem, not just prediction. While prediction might be accurate, inference requires interpretable models that reveal which variables matter most and how they relate to diabetes risk.",
+      "learning_objective": "Compare prediction and inference in obtaining results",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Prediction vs Inference",
+      "question_text": "A company needs both to predict customer churn (who will leave) and to understand why customers churn (what factors drive churn). Describe how you would approach each goal differently, specifying model choices and evaluation metrics. Be concrete about model types and what each approach prioritizes.",
+      "options": null,
+      "correct_answer": "Prediction goal: Use complex models like gradient boosting or neural networks optimized for accuracy, evaluate with metrics like AUC-ROC or precision-recall, prioritize maximizing prediction accuracy even if model is less interpretable. Inference goal: Use interpretable models like logistic regression or decision trees, evaluate with metrics like coefficient significance and feature importance scores, prioritize understanding which variables (e.g., customer service rating, contract length, price) most strongly predict churn and their effect sizes. May need separate models - one for accurate predictions, one for understanding relationships.",
+      "explanation": "This requires distinguishing prediction (accuracy-focused, complex models) from inference (interpretability-focused, simpler models) with specific model examples (gradient boosting, neural networks vs logistic regression, decision trees) and concrete metrics (AUC-ROC vs coefficient significance). Generic answers are insufficient.",
+      "learning_objective": "Compare prediction and inference in obtaining results",
+      "keywords": ["gradient boosting", "neural networks", "AUC-ROC", "precision-recall", "logistic regression", "decision trees", "coefficient", "feature importance", "interpretable"]
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Accuracy vs Interpretability",
+      "question_text": "___________ refers to the ability for a human to understand how a machine learning model makes decisions.",
+      "options": null,
+      "correct_answer": "Interpretability",
+      "explanation": "Interpretability is the degree to which humans can understand a model's decision-making process. Interpretable models (like linear regression or decision trees) allow users to see which features matter and how they influence predictions. This is crucial for regulatory compliance, debugging, and building trust.",
+      "learning_objective": "Explain the issues of accuracy and interpretability in evaluating the results obtained",
+      "keywords": ["Interpretability", "understand", "decisions"]
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Accuracy vs Interpretability",
+      "question_text": "___________ is used formally to refer to the percentage of correct predictions for classification models.",
+      "options": null,
+      "correct_answer": "Accuracy",
+      "explanation": "Accuracy measures how often a model makes correct predictions. For classification, it's the percentage of correctly classified instances. However, accuracy alone may not tell the full story - a model with 90% accuracy might still miss critical cases (like failing to detect rare diseases).",
+      "learning_objective": "Explain the issues of accuracy and interpretability in evaluating the results obtained",
+      "keywords": ["Accuracy", "correct predictions", "percentage"]
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Accuracy vs Interpretability",
+      "question_text": "A bank needs a loan approval model. Regulatory requirements demand that the bank can explain why loans are approved or denied. The model must also be highly accurate. What is the primary tradeoff they face?",
+      "options": [
+        "A) There is no tradeoff - they can have both high accuracy and high interpretability",
+        "B) They must choose between high accuracy (complex models like neural networks) and high interpretability (simpler models like logistic regression), as these often conflict",
+        "C) Accuracy is more important than interpretability for loan decisions",
+        "D) Interpretability is more important than accuracy for loan decisions"
+      ],
+      "correct_answer": "B",
+      "explanation": "There is often a tradeoff between accuracy and interpretability. Complex models (neural networks, ensemble methods) may achieve higher accuracy but are harder to interpret. Simpler models (logistic regression, decision trees) are more interpretable but may have lower accuracy. The bank must balance regulatory requirements (interpretability) with business needs (accuracy).",
+      "learning_objective": "Explain the issues of accuracy and interpretability in evaluating the results obtained",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Accuracy vs Interpretability",
+      "question_text": "A healthcare AI system for diagnosing skin cancer needs both high accuracy (to save lives) and interpretability (to help doctors understand diagnoses). Describe three specific strategies to address the accuracy-interpretability tradeoff. Be concrete about model choices, techniques, or hybrid approaches.",
+      "options": null,
+      "correct_answer": "Strategy 1: Use interpretable-by-design models like decision trees or rule-based systems, accept slightly lower accuracy for transparency. Strategy 2: Use a two-stage approach - complex model (CNN) for initial high-accuracy prediction, then explainable model (logistic regression with image features) to provide interpretable explanations of the CNN's decisions. Strategy 3: Use post-hoc interpretability techniques like SHAP values or LIME to explain complex model predictions, allowing use of high-accuracy models (neural networks) while providing interpretability through feature importance scores and local explanations for each diagnosis.",
+      "explanation": "This requires three concrete strategies: specific model choices (decision trees, CNN+logistic regression, neural networks with SHAP/LIME), not abstract concepts. Generic answers about 'balancing' are insufficient.",
+      "learning_objective": "Explain the issues of accuracy and interpretability in evaluating the results obtained",
+      "keywords": ["decision trees", "rule-based", "CNN", "logistic regression", "SHAP", "LIME", "feature importance", "post-hoc", "two-stage"]
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Reducible vs Irreducible Error",
+      "question_text": "___________ error is the part of a model's error that can be minimized by improving the model.",
+      "options": null,
+      "correct_answer": "Reducible",
+      "explanation": "Reducible error (also called systematic error) can be reduced by improving the model - using better algorithms, more features, more training data, or better hyperparameters. This error comes from model limitations and can theoretically be reduced to zero with a perfect model.",
+      "learning_objective": "Explain the difference between reducible and irreducible errors and their sources",
+      "keywords": ["Reducible", "minimized", "improving"]
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Reducible vs Irreducible Error",
+      "question_text": "___________ error is the portion of the error that cannot be eliminated, caused by inherent noise or randomness in the data regardless of the model used.",
+      "options": null,
+      "correct_answer": "Irreducible",
+      "explanation": "Irreducible error (also called random error or noise) cannot be eliminated even with a perfect model. It comes from inherent randomness in the data, measurement errors, or unobservable variables. This sets a lower bound on model performance.",
+      "learning_objective": "Explain the difference between reducible and irreducible errors and their sources",
+      "keywords": ["Irreducible", "cannot be eliminated", "noise", "randomness"]
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Reducible vs Irreducible Error",
+      "question_text": "A model's prediction error consists of reducible and irreducible components. After extensive model improvements, the error stops decreasing. What does this indicate?",
+      "options": [
+        "A) The model needs more training data",
+        "B) The remaining error is likely irreducible error - inherent noise that cannot be eliminated",
+        "C) The model architecture is wrong and should be changed",
+        "D) There are bugs in the code"
+      ],
+      "correct_answer": "B",
+      "explanation": "When error stops decreasing despite model improvements, you've likely reached the irreducible error limit. This is the inherent noise in the data that no model can eliminate. Further improvements to reducible error (better algorithms, more data) won't help once you've hit this lower bound.",
+      "learning_objective": "Explain the difference between reducible and irreducible errors and their sources",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Reducible vs Irreducible Error",
+      "question_text": "A weather prediction model has an error rate of 15%. After adding more features (humidity, wind patterns) and training data, error drops to 12%. After switching to a more complex model, error drops to 10.5% and then plateaus. Identify which portion of the original 15% error was reducible vs irreducible, and explain the sources of irreducible error in weather prediction. Be specific about error components and noise sources.",
+      "options": null,
+      "correct_answer": "Reducible error: 4.5% (from 15% down to 10.5%) - this was reduced by adding features (humidity, wind patterns) and using a more complex model. Irreducible error: 10.5% (the remaining error that cannot be reduced further). Sources of irreducible error in weather: (1) Measurement errors in sensors (temperature, pressure readings have inherent inaccuracies), (2) Chaotic nature of atmospheric systems (butterfly effect - small unobservable factors cause large changes), (3) Unobservable variables (micro-climates, local effects not captured by weather stations), (4) Random events (sudden storms, unexpected weather patterns) that cannot be predicted from available data.",
+      "explanation": "This requires calculating specific error components (4.5% reducible, 10.5% irreducible) and identifying concrete sources of irreducible error (measurement errors, chaos theory, unobservable variables, random events). Generic answers about 'noise' are insufficient.",
+      "learning_objective": "Explain the difference between reducible and irreducible errors and their sources",
+      "keywords": ["reducible", "irreducible", "measurement errors", "chaotic", "unobservable", "random", "sensors", "atmospheric"]
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "___________ is the error introduced by using a model that is too simple to capture the complexity of the underlying data patterns.",
+      "options": null,
+      "correct_answer": "Bias",
+      "explanation": "Bias occurs when a model is too simple (underfitting) and cannot capture the true underlying patterns in the data. High bias models make consistent errors - they systematically miss important relationships. Examples include using linear models for non-linear relationships.",
+      "learning_objective": "Summarize the bias-variance tradeoff in evaluating models",
+      "keywords": ["Bias", "too simple", "underfitting"]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "___________ is the error introduced because the model is too complex and sensitive to fluctuations in the training data, capturing noise along with the underlying pattern.",
+      "options": null,
+      "correct_answer": "Variance",
+      "explanation": "Variance occurs when a model is too complex (overfitting) and learns noise from the training data rather than general patterns. High variance models are sensitive to small changes in training data and perform inconsistently. Examples include deep neural networks with too many parameters trained on small datasets.",
+      "learning_objective": "Summarize the bias-variance tradeoff in evaluating models",
+      "keywords": ["Variance", "too complex", "overfitting"]
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "A model has high training error and high test error, both showing similar poor performance. This indicates:",
+      "options": [
+        "A) High variance - the model is overfitting",
+        "B) High bias - the model is underfitting and too simple",
+        "C) Both high bias and high variance",
+        "D) The model is perfectly balanced"
+      ],
+      "correct_answer": "B",
+      "explanation": "When both training and test error are high and similar, the model is underfitting - it's too simple to capture the underlying patterns. This indicates high bias. High variance would show low training error but high test error (overfitting).",
+      "learning_objective": "Summarize the bias-variance tradeoff in evaluating models",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "A polynomial regression model for predicting house prices shows: (1) Linear model (degree 1): training error 25%, test error 28%, (2) Quadratic model (degree 2): training error 12%, test error 15%, (3) 10th-degree polynomial: training error 3%, test error 35%. Analyze the bias-variance tradeoff for each model and recommend which to use. Be specific about bias and variance levels for each model.",
+      "options": null,
+      "correct_answer": "Linear model (degree 1): High bias (training error 25% is high, model too simple), low variance (training 25% vs test 28% are close). Quadratic model (degree 2): Low bias (training error 12% is reasonable), low variance (training 12% vs test 15% are close) - this is the optimal balance. 10th-degree polynomial: Low bias (training error 3% is very low), high variance (training 3% vs test 35% show large gap, overfitting). Recommendation: Use quadratic model (degree 2) because it achieves the best bias-variance tradeoff with good performance on both training and test data, avoiding underfitting (linear) and overfitting (10th-degree).",
+      "explanation": "This requires analyzing each model's bias and variance levels with specific error comparisons, then making a concrete recommendation. Generic answers about 'balancing' are insufficient.",
+      "learning_objective": "Summarize the bias-variance tradeoff in evaluating models",
+      "keywords": ["high bias", "low bias", "high variance", "low variance", "underfitting", "overfitting", "optimal balance", "degree 2", "quadratic"]
+    },
+    {
+      "number": 27,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Bias and Fairness",
+      "question_text": "Bias (of a dataset) refers to errors or distortions in the data that result in unfair or unequal outcomes, often reflecting ___________ inequalities or imbalanced data collection.",
+      "options": null,
+      "correct_answer": "societal",
+      "explanation": "Data bias often reflects existing societal inequalities and prejudices. For example, if historical hiring data shows bias against certain groups, a model trained on that data will perpetuate those biases. Data bias can also result from imbalanced data collection (e.g., collecting more data from certain demographics).",
+      "learning_objective": "Identify how biased data can compromise your results and lead to unfair outcomes",
+      "keywords": ["societal", "inequalities", "imbalanced"]
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Bias and Fairness",
+      "question_text": "A hiring algorithm is trained on 10 years of company hiring data. The model learns to favor candidates from certain universities because historically, those universities' graduates were hired more often. However, this historical pattern reflects past discrimination, not actual job performance. What problem does this represent?",
+      "options": [
+        "A) Model bias (the model is too simple)",
+        "B) Data bias (the training data reflects unfair historical patterns that the model learns and perpetuates)",
+        "C) Variance (the model is overfitting)",
+        "D) Irreducible error (this cannot be fixed)"
+      ],
+      "correct_answer": "B",
+      "explanation": "This is data bias - the training data contains unfair patterns (historical discrimination) that the model learns and perpetuates. The model will continue to favor certain universities, leading to unfair outcomes. This can be addressed by using fairer training data, removing biased features, or using fairness-aware algorithms.",
+      "learning_objective": "Identify how biased data can compromise your results and lead to unfair outcomes",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data Bias and Fairness",
+      "question_text": "A loan approval model trained on historical data approves loans for 85% of applicants from Group A but only 45% from Group B, even when controlling for credit score and income. Describe three specific ways biased data could cause this unfair outcome and three concrete strategies to address it. Be specific about data issues and mitigation techniques.",
+      "options": null,
+      "correct_answer": "Causes of bias: (1) Historical discrimination in training data - past loan decisions were biased, so model learns biased patterns, (2) Missing features - data lacks important predictive features (e.g., employment stability, payment history) that would fairly distinguish applicants, causing model to rely on proxy variables correlated with group membership, (3) Imbalanced representation - training data has far fewer examples from Group B, so model learns patterns primarily from Group A. Mitigation strategies: (1) Use fairness-aware algorithms that explicitly optimize for equal opportunity or demographic parity, (2) Collect and include additional features that fairly predict creditworthiness (employment history, alternative credit data) to reduce reliance on biased proxies, (3) Use techniques like reweighting training examples or synthetic data generation to balance representation of both groups in training data, and regularly audit model decisions for fairness across groups.",
+      "explanation": "This requires three specific causes (historical discrimination, missing features, imbalanced data) and three concrete mitigation strategies (fairness-aware algorithms, additional features, reweighting/balancing) with specific techniques. Generic answers about 'removing bias' are insufficient.",
+      "learning_objective": "Identify how biased data can compromise your results and lead to unfair outcomes",
+      "keywords": ["historical discrimination", "missing features", "imbalanced", "fairness-aware", "equal opportunity", "demographic parity", "reweighting", "synthetic data", "audit"]
+    },
+    {
+      "number": 30,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Types of Machine Learning Algorithms",
+      "question_text": "___________ is an unsupervised ML technique that groups similar data points based on their features.",
+      "options": null,
+      "correct_answer": "Clustering",
+      "explanation": "Clustering is an unsupervised learning technique that groups data points into clusters based on similarity. Unlike classification, clustering doesn't require labeled data - it discovers natural groupings in the data. Common applications include customer segmentation, image segmentation, and anomaly detection.",
+      "learning_objective": "Describe the basic types of machine learning algorithms and the problems they address",
+      "keywords": ["Clustering", "unsupervised", "groups", "similar"]
+    },
+    {
+      "number": 31,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Generalization",
+      "question_text": "A model developer splits data into training (70%), validation (15%), and test (15%) sets. The validation set is used to:",
+      "options": [
+        "A) Train the model parameters",
+        "B) Tune hyperparameters and select the best model configuration before final evaluation on the test set",
+        "C) Evaluate final model performance on unseen data",
+        "D) Store backup copies of the data"
+      ],
+      "correct_answer": "B",
+      "explanation": "The validation set is used to tune hyperparameters (like learning rate, regularization strength) and select the best model configuration. This prevents overfitting to the test set. The test set is reserved for final evaluation only after all model development is complete, ensuring an unbiased estimate of generalization performance.",
+      "learning_objective": "Explain the importance of creating ML models that generalize to unseen data",
+      "keywords": []
+    },
+    {
+      "number": 32,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "___________ occurs when a model is not complex enough, resulting in high bias, while ___________ occurs when the model is too complex, resulting in high variance.",
+      "options": null,
+      "correct_answer": "Underfitting, Overfitting",
+      "explanation": "Underfitting occurs when a model is too simple (high bias) and cannot capture the underlying patterns in the data. Overfitting occurs when a model is too complex (high variance) and learns noise from the training data. The goal is to find the optimal model complexity that balances bias and variance for best generalization.",
+      "learning_objective": "Summarize the bias-variance tradeoff in evaluating models",
+      "keywords": ["Underfitting", "Overfitting", "bias", "variance"]
+    }
+  ]
+}
