@@ -1,0 +1,362 @@
+{
+  "quiz_metadata": {
+    "title": "DX603 Week 3: Underfitting, Overfitting, Generalization, and Bias-Variance Tradeoff Quiz",
+    "description": "Comprehensive quiz covering underfitting and overfitting, generalization, bias-variance tradeoff, and strategies for navigating the tradeoff. Aligned with Week 3 learning objectives.",
+    "version": "1.0",
+    "total_questions": 26
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Underfitting and Overfitting",
+      "question_text": "___________ occurs when a model is too simple to capture the underlying pattern in the data, resulting in high error on both training and test sets.",
+      "options": null,
+      "correct_answer": "Underfitting",
+      "explanation": "Underfitting happens when the model has insufficient capacity (e.g., a linear model for a nonlinear relationship). The model fails to learn the true pattern, so it performs poorly on both training and test data. Signs include high training error and high test error.",
+      "learning_objective": "Analyze the notions of underfitting and overfitting and the problems with each",
+      "keywords": ["underfitting", "too simple", "high error", "training", "test"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Underfitting and Overfitting",
+      "question_text": "___________ occurs when a model learns the training data too closely, including noise, so it performs well on training data but poorly on new, unseen data.",
+      "options": null,
+      "correct_answer": "Overfitting",
+      "explanation": "Overfitting happens when the model is too complex relative to the data (e.g., high-degree polynomial). It memorizes training examples and noise rather than the underlying pattern. Result: low training error but high test error.",
+      "learning_objective": "Analyze the notions of underfitting and overfitting and the problems with each",
+      "keywords": ["overfitting", "noise", "training", "unseen", "memorize"]
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Underfitting and Overfitting",
+      "question_text": "A student grade prediction model has training MSE = 0.25 and test MSE = 0.24. What does this most likely indicate?",
+      "options": [
+        "A) The model is overfitting; we should add more features or use a more complex model",
+        "B) The model is underfitting; we should simplify the model or remove features",
+        "C) The model generalizes well; training and test error are similar and reasonable",
+        "D) The model is overfitting; we should use a simpler model or regularization"
+      ],
+      "correct_answer": "C",
+      "explanation": "When training and test MSE are close and both reasonably low, the model is generalizing well—it learned the underlying pattern without memorizing noise. Overfitting would show low training MSE but high test MSE. Underfitting would show high error on both.",
+      "learning_objective": "Analyze the notions of underfitting and overfitting and the problems with each",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Underfitting and Overfitting",
+      "question_text": "A housing price model has training R² = 0.98 and test R² = 0.55. What is the main problem and what is a reasonable first step to address it?",
+      "options": [
+        "A) Underfitting; add more polynomial terms or more features",
+        "B) Overfitting; reduce model complexity (e.g., fewer features, regularization, or simpler model)",
+        "C) Underfitting; collect more training data",
+        "D) Overfitting; increase model complexity to match the test set"
+      ],
+      "correct_answer": "B",
+      "explanation": "A large gap between training R² (0.98) and test R² (0.55) indicates overfitting: the model fits training data very well but fails on new data. Reducing complexity (fewer features, regularization like Ridge/Lasso, or a simpler model) helps the model generalize.",
+      "learning_objective": "Analyze the notions of underfitting and overfitting and the problems with each",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Underfitting and Overfitting",
+      "question_text": "You are building a model to predict customer churn. The model uses only 'account age' and has training MSE = 0.22 and test MSE = 0.21. Stakeholders want better accuracy. Describe two concrete indications that the model might be underfitting and two specific actions you could take to address it.",
+      "options": null,
+      "correct_answer": "Indications: (1) Training and test error are both high and similar—model isn't capturing enough pattern. (2) Using very few features (only account age) suggests the model may be too simple. Actions: (1) Add relevant features (e.g., usage frequency, support tickets, contract type, tenure) to capture more signal. (2) Use a more flexible model (e.g., add interaction terms, try a non-linear model like decision tree or polynomial terms) if the relationship is not linear.",
+      "explanation": "Underfitting is signaled by high error on both sets and a model that is too simple (few features, linear when relationship is curved). Actions must be concrete: add features, increase model flexibility, or add interactions—not vague 'improve the model.'",
+      "learning_objective": "Analyze the notions of underfitting and overfitting and the problems with each",
+      "keywords": ["underfitting", "high error", "add features", "more flexible", "interaction", "non-linear", "complexity"]
+    },
+    {
+      "number": 6,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Generalization",
+      "question_text": "___________ is the ability of a model to perform well on new, unseen data that was not used during training.",
+      "options": null,
+      "correct_answer": "Generalization",
+      "explanation": "Generalization means the model has learned the underlying pattern (signal) rather than memorizing training examples. A model that generalizes well has similar performance on training and test data and will perform reliably on future data.",
+      "learning_objective": "Define the crucial concept of generalization",
+      "keywords": ["generalization", "unseen", "new data", "not used", "training"]
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Generalization",
+      "question_text": "Minimizing ___________ MSE is more important than minimizing training MSE because we care about performance on new data, not on data the model has already seen.",
+      "options": null,
+      "correct_answer": "test",
+      "explanation": "Test MSE (or validation MSE) measures performance on unseen data. Training MSE can be made arbitrarily low by overfitting. The goal of ML is to build models that perform well on future data, so test/validation error is the right criterion for model selection.",
+      "learning_objective": "Define the crucial concept of generalization",
+      "keywords": ["test", "validation", "unseen", "new data", "future"]
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Generalization",
+      "question_text": "True or False: A model with very low training MSE and very high test MSE has good generalization.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "False. Good generalization means the model performs well on unseen data (low test error). Low training MSE with high test MSE indicates overfitting—the model memorized the training set and does not generalize. We want similar, reasonably low error on both training and test sets.",
+      "learning_objective": "Define the crucial concept of generalization",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Generalization",
+      "question_text": "Why might a high-variance model perform very well on training data but poorly on test data?",
+      "options": [
+        "A) Test data is always noisier than training data",
+        "B) The model has learned the training data too closely, including noise, so it fails to capture the true pattern that would apply to new data",
+        "C) Training data is larger than test data",
+        "D) The model has high bias and therefore cannot fit any data well"
+      ],
+      "correct_answer": "B",
+      "explanation": "High-variance models are sensitive to the specific training sample—they fit it very closely, including noise. The true underlying pattern is what generalizes; noise does not repeat in new data. So the model performs well on training (it fit the noise there) but poorly on test data where the noise is different.",
+      "learning_objective": "Define the crucial concept of generalization",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Generalization",
+      "question_text": "How does the bias-variance tradeoff relate to the concept of generalization? In 2–3 sentences, explain why minimizing test MSE is the right goal.",
+      "options": null,
+      "correct_answer": "The bias-variance tradeoff determines how well a model generalizes: too much bias (underfitting) or too much variance (overfitting) both hurt test performance. We minimize test MSE (not training MSE) because test MSE reflects performance on new data; training MSE can be driven down by overfitting without improving (and often worsening) generalization.",
+      "explanation": "The link is: bias-variance tradeoff affects generalization; we care about test MSE because it measures generalization. The answer must mention that test MSE reflects new/unseen data and that training MSE alone is misleading when overfitting.",
+      "learning_objective": "Define the crucial concept of generalization",
+      "keywords": ["bias", "variance", "generalization", "test MSE", "new data", "overfitting"]
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "___________ is the error due to the model's simplifying assumptions; it leads to underfitting when the model is too simple to capture the true relationship.",
+      "options": null,
+      "correct_answer": "Bias",
+      "explanation": "Bias is the error from wrong or overly simple assumptions (e.g., assuming a linear relationship when the true relationship is curved). High-bias models underfit: they have high training and test error because they cannot represent the true pattern.",
+      "learning_objective": "Explain the bias-variance tradeoff and how it arises in ML models",
+      "keywords": ["bias", "simplifying", "underfitting", "assumptions"]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "___________ is the error due to the model's sensitivity to the specific training sample; it leads to overfitting when the model is too flexible and captures noise.",
+      "options": null,
+      "correct_answer": "Variance",
+      "explanation": "Variance measures how much the model's predictions would change if we trained on a different sample. High-variance models are very flexible and fit each training set closely (including noise), so they overfit and perform poorly on new data.",
+      "learning_objective": "Explain the bias-variance tradeoff and how it arises in ML models",
+      "keywords": ["variance", "sensitivity", "training sample", "overfitting", "noise"]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "Which of the following is an example of a model that typically has high bias and would tend to underfit?",
+      "options": [
+        "A) A degree-10 polynomial regression with 50 features",
+        "B) A simple linear regression with one predictor when the true relationship is strongly nonlinear",
+        "C) A deep neural network with many layers trained on a small dataset",
+        "D) A decision tree with no depth limit trained on 10,000 samples"
+      ],
+      "correct_answer": "B",
+      "explanation": "Simple linear regression with one predictor has high bias when the true relationship is nonlinear—it cannot represent the curve, so it underfits. Option A and C are typically high-variance (overfitting). Option D is also high-variance (complex tree overfits). High-bias models are usually too simple for the problem.",
+      "learning_objective": "Explain the bias-variance tradeoff and how it arises in ML models",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "Which of the following is an example of a model that typically has high variance and would tend to overfit?",
+      "options": [
+        "A) A linear regression with one predictor",
+        "B) A constant model that always predicts the mean of the training set",
+        "C) A decision tree grown deep with no pruning on a small dataset",
+        "D) A logistic regression with two features for a binary classification problem"
+      ],
+      "correct_answer": "C",
+      "explanation": "A deep, unpruned decision tree on a small dataset is highly flexible and will fit the training data very closely (including noise), so it has high variance and overfits. Options A, B, and D are relatively simple and tend to have higher bias, not high variance.",
+      "learning_objective": "Explain the bias-variance tradeoff and how it arises in ML models",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "True or False: In the bias-variance decomposition, test MSE can be expressed as the sum of bias², variance, and irreducible error. As model complexity increases, bias typically decreases and variance typically increases.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "True. Test MSE = Bias² + Variance + Irreducible Error. When we increase model complexity (e.g., more features, higher polynomial degree), the model can fit more patterns, so bias usually decreases. But the model also becomes more sensitive to the training sample, so variance usually increases. The tradeoff is finding the complexity that minimizes test MSE.",
+      "learning_objective": "Explain the bias-variance tradeoff and how it arises in ML models",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "Imagine you are building a model to predict student grades based on study habits and attendance. How would you recognize if your model is underfitting? How would you recognize overfitting? What could you do to address each situation? (Give one concrete recognition sign and one concrete action for each.)",
+      "options": null,
+      "correct_answer": "Underfitting: Recognition—training and test MSE (or RMSE) are both high and similar; model might be too simple (e.g., only one feature). Action—add relevant features (e.g., prior GPA, hours studied, attendance rate) or use a more flexible model (e.g., add interaction terms or non-linear terms). Overfitting: Recognition—training MSE is low but test MSE is much higher. Action—reduce complexity: use fewer features, apply regularization (Ridge/Lasso), use a simpler model (e.g., shallower tree), or gather more data and keep model fixed.",
+      "explanation": "Must give specific signs (high both errors for underfitting; low train / high test for overfitting) and specific actions (add features or flexibility for underfitting; reduce features, regularization, simpler model, or more data for overfitting).",
+      "learning_objective": "Explain the bias-variance tradeoff and how it arises in ML models",
+      "keywords": ["underfitting", "overfitting", "training", "test", "MSE", "features", "regularization", "complexity"]
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Strategies for Navigating the Bias-Variance Tradeoff",
+      "question_text": "___________ is a strategy that adds a penalty term to the loss function (e.g., L2 penalty on coefficients) to discourage large weights and reduce overfitting without removing features.",
+      "options": null,
+      "correct_answer": "Regularization",
+      "explanation": "Regularization (e.g., Ridge/Lasso) penalizes model complexity by shrinking coefficients. This reduces variance (overfitting) while potentially increasing bias slightly. It allows keeping many features while preventing them from fitting noise too closely.",
+      "learning_objective": "Discuss the importance of strategies for navigating the bias-variance tradeoff",
+      "keywords": ["regularization", "penalty", "Ridge", "Lasso", "overfitting"]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Strategies for Navigating the Bias-Variance Tradeoff",
+      "question_text": "Using a ___________ set (or cross-validation) to evaluate model performance during training helps select models that generalize well, rather than just fitting the training set.",
+      "options": null,
+      "correct_answer": "validation",
+      "explanation": "A validation set (or cross-validation) provides an unbiased estimate of test performance. We tune model complexity and hyperparameters to minimize validation error, which correlates with test/generalization performance and helps avoid overfitting to the training set.",
+      "learning_objective": "Discuss the importance of strategies for navigating the bias-variance tradeoff",
+      "keywords": ["validation", "cross-validation", "generalize", "tune", "hyperparameters"]
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Strategies for Navigating the Bias-Variance Tradeoff",
+      "question_text": "You want to reduce variance without increasing bias too much. Which strategy is most appropriate?",
+      "options": [
+        "A) Use a more complex model (e.g., higher-degree polynomial) to capture more pattern",
+        "B) Use regularization (e.g., Ridge regression) to shrink coefficients while keeping the same model class",
+        "C) Remove half of the features to simplify the model",
+        "D) Train only on a smaller subset of the data to speed up training"
+      ],
+      "correct_answer": "B",
+      "explanation": "Regularization (e.g., Ridge) reduces variance by penalizing large coefficients, which prevents overfitting. It usually increases bias only slightly compared to removing features (which can greatly increase bias if removed features were useful). Option A increases variance. Option C can substantially increase bias. Option D typically hurts both.",
+      "learning_objective": "Discuss the importance of strategies for navigating the bias-variance tradeoff",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Strategies for Navigating the Bias-Variance Tradeoff",
+      "question_text": "In the context of credit scoring, a model that is underfitting might lead to which of the following problems?",
+      "options": [
+        "A) Approving too many high-risk applicants because the model is too complex and fits noise",
+        "B) Failing to distinguish between good and bad credit risks because the model is too simple and misses important patterns",
+        "C) The model performing perfectly on training data but poorly on new applicants",
+        "D) High variance in predictions across different training samples"
+      ],
+      "correct_answer": "B",
+      "explanation": "Underfitting means the model is too simple and fails to capture the true relationship. In credit scoring, it would fail to distinguish well between good and bad risks (e.g., similar scores for very different risk levels), leading to poor decisions. Option A and C describe overfitting. Option D describes variance, not underfitting.",
+      "learning_objective": "Discuss the importance of strategies for navigating the bias-variance tradeoff",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Strategies for Navigating the Bias-Variance Tradeoff",
+      "question_text": "True or False: Collecting more training data can reduce variance (and thus overfitting) without necessarily increasing bias, because the model has more examples to learn the true pattern from.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "True. More data gives a better estimate of the true underlying pattern and dilutes the effect of noise in any single sample. So variance tends to decrease with more data, and overfitting is reduced, without forcing the model to be simpler (so bias need not increase). This is why more data is often one of the best remedies for overfitting.",
+      "learning_objective": "Discuss the importance of strategies for navigating the bias-variance tradeoff",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Strategies for Navigating the Bias-Variance Tradeoff",
+      "question_text": "Name three concrete strategies to reduce variance (overfitting) in a regression or classification model. For each, state in one sentence how it helps.",
+      "options": null,
+      "correct_answer": "(1) Regularization (e.g., Ridge/Lasso): penalizes large coefficients so the model cannot fit noise as closely. (2) Use more training data: gives a better estimate of the true pattern and reduces sensitivity to the specific sample. (3) Reduce model complexity: fewer features, lower polynomial degree, or shallower/smaller trees so the model has less capacity to memorize. (Other valid: cross-validation for model selection; early stopping; pruning for trees.)",
+      "explanation": "Must list three distinct strategies and briefly explain how each reduces variance/overfitting. Accept regularization, more data, reduce complexity, cross-validation, pruning, early stopping.",
+      "learning_objective": "Discuss the importance of strategies for navigating the bias-variance tradeoff",
+      "keywords": ["regularization", "more data", "complexity", "cross-validation", "pruning", "variance", "overfitting"]
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Underfitting and Overfitting",
+      "question_text": "A marketing response model is evaluated on training and validation data. Training AUC = 0.92, validation AUC = 0.71. Describe what this pattern indicates and what you would do next (one specific action).",
+      "options": null,
+      "correct_answer": "The pattern indicates overfitting: the model fits the training data very well but performs much worse on validation data. Next step: reduce overfitting by applying regularization (e.g., L1/L2), reducing the number of features (feature selection), or using a simpler model (e.g., shallower tree, smaller neural network). Re-evaluate using the same validation set after the change.",
+      "explanation": "Must identify overfitting (train >> validation performance) and give one concrete next step: regularization, feature selection, or simpler model—not a vague 'improve the model.'",
+      "learning_objective": "Analyze the notions of underfitting and overfitting and the problems with each",
+      "keywords": ["overfitting", "regularization", "feature selection", "simpler model", "validation"]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Bias-Variance Tradeoff",
+      "question_text": "The ___________ error is the part of test error that cannot be reduced by any model because it comes from randomness in the data (e.g., measurement error or unobserved factors).",
+      "options": null,
+      "correct_answer": "irreducible",
+      "explanation": "Irreducible error (or noise) is the inherent variability in the outcome that no model can predict. It sets a lower bound on test MSE. Only bias and variance can be reduced by model choice; irreducible error cannot.",
+      "learning_objective": "Explain the bias-variance tradeoff and how it arises in ML models",
+      "keywords": ["irreducible", "noise", "cannot be reduced", "randomness"]
+    },
+    {
+      "number": 25,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Strategies for Navigating the Bias-Variance Tradeoff",
+      "question_text": "You have a model that you suspect is overfitting. You cannot collect more data. Which combination of actions is most likely to help without causing severe underfitting?",
+      "options": [
+        "A) Double the model complexity and train longer",
+        "B) Add regularization with a moderate strength and use cross-validation to choose the regularization parameter",
+        "C) Remove all but one feature to maximize simplicity",
+        "D) Use the same model but train on a 10% random subset of the data"
+      ],
+      "correct_answer": "B",
+      "explanation": "Regularization with moderate strength (tuned via cross-validation) reduces overfitting by shrinking coefficients, and cross-validation ensures we do not over-regularize (which would increase bias). Option A increases overfitting. Option C risks severe underfitting. Option D typically hurts performance.",
+      "learning_objective": "Discuss the importance of strategies for navigating the bias-variance tradeoff",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "analysis",
+      "section": "Generalization",
+      "question_text": "What might be some indications in your predictions that the model is underfitting? What might be some indications that it is overfitting? (Give at least one concrete indication for each.)",
+      "options": null,
+      "correct_answer": "Underfitting: Predictions are similar for very different inputs (e.g., same predicted grade for students with very different study habits); high and similar errors on both training and validation sets; residuals show clear pattern (e.g., systematic underprediction for high values). Overfitting: Predictions are very accurate on training data but inaccurate on new data; large gap between training and validation/test error; predictions are overly sensitive to small changes in input or to noise in training data.",
+      "explanation": "Must give at least one concrete sign of underfitting (e.g., similar predictions for different inputs, high error on both sets, patterned residuals) and one of overfitting (e.g., train vs validation gap, sensitivity to noise).",
+      "learning_objective": "Define the crucial concept of generalization",
+      "keywords": ["underfitting", "overfitting", "training", "validation", "predictions", "error", "residuals"]
+    }
+  ]
+}

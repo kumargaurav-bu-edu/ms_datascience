@@ -317,7 +317,9 @@ The answer must reference:
 * The **specific visual technique** used to highlight that risk
 
 ---
+### 16. Quiz Standard
+Ensure that all quiz questions and scenarios are designed at the academic rigor and difficulty level expected in a typical U.S. Master’s (MS) program.
 
 
 
-## setup an interactive python program quiz which is reusable. for example you took questions and answer as json and running the program on it. adding more questions or changing questions set will be smoothless.
+## setup an interactive python program quiz which is reusable. for example you took questions and answer as json and running the program on it. adding more questions or changing questions set will be smoothless.(will use generic_quiz.py to practice the quiz)
