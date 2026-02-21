@@ -1,0 +1,311 @@
+{
+  "quiz_metadata": {
+    "course": "DX699-O2",
+    "week": 4,
+    "topic": "Data Visualization and Storytelling with Data",
+    "total_questions": 20,
+    "created_date": "2026-02-19"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple_choice",
+      "question": "Which chart type is most appropriate for showing the distribution of a single continuous variable?",
+      "options": [
+        "Pie chart",
+        "Histogram",
+        "Stacked bar chart",
+        "Scatter plot"
+      ],
+      "correct_answer": "Histogram",
+      "explanation": "A histogram is specifically designed to show the distribution of a continuous variable by dividing data into bins and displaying frequency counts. It's ideal for univariate analysis of continuous data.",
+      "difficulty": "easy",
+      "learning_objective": "Select the most appropriate visualization based on the type of data"
+    },
+    {
+      "id": 2,
+      "type": "multiple_choice",
+      "question": "What is the primary weakness of pie charts according to data visualization best practices?",
+      "options": [
+        "They can't show percentages",
+        "Humans are poor at comparing angles and areas, making precise comparisons difficult",
+        "They only work with two categories",
+        "They require too much color"
+      ],
+      "correct_answer": "Humans are poor at comparing angles and areas, making precise comparisons difficult",
+      "explanation": "The main issue with pie charts is that humans struggle to accurately compare angles and areas, especially when slices are similar in size. Bar charts are generally more effective for comparing values.",
+      "difficulty": "medium",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats"
+    },
+    {
+      "id": 3,
+      "type": "multiple_choice",
+      "question": "A KDE (Kernel Density Estimate) plot is best described as:",
+      "options": [
+        "A bar chart with smoothed edges",
+        "A smoothed, continuous version of a histogram showing probability density",
+        "A type of scatter plot",
+        "A categorical comparison chart"
+      ],
+      "correct_answer": "A smoothed, continuous version of a histogram showing probability density",
+      "explanation": "KDE plots estimate the probability density function of a variable, creating a smooth curve that represents the distribution. They're useful for showing the underlying distribution without the binning artifacts of histograms.",
+      "difficulty": "medium",
+      "learning_objective": "Distinguish between various types of charts and graphs"
+    },
+    {
+      "id": 4,
+      "type": "multiple_choice",
+      "question": "Which visualization type shows individual data points along with the distribution, making it useful for smaller datasets?",
+      "options": [
+        "Histogram",
+        "Box plot",
+        "Swarm plot",
+        "KDE plot"
+      ],
+      "correct_answer": "Swarm plot",
+      "explanation": "Swarm plots display all individual data points without overlapping, arranged to show the underlying distribution. They're particularly effective for small to medium-sized datasets where you want to see both distribution and individual values.",
+      "difficulty": "medium",
+      "learning_objective": "Distinguish between various types of charts and graphs"
+    },
+    {
+      "id": 5,
+      "type": "multiple_choice",
+      "question": "A box plot (box-and-whisker plot) effectively displays:",
+      "options": [
+        "Only the mean and standard deviation",
+        "The median, quartiles, and potential outliers",
+        "Individual data points in detail",
+        "Frequency counts for categorical data"
+      ],
+      "correct_answer": "The median, quartiles, and potential outliers",
+      "explanation": "Box plots show the five-number summary: minimum, first quartile (Q1), median, third quartile (Q3), and maximum, along with outliers. They're excellent for comparing distributions across groups.",
+      "difficulty": "easy",
+      "learning_objective": "Distinguish between various types of charts and graphs"
+    },
+    {
+      "id": 6,
+      "type": "multiple_choice",
+      "question": "What is the main advantage of a violin plot over a box plot?",
+      "options": [
+        "Violin plots are always more accurate",
+        "Violin plots show the full distribution shape (density) in addition to summary statistics",
+        "Violin plots use less space",
+        "Violin plots work better with categorical data"
+      ],
+      "correct_answer": "Violin plots show the full distribution shape (density) in addition to summary statistics",
+      "explanation": "Violin plots combine a box plot with a KDE plot, showing both summary statistics and the full shape of the distribution. This reveals features like bimodality that box plots miss.",
+      "difficulty": "medium",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats"
+    },
+    {
+      "id": 7,
+      "type": "multiple_choice",
+      "question": "When comparing categories, which is generally more effective according to Storytelling with Data principles?",
+      "options": [
+        "Pie charts",
+        "3D bar charts",
+        "Simple bar charts",
+        "Donut charts"
+      ],
+      "correct_answer": "Simple bar charts",
+      "explanation": "Bar charts allow for easy comparison using length/position, which humans process more accurately than angles (pie charts) or 3D perspectives. Simple bar charts are clear and effective for categorical comparisons.",
+      "difficulty": "easy",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs"
+    },
+    {
+      "id": 8,
+      "type": "multiple_choice",
+      "question": "Univariate analysis refers to:",
+      "options": [
+        "Analysis of multiple variables simultaneously",
+        "Analysis of a single variable's distribution and characteristics",
+        "Analysis requiring advanced statistical methods",
+        "Analysis of categorical data only"
+      ],
+      "correct_answer": "Analysis of a single variable's distribution and characteristics",
+      "explanation": "Univariate analysis examines one variable at a time, exploring its distribution, central tendency, spread, and other characteristics. Common visualizations include histograms, box plots, and KDE plots.",
+      "difficulty": "easy",
+      "learning_objective": "Describe univariate analysis"
+    },
+    {
+      "id": 9,
+      "type": "multiple_choice",
+      "question": "When should you choose a stacked bar chart over a regular bar chart?",
+      "options": [
+        "Always, as they look more professional",
+        "When you want to show both part-to-whole relationships and compare totals across categories",
+        "When you have only two categories",
+        "Never, they are always inferior"
+      ],
+      "correct_answer": "When you want to show both part-to-whole relationships and compare totals across categories",
+      "explanation": "Stacked bar charts are useful when you want to show how a total is composed of parts while also comparing totals across categories. However, comparing individual segments (except the baseline) can be difficult.",
+      "difficulty": "medium",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats"
+    },
+    {
+      "id": 10,
+      "type": "multiple_choice",
+      "question": "According to Storytelling with Data principles, what should guide your choice of visualization?",
+      "options": [
+        "What looks most impressive",
+        "The type of data and the story you want to tell",
+        "The most complex visualization available",
+        "Personal preference only"
+      ],
+      "correct_answer": "The type of data and the story you want to tell",
+      "explanation": "Effective visualizations are chosen based on the data type and the message or insight you want to communicate to your audience. The visualization should serve the story, not obscure it.",
+      "difficulty": "easy",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs"
+    },
+    {
+      "id": 11,
+      "type": "multiple_choice",
+      "question": "Which statement about horizontal vs. vertical bar charts is most accurate?",
+      "options": [
+        "Vertical bars are always better",
+        "Horizontal bars are better for long category labels and easier reading",
+        "They are functionally identical with no practical differences",
+        "Horizontal bars should never be used"
+      ],
+      "correct_answer": "Horizontal bars are better for long category labels and easier reading",
+      "explanation": "Horizontal bar charts are often preferred when category labels are long, as text reads more naturally horizontally. They also allow for easier comparison as the bars grow from a common baseline on the left.",
+      "difficulty": "medium",
+      "learning_objective": "Construct effective visuals"
+    },
+    {
+      "id": 12,
+      "type": "multiple_choice",
+      "question": "How can different visualizations affect audience interpretation?",
+      "options": [
+        "Visualizations have no impact on interpretation",
+        "Choice of scale, chart type, and design elements can emphasize different aspects and lead to different conclusions",
+        "Only color affects interpretation",
+        "All visualizations lead to the same conclusions"
+      ],
+      "correct_answer": "Choice of scale, chart type, and design elements can emphasize different aspects and lead to different conclusions",
+      "explanation": "Visualization choices significantly impact perception. Axis scales, chart types, colors, and design elements can emphasize or de-emphasize certain patterns, potentially leading viewers to different interpretations of the same data.",
+      "difficulty": "medium",
+      "learning_objective": "Analyze how different visualizations can affect audience interpretation"
+    },
+    {
+      "id": 13,
+      "type": "multiple_choice",
+      "question": "In Matplotlib, which function is used to create a histogram?",
+      "options": [
+        "plt.scatter()",
+        "plt.hist()",
+        "plt.bar()",
+        "plt.boxplot()"
+      ],
+      "correct_answer": "plt.hist()",
+      "explanation": "plt.hist() is the Matplotlib function specifically designed to create histograms from continuous data. It automatically bins the data and displays frequency counts.",
+      "difficulty": "easy",
+      "learning_objective": "Create data visualizations using Matplotlib"
+    },
+    {
+      "id": 14,
+      "type": "multiple_choice",
+      "question": "What is a key principle when reproducing a visualization from an example?",
+      "options": [
+        "Make it look completely different to be original",
+        "Pay attention to scale, labels, colors, and overall layout to match the original's message",
+        "Only copy the data, ignore styling",
+        "Always use default settings"
+      ],
+      "correct_answer": "Pay attention to scale, labels, colors, and overall layout to match the original's message",
+      "explanation": "When reproducing a visualization, attention to detail matters. Scales, labels, colors, and layout all contribute to the message. Understanding why these choices were made helps you create effective visualizations.",
+      "difficulty": "medium",
+      "learning_objective": "Reproduce a graph/data visualization from an example graph/data visualization"
+    },
+    {
+      "id": 15,
+      "type": "multiple_choice",
+      "question": "When analyzing an existing visualization's weaknesses, what should you look for?",
+      "options": [
+        "Only check if it uses your favorite colors",
+        "Evaluate clarity, accuracy, appropriate chart choice, and whether it effectively communicates the intended message",
+        "Only look at the title",
+        "Check only for spelling errors"
+      ],
+      "correct_answer": "Evaluate clarity, accuracy, appropriate chart choice, and whether it effectively communicates the intended message",
+      "explanation": "Effective critique examines multiple aspects: Is the chart type appropriate? Are labels clear? Does the scale mislead? Is the message evident? Does clutter distract? This comprehensive analysis identifies strengths and areas for improvement.",
+      "difficulty": "medium",
+      "learning_objective": "Analyze existing data visualizations to identify strengths and weaknesses"
+    },
+    {
+      "id": 16,
+      "type": "multiple_choice",
+      "question": "Which Matplotlib function creates a box plot?",
+      "options": [
+        "plt.box()",
+        "plt.boxplot()",
+        "plt.whisker()",
+        "plt.quartile()"
+      ],
+      "correct_answer": "plt.boxplot()",
+      "explanation": "plt.boxplot() is the Matplotlib function for creating box-and-whisker plots, which display the distribution summary including median, quartiles, and outliers.",
+      "difficulty": "easy",
+      "learning_objective": "Create plots/graphs in a variety of formats"
+    },
+    {
+      "id": 17,
+      "type": "multiple_choice",
+      "question": "According to Storytelling with Data, what is the purpose of using color in visualizations?",
+      "options": [
+        "To make the graph look pretty",
+        "To strategically draw attention and highlight important information",
+        "To use as many colors as possible",
+        "Color choice doesn't matter"
+      ],
+      "correct_answer": "To strategically draw attention and highlight important information",
+      "explanation": "In Storytelling with Data, color is used strategically and sparingly to direct the audience's attention to what matters most. Too much color can be distracting, while thoughtful use guides interpretation.",
+      "difficulty": "medium",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs"
+    },
+    {
+      "id": 18,
+      "type": "multiple_choice",
+      "question": "What is a primary strength of histograms?",
+      "options": [
+        "They work well for categorical data",
+        "They clearly show the distribution and frequency of continuous data",
+        "They display exact values for each data point",
+        "They are best for comparing multiple groups"
+      ],
+      "correct_answer": "They clearly show the distribution and frequency of continuous data",
+      "explanation": "Histograms excel at showing the shape, spread, and frequency distribution of continuous variables. They reveal patterns like skewness, modality, and outliers in the data.",
+      "difficulty": "easy",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats"
+    },
+    {
+      "id": 19,
+      "type": "multiple_choice",
+      "question": "When constructing effective visuals, which principle is most important?",
+      "options": [
+        "Use the most advanced visualization technique available",
+        "Ensure clarity and that the visual serves the communication goal",
+        "Include as much data as possible",
+        "Always use 3D effects"
+      ],
+      "correct_answer": "Ensure clarity and that the visual serves the communication goal",
+      "explanation": "The most effective visualizations are clear, focused, and purpose-driven. They eliminate clutter, use appropriate chart types, and make the intended message evident to the audience.",
+      "difficulty": "easy",
+      "learning_objective": "Construct effective visuals"
+    },
+    {
+      "id": 20,
+      "type": "multiple_choice",
+      "question": "For comparing distributions across multiple groups, which visualization is most effective?",
+      "options": [
+        "A single histogram",
+        "Multiple box plots or violin plots side by side",
+        "A pie chart",
+        "A single scatter plot"
+      ],
+      "correct_answer": "Multiple box plots or violin plots side by side",
+      "explanation": "Side-by-side box plots or violin plots allow easy comparison of distributions across groups, showing medians, spreads, and shapes simultaneously. This makes group differences immediately apparent.",
+      "difficulty": "medium",
+      "learning_objective": "Select the most appropriate visualization based on the type of data"
+    }
+  ]
+}
