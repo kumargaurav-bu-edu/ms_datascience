@@ -1,0 +1,311 @@
+{
+  "quiz_metadata": {
+    "course": "DX604",
+    "week": 4,
+    "topic": "Data Quality and Master Data Management",
+    "total_questions": 20,
+    "created_date": "2026-02-19"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple_choice",
+      "question": "Which of the following is NOT typically considered a key dimension of data quality?",
+      "options": [
+        "Accuracy",
+        "Completeness",
+        "Velocity",
+        "Consistency"
+      ],
+      "correct_answer": "Velocity",
+      "explanation": "Velocity is a characteristic of big data (Volume, Velocity, Variety, Veracity), not a dimension of data quality. Key data quality dimensions include accuracy, completeness, consistency, timeliness, validity, and uniqueness.",
+      "difficulty": "medium",
+      "learning_objective": "Define data quality and its dimensions"
+    },
+    {
+      "id": 2,
+      "type": "multiple_choice",
+      "question": "Data accuracy refers to:",
+      "options": [
+        "How recent the data is",
+        "How well data represents the real-world entity or event it describes",
+        "Whether all required data fields are populated",
+        "How consistently data is formatted across systems"
+      ],
+      "correct_answer": "How well data represents the real-world entity or event it describes",
+      "explanation": "Data accuracy measures how closely data values correspond to the true, real-world values. It reflects the correctness and precision of the data.",
+      "difficulty": "easy",
+      "learning_objective": "Define data quality and its dimensions"
+    },
+    {
+      "id": 3,
+      "type": "multiple_choice",
+      "question": "Which data quality dimension is violated when customer records have the same person listed with different addresses in different systems?",
+      "options": [
+        "Completeness",
+        "Consistency",
+        "Timeliness",
+        "Validity"
+      ],
+      "correct_answer": "Consistency",
+      "explanation": "Consistency refers to data being uniform and not contradictory across different systems or datasets. Having different addresses for the same person violates consistency.",
+      "difficulty": "medium",
+      "learning_objective": "Define data quality and its dimensions"
+    },
+    {
+      "id": 4,
+      "type": "multiple_choice",
+      "question": "Data profiling is best described as:",
+      "options": [
+        "The process of analyzing data to understand its structure, content, and quality",
+        "Creating user profiles for database access",
+        "Removing duplicate records from a database",
+        "Converting data from one format to another"
+      ],
+      "correct_answer": "The process of analyzing data to understand its structure, content, and quality",
+      "explanation": "Data profiling involves examining data to collect statistics and information about its structure, content patterns, and quality issues. It's a crucial first step in data quality improvement.",
+      "difficulty": "easy",
+      "learning_objective": "Implement data quality improvement techniques"
+    },
+    {
+      "id": 5,
+      "type": "multiple_choice",
+      "question": "Which technique is most appropriate for handling missing values in a dataset?",
+      "options": [
+        "Delete all records with any missing values",
+        "Always replace missing values with zeros",
+        "Imputation based on context (mean, median, mode, or predictive models)",
+        "Ignore missing values completely"
+      ],
+      "correct_answer": "Imputation based on context (mean, median, mode, or predictive models)",
+      "explanation": "Context-appropriate imputation is the best approach. The method chosen (mean, median, mode, or advanced techniques) should depend on the data type, distribution, and business context.",
+      "difficulty": "medium",
+      "learning_objective": "Implement data quality improvement techniques"
+    },
+    {
+      "id": 6,
+      "type": "multiple_choice",
+      "question": "Data cleansing involves:",
+      "options": [
+        "Only removing duplicate records",
+        "Detecting and correcting errors, inconsistencies, and inaccuracies in data",
+        "Encrypting sensitive data",
+        "Compressing data to save storage space"
+      ],
+      "correct_answer": "Detecting and correcting errors, inconsistencies, and inaccuracies in data",
+      "explanation": "Data cleansing (or data scrubbing) is the process of identifying and correcting or removing errors, inconsistencies, and inaccuracies in data to improve its quality.",
+      "difficulty": "easy",
+      "learning_objective": "Implement data quality improvement techniques"
+    },
+    {
+      "id": 7,
+      "type": "multiple_choice",
+      "question": "What is the primary purpose of data governance?",
+      "options": [
+        "To increase data storage capacity",
+        "To establish policies, standards, and processes for managing data as an organizational asset",
+        "To encrypt all organizational data",
+        "To reduce the number of databases in an organization"
+      ],
+      "correct_answer": "To establish policies, standards, and processes for managing data as an organizational asset",
+      "explanation": "Data governance provides the framework, policies, and oversight needed to ensure data is managed effectively, securely, and in compliance with regulations while maintaining quality.",
+      "difficulty": "easy",
+      "learning_objective": "Implement data quality improvement techniques"
+    },
+    {
+      "id": 8,
+      "type": "multiple_choice",
+      "question": "Which of the following is a benefit of automating data quality checks?",
+      "options": [
+        "Eliminates the need for data governance",
+        "Ensures consistent, scalable, and continuous monitoring of data quality",
+        "Removes all data quality issues permanently",
+        "Makes manual data review unnecessary in all cases"
+      ],
+      "correct_answer": "Ensures consistent, scalable, and continuous monitoring of data quality",
+      "explanation": "Automation enables consistent application of data quality rules, can scale to large datasets, and provides continuous monitoring. However, it doesn't eliminate the need for governance or human oversight.",
+      "difficulty": "medium",
+      "learning_objective": "Implement data quality improvement techniques"
+    },
+    {
+      "id": 9,
+      "type": "multiple_choice",
+      "question": "Master Data Management (MDM) primarily focuses on:",
+      "options": [
+        "Managing only customer data",
+        "Creating and maintaining a single, consistent, and accurate view of critical business entities",
+        "Backing up all organizational data",
+        "Managing only transactional data"
+      ],
+      "correct_answer": "Creating and maintaining a single, consistent, and accurate view of critical business entities",
+      "explanation": "MDM focuses on identifying, linking, and synchronizing master data (customers, products, suppliers, etc.) across the enterprise to create a 'golden record' or single source of truth.",
+      "difficulty": "easy",
+      "learning_objective": "Explore the principles of master data management (MDM)"
+    },
+    {
+      "id": 10,
+      "type": "multiple_choice",
+      "question": "Which of the following is typically considered master data?",
+      "options": [
+        "Daily sales transactions",
+        "Customer contact information",
+        "Application log files",
+        "Email messages"
+      ],
+      "correct_answer": "Customer contact information",
+      "explanation": "Master data includes core business entities like customers, products, suppliers, locations, and employees. Transaction data, logs, and emails are not master data.",
+      "difficulty": "easy",
+      "learning_objective": "Explore the principles of master data management (MDM)"
+    },
+    {
+      "id": 11,
+      "type": "multiple_choice",
+      "question": "In MDM architecture, what is a 'golden record'?",
+      "options": [
+        "The oldest record in the database",
+        "A record that has never been modified",
+        "The single, most accurate and complete version of a data entity",
+        "A record stored in a secure vault"
+      ],
+      "correct_answer": "The single, most accurate and complete version of a data entity",
+      "explanation": "A golden record (or master record) is the authoritative, trusted version of a master data entity, created by consolidating and reconciling data from multiple sources.",
+      "difficulty": "medium",
+      "learning_objective": "Explore the principles of master data management (MDM)"
+    },
+    {
+      "id": 12,
+      "type": "multiple_choice",
+      "question": "Which MDM implementation style maintains master data in a central hub and distributes it to operational systems?",
+      "options": [
+        "Registry style",
+        "Coexistence style",
+        "Consolidation style",
+        "Centralized (or Transaction) style"
+      ],
+      "correct_answer": "Centralized (or Transaction) style",
+      "explanation": "In the centralized/transaction style, master data is created and maintained in the MDM hub, which becomes the system of record and distributes data to other systems.",
+      "difficulty": "hard",
+      "learning_objective": "Explore the principles of master data management (MDM)"
+    },
+    {
+      "id": 13,
+      "type": "multiple_choice",
+      "question": "Data stewardship in the context of MDM refers to:",
+      "options": [
+        "Storing data on physical servers",
+        "The responsibility for ensuring the quality, security, and proper use of data",
+        "Creating database backups",
+        "Writing SQL queries"
+      ],
+      "correct_answer": "The responsibility for ensuring the quality, security, and proper use of data",
+      "explanation": "Data stewards are individuals responsible for managing, overseeing, and ensuring the quality and proper governance of specific data domains within the MDM framework.",
+      "difficulty": "easy",
+      "learning_objective": "Apply MDM tools and practices"
+    },
+    {
+      "id": 14,
+      "type": "multiple_choice",
+      "question": "Which of the following is a key challenge in implementing MDM?",
+      "options": [
+        "Lack of data in organizations",
+        "Resistance to change and organizational silos",
+        "Too many MDM vendor options",
+        "Insufficient storage capacity"
+      ],
+      "correct_answer": "Resistance to change and organizational silos",
+      "explanation": "Cultural and organizational challenges, including resistance to change, departmental silos, and lack of cross-functional collaboration, are often the biggest barriers to successful MDM implementation.",
+      "difficulty": "medium",
+      "learning_objective": "Apply MDM tools and practices"
+    },
+    {
+      "id": 15,
+      "type": "multiple_choice",
+      "question": "Data matching and deduplication in MDM involve:",
+      "options": [
+        "Deleting all duplicate database tables",
+        "Identifying and merging records that represent the same real-world entity",
+        "Creating backup copies of master data",
+        "Matching data types across different systems"
+      ],
+      "correct_answer": "Identifying and merging records that represent the same real-world entity",
+      "explanation": "Data matching uses algorithms to identify records from different sources that refer to the same entity, while deduplication merges or eliminates redundant records to create a single master record.",
+      "difficulty": "medium",
+      "learning_objective": "Apply MDM tools and practices"
+    },
+    {
+      "id": 16,
+      "type": "multiple_choice",
+      "question": "Cloud-based MDM solutions offer which advantage over on-premises solutions?",
+      "options": [
+        "Complete elimination of data security concerns",
+        "Scalability and reduced infrastructure management burden",
+        "No need for data governance",
+        "Automatic resolution of all data quality issues"
+      ],
+      "correct_answer": "Scalability and reduced infrastructure management burden",
+      "explanation": "Cloud-based MDM provides scalability, faster deployment, reduced IT infrastructure costs, and easier updates, though it still requires proper governance and security measures.",
+      "difficulty": "medium",
+      "learning_objective": "Apply MDM tools and practices"
+    },
+    {
+      "id": 17,
+      "type": "multiple_choice",
+      "question": "What role does data lineage play in data quality and MDM?",
+      "options": [
+        "It has no relevance to data quality",
+        "It tracks data's origin, transformations, and movement through systems",
+        "It only applies to historical data",
+        "It is used solely for compliance purposes"
+      ],
+      "correct_answer": "It tracks data's origin, transformations, and movement through systems",
+      "explanation": "Data lineage provides visibility into data's lifecycle—where it comes from, how it's transformed, and where it's used. This is crucial for understanding data quality issues and maintaining trust in master data.",
+      "difficulty": "medium",
+      "learning_objective": "Implement data quality improvement techniques"
+    },
+    {
+      "id": 18,
+      "type": "multiple_choice",
+      "question": "Which metric would best measure the completeness dimension of data quality?",
+      "options": [
+        "Percentage of records with all required fields populated",
+        "Number of database queries per second",
+        "Average response time for data retrieval",
+        "Total storage capacity used"
+      ],
+      "correct_answer": "Percentage of records with all required fields populated",
+      "explanation": "Completeness measures whether all required data is present. The percentage of records with populated mandatory fields is a direct measure of this dimension.",
+      "difficulty": "easy",
+      "learning_objective": "Define data quality and its dimensions"
+    },
+    {
+      "id": 19,
+      "type": "multiple_choice",
+      "question": "In the context of MDM, what is 'data harmonization'?",
+      "options": [
+        "Backing up data to multiple locations",
+        "Standardizing data formats, definitions, and values across different systems",
+        "Encrypting sensitive data",
+        "Compressing data to save space"
+      ],
+      "correct_answer": "Standardizing data formats, definitions, and values across different systems",
+      "explanation": "Data harmonization involves standardizing data elements across different systems so they have consistent formats, definitions, and value representations, enabling effective data integration and MDM.",
+      "difficulty": "medium",
+      "learning_objective": "Explore the principles of master data management (MDM)"
+    },
+    {
+      "id": 20,
+      "type": "multiple_choice",
+      "question": "Which of the following best describes a data quality scorecard?",
+      "options": [
+        "A tool that automatically fixes all data quality issues",
+        "A visual representation of data quality metrics and KPIs over time",
+        "A ranking of employees based on data entry accuracy",
+        "A security tool for monitoring data access"
+      ],
+      "correct_answer": "A visual representation of data quality metrics and KPIs over time",
+      "explanation": "A data quality scorecard provides stakeholders with a dashboard view of key data quality metrics, dimensions, and trends, helping track progress and identify areas needing improvement.",
+      "difficulty": "easy",
+      "learning_objective": "Implement data quality improvement techniques"
+    }
+  ]
+}
