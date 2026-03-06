@@ -20,4 +20,13 @@ Reading | Knaflic, C. N. (2015). Storytelling with data: A data visualization gu
 
 Read from the beginning of Chapter 3 up to the section titled Non-Strategic Use of Contrast. In this chapter, you will learn about Gestalt principles, alignment, and white space.
 
+Review the Week's Learning Objectives
+Define what constitutes clutter and visual order in data visualization
+Describe how cognitive load can impact decisions on how best to create a data visualization
+Determine what data types or pairs in a provided data set produce the most meaningful or impactful data visualizations
+Describe bivariate analysis
+Identify the components of effective (good) data visualization
+Reproduce a graph/data visualization from an example graph/data visualization
+
+
 
