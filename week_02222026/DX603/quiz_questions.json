@@ -1,0 +1,410 @@
+{
+  "quiz_metadata": {
+    "title": "DX603 Week 6: Decision Trees Quiz",
+    "description": "Assessment covering decision tree structure, splitting logic, complexity control, performance trade-offs, and Scikit-Learn usage. Based on Week 6 learning objectives.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Tree Structure",
+      "question_text": "In a decision tree, a _____ represents a decision point where the data is split based on a feature value.",
+      "options": null,
+      "correct_answer": "node",
+      "explanation": "A node is the element of a decision tree where a test is applied to a feature and the data is partitioned. Leaves (terminal nodes) make predictions, while internal nodes hold splits. This relates to understanding the tree's structure.",
+      "learning_objective": "Describe the structure of decision trees (nodes, branches, depth, size, leaves)",
+      "keywords": ["node", "decision point", "split"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Tree Structure",
+      "question_text": "The _____ of a decision tree is the longest path from the root node down to a leaf.
+",
+      "options": null,
+      "correct_answer": "depth",
+      "explanation": "Depth measures how many levels the tree has; it counts edges along the longest branch from root to leaf. Controlling depth is one way to limit tree complexity.",
+      "learning_objective": "Describe the structure of decision trees (nodes, branches, depth, size, leaves)",
+      "keywords": ["depth", "levels", "longest path"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Tree Structure",
+      "question_text": "Terminal nodes that provide the predicted value or class are called _____.",
+      "options": null,
+      "correct_answer": "leaves",
+      "explanation": "Leaves (also leaf nodes or terminal nodes) are the endpoints of branches in a decision tree and contain the final output, such as a prediction or class label. They mark the end of a decision path.",
+      "learning_objective": "Describe the structure of decision trees (nodes, branches, depth, size, leaves)",
+      "keywords": ["leaves", "terminal", "prediction"]
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Tree Structure",
+      "question_text": "Which of the following best describes a branch in a decision tree?",
+      "options": [
+        "A) A data point used for training",
+        "B) A sequence of nodes and edges connecting the root to a leaf",
+        "C) The impurity measure at a node",
+        "D) A parameter controlling tree regularization"
+      ],
+      "correct_answer": "B",
+      "explanation": "A branch is a path through the tree, consisting of nodes and the decisions (edges) between them, from the root down to a leaf. It represents one sequence of splits. The other options confuse branches with data, impurity, or hyperparameters.",
+      "learning_objective": "Describe the structure of decision trees (nodes, branches, depth, size, leaves)",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Tree Structure",
+      "question_text": "You build a decision tree on housing data and the resulting model has depth 12 and 512 leaves. Stakeholders worry the tree is too complex. Explain two reasons why depth and number of leaves indicate complexity, and suggest one concrete way to simplify the tree using structural limits.",
+      "options": null,
+      "correct_answer": "Depth and number of leaves both correlate with how many splits the model has made; a depth of 12 means there are many sequential decisions, increasing the chance of overfitting. 512 leaves imply the tree has partitioned the space into many tiny regions. To simplify, set max_depth=5 or increase min_samples_leaf (e.g., min_samples_leaf=20) when calling DecisionTreeRegressor to limit how deep or how many samples per leaf the tree can create.",
+      "explanation": "Long depth and many leaves correspond to high complexity—they allow the model to carve the feature space finely and memorize noise. Limiting depth or forcing a minimum number of samples in each leaf reduces the number of possible branches, which helps control complexity. This ties back to the learning objective about tree structure and limiting size.",
+      "learning_objective": "Describe the structure of decision trees (nodes, branches, depth, size, leaves)",
+      "keywords": ["depth", "leaves", "overfitting", "max_depth", "min_samples_leaf"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Tree Structure",
+      "question_text": "True or False: All leaves in a decision tree sit at the same depth.
+",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Leaves can occur at different depths depending on how the data splits. One branch may terminate earlier while another continues deeper. Uniform leaf depth is not required. This misunderstanding often arises when learners confuse balanced trees with decision trees built on data.",
+      "learning_objective": "Describe the structure of decision trees (nodes, branches, depth, size, leaves)",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Splitting Data",
+      "question_text": "A decision tree splits data by selecting the feature and threshold that minimize impurity; for regression trees it typically uses _____ as the impurity measure.",
+      "options": null,
+      "correct_answer": "mean squared error",
+      "explanation": "Regression trees in scikit-learn minimize the residual sum of squares (equivalently mean squared error) at each split. Classification trees might use Gini impurity or entropy. Understanding the impurity metric helps explain where splits occur.",
+      "learning_objective": "Explain how decision trees split data",
+      "keywords": ["mean squared error", "MSE", "impurity", "regression"]
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Splitting Data",
+      "question_text": "When a decision tree chooses a split for a numerical feature, it compares the target values on either side of a candidate _____ to see which reduces impurity most.",
+      "options": null,
+      "correct_answer": "threshold",
+      "explanation": "The tree considers possible threshold values (e.g., feature < threshold) and computes the impurity of the two resulting subsets. The best threshold is the one that leads to the largest reduction in impurity.",
+      "learning_objective": "Explain how decision trees split data",
+      "keywords": ["threshold", "split", "numerical"]
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Splitting Data",
+      "question_text": "Which statement best describes how a decision tree decides where to split a categorical feature with k categories?",
+      "options": [
+        "A) It always splits on the first category alphabetically",
+        "B) It tries all 2^{k-1}-1 binary partitions of the categories to find the one minimizing impurity",
+        "C) It treats the categories as numeric and uses a median threshold",
+        "D) It randomly selects one category and splits data equal to that category vs. the rest"
+      ],
+      "correct_answer": "B",
+      "explanation": "For categorical features, decision trees consider all possible binary splits of the categories (except complements) to see which partition of categories yields the greatest impurity reduction. Random or alphabetical splits are not used.",
+      "learning_objective": "Explain how decision trees split data",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Splitting Data",
+      "question_text": "A regression tree is about to split on 'square_footage'. The candidate thresholds are 1000, 1500, and 2000. Explain in 1–2 sentences how the tree evaluates these and selects one.
+",
+      "options": null,
+      "correct_answer": "For each threshold the tree partitions the training samples into those with square_footage below and above the threshold, then computes the mean squared error (weighted by subset size) for each partition; it selects the threshold that yields the lowest combined MSE (largest impurity reduction).",
+      "explanation": "The tree tests each candidate threshold by calculating the MSE of the two resulting child nodes and chooses the split that minimizes overall impurity. The description must mention MSE calculation and comparison across candidates.",
+      "learning_objective": "Explain how decision trees split data",
+      "keywords": ["threshold", "MSE", "partition", "impurity reduction", "evaluate"]
+    },
+    {
+      "number": 11,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Splitting Data",
+      "question_text": "You're using a decision tree to predict house prices and you notice that the first split is on 'color_of_house', which seems irrelevant. Propose two concrete changes to the data preprocessing or tree parameters to encourage the model to split on more meaningful features like 'num_rooms' instead.",
+      "options": null,
+      "correct_answer": "First, remove or encode 'color_of_house' so that it does not appear as a feature (e.g., drop the column or group colors). Second, increase min_impurity_decrease (e.g., min_impurity_decrease=0.01) or set max_features to a subset that excludes low-importance features, forcing the tree to only split when a feature yields a significant reduction; this makes trivial splits on irrelevant features less likely.",
+      "explanation": "If irrelevant features are present, the tree may split on them due to random fluctuations. Removing such features from the dataset prevents those splits. Alternatively, raising the minimum impurity decrease or limiting the number of features considered at each split makes the tree more selective, so it will choose splits that meaningfully reduce MSE, like those on 'num_rooms'. This answer illustrates how splitting behavior can be influenced, aligning with the LO.",
+      "learning_objective": "Explain how decision trees split data",
+      "keywords": ["drop feature", "min_impurity_decrease", "max_features", "irrelevant", "meaningful splits"]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Complexity Control",
+      "question_text": "Setting the parameter _____ in scikit-learn's DecisionTreeRegressor limits how many levels the tree can grow, directly controlling depth.",
+      "options": null,
+      "correct_answer": "max_depth",
+      "explanation": "max_depth prevents the tree from growing deeper than the specified number of levels. This is a common way to regularize trees and avoid overfitting, as deeper trees can fit noise.",
+      "learning_objective": "Explain how decision trees limit their size by limiting depth, leaf size, or pruning",
+      "keywords": ["max_depth", "depth", "limit"]
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Complexity Control",
+      "question_text": "The parameter _____ ensures that each leaf node has at least a certain number of training samples, preventing tiny partitions.",
+      "options": null,
+      "correct_answer": "min_samples_leaf",
+      "explanation": "min_samples_leaf dictates the minimum number of samples required to form a leaf. A larger value forces the tree to stop splitting when there aren't enough samples, reducing complexity and overfitting risk.",
+      "learning_objective": "Explain how decision trees limit their size by limiting depth, leaf size, or pruning",
+      "keywords": ["min_samples_leaf", "leaf size", "samples"]
+    },
+    {
+      "number": 14,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Complexity Control",
+      "question_text": "Pruning a fully grown tree back using cost complexity pruning involves the hyperparameter _____ which penalizes the number of leaves.
+",
+      "options": null,
+      "correct_answer": "ccp_alpha",
+      "explanation": "ccp_alpha (cost-complexity pruning alpha) adds a penalty proportional to the number of leaves to the impurity. Increasing ccp_alpha results in a simpler tree by removing branches with weak improvement.",
+      "learning_objective": "Explain how decision trees limit their size by limiting depth, leaf size, or pruning",
+      "keywords": ["ccp_alpha", "pruning", "cost complexity"]
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Complexity Control",
+      "question_text": "Which of the following changes will NOT directly reduce the maximum size of a decision tree?",
+      "options": [
+        "A) Decreasing max_depth",
+        "B) Increasing min_samples_split",
+        "C) Setting min_impurity_decrease to a positive value",
+        "D) Increasing the number of features included in training"
+      ],
+      "correct_answer": "D",
+      "explanation": "Adding more features does not directly limit tree size; in fact, it may allow the tree to grow larger. The other options (reducing depth, requiring more samples to split, or demanding a minimum impurity decrease) all constrain growth and produce smaller trees.",
+      "learning_objective": "Explain how decision trees limit their size by limiting depth, leaf size, or pruning",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Complexity Control",
+      "question_text": "Provide one concrete example of how you would use scikit-learn to grow a tree fully and then prune it back using ccp_alpha. Specify the sequence of function calls and parameters.",
+      "options": null,
+      "correct_answer": "First fit a DecisionTreeRegressor with no max_depth: `tree = DecisionTreeRegressor(random_state=0).fit(X_train, y_train)`. Then compute the pruning path: `path = tree.cost_complexity_pruning_path(X_train, y_train)` to get alphas and impurities. Finally refit with a chosen alpha: `pruned = DecisionTreeRegressor(ccp_alpha=0.01, random_state=0).fit(X_train, y_train)`.",
+      "explanation": "The answer must mention fitting an unrestricted tree, obtaining the pruning path via cost_complexity_pruning_path, and refitting with an explicit ccp_alpha value. This demonstrates an understanding of pruning with scikit-learn.",
+      "learning_objective": "Explain how decision trees limit their size by limiting depth, leaf size, or pruning",
+      "keywords": ["DecisionTreeRegressor", "cost_complexity_pruning_path", "ccp_alpha", "fit"]
+    },
+    {
+      "number": 17,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Complexity Control",
+      "question_text": "You trained a decision tree with max_depth=None and it produced 1,024 leaves. Validation error is much higher than training error. Describe two steps using scikit-learn parameters to reduce the tree's complexity and explain why each helps.",
+      "options": null,
+      "correct_answer": "(1) Set max_depth=5 when creating DecisionTreeRegressor; limiting depth stops the tree from making deep, specific splits, reducing variance. (2) Increase min_samples_leaf to 50; this forces each leaf to contain at least 50 samples, preventing the tree from creating many tiny, overfit partitions. Both actions make the tree simpler and improve generalization.",
+      "explanation": "The scenario asks for concrete parameter adjustments and their rationale. Limiting depth reduces complexity by capping split levels. Larger min_samples_leaf means fewer possible splits and larger regions, which reduces overfitting—matching the LO on controlling tree size.",
+      "learning_objective": "Explain how decision trees limit their size by limiting depth, leaf size, or pruning",
+      "keywords": ["max_depth", "min_samples_leaf", "complexity", "reduces variance"]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Complexity & Performance",
+      "question_text": "A very deep, unpruned decision tree trained on noisy data is most likely to suffer from ________.",
+      "options": null,
+      "correct_answer": "overfitting",
+      "explanation": "Deep, unpruned trees have low bias but high variance; they can fit noise and idiosyncrasies in the training data, leading to poor performance on new data. This is the classic overfitting scenario.",
+      "learning_objective": "Analyze the impact of tree complexity on model performance, such as overfitting and underfitting",
+      "keywords": ["overfitting", "deep", "noisy"]
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Complexity & Performance",
+      "question_text": "A very shallow decision tree that fails to capture relationships in the data is exhibiting __________.",
+      "options": null,
+      "correct_answer": "underfitting",
+      "explanation": "Shallow trees have high bias and are too simple to model complex patterns, resulting in underfitting—high error on both training and test sets.",
+      "learning_objective": "Analyze the impact of tree complexity on model performance, such as overfitting and underfitting",
+      "keywords": ["underfitting", "shallow", "high bias"]
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Complexity & Performance",
+      "question_text": "Which change would most likely reduce overfitting in a decision tree model?",
+      "options": [
+        "A) Increase max_depth",
+        "B) Decrease min_samples_leaf",
+        "C) Increase min_impurity_decrease",
+        "D) Add more irrelevant features"
+      ],
+      "correct_answer": "C",
+      "explanation": "Raising min_impurity_decrease requires that a split reduce impurity by a minimum amount, which prevents weak splits and produces a simpler tree, reducing overfitting. Increasing max_depth or adding irrelevant features would worsen overfitting; decreasing min_samples_leaf also allows smaller leaves and increases complexity.",
+      "learning_objective": "Analyze the impact of tree complexity on model performance, such as overfitting and underfitting",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Complexity & Performance",
+      "question_text": "You observe that your tree has training R² = 0.95 and test R² = 0.60. In 1–2 sentences, explain what this tells you about the model and one adjustment you could make.",
+      "options": null,
+      "correct_answer": "The large gap indicates overfitting: the model fits the training data well but fails to generalize. To address it, reduce complexity by limiting max_depth, increasing min_samples_leaf, or using cost-complexity pruning with a positive ccp_alpha.",
+      "explanation": "The answer must mention overfitting and propose a concrete change to make the tree simpler. This shows understanding of how complexity affects performance and how to intervene.",
+      "learning_objective": "Analyze the impact of tree complexity on model performance, such as overfitting and underfitting",
+      "keywords": ["overfitting", "gap", "max_depth", "min_samples_leaf", "ccp_alpha"]
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Complexity & Performance",
+      "question_text": "A decision tree trained on 1,000 samples has an error curve where training error keeps decreasing as depth increases, but validation error bottoms out at depth 7 and then rises. Describe what is happening and recommend two concrete strategies to choose an appropriate tree size.",
+      "options": null,
+      "correct_answer": "The pattern indicates that beyond depth 7 the tree starts overfitting: training error falls but validation error rises due to fitting noise. Two strategies: (1) Use cross-validation to find the depth that minimizes validation error (e.g., grid search on max_depth 1–12 and pick the best). (2) Grow a large tree and then prune it using cost-complexity pruning path to select the ccp_alpha value corresponding to lowest validation error.",
+      "explanation": "The scenario illustrates the classic train/validation trade-off and asks for specific methods to select tree size. Using cross-validation or pruning with ccp_alpha both produce a tree that balances bias and variance. This ties directly to analyzing complexity impact and selecting parameters.",
+      "learning_objective": "Analyze the impact of tree complexity on model performance, such as overfitting and underfitting",
+      "keywords": ["validation error", "cross-validation", "grid search", "ccp_alpha", "pruning"]
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "sklearn Usage",
+      "question_text": "In scikit-learn a decision tree regressor is instantiated with _____.",
+      "options": null,
+      "correct_answer": "DecisionTreeRegressor",
+      "explanation": "DecisionTreeRegressor is the class used for regression trees in scikit-learn. For classification use DecisionTreeClassifier. Knowing the correct class name is essential for applying the appropriate functions.",
+      "learning_objective": "Apply the appropriate functions in scikit-learn",
+      "keywords": ["DecisionTreeRegressor", "scikit-learn"]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "sklearn Usage",
+      "question_text": "After fitting a scikit-learn tree, you can examine the feature importances via the attribute _____.",
+      "options": null,
+      "correct_answer": "feature_importances_",
+      "explanation": "The fitted estimator has a `feature_importances_` attribute that gives a numeric importance score for each input feature, based on how much they contributed to reducing impurity. This is often used to interpret the model.",
+      "learning_objective": "Apply the appropriate functions in scikit-learn",
+      "keywords": ["feature_importances_", "attribute"]
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "sklearn Usage",
+      "question_text": "Which of the following code snippets correctly limits a decision tree to at most 4 levels when training?",
+      "options": [
+        "A) `tree = DecisionTreeRegressor(max_leaf_nodes=4)`",
+        "B) `tree = DecisionTreeRegressor(max_depth=4)`",
+        "C) `tree = DecisionTreeRegressor(min_samples_split=4)`",
+        "D) `tree = DecisionTreeRegressor(ccp_alpha=4)`"
+      ],
+      "correct_answer": "B",
+      "explanation": "max_depth=4 restricts the number of levels. max_leaf_nodes limits leaves not depth; min_samples_split controls how many samples required to split, not directly depth; ccp_alpha is the pruning penalty, not a hard depth limit.",
+      "learning_objective": "Apply the appropriate functions in scikit-learn",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "sklearn Usage",
+      "question_text": "You want to visualize a trained decision tree. Which combination of functions would you use?",
+      "options": [
+        "A) `export_graphviz` from sklearn.tree and Graphviz or `plot_tree` from sklearn.tree",
+        "B) `plot_tree` from sklearn.model_selection and matplotlib",
+        "C) `tree_visualizer` from sklearn.inspection",
+        "D) `show_tree` from sklearn.preprocessing"
+      ],
+      "correct_answer": "A",
+      "explanation": "`export_graphviz` (with Graphviz) or `plot_tree` (with matplotlib) are the standard methods for visualizing trees. The other options refer to nonexistent functions or wrong modules.",
+      "learning_objective": "Apply the appropriate functions in scikit-learn",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "sklearn Usage",
+      "question_text": "Explain how you would use scikit-learn to compare a tree's performance with and without pruning. Mention specific methods or attributes.",
+      "options": null,
+      "correct_answer": "Fit an initial DecisionTreeRegressor without pruning, record its `score` or validation error. Then compute `path = tree.cost_complexity_pruning_path(X_train, y_train)` to get candidate ccp_alpha values. For several alphas, refit new trees with `DecisionTreeRegressor(ccp_alpha=alpha)` and compare their validation scores (e.g., using cross_val_score) to identify the alpha that yields the best generalization.",
+      "explanation": "The answer must reference cost_complexity_pruning_path and refitting with different ccp_alpha values, then comparing validation performance. This shows practical application of sklearn functions to control complexity.",
+      "learning_objective": "Apply the appropriate functions in scikit-learn",
+      "keywords": ["cost_complexity_pruning_path", "ccp_alpha", "cross_val_score", "score"]
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "sklearn Usage",
+      "question_text": "Your dataset has 100 features, but you suspect only a handful are important. Describe a procedure using scikit-learn decision trees to identify the top 5 features and retrain a simpler model incorporating this knowledge.",
+      "options": null,
+      "correct_answer": "First, fit a DecisionTreeRegressor on the full dataset with reasonable regularization (e.g., max_depth=10). After fitting, inspect `tree.feature_importances_` and sort them to find the top 5 features. Then create a new dataset containing only those 5 columns and retrain a fresh DecisionTreeRegressor (or another model) on that reduced dataset, potentially fine-tuning hyperparameters. Optionally, validate that the smaller model performs comparably on test data.",
+      "explanation": "This procedure uses feature_importances_ to rank predictors and then builds a simpler model on the selected subset, demonstrating use of sklearn and the interpretability advantage of trees. It also reflects the LO about applying appropriate functions.",
+      "learning_objective": "Apply the appropriate functions in scikit-learn",
+      "keywords": ["feature_importances_", "top features", "retrain", "max_depth"]
+    },
+    {
+      "number": 29,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "sklearn Usage",
+      "question_text": "To ensure reproducible tree fits you set the parameter _____ to an integer seed when instantiating DecisionTreeRegressor.",
+      "options": null,
+      "correct_answer": "random_state",
+      "explanation": "random_state seeds the internal pseudo‑random number generator. Trees use randomness when selecting splits if max_features < n_features or during pruning path calculations. Fixing random_state makes results repeatable.
+",
+      "learning_objective": "Apply the appropriate functions in scikit-learn",
+      "keywords": ["random_state", "reproducible"]
+    },
+    {
+      "number": 30,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "sklearn Usage",
+      "question_text": "Which attribute of a fitted DecisionTreeRegressor tells you the depth of the tree?",
+      "options": [
+        "A) `tree_depth_`",
+        "B) `max_depth_`",
+        "C) `n_depth_`",
+        "D) `feature_importances_`
+      ],
+      "correct_answer": "B",
+      "explanation": "The fitted estimator has a `max_depth_` attribute indicating the actual depth of the grown tree. There is no `tree_depth_` or `n_depth_`. `feature_importances_` gives importance scores, not depth.",
+      "learning_objective": "Apply the appropriate functions in scikit-learn",
+      "keywords": []
+    }
+  ]
+}

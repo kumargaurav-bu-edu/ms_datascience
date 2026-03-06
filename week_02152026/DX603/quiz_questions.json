@@ -1,0 +1,557 @@
+{
+  "quiz_metadata": {
+    "title": "DX603 Spring 2026: Week 5 - Feature Selection and Regularization",
+    "description": "This quiz assesses understanding of forward/backward selection methods, regularization techniques (Ridge and Lasso), their implementation in scikit-learn, and practical application strategies.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Feature Selection Methods",
+      "question_text": "___ is a feature selection method that starts with no features and iteratively adds the feature that most improves model performance at each step.",
+      "options": null,
+      "correct_answer": "Forward selection or Forward stepwise selection",
+      "explanation": "Forward selection is a greedy algorithm that begins with an empty model and sequentially adds features one at a time. At each iteration, it adds the feature that provides the greatest improvement in model performance (typically measured by cross-validated R\u00b2 or similar metric). This continues until adding features no longer improves performance or reaches a predefined stopping criterion. Forward selection is computationally efficient when you have many potential features but expect only a subset to be relevant. This directly addresses the learning objective to explain the motivation and mechanics of forward selection methods.",
+      "learning_objective": "Explain the motivation for forward and backward selection methods and how each works",
+      "keywords": [
+        "forward selection",
+        "forward stepwise",
+        "adding features",
+        "iteratively adds",
+        "greedy"
+      ]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Feature Selection Methods",
+      "question_text": "___ is a feature selection method that starts with all features in the model and iteratively removes the least important feature at each step.",
+      "options": null,
+      "correct_answer": "Backward selection or Backward elimination or Backward stepwise selection",
+      "explanation": "Backward selection (also called backward elimination) begins with a model containing all available features and removes features one at a time. At each step, it eliminates the feature whose removal causes the smallest decrease in model performance (or equivalently, the feature with the highest p-value in statistical tests). This continues until all remaining features are significant or meet some performance threshold. Backward selection can be advantageous when you believe most features are relevant but want to eliminate redundant or less important ones. This addresses understanding how backward selection works.",
+      "learning_objective": "Explain the motivation for forward and backward selection methods and how each works",
+      "keywords": [
+        "backward selection",
+        "backward elimination",
+        "backward stepwise",
+        "removing features",
+        "starts with all"
+      ]
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Feature Selection Methods",
+      "question_text": "You have a dataset with 1000 features and 100 samples. Which feature selection approach would be more computationally feasible and why?",
+      "options": [
+        "A) Backward selection, because removing features from 1000 is faster than adding them one by one",
+        "B) Forward selection, because you can't fit a model with 1000 features and only 100 samples (p >> n problem)",
+        "C) Either method works equally well in this scenario",
+        "D) Neither method will work; you must use regularization instead"
+      ],
+      "correct_answer": "B",
+      "explanation": "Forward selection is more feasible when the number of features (p) far exceeds the number of samples (n), known as the p >> n problem. With 1000 features and only 100 samples, backward selection can't even start because you can't fit a standard linear regression model with more features than observations\u2014the matrix is singular. Forward selection avoids this by starting with zero features and adding them gradually, ensuring the model remains estimable at each step. Option A is backwards\u2014backward selection is infeasible here. Option C ignores the computational reality. Option D is false\u2014forward selection does work, though regularization is also a valid alternative. This tests understanding of when to use each method in practice.",
+      "learning_objective": "Explain the motivation for forward and backward selection methods and how each works",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Feature Selection Motivation",
+      "question_text": "Explain two reasons why reducing the number of features in a model can improve model performance and interpretability.",
+      "options": null,
+      "correct_answer": "Two reasons: (1) Overfitting prevention: Fewer features reduce model complexity, which decreases variance and improves generalization to new data. Models with too many features can memorize noise in the training data, leading to poor test performance. (2) Improved interpretability: Simpler models with fewer features are easier to understand, explain to stakeholders, and deploy. A model with 5 key features is more actionable than one with 100 features, even if the larger model has marginally better training performance. Additionally, feature selection can improve computational efficiency and reduce data collection costs.",
+      "explanation": "This question connects to the 'Think About It' prompts about why feature reduction is beneficial. Too many features relative to sample size leads to overfitting (high variance), while fewer features create simpler, more interpretable models. The bias-variance tradeoff is key: removing irrelevant or redundant features can reduce variance more than it increases bias, leading to better generalization. Interpretability matters in practice\u2014stakeholders need to understand and trust models, and simpler models are easier to audit, debug, and maintain. This tests motivation for feature selection methods.",
+      "learning_objective": "Explain the motivation for forward and backward selection methods and how each works",
+      "keywords": [
+        "overfitting",
+        "variance",
+        "generalization",
+        "interpretability",
+        "simpler",
+        "complexity",
+        "fewer features"
+      ]
+    },
+    {
+      "number": 5,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Feature Selection Strategy",
+      "question_text": "You're building a credit risk model with 50 features (credit history, income, debt ratios, etc.) and 10,000 customer records. Domain experts believe most features are relevant but some may be redundant (e.g., multiple measures of debt). Would you use forward or backward selection, and why? Provide at least two specific reasons based on the problem characteristics.",
+      "options": null,
+      "correct_answer": "Recommendation: Use backward selection (backward elimination). Reasons: (1) Sample size is sufficient: With 10,000 samples and only 50 features, you can easily fit a full model with all features, so backward selection is computationally feasible. The n >> p condition is satisfied. (2) Domain knowledge suggests most features are relevant: Backward selection is more appropriate when you expect most features to contribute to prediction. It allows you to start with the complete information and remove only truly redundant or unhelpful features. Forward selection risks missing important feature interactions because it evaluates features in isolation. (3) Identifying redundancy: Since the problem explicitly mentions redundancy (multiple debt measures), backward selection can more effectively identify which of several correlated features to remove by comparing their contributions in the full model context. You could also use variance inflation factors (VIF) during backward elimination to specifically target multicollinearity.",
+      "explanation": "This scenario tests the ability to choose between methods based on problem characteristics: sample size relative to features, domain knowledge about feature relevance, and the presence of redundancy. With n >> p (10,000 >> 50), both methods are feasible, but backward selection is more appropriate when most features are expected to be useful. The question also connects to practical considerations in financial modeling where interpretability and regulatory compliance matter. Strong answers recognize that the choice depends on context, not just algorithm preference. This addresses determining when to use each method in practice.",
+      "learning_objective": "Explain the motivation for forward and backward selection methods and how each works",
+      "keywords": [
+        "backward selection",
+        "sample size",
+        "domain knowledge",
+        "redundancy",
+        "n >> p",
+        "relevant features"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Feature Selection Limitations",
+      "question_text": "What is a key limitation of both forward and backward selection methods?",
+      "options": [
+        "A) They cannot handle categorical variables",
+        "B) They are deterministic and always find the globally optimal feature subset",
+        "C) They use a greedy approach that may miss the optimal feature combination due to feature interactions",
+        "D) They require regularization to work properly"
+      ],
+      "correct_answer": "C",
+      "explanation": "Both forward and backward selection use greedy algorithms that make locally optimal decisions at each step without considering all possible feature combinations. This means they can miss the globally optimal subset, especially when features interact (e.g., feature A is only useful when feature B is present). Option A is false\u2014both methods work with any feature type after appropriate encoding. Option B is backwards\u2014they're NOT guaranteed to find the global optimum precisely because they're greedy. Option D is false\u2014they don't require regularization, though regularization offers an alternative approach. Understanding this limitation is important for knowing when stepwise methods may underperform compared to exhaustive search or regularization methods.",
+      "learning_objective": "Explain the motivation for forward and backward selection methods and how each works",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Regularization Concepts",
+      "question_text": "___ is a technique that adds a penalty term to the loss function to discourage complex models and prevent overfitting by shrinking coefficient values.",
+      "options": null,
+      "correct_answer": "Regularization",
+      "explanation": "Regularization is a fundamental technique in machine learning that modifies the optimization objective by adding a penalty term proportional to the magnitude of model coefficients. Instead of minimizing just the prediction error (RSS or MSE), regularized models minimize error plus a penalty term: Loss = Prediction Error + \u03bb \u00d7 Penalty. This penalty discourages large coefficient values, effectively reducing model complexity and preventing overfitting. Regularization is essential when dealing with multicollinearity, high-dimensional data, or when you want to improve generalization. This directly addresses the learning objective to define regularization and its role in preventing overfitting.",
+      "learning_objective": "Define regularization and its role in regression in preventing overfitting",
+      "keywords": [
+        "regularization",
+        "penalty",
+        "shrinking",
+        "overfitting",
+        "complexity"
+      ]
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Regularization Concepts",
+      "question_text": "Explain how regularization helps prevent overfitting in regression models, specifically addressing its effect on the bias-variance tradeoff.",
+      "options": null,
+      "correct_answer": "Regularization prevents overfitting by adding a penalty term that constrains coefficient sizes, which reduces model complexity. This increases bias slightly (the model becomes more constrained and may underfit the training data slightly) but significantly reduces variance (the model becomes less sensitive to noise and fluctuations in training data). The net effect is improved generalization: test error decreases because the variance reduction outweighs the bias increase. Without regularization, models with many features can overfit by assigning large coefficients to noise, leading to high variance. The penalty term forces the model to use smaller, more stable coefficients that generalize better to new data.",
+      "explanation": "This question connects regularization to the fundamental bias-variance tradeoff covered in Week 3. Regularization deliberately introduces bias by constraining the model, but this controlled bias is beneficial because it dramatically reduces variance\u2014the key component of overfitting. This relates to the 'Think About It' prompt asking how regularization impacts bias-variance tradeoff. Understanding this tradeoff is crucial for knowing when and why to use regularization. Strong answers recognize that regularization isn't always beneficial (very simple data might not need it), but it's typically helpful for complex models or high-dimensional data.",
+      "learning_objective": "Define regularization and its role in regression in preventing overfitting",
+      "keywords": [
+        "bias-variance",
+        "reduces variance",
+        "increases bias",
+        "generalization",
+        "overfitting",
+        "complexity",
+        "coefficients"
+      ]
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Regularization Concepts",
+      "question_text": "True or False: The regularization parameter \u03bb (lambda) controls the strength of the penalty\u2014larger \u03bb values result in more aggressive shrinkage of coefficients toward zero.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "This statement is correct. The regularization parameter \u03bb (also called alpha in some implementations) controls the tradeoff between fitting the training data and keeping coefficients small. When \u03bb = 0, there's no regularization (standard regression). As \u03bb increases, the penalty term becomes more important relative to prediction error, forcing coefficients toward zero. Very large \u03bb values can shrink coefficients so much that the model underfits. Tuning \u03bb is critical\u2014it's typically done via cross-validation to find the value that optimizes test set performance. Understanding \u03bb's role is essential for applying regularization methods in practice.",
+      "learning_objective": "Define regularization and its role in regression in preventing overfitting",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "When Regularization Helps",
+      "question_text": "In which scenario would regularization be LEAST likely to improve model performance?",
+      "options": [
+        "A) A model with 50 highly correlated features and 200 samples",
+        "B) A simple linear model with 3 features, 10,000 samples, and low multicollinearity",
+        "C) A model with 100 features and 150 samples where many features are suspected to be irrelevant",
+        "D) A polynomial regression with degree 10 fitted to 500 data points"
+      ],
+      "correct_answer": "B",
+      "explanation": "Option B describes a scenario where regularization provides minimal benefit: a simple model (only 3 features), abundant data (10,000 samples), and low multicollinearity. With n >> p (10,000 >> 3) and no correlation issues, standard linear regression already generalizes well without overfitting risk. Regularization might even hurt by adding unnecessary bias. Options A, C, and D all have overfitting risk: A has multicollinearity, C has p approaching n with likely irrelevant features, and D has high polynomial degree creating complex, potentially overfitting models. This addresses the 'Think About It' question about when regularization might worsen performance\u2014it can when data is simple, abundant, and well-behaved.",
+      "learning_objective": "Define regularization and its role in regression in preventing overfitting",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 3,
+      "question_type": "interpretation",
+      "section": "Regularization Effects",
+      "question_text": "You train a linear regression model with 20 features and observe training R\u00b2 = 0.92 but test R\u00b2 = 0.65. After applying regularization with tuned \u03bb, training R\u00b2 drops to 0.85 but test R\u00b2 improves to 0.78. Explain what this pattern reveals about the original model and how regularization addressed the problem.",
+      "options": null,
+      "correct_answer": "The original model was severely overfitting: the large gap between training R\u00b2 (0.92) and test R\u00b2 (0.65) indicates high variance\u2014the model learned training data patterns including noise that don't generalize. The model likely had large, unstable coefficients that fit training data noise. Regularization addressed this by shrinking coefficients, which increased bias (training R\u00b2 dropped to 0.85) but dramatically reduced variance (test R\u00b2 improved to 0.78). The narrower gap (0.85 vs 0.78) shows better generalization. The trade-off was beneficial: sacrificing some training fit yielded substantial test improvement. This demonstrates regularization's core purpose\u2014trading slight increases in bias for large reductions in variance to improve overall generalization performance.",
+      "explanation": "This question tests understanding of overfitting diagnosis and regularization's mechanism through concrete metrics. The pattern (high training score, low test score) is the signature of overfitting. Regularization's effect (lower training score, higher test score, reduced gap) demonstrates successful variance reduction. Strong answers connect the numbers to underlying concepts: large coefficients, noise fitting, bias-variance tradeoff. This integrates Week 3 concepts (overfitting, generalization) with Week 5 (regularization). It addresses both defining regularization's role and interpreting its practical effects.",
+      "learning_objective": "Define regularization and its role in regression in preventing overfitting",
+      "keywords": [
+        "overfitting",
+        "variance",
+        "bias",
+        "generalization",
+        "shrinking coefficients",
+        "trade-off",
+        "test performance"
+      ]
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regularization Fundamentals",
+      "question_text": "What does regularization do to model coefficients in linear regression?",
+      "options": [
+        "A) It increases all coefficients to maximize model flexibility",
+        "B) It constrains or shrinks coefficient magnitudes toward zero",
+        "C) It standardizes coefficients to have mean zero and variance one",
+        "D) It eliminates the need for an intercept term"
+      ],
+      "correct_answer": "B",
+      "explanation": "Regularization constrains or shrinks coefficient magnitudes toward (and in some cases, exactly to) zero by adding a penalty term proportional to coefficient sizes. This reduces model complexity and prevents overfitting. Option A is opposite\u2014regularization reduces, not increases, coefficients. Option C confuses regularization with feature standardization (which should be done before regularization but is a different operation). Option D is false\u2014the intercept is typically not penalized in regularization. Understanding that regularization works by shrinking coefficients is fundamental to grasping how it prevents overfitting and distinguishes different regularization types (L1 vs L2).",
+      "learning_objective": "Define regularization and its role in regression in preventing overfitting",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "L1 vs L2 Regularization",
+      "question_text": "___ (L2 regularization) adds a penalty equal to the sum of squared coefficients to the loss function, shrinking all coefficients but keeping them all in the model.",
+      "options": null,
+      "correct_answer": "Ridge regression or Ridge",
+      "explanation": "Ridge regression implements L2 regularization by adding the term \u03bb \u00d7 \u03a3(\u03b2j\u00b2) to the loss function, where \u03b2j are the model coefficients. The penalty is the sum of squared coefficients (hence 'L2'). This quadratic penalty shrinks all coefficients toward zero proportionally but never exactly to zero\u2014all features remain in the model with small weights. Ridge is effective for multicollinearity because it distributes weight among correlated features rather than arbitrarily choosing one. Understanding Ridge as L2 regularization is fundamental to differentiating between regularization types.",
+      "learning_objective": "Differentiate between L1 (Lasso) and L2 (Ridge) regularization",
+      "keywords": [
+        "Ridge",
+        "Ridge regression",
+        "L2",
+        "squared",
+        "sum of squares",
+        "shrinks all"
+      ]
+    },
+    {
+      "number": 14,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "L1 vs L2 Regularization",
+      "question_text": "___ (L1 regularization) adds a penalty equal to the sum of absolute values of coefficients, which can drive some coefficients exactly to zero, effectively performing feature selection.",
+      "options": null,
+      "correct_answer": "Lasso regression or Lasso",
+      "explanation": "Lasso (Least Absolute Shrinkage and Selection Operator) implements L1 regularization by adding \u03bb \u00d7 \u03a3|\u03b2j| to the loss function\u2014the sum of absolute coefficient values. This linear penalty has a unique property: it can set coefficients exactly to zero, automatically performing feature selection. Features with zero coefficients are eliminated from the model, creating a sparse solution. Lasso is particularly valuable when you believe many features are irrelevant and want an interpretable model with fewer features. The ability to zero out coefficients distinguishes Lasso (L1) from Ridge (L2). This addresses differentiating between regularization types.",
+      "learning_objective": "Differentiate between L1 (Lasso) and L2 (Ridge) regularization",
+      "keywords": [
+        "Lasso",
+        "Lasso regression",
+        "L1",
+        "absolute value",
+        "zero",
+        "feature selection",
+        "sparse"
+      ]
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "L1 vs L2 Regularization",
+      "question_text": "What is the KEY difference in how Ridge (L2) and Lasso (L1) affect model coefficients?",
+      "options": [
+        "A) Ridge can set coefficients to exactly zero while Lasso cannot",
+        "B) Lasso can set coefficients to exactly zero while Ridge only shrinks them toward zero",
+        "C) Ridge increases coefficients while Lasso decreases them",
+        "D) There is no practical difference; both methods work identically"
+      ],
+      "correct_answer": "B",
+      "explanation": "The key difference is that Lasso (L1) can set coefficients exactly to zero, performing automatic feature selection, while Ridge (L2) shrinks all coefficients toward zero but never exactly to zero\u2014all features remain in the model. This stems from the mathematical properties of the penalty functions: the L1 penalty's non-differentiability at zero creates 'corners' in the constraint region that intersect axes (allowing zero coefficients), while L2's smooth penalty doesn't. Option A reverses them. Option C is false\u2014both shrink. Option D ignores their fundamental difference. This distinction is critical for choosing between methods: use Lasso for feature selection, Ridge when all features might be somewhat relevant.",
+      "learning_objective": "Differentiate between L1 (Lasso) and L2 (Ridge) regularization",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "L1 vs L2 Regularization",
+      "question_text": "Explain how Lasso's ability to set coefficients to exactly zero affects model interpretability compared to Ridge regression.",
+      "options": null,
+      "correct_answer": "Lasso produces more interpretable models because it performs automatic feature selection by setting some coefficients to exactly zero, effectively removing those features from the model. The resulting sparse model has fewer features to explain and understand. For example, a Lasso model might select 8 out of 50 features with non-zero coefficients, while Ridge would keep all 50 features with small weights. The Lasso model is easier to interpret, explain to stakeholders, deploy, and debug. Ridge models retain all features, which can make interpretation difficult when many features have small but non-zero coefficients\u2014it's unclear which features truly matter.",
+      "explanation": "This question directly addresses the 'Think About It' prompt about how the difference between Ridge and Lasso affects interpretability. Lasso's sparsity (setting coefficients to zero) creates simpler, more interpretable models\u2014a major practical advantage. In business contexts, being able to say 'these 8 features drive the prediction' is much more valuable than 'all 50 features contribute slightly.' This tests understanding of practical implications beyond just mathematical differences, which is crucial for determining when to use each method in practice.",
+      "learning_objective": "Differentiate between L1 (Lasso) and L2 (Ridge) regularization",
+      "keywords": [
+        "interpretability",
+        "sparse",
+        "feature selection",
+        "zero coefficients",
+        "simpler",
+        "fewer features",
+        "explain"
+      ]
+    },
+    {
+      "number": 17,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Choosing L1 vs L2",
+      "question_text": "You're building a gene expression model to predict disease risk using 5000 genes as features, but domain experts believe only 20-50 genes are actually relevant. You have 800 patient samples. Should you use Ridge or Lasso regularization, and why? Provide at least two specific reasons.",
+      "options": null,
+      "correct_answer": "Recommendation: Use Lasso (L1 regularization). Reasons: (1) Automatic feature selection: Domain knowledge suggests most genes (4950-4980 out of 5000) are irrelevant. Lasso will automatically identify and select only the relevant genes by setting irrelevant coefficients to zero, producing a sparse model with 20-50 genes. Ridge would retain all 5000 genes with small coefficients, making interpretation impossible. (2) Interpretability for biology: In genomics, researchers need to identify which specific genes drive disease risk for further biological validation and drug target development. Lasso provides a ranked list of important genes with non-zero coefficients. (3) Computational efficiency: The sparse Lasso model with ~50 features is much faster to deploy and requires less data collection than a Ridge model using all 5000 genes. (4) Better generalization in high-dimensional sparse settings: When the true underlying relationship is sparse (few relevant features among many), Lasso typically outperforms Ridge.",
+      "explanation": "This scenario tests the ability to choose between regularization methods based on problem characteristics: high dimensionality (p >> n barely satisfied with 5000 features and 800 samples), domain knowledge about sparsity (most genes irrelevant), and interpretability requirements. Genomics is a classic Lasso use case because gene expression data is high-dimensional but sparse\u2014most genes don't affect any given outcome. Strong answers recognize that the choice depends on beliefs about the underlying data structure. This addresses determining when to use each method in practice based on real-world constraints.",
+      "learning_objective": "Differentiate between L1 (Lasso) and L2 (Ridge) regularization",
+      "keywords": [
+        "Lasso",
+        "L1",
+        "feature selection",
+        "sparse",
+        "high-dimensional",
+        "interpretability",
+        "irrelevant features"
+      ]
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "L1 vs L2 Regularization",
+      "question_text": "When would Ridge (L2) regularization be preferred over Lasso (L1)?",
+      "options": [
+        "A) When you want automatic feature selection and a sparse model",
+        "B) When you have many correlated features that are all potentially relevant",
+        "C) When you need exactly zero coefficients for some features",
+        "D) When you have more features than samples and need to eliminate most of them"
+      ],
+      "correct_answer": "B",
+      "explanation": "Ridge is preferred when you have groups of correlated features that are all potentially relevant. Ridge handles multicollinearity gracefully by distributing weight among correlated features, while Lasso tends to arbitrarily select one feature from a correlated group and zero out the others, potentially losing information. For example, with three highly correlated predictors that all contribute to the outcome, Ridge might give them coefficients [0.3, 0.3, 0.3], while Lasso might pick [0.8, 0, 0], discarding useful information. Options A, C, and D all describe scenarios favoring Lasso. Understanding when Ridge's non-sparsity is actually advantageous is important for practical model selection.",
+      "learning_objective": "Differentiate between L1 (Lasso) and L2 (Ridge) regularization",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Scikit-learn Implementation",
+      "question_text": "In scikit-learn, the class ___ implements Ridge (L2) regularization for linear regression.",
+      "options": null,
+      "correct_answer": "Ridge or sklearn.linear_model.Ridge",
+      "explanation": "The Ridge class from sklearn.linear_model implements Ridge regression with L2 regularization. Basic usage: from sklearn.linear_model import Ridge; model = Ridge(alpha=1.0); model.fit(X_train, y_train). The 'alpha' parameter controls the regularization strength (equivalent to \u03bb in mathematical notation). Understanding which scikit-learn class implements each method is essential for applying regularization in practice.",
+      "learning_objective": "Apply each of the methods in scikit-learn",
+      "keywords": [
+        "Ridge",
+        "sklearn.linear_model.Ridge",
+        "scikit-learn",
+        "class"
+      ]
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Scikit-learn Implementation",
+      "question_text": "In scikit-learn, the class ___ implements Lasso (L1) regularization for linear regression.",
+      "options": null,
+      "correct_answer": "Lasso or sklearn.linear_model.Lasso",
+      "explanation": "The Lasso class from sklearn.linear_model implements Lasso regression with L1 regularization. Basic usage: from sklearn.linear_model import Lasso; model = Lasso(alpha=1.0); model.fit(X_train, y_train). Like Ridge, it uses 'alpha' to control regularization strength. After fitting, model.coef_ shows the coefficients, many of which will be exactly zero for strong regularization. Knowing how to implement Lasso in scikit-learn is crucial for applying L1 regularization in practice.",
+      "learning_objective": "Apply each of the methods in scikit-learn",
+      "keywords": [
+        "Lasso",
+        "sklearn.linear_model.Lasso",
+        "scikit-learn",
+        "class"
+      ]
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Scikit-learn Implementation",
+      "question_text": "What is the correct scikit-learn code to fit a Ridge regression model with regularization strength alpha=0.5?",
+      "options": [
+        "A) model = Ridge(lambda=0.5); model.fit(X_train, y_train)",
+        "B) model = Ridge(alpha=0.5); model.fit(X_train, y_train)",
+        "C) model = LinearRegression(ridge=0.5); model.fit(X_train, y_train)",
+        "D) model = Ridge(); model.fit(X_train, y_train, alpha=0.5)"
+      ],
+      "correct_answer": "B",
+      "explanation": "Option B is correct. In scikit-learn, Ridge uses the parameter 'alpha' (not 'lambda') to control regularization strength, and it's set during model instantiation, not during fit(). Option A uses 'lambda' which isn't valid Python syntax (lambda is a reserved keyword) and isn't the correct parameter name. Option C is wrong\u2014LinearRegression doesn't have a ridge parameter. Option D incorrectly tries to pass alpha to fit() instead of the constructor. Understanding the correct syntax is essential for implementing Ridge regression in practice.",
+      "learning_objective": "Apply each of the methods in scikit-learn",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Scikit-learn Implementation",
+      "question_text": "Write the scikit-learn code to: (1) create a Lasso model with alpha=0.1, (2) fit it to training data X_train and y_train, and (3) get predictions on test data X_test.",
+      "options": null,
+      "correct_answer": "from sklearn.linear_model import Lasso\nmodel = Lasso(alpha=0.1)\nmodel.fit(X_train, y_train)\npredictions = model.predict(X_test)",
+      "explanation": "This is the standard workflow for applying Lasso in scikit-learn: import the class, instantiate with desired hyperparameters (alpha=0.1), fit to training data, and predict on new data. The code demonstrates the three essential steps: model creation, training (fit), and inference (predict). Note that alpha=0.1 represents moderate regularization\u2014smaller values mean weaker regularization, larger values mean stronger. Understanding this workflow is fundamental to applying regularization methods in practice, addressing the learning objective to apply methods in scikit-learn.",
+      "learning_objective": "Apply each of the methods in scikit-learn",
+      "keywords": [
+        "Lasso",
+        "alpha",
+        "fit",
+        "predict",
+        "sklearn",
+        "import"
+      ]
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "interpretation",
+      "section": "Scikit-learn Implementation",
+      "question_text": "After fitting a Lasso model, you inspect model.coef_ and see: [0.0, 2.3, 0.0, -1.5, 0.0, 0.8, 0.0, 0.0, 0.0, 1.2]. What does this output tell you about the model and which features were selected?",
+      "options": null,
+      "correct_answer": "The coefficient array shows that Lasso selected 4 out of 10 features: features at indices 1, 3, 5, and 9 have non-zero coefficients (2.3, -1.5, 0.8, and 1.2 respectively), while features at indices 0, 2, 4, 6, 7, and 8 have coefficients of exactly 0.0 and were eliminated. The model uses only these 4 features for predictions. Feature 1 has the strongest positive effect (2.3), feature 3 has a negative effect (-1.5), and features 5 and 9 have moderate positive effects. This sparse model (4 of 10 features) is more interpretable than using all 10 features and demonstrates Lasso's automatic feature selection capability.",
+      "explanation": "This tests the ability to interpret scikit-learn output and understand Lasso's sparsity. The coef_ attribute contains the fitted coefficients, and zero values indicate features that were eliminated. Being able to read and interpret model coefficients is crucial for understanding which features matter and for explaining models to stakeholders. This connects Lasso's mathematical property (setting coefficients to zero) with its practical implementation in scikit-learn. Strong answers identify selected features, interpret coefficient magnitudes and signs, and recognize this as feature selection in action.",
+      "learning_objective": "Apply each of the methods in scikit-learn",
+      "keywords": [
+        "coef_",
+        "zero",
+        "feature selection",
+        "sparse",
+        "selected features",
+        "coefficients",
+        "eliminated"
+      ]
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Scikit-learn Implementation",
+      "question_text": "Before applying Ridge or Lasso regression, what preprocessing step is typically essential?",
+      "options": [
+        "A) Converting all features to categorical variables",
+        "B) Standardizing features to have mean 0 and standard deviation 1",
+        "C) Removing the intercept term from the model",
+        "D) Ensuring all features are perfectly uncorrelated"
+      ],
+      "correct_answer": "B",
+      "explanation": "Standardizing features (scaling to mean 0, standard deviation 1) is essential before regularization because the penalty term treats all coefficients equally. Without standardization, features with larger scales have larger coefficients naturally, and regularization would penalize them more even if they're equally important. For example, a feature measured in kilometers would have coefficients ~1000\u00d7 larger than one measured in meters, causing unfair penalization. Use StandardScaler or normalize features before fitting. Option A is wrong\u2014regularization works on continuous features. Option C is false\u2014the intercept is typically not penalized. Option D is unnecessary and often impossible. This preprocessing is critical for correct regularization application.",
+      "learning_objective": "Apply each of the methods in scikit-learn",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Tuning Regularization Parameters",
+      "question_text": "___ is the primary method for selecting the optimal regularization parameter (alpha/\u03bb) by evaluating model performance across different values on validation sets.",
+      "options": null,
+      "correct_answer": "Cross-validation or CV or k-fold cross-validation",
+      "explanation": "Cross-validation (typically k-fold CV) is the standard method for tuning regularization parameters. You test a range of alpha values (e.g., [0.001, 0.01, 0.1, 1.0, 10, 100]), fit models with each value, and select the alpha that produces the best average validation performance across folds. In scikit-learn, RidgeCV and LassoCV automate this process. Cross-validation prevents overfitting to a single validation set and provides reliable estimates of generalization performance. This connects Week 4 material (cross-validation) with Week 5 (regularization tuning), addressing how to tune regularization parameters.",
+      "learning_objective": "Determine when to use each method in practice and how to tune the regularization parameters",
+      "keywords": [
+        "cross-validation",
+        "CV",
+        "k-fold",
+        "validation",
+        "grid search"
+      ]
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Tuning Regularization Parameters",
+      "question_text": "Which scikit-learn class automatically selects the best alpha value for Ridge regression using cross-validation?",
+      "options": [
+        "A) Ridge with GridSearchCV",
+        "B) RidgeCV",
+        "C) Ridge with alpha='auto'",
+        "D) RidgeRegressor"
+      ],
+      "correct_answer": "B",
+      "explanation": "RidgeCV is specifically designed to perform cross-validation over a range of alpha values and automatically select the best one. Usage: model = RidgeCV(alphas=[0.1, 1.0, 10.0]); model.fit(X, y); best_alpha = model.alpha_. This is more convenient than manually using GridSearchCV with Ridge (Option A, which works but is more verbose). Option C is wrong\u2014there's no 'auto' setting. Option D is a made-up class. LassoCV provides the same functionality for Lasso. Using these CV classes is best practice for tuning regularization in scikit-learn.",
+      "learning_objective": "Determine when to use each method in practice and how to tune the regularization parameters",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Tuning Regularization Parameters",
+      "question_text": "Describe what happens to model performance as you increase the regularization parameter alpha from very small values (near 0) to very large values. How would you identify the optimal alpha?",
+      "options": null,
+      "correct_answer": "As alpha increases from near 0 to large values: (1) Near 0: The model behaves like standard regression with minimal regularization\u2014low bias but potentially high variance (overfitting if many features or correlated predictors). Training error is low but test error might be high. (2) Moderate alpha: Coefficients are shrunk appropriately\u2014bias increases slightly but variance decreases significantly. Test error decreases and reaches a minimum at the optimal alpha. (3) Large alpha: Over-regularization occurs\u2014coefficients are shrunk too aggressively toward zero, causing underfitting. Both training and test errors increase (high bias). The optimal alpha is where test/validation error is minimized, typically found via cross-validation. This creates a U-shaped validation curve: high error at both extremes (underfit and overfit), minimum at the optimal balance.",
+      "explanation": "This tests understanding of the regularization strength tradeoff. The pattern follows the classic bias-variance tradeoff: too little regularization (low alpha) causes overfitting, too much (high alpha) causes underfitting. Cross-validation plots of error vs. alpha typically show the characteristic U-shape, with the optimal alpha at the bottom. Understanding this pattern is essential for interpreting tuning results and recognizing when you've chosen appropriate regularization strength. This addresses both tuning parameters and understanding when regularization helps versus hurts.",
+      "learning_objective": "Determine when to use each method in practice and how to tune the regularization parameters",
+      "keywords": [
+        "alpha",
+        "bias-variance",
+        "overfitting",
+        "underfitting",
+        "test error",
+        "validation",
+        "U-shaped",
+        "optimal"
+      ]
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Practical Application Strategy",
+      "question_text": "You're building a housing price prediction model. You have 15 features (square footage, bedrooms, location coordinates, etc.) and 5,000 samples. Initial linear regression shows signs of multicollinearity (VIF > 5 for several features). Design a complete regularization strategy: which method would you try first, how would you tune it, and how would you evaluate success?",
+      "options": null,
+      "correct_answer": "Regularization strategy: (1) Method selection: Start with Ridge (L2) regression because the problem shows multicollinearity and all 15 features are likely relevant housing characteristics (size, location, bedrooms all reasonably affect price). Ridge handles multicollinearity well by distributing weight among correlated features. With n >> p (5000 >> 15), we have sufficient data. (2) Preprocessing: Standardize all features using StandardScaler before regularization to ensure fair penalization across different scales (square footage vs. number of bedrooms). (3) Tuning approach: Use RidgeCV with a broad range of alphas [0.001, 0.01, 0.1, 1, 10, 100, 1000] and 5-fold cross-validation. Let RidgeCV automatically select the best alpha. (4) Evaluation: Compare Ridge performance to baseline linear regression using test set R\u00b2 and RMSE. Check if coefficient standard errors decreased (indicates multicollinearity was addressed). Examine coefficient magnitudes\u2014they should be more stable and reasonable. (5) Alternative exploration: If interpretability is critical and you suspect some features are truly irrelevant, also try Lasso and compare test performance. (6) Final validation: Reserve a hold-out test set (20%) for final evaluation of the chosen model.",
+      "explanation": "This comprehensive scenario tests the ability to design a complete end-to-end regularization workflow integrating multiple concepts: diagnosing the problem (multicollinearity), choosing the appropriate method (Ridge for correlated relevant features), preprocessing (standardization), tuning (cross-validation with appropriate alpha range), and evaluation (comparing to baseline, checking stability). Strong answers demonstrate systematic thinking about model development, not just applying algorithms. This tests determining when to use each method and how to tune parameters in realistic contexts, integrating Weeks 3-5 concepts.",
+      "learning_objective": "Determine when to use each method in practice and how to tune the regularization parameters",
+      "keywords": [
+        "Ridge",
+        "multicollinearity",
+        "standardization",
+        "cross-validation",
+        "RidgeCV",
+        "alphas",
+        "evaluation",
+        "test set"
+      ]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Method Selection in Practice",
+      "question_text": "You've trained both Ridge and Lasso models on the same data with tuned alphas. Ridge achieves test R\u00b2=0.82 with all 30 features having non-zero coefficients. Lasso achieves test R\u00b2=0.80 with only 12 features having non-zero coefficients. Which model should you deploy and why? Consider multiple criteria in your recommendation.",
+      "options": null,
+      "correct_answer": "Recommendation: Deploy the Lasso model despite slightly lower R\u00b2 (0.80 vs 0.82). Justification: (1) Interpretability: The 2% performance drop is minimal while gaining massive interpretability\u201412 features vs. 30 makes the model much easier to explain, audit, and trust. Stakeholders can understand which factors drive predictions. (2) Deployment efficiency: Fewer features mean less data collection, lower computational cost, and faster predictions\u2014especially important for real-time applications. (3) Maintenance: Simpler models are easier to monitor, debug, and update. With 12 features, you can feasibly track each feature's quality over time. (4) Overfitting risk: The very small performance gap (2%) suggests the additional 18 features in Ridge provide minimal predictive value\u2014they might be fitting noise. Lasso's feature selection likely identified the truly important features. (5) Robustness: Lasso's sparse model is likely more robust to feature drift or missing data. However, if: the 2% matters critically for business value, or deployment resources are unlimited, Ridge might be preferred. But for most applications, Lasso's interpretability advantage outweighs the small accuracy cost.",
+      "explanation": "This question tests strategic model selection considering multiple competing criteria: accuracy, interpretability, deployment complexity, and maintainability. There's no single 'right' answer\u2014it depends on context\u2014but strong answers weigh tradeoffs systematically. In practice, simpler models are often preferred when performance differences are small. This integrates the 'Think About It' prompts about interpretability and demonstrates MS-level thinking about real-world model deployment decisions, not just maximizing a single metric. It addresses determining when to use each method in practice.",
+      "learning_objective": "Determine when to use each method in practice and how to tune the regularization parameters",
+      "keywords": [
+        "interpretability",
+        "feature selection",
+        "deployment",
+        "tradeoff",
+        "performance",
+        "simpler",
+        "robust"
+      ]
+    },
+    {
+      "number": 30,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Practical Application",
+      "question_text": "A data scientist notices that their Ridge model performs well (R\u00b2=0.85) but when they set alpha=0 (no regularization), performance actually decreases to R\u00b2=0.78. What does this indicate?",
+      "options": [
+        "A) The original data had errors that Ridge somehow corrected",
+        "B) The model was overfitting without regularization, and Ridge improved generalization",
+        "C) Ridge regression is always better than linear regression regardless of data",
+        "D) The alpha parameter was set incorrectly"
+      ],
+      "correct_answer": "B",
+      "explanation": "The performance improvement from adding regularization (alpha > 0) indicates the unregularized model was overfitting. Ridge shrunk coefficients to reduce variance, improving test set performance from 0.78 to 0.85. This is exactly the scenario where regularization is beneficial: the model was too complex for the data, and constraining coefficients improved generalization. Option A misunderstands what Ridge does\u2014it doesn't fix data errors. Option C is false\u2014Ridge isn't always better (as discussed earlier, it can hurt when data is simple and abundant). Option D doesn't make sense\u2014setting alpha=0 explicitly disables regularization to test this hypothesis. This scenario demonstrates successful application of regularization.",
+      "learning_objective": "Determine when to use each method in practice and how to tune the regularization parameters",
+      "keywords": []
+    }
+  ]
+}

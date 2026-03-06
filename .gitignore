@@ -214,5 +214,6 @@ __marimo__/
 .cursor
 .token
 quiz_results.json
+*.pdf
 
 

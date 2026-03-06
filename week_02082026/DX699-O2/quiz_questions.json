@@ -1,0 +1,552 @@
+{
+  "quiz_metadata": {
+    "title": "DX699 Spring 2026: Week 4 - Data Visualization and Storytelling with Data",
+    "description": "This quiz assesses understanding of effective data visualization construction, chart type selection, univariate analysis, and application of Storytelling with Data principles.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Chart Types and Selection",
+      "question_text": "A ___ shows the distribution of a single continuous variable by dividing data into bins and displaying frequency counts.",
+      "options": null,
+      "correct_answer": "Histogram",
+      "explanation": "A histogram is specifically designed to show the distribution of continuous numerical data by grouping values into bins (ranges) and displaying the count or frequency of observations in each bin. Unlike bar charts which show categorical data, histograms reveal patterns like skewness, modality, and spread in continuous variables. This directly supports the learning objective of distinguishing between various types of charts and understanding their specific purposes.",
+      "learning_objective": "Distinguish between various types of charts and graphs (Histogram, bar/stacked bar, KDE, swarm, violin, box)",
+      "keywords": [
+        "histogram",
+        "distribution",
+        "bins",
+        "frequency",
+        "continuous"
+      ]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Chart Types and Selection",
+      "question_text": "True or False: A KDE (Kernel Density Estimate) plot is essentially a smoothed version of a histogram that shows probability density rather than raw counts.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "This statement is correct. A KDE plot uses a kernel function to create a smooth, continuous estimate of the probability density function underlying the data, making it easier to see the shape of the distribution without the binning artifacts of histograms. KDE plots are particularly useful when you want to emphasize the overall shape and trends rather than exact frequencies. This reinforces understanding of how different visualization formats can represent the same underlying data in complementary ways.",
+      "learning_objective": "Distinguish between various types of charts and graphs (Histogram, bar/stacked bar, KDE, swarm, violin, box)",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Chart Types and Selection",
+      "question_text": "A ___ plot displays individual data points along a single axis, with slight random jitter to prevent overplotting, making it ideal for showing small to medium-sized datasets.",
+      "options": null,
+      "correct_answer": "Swarm plot",
+      "explanation": "A swarm plot (also called a beeswarm plot) positions each individual observation as a dot along one axis while adding slight horizontal jitter to prevent points from overlapping. This allows viewers to see both the distribution shape and the actual sample size. Swarm plots are excellent for datasets with hundreds (not thousands) of points where showing individual observations adds value. This addresses the learning objective of distinguishing chart types and selecting appropriate visualizations based on data characteristics.",
+      "learning_objective": "Distinguish between various types of charts and graphs (Histogram, bar/stacked bar, KDE, swarm, violin, box)",
+      "keywords": [
+        "swarm",
+        "beeswarm",
+        "individual points",
+        "jitter",
+        "small dataset"
+      ]
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Chart Types and Selection",
+      "question_text": "You need to compare customer satisfaction scores (1-10 scale) across five different product lines, with sample sizes ranging from 50 to 200 customers per product. Which visualization best shows both the distribution shape and key statistical summaries?",
+      "options": [
+        "A) Five separate histograms arranged side by side",
+        "B) A single violin plot with all five products on one axis",
+        "C) Five box plots arranged horizontally for easy comparison",
+        "D) A stacked bar chart showing frequency counts for each score"
+      ],
+      "correct_answer": "B",
+      "explanation": "Violin plots combine the advantages of box plots (showing quartiles and median) with KDE smoothing (showing distribution shape), making them ideal for comparing distributions across multiple categories. Option A (separate histograms) makes comparison difficult due to visual separation. Option C (box plots) shows summary statistics but hides distribution shape\u2014you can't see if data is bimodal or has unusual patterns. Option D (stacked bar) is inappropriate for continuous ratings and makes comparison across products cumbersome. This question reinforces selecting appropriate visualizations based on data type (continuous ordinal) and analytical goal (comparison).",
+      "learning_objective": "Select the most appropriate visualization based on the type of data",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Strengths and Weaknesses of Visualizations",
+      "question_text": "Explain one major weakness of using pie charts for data communication, particularly when comparing multiple categories.",
+      "options": null,
+      "correct_answer": "Pie charts make it difficult for viewers to accurately compare slice sizes, especially when differences are small, because the human eye is poor at comparing angles and areas. Additionally, pie charts with many slices become cluttered and hard to read.",
+      "explanation": "Pie charts rely on angle and area comparisons, which humans perform poorly compared to position along a common scale (as in bar charts). Research in data visualization shows that people struggle to distinguish between similarly-sized slices, leading to misinterpretation. The 'Think About It' section explicitly asks 'What's wrong with pie charts?' and Storytelling with Data Chapter 2 addresses why pie charts should be avoided in favor of bar charts for most comparison tasks. This connects to analyzing how different visualizations affect audience interpretation.",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats (Histogram, bar / stacked bar, KDE, swarm, violin, box)",
+      "keywords": [
+        "angle comparison",
+        "difficult",
+        "small differences",
+        "cluttered",
+        "hard to read",
+        "area"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Strengths and Weaknesses of Visualizations",
+      "question_text": "A box plot is most useful for quickly identifying which aspect of a dataset?",
+      "options": [
+        "A) The exact frequency count in each bin of the distribution",
+        "B) Outliers, median, and the interquartile range (IQR) showing data spread",
+        "C) The precise shape of the distribution including bimodality",
+        "D) Individual data point values and their specific positions"
+      ],
+      "correct_answer": "B",
+      "explanation": "Box plots excel at showing summary statistics: the median (center line), quartiles (box edges), and outliers (points beyond whiskers). This makes them ideal for quickly assessing data spread and identifying extreme values. Option A is incorrect\u2014box plots don't show frequencies or bins. Option C is wrong because box plots hide distribution shape; you can't detect bimodal distributions from a box plot alone. Option D is incorrect\u2014box plots summarize rather than show individual points. This reinforces understanding strengths and weaknesses of each chart type for specific analytical purposes.",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats (Histogram, bar / stacked bar, KDE, swarm, violin, box)",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Univariate Analysis",
+      "question_text": "___ analysis focuses on examining and describing a single variable at a time, typically exploring its distribution, central tendency, and variability.",
+      "options": null,
+      "correct_answer": "Univariate",
+      "explanation": "Univariate analysis is the examination of one variable in isolation. It includes calculating summary statistics (mean, median, standard deviation) and creating visualizations like histograms, box plots, and KDE plots to understand the variable's distribution. This contrasts with bivariate (two variables) or multivariate (multiple variables) analysis. Understanding univariate analysis is foundational because you must understand individual variables before exploring relationships between them. This directly addresses the learning objective to describe univariate analysis.",
+      "learning_objective": "Describe univariate analysis",
+      "keywords": [
+        "univariate",
+        "single variable",
+        "one variable",
+        "distribution",
+        "individual"
+      ]
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "scenario",
+      "section": "Univariate Analysis",
+      "question_text": "You're analyzing employee salaries at a tech company. A histogram shows most salaries clustered between $60K-$90K, but there are a few executives earning $300K-$500K. Describe how this would appear in a box plot versus a histogram, and which provides better insight for this scenario.",
+      "options": null,
+      "correct_answer": "In the box plot, the high-earning executives would appear as outliers (individual points beyond the upper whisker), while the box would compress the majority earning $60K-$90K. The histogram would show the full salary distribution with clear separation between the bulk of employees and executives. The histogram provides better insight here because it shows the actual distribution shape and the gap between groups, whereas the box plot would simply flag executives as outliers without showing the distributional context or the size of the salary gap.",
+      "explanation": "This scenario tests understanding of how different univariate visualizations handle the same data differently. Box plots excel at flagging outliers but compress distributional detail into summary statistics. Histograms preserve shape information and reveal gaps, clusters, and multimodality that box plots mask. For salary data with clear subgroups, histograms or violin plots provide richer insights than box plots alone. This connects to both describing univariate analysis techniques and explaining strengths/weaknesses of visualization formats in real-world contexts.",
+      "learning_objective": "Describe univariate analysis",
+      "keywords": [
+        "outliers",
+        "histogram",
+        "box plot",
+        "distribution",
+        "gap",
+        "shape"
+      ]
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Audience Interpretation",
+      "question_text": "An analyst presents quarterly revenue using a line chart with a y-axis starting at $8M instead of $0, making a 5% revenue increase appear dramatic. Analyze how this design choice affects audience interpretation and recommend two specific changes to present the data more accurately.",
+      "options": null,
+      "correct_answer": "Starting the y-axis at $8M instead of $0 exaggerates the visual slope of the revenue change, making a modest 5% increase appear much more dramatic than it actually is. This manipulates audience perception by exploiting how people judge slope steepness. Two specific changes: (1) Start the y-axis at $0 to show the true proportional change, allowing viewers to accurately assess the magnitude of increase. (2) Add a reference annotation explicitly stating '5% increase' or showing prior year comparison line to provide context for whether this growth rate is typical or exceptional.",
+      "explanation": "This question tests critical analysis of how visualization design choices\u2014specifically axis manipulation\u2014can mislead audiences. Truncated y-axes are a common technique to exaggerate changes and can border on deceptive visualization practices. The learning objective 'Analyze how different visualizations can affect audience interpretation' directly applies here. Recommendations must be concrete (not 'fix the axis' but 'start at $0') and address both the technical correction and the need for contextual information. This reflects MS-level understanding of ethical data communication.",
+      "learning_objective": "Analyze how different visualizations can affect audience interpretation",
+      "keywords": [
+        "y-axis",
+        "zero baseline",
+        "exaggerate",
+        "slope",
+        "reference",
+        "context"
+      ]
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Audience Interpretation",
+      "question_text": "A marketing dashboard shows customer churn rate using a gauge chart (speedometer-style) with red/yellow/green zones. What is the primary limitation of this visualization choice for executive decision-making?",
+      "options": [
+        "A) Gauge charts don't show historical trends, making it impossible to see if churn is improving or worsening over time",
+        "B) The color coding is not accessible to colorblind viewers",
+        "C) Gauge charts take up too much space on a dashboard",
+        "D) Executives prefer numerical tables over visual representations"
+      ],
+      "correct_answer": "A",
+      "explanation": "While all options have some validity, Option A identifies the most critical limitation: gauge charts show only the current state without historical context or trend direction. Executives need to know if churn is increasing (requiring urgent action) or decreasing (validating current strategies). A line chart showing churn over time would enable pattern recognition and informed decision-making. Option B (colorblind access) is a real concern but secondary to the loss of trend information. Option C (space) is a design consideration, not a fundamental flaw. Option D is false\u2014executives value good visualizations. This connects to how visualization choices affect interpretation and actionability for business leaders.",
+      "learning_objective": "Analyze how different visualizations can affect audience interpretation",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Creating Visualizations with Matplotlib",
+      "question_text": "In Matplotlib, the ___ function is used to create a histogram by specifying the data and optionally the number of bins.",
+      "options": null,
+      "correct_answer": "plt.hist() or hist()",
+      "explanation": "The plt.hist() function (or ax.hist() when using axes objects) is Matplotlib's primary method for creating histograms. The basic syntax is plt.hist(data, bins=n) where data is the array of values and bins specifies how many intervals to divide the data into. Understanding the core Matplotlib functions for creating different plot types is essential for the learning objective 'Create data visualizations using Matplotlib.' This foundational knowledge enables students to implement visualizations programmatically.",
+      "learning_objective": "Create data visualizations using Matplotlib",
+      "keywords": [
+        "hist",
+        "plt.hist",
+        "histogram",
+        "matplotlib",
+        "hist()"
+      ]
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Creating Visualizations with Matplotlib",
+      "question_text": "You want to create a figure with three subplots arranged horizontally (1 row, 3 columns) in Matplotlib. Write the correct function call to create this figure and axes layout.",
+      "options": null,
+      "correct_answer": "fig, axes = plt.subplots(1, 3) or fig, ax = plt.subplots(nrows=1, ncols=3)",
+      "explanation": "The plt.subplots() function creates a figure and axes objects simultaneously. The syntax plt.subplots(nrows, ncols) specifies the grid layout\u2014in this case, 1 row and 3 columns. This returns a figure object and an array of axes objects that can be individually customized. Understanding subplot creation is crucial for creating complex, multi-panel visualizations that compare different aspects of data side-by-side. This practical knowledge directly supports creating data visualizations using Matplotlib in professional settings where comparison panels are common.",
+      "learning_objective": "Create data visualizations using Matplotlib",
+      "keywords": [
+        "subplots",
+        "plt.subplots",
+        "1, 3",
+        "nrows",
+        "ncols",
+        "axes"
+      ]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Reproducing Visualizations",
+      "question_text": "You're given an example graph showing sales data with specific design elements: gray background removed, axis spines on only the left and bottom, and subtle gridlines on the y-axis only. List three specific Matplotlib commands needed to reproduce these styling choices.",
+      "options": null,
+      "correct_answer": "Three commands needed: (1) ax.set_facecolor('white') or sns.set_style('white') to remove gray background, (2) ax.spines['top'].set_visible(False) and ax.spines['right'].set_visible(False) to remove top and right spines, (3) ax.yaxis.grid(True, alpha=0.3) or plt.grid(axis='y', alpha=0.3) to add subtle y-axis gridlines.",
+      "explanation": "Reproducing visual styling requires knowledge of Matplotlib's customization options. Removing the background involves setting facecolor or using seaborn style presets. Spine visibility is controlled through the spines dictionary with set_visible(). Gridlines are added via grid() methods with axis specification and alpha for transparency. These precise commands demonstrate the technical skill required to reproduce professional-quality graphs. This directly addresses the learning objective 'Reproduce a graph/data visualization from an example graph/data visualization' by testing specific implementation knowledge.",
+      "learning_objective": "Reproduce a graph/data visualization from an example graph/data visualization",
+      "keywords": [
+        "facecolor",
+        "spines",
+        "set_visible",
+        "grid",
+        "alpha",
+        "white background"
+      ]
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Reproducing Visualizations",
+      "question_text": "An executive shows you a graph from a competitor's report: it's a horizontal bar chart with bars sorted by descending value, colored in a gradient from dark blue (highest) to light blue (lowest), with data labels at the end of each bar. Describe the step-by-step Matplotlib approach to reproduce this exact visualization, including at least three specific function calls.",
+      "options": null,
+      "correct_answer": "Step-by-step approach: (1) Sort the data in descending order before plotting using data.sort_values(ascending=False). (2) Use plt.barh(categories, values) to create horizontal bars. (3) Create a color gradient using a colormap: colors = plt.cm.Blues(np.linspace(0.4, 0.9, len(data))). (4) Apply colors with plt.barh(categories, values, color=colors). (5) Add data labels at bar ends using a loop: for i, v in enumerate(values): plt.text(v, i, str(v), va='center'). (6) Adjust layout with plt.tight_layout() to prevent label cutoff.",
+      "explanation": "This advanced scenario requires synthesizing multiple Matplotlib techniques: data preparation (sorting), choosing the right plot type (barh for horizontal), applying color gradients (using colormaps like cm.Blues), and adding annotations (text labels). The ability to deconstruct a finished visualization and identify the specific code steps needed demonstrates mastery-level understanding. This tests the learning objective 'Reproduce a graph/data visualization from an example' at an MS-level by requiring students to translate visual elements into precise code implementations, a critical skill for data professionals.",
+      "learning_objective": "Reproduce a graph/data visualization from an example graph/data visualization",
+      "keywords": [
+        "barh",
+        "sort",
+        "descending",
+        "colormap",
+        "gradient",
+        "text labels"
+      ]
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Analyzing Existing Visualizations",
+      "question_text": "You're reviewing a colleague's bar chart that shows monthly website traffic. The bars use a 3D effect with shadows and perspective. What is the strongest criticism of this design choice?",
+      "options": [
+        "A) 3D effects make it harder to accurately compare bar heights because perspective distorts visual perception of values",
+        "B) 3D charts are not supported in Matplotlib so the colleague must have used the wrong tool",
+        "C) The shadows make the chart look unprofessional for business presentations",
+        "D) 3D effects increase file size and slow down dashboard loading times"
+      ],
+      "correct_answer": "A",
+      "explanation": "Option A correctly identifies the core problem: 3D effects introduce perspective distortion that makes accurate value comparison difficult. Bars closer to the viewer appear larger than those farther away, even if values are identical. This violates a fundamental principle of effective visualization\u2014encode data accurately in visual properties. Option B is false\u2014Matplotlib does support 3D, but that's irrelevant. Option C is subjective and misses the functional problem. Option D is a minor technical concern compared to the perceptual accuracy issue. This tests 'Analyze existing data visualizations to identify strengths and weaknesses' by requiring students to critique design choices using visualization principles.",
+      "learning_objective": "Analyze existing data visualizations to identify strengths and weaknesses",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Storytelling with Data Principles",
+      "question_text": "According to Storytelling with Data, ___ refers to removing all non-essential elements from a visualization to focus attention on the data that matters most.",
+      "options": null,
+      "correct_answer": "Decluttering or Clutter reduction",
+      "explanation": "Decluttering is a core principle from Cole Nussbaumer Knaflic's Storytelling with Data. It involves systematically removing chart junk, unnecessary gridlines, excessive colors, redundant labels, and any visual element that doesn't contribute to understanding the message. By eliminating clutter, you reduce cognitive load and allow the audience to focus on the key insights. This principle is foundational to applying SWD concepts to create effective, audience-focused visualizations. The learning objective explicitly mentions applying SWD principles to graph creation.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": [
+        "declutter",
+        "decluttering",
+        "removing",
+        "simplify",
+        "clutter",
+        "chart junk"
+      ]
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Storytelling with Data Principles",
+      "question_text": "You're presenting Q4 sales results to executives. Sales in Region A grew 15% while Region B declined 8%. Following Storytelling with Data principles, which approach best emphasizes this contrast?",
+      "options": [
+        "A) Use a standard bar chart with both bars in the same blue color and let the heights speak for themselves",
+        "B) Highlight Region A's bar in green and Region B's bar in red, using color to draw attention to the performance difference",
+        "C) Create separate charts for each region to give them equal visual weight",
+        "D) Use a pie chart showing each region's percentage of total sales"
+      ],
+      "correct_answer": "B",
+      "explanation": "Storytelling with Data emphasizes using preattentive attributes like color strategically to guide attention. Option B uses color (green for positive, red for negative/concern) to immediately signal the contrasting performance, making the key insight obvious without requiring viewers to calculate differences. Option A misses the opportunity to guide attention. Option C separates the comparison, making it harder to see the contrast. Option D (pie chart) is inappropriate for showing change over time or comparing performance metrics. This demonstrates applying SWD principles\u2014specifically strategic use of color and contrast\u2014to create graphs that communicate insights effectively.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Storytelling with Data Principles",
+      "question_text": "Your company's customer acquisition cost (CAC) increased 40% year-over-year, threatening profitability. You need to present this to the board and drive immediate action. Using Storytelling with Data principles, describe three specific design choices you would make for this visualization beyond just showing the numbers.",
+      "options": null,
+      "correct_answer": "Three specific design choices: (1) Use a line chart or slopegraph showing CAC over the past 3 years with the current year highlighted in bold red to emphasize the concerning trend. (2) Add a reference line or annotation showing the break-even CAC threshold (when customer lifetime value equals acquisition cost) to contextualize the urgency. (3) Include a callout annotation with an arrow pointing to the current value stating '40% increase\u2014now exceeds LTV, requires immediate channel optimization' to explicitly state the business implication and needed action. Title the chart with the insight: 'Rising CAC Threatens Margins' not just 'Customer Acquisition Cost by Year.'",
+      "explanation": "This scenario tests advanced application of multiple SWD principles: (1) Strategic color use\u2014red for warning, bold for emphasis. (2) Context\u2014showing the business threshold makes the problem concrete. (3) Action-oriented annotation\u2014explicitly stating implications and recommendations drives decisions. (4) Insightful titles\u2014the title should communicate the key message, not just describe the data. These choices demonstrate understanding that effective visualization isn't just accurate data display but persuasive communication designed to drive action. This tests the LO 'Apply principles from Storytelling with Data to create graphs' at an executive communication level.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": [
+        "color emphasis",
+        "red",
+        "reference line",
+        "annotation",
+        "callout",
+        "title",
+        "insight"
+      ]
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Effective Visual Construction",
+      "question_text": "When constructing a visualization comparing sales across 12 product categories, explain why a horizontal bar chart is often more effective than a vertical bar chart.",
+      "options": null,
+      "correct_answer": "Horizontal bar charts are more effective for comparing many categories because category labels (product names) can be fully displayed along the y-axis without rotation or truncation. Vertical bar charts require rotated or abbreviated labels when there are many categories, making them harder to read. Additionally, horizontal bars allow for easier left-to-right reading pattern and better utilize screen real estate on wide displays.",
+      "explanation": "This addresses a practical design choice that relates to both human perception and technical constraints. The 'Think About It' section asks 'Do you like vertical or horizontal bar charts better?' and Chapter 2 of Storytelling with Data discusses when each orientation is appropriate. Horizontal bars excel when category labels are long or numerous because text reads more naturally horizontally than at an angle. This connects to 'Construct effective visuals' by teaching students to choose orientation based on data characteristics (number and length of labels) rather than arbitrary preference. It's a concrete example of matching visualization design to content.",
+      "learning_objective": "Construct effective visuals",
+      "keywords": [
+        "horizontal",
+        "labels",
+        "readable",
+        "rotation",
+        "category names",
+        "space"
+      ]
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Effective Visual Construction",
+      "question_text": "You're designing a dashboard for field technicians who need to quickly identify which of 50 machines require maintenance based on temperature readings. The current dashboard shows all 50 temperatures in a table. Design a more effective visual solution, specifying chart type, color scheme, and any interactive elements you would include.",
+      "options": null,
+      "correct_answer": "Design solution: Use a horizontal bar chart sorted by temperature (hottest at top), with a three-color scheme: gray for normal operating range, orange for approaching threshold (warning), and red for exceeding safe temperature (urgent action needed). Add a vertical reference line showing the maintenance threshold temperature. Include a filter/toggle to show 'All Machines' vs. 'Maintenance Required Only' to reduce cognitive load. Add value labels only on orange and red bars showing exact temperature and hours since last maintenance. Use clear, actionable title: 'Machines Requiring Immediate Attention (Red) and Monitoring (Orange).' Consider adding a small trend icon (\u2191\u2193\u2192) next to each bar showing temperature direction over the last hour.",
+      "explanation": "This scenario tests the ability to construct an effective visual for a specific operational use case where quick decision-making is critical. The solution incorporates multiple principles: (1) Chart choice\u2014horizontal bars for easy scanning of many items. (2) Sorting\u2014prioritizes urgent items visually. (3) Strategic color\u2014signals urgency preattentively. (4) Reference lines\u2014provides decision threshold. (5) Filtering\u2014reduces information overload. (6) Selective labels\u2014shows detail only where needed. (7) Trend indicators\u2014adds temporal context for better decisions. This comprehensive design thinking demonstrates mastery-level application of visual construction principles for real-world business contexts.",
+      "learning_objective": "Construct effective visuals",
+      "keywords": [
+        "bar chart",
+        "sorted",
+        "color coding",
+        "red",
+        "orange",
+        "reference line",
+        "filter",
+        "threshold"
+      ]
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Chart Type Strengths",
+      "question_text": "True or False: Stacked bar charts are ideal for comparing individual category values across groups because viewers can easily compare the heights of all segments.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "This statement is false. Stacked bar charts are problematic for comparing individual category values because only the bottom segment has a common baseline (zero), making comparison easy. All other segments start at different heights, making accurate comparison extremely difficult. Viewers can only reliably compare the total heights of stacked bars, not the individual segments. For comparing individual categories across groups, side-by-side (grouped) bar charts are far more effective. This addresses understanding the strengths and weaknesses of different visualization formats, specifically the limitations of stacked bars mentioned in Storytelling with Data Chapter 2.",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats (Histogram, bar / stacked bar, KDE, swarm, violin, box)",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Chart Type Strengths",
+      "question_text": "A colleague shows you a violin plot of customer age distribution for three membership tiers. The Enterprise tier violin is wider at the top (older ages) while the Basic tier is wider at the bottom (younger ages). Interpret what this shape difference reveals about the customer base.",
+      "options": null,
+      "correct_answer": "The violin plot shapes reveal that Enterprise tier customers are concentrated in older age ranges (the wider upper portion indicates higher density of older customers), while Basic tier customers are predominantly younger (wider lower portion indicates higher density of younger customers). This bimodal or skewed distribution suggests that age correlates with membership tier\u2014older, potentially more established customers opt for premium Enterprise plans while younger customers choose Basic plans. This insight could inform marketing strategies, pricing, and feature development targeted at specific age demographics.",
+      "explanation": "Violin plots combine the advantages of box plots and KDE plots\u2014they show both summary statistics and distribution shape through width variations. Width represents density\u2014wider sections have more data points. Reading violin shapes requires understanding that the contour represents probability density. This question tests interpretation skills with violin plots specifically and connects to the learning objectives of distinguishing between chart types and understanding their strengths (violin plots reveal distribution nuances that box plots hide). The business interpretation aspect tests ability to translate visual patterns into actionable insights.",
+      "learning_objective": "Explain the strengths and weaknesses of various data visualization formats (Histogram, bar / stacked bar, KDE, swarm, violin, box)",
+      "keywords": [
+        "density",
+        "distribution",
+        "wider",
+        "age concentration",
+        "demographics",
+        "shape"
+      ]
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Matplotlib Implementation",
+      "question_text": "Which Matplotlib function or method would you use to add a title, x-axis label, and y-axis label to an existing plot?",
+      "options": [
+        "A) plt.label(), plt.title(), and plt.axis()",
+        "B) plt.title(), plt.xlabel(), and plt.ylabel()",
+        "C) plt.heading(), plt.x_name(), and plt.y_name()",
+        "D) plt.annotate() for all three elements"
+      ],
+      "correct_answer": "B",
+      "explanation": "Option B correctly identifies the three standard Matplotlib functions for adding plot labels: plt.title() for the main title, plt.xlabel() for the x-axis label, and plt.ylabel() for the y-axis label. Option A uses incorrect function names (label and axis aren't used this way). Option C uses completely fictitious function names. Option D (annotate) is for adding text at specific data coordinates, not for standard axis labels. These basic labeling functions are essential for creating professional, interpretable visualizations and directly support the learning objective 'Create data visualizations using Matplotlib.'",
+      "learning_objective": "Create data visualizations using Matplotlib",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Analyzing and Improving Visualizations",
+      "question_text": "A business analyst presents a chart showing monthly website conversion rates using a line graph with different colored lines for each of 12 marketing channels. The lines overlap heavily, making it impossible to distinguish individual channels. Identify two specific weaknesses in this visualization and propose a concrete alternative approach with different chart type and data organization.",
+      "options": null,
+      "correct_answer": "Two weaknesses: (1) Too many lines create overplotting and make individual channel tracking impossible\u2014the human eye cannot reliably distinguish 12 different colors or trace 12 overlapping lines. (2) Equal visual weight is given to all channels regardless of importance, wasting attention on low-impact channels. Alternative approach: Use a small multiples layout with 12 separate small line charts (one per channel), arranged in a 3x4 grid, sorted by average conversion rate or total revenue. Each small chart shows one channel's trend clearly. Alternatively, use a stacked area chart for top 5 channels by volume, with an 'Other' category combining the remaining 7, focusing attention on the channels that matter most while maintaining trend visibility.",
+      "explanation": "This tests multiple skills: (1) Identifying visualization weaknesses\u2014overplotting and lack of visual hierarchy. (2) Understanding human perceptual limits\u2014we can distinguish ~7 colors reliably, not 12. (3) Proposing concrete alternatives with specific implementation details (small multiples in 3x4 grid, not just 'use a better chart'). The two proposed solutions (small multiples vs. aggregation with focus) represent different strategies based on whether all 12 channels need equal attention or just the top performers. This demonstrates mastery-level analysis of existing visualizations and ability to redesign for clarity.",
+      "learning_objective": "Analyze existing data visualizations to identify strengths and weaknesses",
+      "keywords": [
+        "overplotting",
+        "too many lines",
+        "small multiples",
+        "grid",
+        "stacked area",
+        "top channels"
+      ]
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Plot Types and Applications",
+      "question_text": "A ___ chart is most effective for showing parts of a whole when you have only 2-3 categories and want to compare their relative proportions.",
+      "options": null,
+      "correct_answer": "Stacked bar chart or simple bar chart",
+      "explanation": "While pie charts are often the first thought for parts-of-a-whole, Storytelling with Data argues that stacked bar charts are more effective even for this purpose because humans compare lengths more accurately than angles. For 2-3 categories, a simple bar chart showing each category's value also works well, or a 100% stacked bar if proportions are the key message. The learning objective about Chapter 2's discussion of chart types specifically addresses this question. Knaflic argues against pie charts and suggests alternatives like stacked bars that leverage more accurate visual perception mechanisms for comparison tasks.",
+      "learning_objective": "Select the most appropriate visualization based on the type of data",
+      "keywords": [
+        "stacked bar",
+        "bar chart",
+        "parts of whole",
+        "proportions",
+        "comparison"
+      ]
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Creating Plots in Multiple Formats",
+      "question_text": "You have employee salary data and want to show both the distribution shape (to check for bimodality) and identify any outliers. Which combination of plots provides the most complete picture?",
+      "options": [
+        "A) A single histogram with 20 bins",
+        "B) A box plot and a histogram side by side",
+        "C) A KDE plot and a swarm plot overlaid",
+        "D) A violin plot which combines both distribution shape and outlier identification"
+      ],
+      "correct_answer": "D",
+      "explanation": "Violin plots are specifically designed to show both distribution shape (through the width profile, like a KDE) and summary statistics (through an embedded box plot showing median, quartiles, and outliers). This makes Option D the most efficient single visualization. Option A (histogram) shows shape but doesn't systematically identify outliers. Option B provides both insights but requires two separate plots. Option C (KDE + swarm) is effective for smaller datasets but swarm plots become unreadable with large datasets. This tests the learning objective 'Create plots/graphs in a variety of formats' by requiring students to match analytical needs (bimodality detection + outlier identification) to the optimal chart type.",
+      "learning_objective": "Create plots/graphs in a variety of formats",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Creating Plots in Multiple Formats",
+      "question_text": "Design a comprehensive exploratory data analysis (EDA) visualization strategy for a new dataset containing customer transaction amounts (continuous, 0-$5000 range, potentially skewed). Specify three different plot types you would create and explain what specific insight each provides that the others don't.",
+      "options": null,
+      "correct_answer": "Three-plot EDA strategy: (1) Histogram with 30-40 bins: Shows the detailed distribution shape, reveals if data is right-skewed (common in transaction data), identifies multiple modes if present, and shows the frequency concentration at different price points. (2) Box plot: Efficiently identifies outliers (very high-value transactions), shows the median and IQR for understanding typical transaction ranges, and reveals extreme values that might need investigation for fraud or data errors. (3) KDE plot: Provides a smoothed distribution view that eliminates binning artifacts from the histogram, makes it easier to see the overall distribution shape, and is particularly useful for identifying where density peaks occur along the continuous scale. Together, these three plots provide granular detail (histogram), robust summary statistics (box plot), and smooth trends (KDE) for comprehensive understanding.",
+      "explanation": "This advanced question tests the ability to design a multi-faceted analytical approach using complementary visualization techniques. Strong answers demonstrate understanding that different plots reveal different aspects: histograms show granular patterns, box plots flag statistical outliers, and KDE plots smooth trends. The question requires explaining the unique value of each choice\u2014not just listing plots but articulating what insights each provides that justifies its inclusion. This tests 'Create plots/graphs in a variety of formats' at an MS-level by requiring strategic thinking about how different formats work together in real exploratory analysis workflows.",
+      "learning_objective": "Create plots/graphs in a variety of formats",
+      "keywords": [
+        "histogram",
+        "box plot",
+        "KDE",
+        "distribution",
+        "outliers",
+        "skewed",
+        "complementary"
+      ]
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "SWD and Visual Communication",
+      "question_text": "According to Storytelling with Data Chapter 2, why does the author recommend avoiding secondary y-axes in most cases?",
+      "options": null,
+      "correct_answer": "Secondary y-axes are discouraged because they make comparisons difficult and can be misleading. Viewers struggle to mentally track which line corresponds to which axis, and the scales can be manipulated to create false impressions of correlation or causation. It's often better to use separate charts, normalize the data to a common scale, or index both series to a common baseline for clearer communication.",
+      "explanation": "The 'Think About It' section explicitly asks 'Do you agree with the author's assessment of the secondary?' referring to secondary y-axes. Chapter 2 discusses how dual axes create cognitive load and interpretation challenges. The two independent scales can be stretched or compressed to make relationships appear stronger or weaker than they actually are. This is a practical application of SWD principles\u2014choosing clarity over complexity even when it means using more space with separate charts. Understanding this critique demonstrates thoughtful engagement with professional visualization standards beyond just technical implementation.",
+      "learning_objective": "Apply principles from Storytelling with Data (SWD) to create graphs",
+      "keywords": [
+        "secondary",
+        "dual axes",
+        "misleading",
+        "comparison",
+        "difficult",
+        "separate charts",
+        "normalize"
+      ]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Visual Communication for Decision-Making",
+      "question_text": "You're presenting to the C-suite about A/B test results for a new website feature. Test A (control) had 10,000 visitors with 2.1% conversion. Test B (new feature) had 10,000 visitors with 2.5% conversion\u2014a 19% relative improvement but only 0.4 percentage points absolute difference. Design a visualization that accurately represents this result without exaggerating the effect. Specify chart type, axis decisions, and any annotations you would include.",
+      "options": null,
+      "correct_answer": "Use a horizontal bar chart with two bars (Test A: 2.1%, Test B: 2.5%). Critically, start the x-axis at 0% and extend to at least 3-4% to show the improvement in true proportion to the full scale. Add a subtle gray reference band showing the 0-2% baseline to emphasize that both variants have low absolute conversion. Include a two-part annotation: '0.4 percentage point increase' next to the bars to show absolute difference, and '+40 conversions per 10,000 visitors' to give business context. Add a subtitle: 'Test B shows statistically significant but modest improvement' to frame expectations. Avoid truncating the axis at 2.0% which would make the difference appear dramatic. Consider adding error bars or confidence intervals if statistical significance needs emphasis.",
+      "explanation": "This scenario tests ethical, accurate visualization design when results could easily be exaggerated. Starting the axis at 0% shows the true proportional difference, preventing visual manipulation. The dual annotation (percentage points + raw count) provides both statistical and business context. The subtitle manages expectations\u2014significant doesn't mean transformative. This demonstrates mastery of multiple principles: accurate encoding (appropriate axis), context provision (reference bands and counts), and ethical communication (resisting the temptation to make small effects look large). It tests both 'Construct effective visuals' and 'Analyze how different visualizations can affect audience interpretation' at an executive communication level.",
+      "learning_objective": "Analyze how different visualizations can affect audience interpretation",
+      "keywords": [
+        "zero baseline",
+        "horizontal bar",
+        "annotation",
+        "percentage points",
+        "context",
+        "axis at zero"
+      ]
+    },
+    {
+      "number": 30,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Univariate and Visual Analysis",
+      "question_text": "You create a histogram of customer order values and notice it's heavily right-skewed with a long tail extending to high values. Explain what this tells you about the customer base and suggest one follow-up analysis you would perform.",
+      "options": null,
+      "correct_answer": "The right-skewed distribution indicates that most customers place small-to-moderate value orders (concentrated on the left), but a small number of customers place very high-value orders (the long right tail). This reveals that the customer base has high variability in purchasing behavior, with a few high-value customers potentially contributing disproportionately to revenue. Follow-up analysis: Segment customers into value tiers (e.g., using percentiles) and analyze each segment separately using box plots or create separate histograms for each tier to understand if these are distinct customer types or if there's a continuous gradient in purchasing behavior. This could inform tiered marketing strategies or loyalty programs.",
+      "explanation": "This question tests univariate analysis interpretation skills\u2014translating distribution shapes into business insights. Right-skewness in transaction or revenue data is common and meaningful: it signals that averages may be misleading (mean pulled up by outliers) and that segmentation is likely needed. The suggested follow-up (segmentation and deeper analysis by tier) demonstrates analytical thinking beyond just describing the current plot. This connects to 'Describe univariate analysis' by requiring students to interpret distribution characteristics and 'Analyze existing data visualizations' by deriving actionable insights from visual patterns.",
+      "learning_objective": "Describe univariate analysis",
+      "keywords": [
+        "right-skewed",
+        "long tail",
+        "most customers",
+        "small orders",
+        "few high-value",
+        "segment"
+      ]
+    }
+  ]
+}

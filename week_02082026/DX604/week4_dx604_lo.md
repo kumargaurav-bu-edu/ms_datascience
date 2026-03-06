@@ -14,3 +14,13 @@ Apply MDM tools and practices
 
 - Learning Objectives 
  Implement data quality improvement techniques 
+
+- The following resource is required for your learning this week. Make sure you review everything linked below, as you may be tested on the concepts in an upcoming knowledge check or quiz. 
+
+Reading | Vilminko-Heikkinen, R., & Pekkola, S. (2015, August 5). Master data management and its organizational implementation.  Journal of Enterprise Information Management, 30(3), 454–475. 
+
+- Review the Week's Learning Objectives 
+Define data quality and its dimensions  
+Implement data quality improvement techniques  
+Explore the principles of MDM 
+Apply MDM tools and practices  

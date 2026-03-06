@@ -1,0 +1,529 @@
+{
+  "quiz_metadata": {
+    "title": "DX604 Spring 2026: Week 4 - Data Quality and Master Data Management",
+    "description": "This quiz assesses understanding of data quality dimensions, data quality improvement techniques, master data management principles, and MDM tools and practices.",
+    "version": "1.0",
+    "total_questions": 28
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Quality Dimensions",
+      "question_text": "___ refers to the extent to which data correctly represents the real-world entities or events it is supposed to describe.",
+      "options": null,
+      "correct_answer": "Accuracy",
+      "explanation": "Accuracy is a fundamental dimension of data quality that measures how correctly data reflects reality. For example, if a customer's address in the database matches their actual physical address, the data is accurate. Inaccurate data leads to poor decision-making, operational inefficiencies, and compliance issues. Understanding accuracy as a core data quality dimension is essential because it directly impacts the reliability of analytics, reporting, and business operations. This addresses the learning objective 'Define data quality and its dimensions.'",
+      "learning_objective": "Define data quality and its dimensions",
+      "keywords": [
+        "accuracy",
+        "correctness",
+        "correct",
+        "represents reality",
+        "real-world"
+      ]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Quality Dimensions",
+      "question_text": "___ is the data quality dimension that measures whether all required data is present, without missing values in critical fields.",
+      "options": null,
+      "correct_answer": "Completeness",
+      "explanation": "Completeness measures whether all necessary data is present and available for use. Missing values in critical fields (like customer email, product price, or transaction date) reduce data completeness and can compromise analytical results or operational processes. For instance, a customer record without a phone number is incomplete if phone contact is a business requirement. Completeness is one of the primary dimensions used to assess data quality, alongside accuracy, consistency, and timeliness. This directly supports understanding data quality dimensions.",
+      "learning_objective": "Define data quality and its dimensions",
+      "keywords": [
+        "completeness",
+        "complete",
+        "missing values",
+        "present",
+        "available"
+      ]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data Quality Dimensions",
+      "question_text": "True or False: Data consistency means that the same data element has the same value across different systems and databases within an organization.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "This statement is correct. Consistency is the data quality dimension that ensures data values are uniform across different systems, databases, and contexts. For example, if a customer's name is stored as 'John Smith' in the CRM but 'J. Smith' in the billing system, there is a consistency problem. Inconsistent data creates confusion, reduces trust, and makes data integration challenging. Consistency is particularly critical in organizations with multiple systems that need to share and reconcile data. Understanding consistency as a key dimension helps identify and address data quality issues systematically.",
+      "learning_objective": "Define data quality and its dimensions",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Quality Dimensions",
+      "question_text": "A healthcare provider discovers that patient records contain blood pressure readings from 5 years ago, while current vital signs are missing. Which data quality dimension is most severely compromised?",
+      "options": [
+        "A) Accuracy - the old readings may still be correct for that time period",
+        "B) Timeliness - the data is outdated and doesn't reflect current patient status",
+        "C) Consistency - the data format hasn't changed over the years",
+        "D) Validity - the blood pressure values are within medically possible ranges"
+      ],
+      "correct_answer": "B",
+      "explanation": "Timeliness is the most compromised dimension because the data is outdated and no longer relevant for current medical decision-making. While the old readings may be accurate (Option A) for their time period, they don't serve the current need\u2014making treatment decisions based on current health status. Consistency (Option C) and validity (Option D) may be fine, but if data isn't timely, it's not useful. In healthcare, outdated vital signs can lead to dangerous medical decisions. Timeliness measures whether data is available when needed and reflects the current state. This question tests the ability to identify which quality dimension matters most in a specific business context.",
+      "learning_objective": "Define data quality and its dimensions",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Data Quality Dimensions",
+      "question_text": "Explain the difference between data accuracy and data validity, providing one example of data that is valid but not accurate.",
+      "options": null,
+      "correct_answer": "Accuracy measures whether data correctly reflects reality, while validity measures whether data conforms to defined formats, rules, or constraints. Example: A customer's birth date entered as '01/01/1900' is valid (correct date format, logically possible date) but inaccurate if the customer was actually born in 1985. The value passes format validation but doesn't represent the true birth date. Validity checks syntax and structure; accuracy checks semantic correctness against real-world truth.",
+      "explanation": "This distinction is crucial for implementing effective data quality controls. Validity can be checked automatically using rules (regex patterns, range constraints, referential integrity), while accuracy often requires external verification or data profiling against trusted sources. Many data quality issues arise from confusing these dimensions\u2014valid data that passes all format checks but is factually wrong. Understanding this difference helps design better data quality frameworks that combine automated validation with accuracy verification processes. This tests deeper understanding of data quality dimensions beyond memorizing definitions.",
+      "learning_objective": "Define data quality and its dimensions",
+      "keywords": [
+        "accuracy",
+        "validity",
+        "format",
+        "rules",
+        "constraints",
+        "reality",
+        "correct"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Data Quality Assessment",
+      "question_text": "A retail company's analytics team reports that 15% of customer records have missing email addresses, 8% have email addresses in invalid formats, and 3% have email addresses that bounce when tested. Additionally, for customers with emails in both the e-commerce and loyalty systems, 12% show different email values. Identify which data quality dimensions are affected and rank them by severity for an email marketing campaign.",
+      "options": null,
+      "correct_answer": "Four data quality dimensions are affected: (1) Most severe: Completeness (15% missing emails) - these customers cannot be reached at all, representing the largest impact. (2) High severity: Accuracy (3% bouncing emails) - these emails are incorrect, wasting marketing spend and harming sender reputation. (3) Moderate severity: Consistency (12% different emails across systems) - creates confusion about which email to use and may lead to duplicate sends. (4) Lower severity: Validity (8% invalid formats) - can be caught and corrected before sending. For the email marketing campaign, completeness and accuracy are most critical because they directly prevent reaching customers, while validity issues can be fixed through data cleansing.",
+      "explanation": "This scenario requires analyzing multiple data quality issues simultaneously and prioritizing them based on business impact. The ranking demonstrates strategic thinking: completeness affects the most customers (15%), accuracy creates deliverability problems, consistency creates operational confusion, and validity is fixable pre-campaign. Strong answers recognize that dimension severity depends on the use case\u2014for email marketing, reachability is paramount. This tests the learning objective at an MS-level by requiring synthesis of multiple quality dimensions and practical prioritization for a real business scenario, not just theoretical knowledge of dimensions.",
+      "learning_objective": "Define data quality and its dimensions",
+      "keywords": [
+        "completeness",
+        "accuracy",
+        "consistency",
+        "validity",
+        "missing",
+        "invalid",
+        "bounce",
+        "different"
+      ]
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Quality Significance",
+      "question_text": "Why is data quality particularly critical in regulated industries like healthcare and finance?",
+      "options": [
+        "A) These industries have more data than other sectors",
+        "B) Poor data quality can lead to compliance violations, regulatory fines, and legal liability",
+        "C) Employees in these industries are less technically skilled",
+        "D) Data quality tools are more expensive in regulated industries"
+      ],
+      "correct_answer": "B",
+      "explanation": "Option B correctly identifies that regulated industries face legal and regulatory consequences for poor data quality. In healthcare, inaccurate patient data can violate HIPAA and harm patients. In finance, incorrect data can lead to SOX violations, inaccurate financial reporting, and regulatory penalties from SEC or banking regulators. Option A is false\u2014many industries have large data volumes. Option C is untrue and irrelevant. Option D is false\u2014tool costs don't vary by industry type. Beyond regulatory compliance, poor data quality in these sectors can have life-or-death consequences (wrong medication) or massive financial impact (incorrect trades). Understanding the high stakes of data quality in these contexts is essential for data professionals.",
+      "learning_objective": "Define data quality and its dimensions",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Quality Improvement Techniques",
+      "question_text": "___ is the process of analyzing data to understand its structure, content, quality issues, and patterns before implementing quality improvements.",
+      "options": null,
+      "correct_answer": "Data profiling",
+      "explanation": "Data profiling is the foundational technique for understanding data quality issues. It involves examining data to discover patterns, statistics, anomalies, and quality problems such as missing values, outliers, duplicates, and inconsistencies. Profiling tools generate reports on column statistics (null rates, distinct values, value distributions), data types, formats, and relationships. Without profiling, organizations operate blindly\u2014they don't know what quality issues exist or where to focus improvement efforts. Profiling informs data cleansing strategies, validation rules, and quality metrics. This directly addresses implementing data quality improvement techniques by establishing the diagnostic phase.",
+      "learning_objective": "Implement data quality improvement techniques",
+      "keywords": [
+        "data profiling",
+        "profiling",
+        "analyzing",
+        "examining",
+        "understanding data"
+      ]
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Quality Improvement Techniques",
+      "question_text": "___ is the process of detecting and removing or correcting corrupt, inaccurate, or duplicate data from datasets.",
+      "options": null,
+      "correct_answer": "Data cleansing or Data cleaning",
+      "explanation": "Data cleansing (also called data cleaning or data scrubbing) is the core operational technique for improving data quality. It includes activities like standardizing formats (e.g., phone numbers to xxx-xxx-xxxx), filling missing values, removing duplicates, correcting typos, validating against reference data, and fixing inconsistencies. Cleansing can be manual (reviewing and correcting records individually) or automated (using rules and algorithms). Effective cleansing requires understanding the data's intended use and acceptable quality thresholds. This is a fundamental implementation technique for the learning objective on implementing data quality improvements.",
+      "learning_objective": "Implement data quality improvement techniques",
+      "keywords": [
+        "data cleansing",
+        "cleansing",
+        "cleaning",
+        "removing errors",
+        "correcting"
+      ]
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Quality Improvement Techniques",
+      "question_text": "A company discovers that customer addresses have inconsistent formatting: some use 'Street', others 'St.', some use 'Avenue', others 'Ave.' Which data quality technique should be applied first?",
+      "options": [
+        "A) Data profiling to understand how many variations exist and their frequency",
+        "B) Data cleansing to immediately standardize all addresses to one format",
+        "C) Master data management to create a golden record",
+        "D) Data governance to establish address entry policies"
+      ],
+      "correct_answer": "A",
+      "explanation": "Data profiling should always be the first step because you need to understand the scope and nature of the problem before acting. Profiling will reveal: How many variations exist? What percentage of records have each format? Are there other address quality issues (missing zip codes, typos)? This information guides the cleansing strategy (Option B), informs whether MDM is needed (Option C), and provides evidence for governance policies (Option D). Jumping straight to cleansing (Option B) without profiling risks incomplete solutions\u2014you might standardize Street/St. but miss other variations or related issues. This tests the systematic approach to implementing quality improvements: diagnose (profile) before treating (cleanse).",
+      "learning_objective": "Implement data quality improvement techniques",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Data Quality Improvement Techniques",
+      "question_text": "After profiling a customer database, you find that the 'Income' field has: 5% null values, 2% negative values, 1% values over $10 million, and 3% values stored as text instead of numbers. Design a data cleansing strategy that addresses each issue with specific actions.",
+      "options": null,
+      "correct_answer": "Cleansing strategy with specific actions: (1) Null values (5%): Implement business logic\u2014if income is required for the use case (e.g., credit scoring), flag for manual research or use external data enrichment services; if not critical, document nulls and exclude from income-based analyses. (2) Negative values (2%): These are invalid\u2014income cannot be negative. Investigate root cause (data entry error? system bug?) then set to null or flag for correction. (3) Values over $10M (1%): Profile these records to determine if they're legitimate high-earners or data entry errors (e.g., $1,000,000 entered as $10,000,000). Validate against external sources for high-value customers. (4) Text values (3%): Convert to numeric type using parsing functions, handling cases like '$50,000' or '50K'. If conversion fails, flag for manual review.",
+      "explanation": "This question tests the ability to design a practical, multi-faceted cleansing strategy addressing different quality issue types. Strong answers recognize that different issues require different approaches: nulls need business decisions about handling, negative values are clearly errors, extreme values need validation (not automatic deletion), and type mismatches need conversion logic with error handling. The strategy demonstrates understanding that cleansing isn't one-size-fits-all but requires analytical thinking about root causes and appropriate remediation. This directly tests implementing data quality improvement techniques in a realistic scenario.",
+      "learning_objective": "Implement data quality improvement techniques",
+      "keywords": [
+        "null",
+        "negative",
+        "invalid",
+        "convert",
+        "validate",
+        "flag",
+        "manual review",
+        "business logic"
+      ]
+    },
+    {
+      "number": 12,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Data Quality Automation",
+      "question_text": "Your organization processes 500,000 new customer records monthly, and manual data cleansing is no longer scalable. Design an automated data quality improvement system, specifying at least three automated techniques and explaining how each reduces manual effort while maintaining quality.",
+      "options": null,
+      "correct_answer": "Automated data quality system design: (1) Real-time validation rules at data entry points: Implement field-level validation (email format regex, required fields, dropdown menus for standardized values) in web forms and APIs to prevent poor quality data from entering the system. This stops errors at the source, reducing downstream cleansing needs by 60-70%. (2) Automated standardization and enrichment pipeline: Build ETL processes that automatically standardize formats (addresses via USPS API, phone numbers to E.164 format), deduplicate using fuzzy matching algorithms (Levenshtein distance for name matching), and enrich records with third-party data (append missing demographics). This handles routine cleansing without human intervention. (3) Machine learning-based anomaly detection: Train models on historical clean data to flag suspicious records (outliers, unusual patterns) for human review only, rather than reviewing all 500K records. Prioritize review queue by predicted error probability. (4) Automated data quality monitoring dashboards: Calculate and track quality metrics (completeness %, accuracy %, duplicate rate) automatically, triggering alerts when metrics degrade beyond thresholds. This enables proactive issue detection before business impact.",
+      "explanation": "This advanced scenario tests the ability to design a comprehensive, scalable quality improvement system combining multiple automation techniques. Strong answers recognize that automation occurs at multiple stages: prevention (input validation), correction (standardization pipelines), detection (ML anomaly flagging), and monitoring (automated metrics). The 'how each reduces manual effort' requirement ensures students explain business value, not just list techniques. Real-world data quality at scale requires automation because manual processes don't scale beyond thousands of records. This tests implementing data quality improvement techniques at an architecture and systems design level appropriate for MS students.",
+      "learning_objective": "Implement data quality improvement techniques",
+      "keywords": [
+        "validation",
+        "automated",
+        "pipeline",
+        "ETL",
+        "standardization",
+        "machine learning",
+        "monitoring",
+        "scale"
+      ]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Quality Improvement Techniques",
+      "question_text": "Which approach is most effective for maintaining data quality over time, rather than just fixing it once?",
+      "options": [
+        "A) Conduct a one-time comprehensive data cleansing project to fix all existing issues",
+        "B) Implement ongoing data quality monitoring with automated alerts and preventive controls at data entry points",
+        "C) Hire more staff to manually review and correct data continuously",
+        "D) Replace the current database system with a newer one that has better validation"
+      ],
+      "correct_answer": "B",
+      "explanation": "Option B represents a sustainable, systematic approach to data quality: ongoing monitoring detects new issues as they arise, and preventive controls (input validation, standardization rules) stop problems at the source. Option A (one-time cleansing) treats symptoms but doesn't prevent recurrence\u2014data degrades again without ongoing controls. Option C (more manual reviewers) doesn't scale and doesn't address root causes. Option D (new system) is expensive and doesn't guarantee quality unless proper controls are implemented. Effective data quality programs combine reactive cleansing with proactive prevention and continuous monitoring. This tests understanding that data quality improvement is a continuous process, not a one-time project.",
+      "learning_objective": "Implement data quality improvement techniques",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Data Quality Challenges",
+      "question_text": "A global manufacturer has customer data in 15 regional databases across different countries, each using local formats for addresses, phone numbers, and dates. They need to consolidate this data into a central analytics warehouse. Analyze the data quality challenges this presents and recommend a three-step approach to address them.",
+      "options": null,
+      "correct_answer": "Data quality challenges: (1) Consistency issues\u2014different regional standards for addresses (zip codes vs postal codes), phone numbers (international formats), and dates (MM/DD/YYYY vs DD/MM/YYYY vs YYYY-MM-DD) make comparison impossible. (2) Completeness variations\u2014different regions may have different required fields based on local business practices. (3) Duplicate detection difficulty\u2014same customer with regional variations in name/address across systems. Three-step approach: Step 1 (Profile and standardize): Profile all 15 databases to document format variations, null rates, and data patterns. Establish global data standards (ISO formats: ISO 3166 for countries, E.164 for phone, ISO 8601 for dates). Step 2 (Build transformation pipeline): Create ETL processes that transform each regional format to the global standard during consolidation. Include address parsing/standardization services (Google Maps API, SmartyStreets), date parsing with locale awareness, and phone number normalization. Step 3 (Implement master data matching): Use fuzzy matching algorithms (name similarity, address matching) to identify and merge duplicate customer records across regions, creating a single customer view with data lineage tracking to source systems.",
+      "explanation": "This scenario tests advanced understanding of data quality challenges in complex, real-world contexts involving multiple systems, geographies, and data standards. Strong answers identify specific challenges (not just 'data is inconsistent'), explain why each challenge matters (can't compare dates if formats differ), and propose concrete technical solutions (specific APIs, algorithms, standards). The three-step approach (understand-transform-merge) reflects professional methodology for data integration projects. This tests implementing data quality improvement techniques at an enterprise architecture level, requiring synthesis of profiling, cleansing, standardization, and deduplication knowledge in a realistic global business context.",
+      "learning_objective": "Implement data quality improvement techniques",
+      "keywords": [
+        "standardization",
+        "consistency",
+        "transformation",
+        "ETL",
+        "ISO",
+        "fuzzy matching",
+        "duplicate",
+        "global"
+      ]
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Master Data Management Principles",
+      "question_text": "___ is the discipline of managing critical business data entities (such as customers, products, suppliers) to provide a single, trusted, authoritative source of truth across the organization.",
+      "options": null,
+      "correct_answer": "Master Data Management or MDM",
+      "explanation": "Master Data Management (MDM) is a comprehensive approach to defining, managing, and sharing an organization's critical data entities to ensure consistency, accuracy, and accountability. MDM creates 'golden records' that serve as the single source of truth for master data like customer information, product catalogs, employee records, and supplier details. Without MDM, different systems maintain separate, often conflicting versions of the same entities (e.g., customer 'John Smith' in CRM vs 'J. Smith' in billing), leading to inconsistencies and poor decisions. MDM is foundational to data quality at scale. This addresses the learning objective 'Explore the principles of master data management.'",
+      "learning_objective": "Explore the principles of master data management (MDM)",
+      "keywords": [
+        "master data management",
+        "MDM",
+        "single source of truth",
+        "golden record",
+        "authoritative"
+      ]
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Master Data Management Principles",
+      "question_text": "True or False: Master data refers to the core business entities that are shared across multiple systems and processes, such as customers, products, employees, and suppliers.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "This statement is correct. Master data represents the critical, shared business entities that multiple systems need to reference consistently. Unlike transactional data (individual sales, orders) or analytical data (aggregated reports), master data defines the 'nouns' of the business\u2014the things you do business with (customers, suppliers) and the things you sell (products, services). Master data has high reuse value, changes infrequently relative to transactions, and requires careful governance because inconsistencies cascade across systems. Understanding what constitutes master data versus other data types is fundamental to implementing MDM effectively and aligns with exploring MDM principles.",
+      "learning_objective": "Explore the principles of master data management (MDM)",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Master Data Management Principles",
+      "question_text": "What is the primary business problem that Master Data Management (MDM) solves?",
+      "options": [
+        "A) Insufficient data storage capacity across enterprise systems",
+        "B) Multiple, inconsistent versions of the same business entities across different systems",
+        "C) Slow query performance in analytical databases",
+        "D) Lack of data visualization tools for executives"
+      ],
+      "correct_answer": "B",
+      "explanation": "Option B correctly identifies the core problem MDM addresses: data silos containing conflicting versions of the same entities. For example, customer 'Jane Doe' might exist in 5 systems with different addresses, phone numbers, or account statuses, making it impossible to get a unified customer view. MDM creates a single, authoritative version (golden record) and synchronizes it across systems. Option A (storage) is an infrastructure issue, not an MDM concern. Option C (performance) is a database tuning issue. Option D (visualization) is unrelated to master data. Understanding the business problem MDM solves\u2014inconsistency and fragmentation of critical data\u2014is essential for appreciating why organizations invest in MDM initiatives.",
+      "learning_objective": "Explore the principles of master data management (MDM)",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "MDM Architecture Styles",
+      "question_text": "Explain the difference between a 'registry' style MDM architecture and a 'consolidation' style MDM architecture.",
+      "options": null,
+      "correct_answer": "Registry style MDM maintains master data in source systems and creates an index or registry that links related records across systems without physically consolidating the data. It provides a virtual unified view by pointing to where each data element resides. Consolidation style MDM physically centralizes master data from multiple sources into a central MDM hub, creating a single physical repository where the golden record is stored and maintained. Registry is lighter-weight and less intrusive but doesn't create a true single source. Consolidation provides stronger control and a definitive golden record but requires more significant data migration and system changes.",
+      "explanation": "Understanding MDM architecture styles is crucial for implementing MDM because the choice significantly impacts project scope, cost, and organizational change. Registry style is faster to implement and works well when source systems can't be easily modified, but it doesn't eliminate the root problem of multiple physical copies. Consolidation style provides the strongest data governance and quality control but requires more investment and system integration work. Many organizations use hybrid approaches. This tests deeper understanding of MDM principles by requiring students to compare implementation approaches, not just define MDM at a surface level.",
+      "learning_objective": "Explore the principles of master data management (MDM)",
+      "keywords": [
+        "registry",
+        "consolidation",
+        "index",
+        "centralized",
+        "hub",
+        "source systems",
+        "virtual",
+        "physical"
+      ]
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "MDM Business Value",
+      "question_text": "A telecommunications company has 8 million customers, but due to system fragmentation, they can't identify customers who have multiple products (mobile + internet + TV). Marketing campaigns frequently target the same customer multiple times with conflicting offers, customer service can't see complete account history, and churn analysis is inaccurate. How would implementing MDM address these specific business problems? Provide at least three concrete benefits.",
+      "options": null,
+      "correct_answer": "MDM implementation benefits for this scenario: (1) Single customer view: MDM creates golden records that link all products and accounts for each customer, enabling the company to identify that Customer A has mobile, internet, and TV services. This allows cross-sell targeting (don't offer mobile to someone who already has it) and prevents redundant marketing touches, improving customer experience and reducing marketing waste. (2) 360-degree customer service: Service representatives can access the complete MDM record showing all products, billing history, support tickets, and interactions across channels. This enables faster issue resolution, reduces customer frustration from having to repeat information, and allows agents to resolve multi-product issues in one call. (3) Accurate analytics and churn prediction: With consolidated customer data, churn analysis can correctly identify that losing a mobile customer who also has internet means losing twice the revenue. MDM enables accurate lifetime value calculations, bundle analysis, and retention strategies targeted at high-value multi-product customers who were previously invisible due to data fragmentation.",
+      "explanation": "This scenario tests the ability to connect MDM principles to concrete business outcomes in a realistic industry context. Strong answers demonstrate understanding that MDM isn't just a technical data project but a business transformation that improves marketing efficiency, customer experience, and analytical accuracy. The telecommunications context (multiple products per customer) is ideal for illustrating MDM value because the business problems (fragmentation, redundant outreach, incomplete view) are directly caused by lack of master data management. This tests exploring MDM principles at an applied, business-case level appropriate for MS students who need to justify MDM investments.",
+      "learning_objective": "Explore the principles of master data management (MDM)",
+      "keywords": [
+        "single customer view",
+        "golden record",
+        "consolidate",
+        "360-degree",
+        "cross-sell",
+        "churn",
+        "complete view"
+      ]
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "MDM Organizational Implementation",
+      "question_text": "According to Vilminko-Heikkinen & Pekkola's research on MDM organizational implementation, what are two key organizational challenges (beyond technical issues) that organizations face when implementing MDM?",
+      "options": null,
+      "correct_answer": "Two key organizational challenges from the research: (1) Organizational resistance and change management: Different departments often resist ceding control over 'their' data to a centralized MDM system. Sales might not want IT or another department controlling customer definitions, product teams may resist standardized product taxonomies. Overcoming this requires strong executive sponsorship, clear governance structures defining data ownership and stewardship roles, and demonstrating business value to gain buy-in. (2) Lack of clear data governance and accountability: Organizations struggle to define who is responsible for data quality, who approves changes to master data, and how conflicts between systems are resolved. Without clear governance, MDM implementations stall because there's no authority to make decisions about data standards, resolution rules, or system priorities. Success requires establishing data governance councils, data stewards for each domain, and well-defined processes for data quality management.",
+      "explanation": "This question tests engagement with the required reading and understanding that MDM is as much an organizational challenge as a technical one. The Vilminko-Heikkinen & Pekkola paper emphasizes that MDM success depends on organizational factors: governance structures, change management, stakeholder alignment, and clear accountability. Many MDM projects fail not due to technology but due to organizational resistance, unclear ownership, or lack of executive support. Understanding these challenges is crucial for data professionals who will need to navigate organizational politics and governance issues when implementing MDM. This addresses both exploring MDM principles and connecting to the research literature.",
+      "learning_objective": "Explore the principles of master data management (MDM)",
+      "keywords": [
+        "organizational",
+        "resistance",
+        "governance",
+        "change management",
+        "ownership",
+        "stakeholder",
+        "stewardship"
+      ]
+    },
+    {
+      "number": 21,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "MDM Data Governance",
+      "question_text": "Design a data governance structure for an MDM implementation at a retail company managing customer and product master data. Specify roles (at least three), their responsibilities, and the decision-making process for resolving data conflicts.",
+      "options": null,
+      "correct_answer": "MDM Data Governance Structure: Roles: (1) Chief Data Officer (CDO) or Executive Sponsor: Provides executive authority, resolves escalated conflicts, secures budget, and ensures MDM aligns with business strategy. Approves major governance policies and standards. (2) Data Governance Council: Cross-functional team with representatives from Sales, Marketing, IT, Supply Chain, and Finance. Meets monthly to review data quality metrics, approve changes to data standards, prioritize data stewardship initiatives, and resolve inter-departmental conflicts. Makes decisions by consensus or escalates to CDO. (3) Domain Data Stewards: Dedicated owners for each domain\u2014Customer Data Steward (from Marketing/Sales) and Product Data Steward (from Merchandising/Supply Chain). Responsible for defining data quality rules, approving new values, investigating quality issues, and coordinating with IT on system changes. Stewards are business representatives, not IT. (4) MDM System Administrator (IT): Implements technical changes, manages system security, executes data loads, and maintains MDM platform. Executes decisions made by stewards and council. Decision-Making Process: (1) Data conflicts identified by monitoring are logged in issue tracking system. (2) Domain steward investigates and resolves if within their authority (e.g., choosing between two customer addresses). (3) Cross-domain conflicts (e.g., should product hierarchy follow marketing's view or supply chain's?) escalate to Governance Council. (4) Council cannot reach consensus escalates to CDO for final decision. (5) All decisions documented with rationale for transparency.",
+      "explanation": "This advanced question tests the ability to design a practical governance structure that addresses the organizational implementation challenges discussed in the research literature. Strong answers recognize that governance requires multiple layers (strategic, tactical, operational), clear role delineation between business and IT, and explicit decision-making processes including escalation paths. The retail context requires domain-specific considerations (customer data owned by Marketing, product data by Merchandising). The detailed process ensures conflicts don't stall the system. This tests both MDM principles and organizational implementation at an MS-level architecture and strategy capability.",
+      "learning_objective": "Explore the principles of master data management (MDM)",
+      "keywords": [
+        "governance",
+        "roles",
+        "steward",
+        "CDO",
+        "council",
+        "decision-making",
+        "responsibilities",
+        "escalation"
+      ]
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "MDM Tools and Practices",
+      "question_text": "A ___ is the single, most accurate and complete version of a master data entity, created by consolidating and resolving data from multiple source systems.",
+      "options": null,
+      "correct_answer": "Golden record or master record",
+      "explanation": "A golden record (also called master record or best version of truth) is the cornerstone concept in MDM. It represents the definitive, authoritative version of an entity after applying data quality rules, matching algorithms, and survivorship rules to select the best attributes from multiple sources. For example, if Customer A appears in 3 systems with different addresses, the golden record uses survivorship logic (most recent update, most complete, most trusted source) to determine which address to use. Golden records are what MDM systems create and distribute back to consuming applications. Understanding golden records is fundamental to applying MDM tools and practices.",
+      "learning_objective": "Apply MDM tools and practices",
+      "keywords": [
+        "golden record",
+        "master record",
+        "best version",
+        "authoritative",
+        "consolidated",
+        "single version"
+      ]
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "MDM Tools and Practices",
+      "question_text": "Which MDM capability is most critical for identifying that 'Robert Smith', 'Bob Smith', and 'R. Smith' with slightly different addresses all refer to the same customer?",
+      "options": [
+        "A) Data validation rules that check format consistency",
+        "B) Fuzzy matching algorithms that calculate similarity scores between records",
+        "C) Data profiling tools that analyze field statistics",
+        "D) Workflow management for data steward approvals"
+      ],
+      "correct_answer": "B",
+      "explanation": "Fuzzy matching (Option B) is essential for entity resolution\u2014identifying that different records represent the same real-world entity despite variations in data. Fuzzy matching algorithms use techniques like Levenshtein distance (character-level similarity), phonetic matching (Soundex, Metaphone for name variations), and address parsing to calculate similarity scores between records. If the score exceeds a threshold (e.g., 85% similar), records are flagged as potential matches for merging. Option A (validation) checks format but doesn't compare across records. Option C (profiling) analyzes data patterns but doesn't perform matching. Option D (workflow) manages approval processes but doesn't perform matching logic. This tests understanding of core MDM technical capabilities for applying tools and practices.",
+      "learning_objective": "Apply MDM tools and practices",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "MDM Tools and Practices",
+      "question_text": "Explain what 'survivorship rules' are in MDM and provide one example of a survivorship rule for selecting customer email addresses when consolidating records from multiple systems.",
+      "options": null,
+      "correct_answer": "Survivorship rules (also called winner rules) are decision logic that determines which attribute value to use in the golden record when source systems provide conflicting values. They define which source is trusted, which value is most recent, or which is most complete. Example survivorship rule for email addresses: 'Use the most recently updated email address from the CRM system if present and valid; otherwise use email from the e-commerce system; if neither exists, use email from the loyalty program.' This prioritizes CRM as the most trusted source for contact information and uses recency as the tiebreaker, while having fallback sources to maximize completeness.",
+      "explanation": "Survivorship rules are critical for MDM implementation because you can't simply pick random values when merging records\u2014you need business logic that ensures the golden record contains the most accurate, complete, and trusted information. Different attributes may have different survivorship rules (e.g., name comes from system X, address from system Y based on trust levels). Understanding and defining survivorship rules requires both technical knowledge and business domain expertise. This tests the practical application of MDM tools and practices by requiring students to explain a core technical concept with a concrete implementation example.",
+      "learning_objective": "Apply MDM tools and practices",
+      "keywords": [
+        "survivorship",
+        "winner rules",
+        "priority",
+        "trusted source",
+        "most recent",
+        "conflict resolution"
+      ]
+    },
+    {
+      "number": 25,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "MDM Tool Selection",
+      "question_text": "Your company is evaluating MDM platforms and has narrowed to three options: (1) Informatica MDM - comprehensive enterprise platform with advanced matching and data quality, high cost; (2) Open-source solution (e.g., Apache Atlas) - customizable but requires significant development; (3) Cloud-native MDM SaaS (e.g., Profisee on Azure) - quick deployment, subscription model, limited customization. Your company is a mid-size B2B manufacturer with 100K customer records, limited IT staff, and needs MDM operational within 6 months. Which solution would you recommend and why? Provide at least two specific reasons.",
+      "options": null,
+      "correct_answer": "Recommendation: Cloud-native MDM SaaS (Option 3 - Profisee or similar). Reasons: (1) Deployment timeline: SaaS solutions can be deployed in 3-6 months versus 12-18 months for enterprise platforms like Informatica, meeting the 6-month requirement. The vendor handles infrastructure, updates, and scaling, reducing IT burden. (2) Total cost of ownership for scale: With 100K customers (mid-size), the subscription cost is manageable and predictable, whereas Informatica's enterprise licensing ($500K-$2M+) and implementation costs are excessive for this scale. Cloud MDM offers better cost-performance ratio for mid-market companies. (3) Limited IT capacity: Open-source (Option 2) requires significant development, customization, and ongoing maintenance\u2014infeasible with limited IT staff. SaaS provides pre-built matching algorithms, data quality rules, and UI without custom development. Option 1 (Informatica) is overkill for 100K records and has high implementation complexity requiring specialized consultants.",
+      "explanation": "This scenario tests the ability to apply MDM tool selection judgment based on business constraints (timeline, budget, IT capacity, scale) rather than just technical features. Strong answers demonstrate that tool selection isn't about 'best' in absolute terms but 'best fit' for context. A Fortune 500 company with millions of complex entities might need Informatica; a startup might use simple CRM deduplication; this mid-size manufacturer needs the middle path. The analysis shows understanding of: MDM market landscape, total cost of ownership, implementation timelines, and IT resource requirements. This tests applying MDM tools and practices at a strategic decision-making level.",
+      "learning_objective": "Apply MDM tools and practices",
+      "keywords": [
+        "cloud",
+        "SaaS",
+        "deployment",
+        "cost",
+        "timeline",
+        "scale",
+        "IT capacity",
+        "subscription"
+      ]
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Cloud-Based MDM",
+      "question_text": "What are two advantages of cloud-based MDM solutions compared to on-premise MDM implementations?",
+      "options": null,
+      "correct_answer": "Two advantages of cloud-based MDM: (1) Faster time to value and lower upfront costs: Cloud MDM eliminates the need to procure hardware, install software, and configure infrastructure. Implementations can start within weeks rather than months, and subscription pricing (OpEx) avoids large capital investments (CapEx) required for on-premise solutions. This makes MDM accessible to mid-size companies that couldn't afford traditional enterprise MDM. (2) Automatic updates and scalability: Cloud vendors manage platform updates, security patches, and infrastructure scaling. As data volumes grow, the cloud provider scales compute and storage automatically without requiring the organization to forecast capacity or purchase additional hardware. This reduces IT operational burden and ensures the organization always runs current, secure versions with access to new features without manual upgrade projects.",
+      "explanation": "Understanding the cloud versus on-premise tradeoffs is important for modern data professionals because cloud adoption is accelerating in data management. Cloud MDM democratizes access to enterprise-grade capabilities for organizations that previously couldn't afford on-premise solutions. However, cloud also has considerations: data residency/compliance requirements, vendor lock-in, and less customization flexibility. Strong answers articulate specific, concrete advantages beyond generic 'cloud is better' statements. This tests applying MDM tools and practices by understanding deployment model implications for implementation success.",
+      "learning_objective": "Apply MDM tools and practices",
+      "keywords": [
+        "cloud",
+        "faster",
+        "lower cost",
+        "subscription",
+        "scalability",
+        "automatic updates",
+        "no hardware"
+      ]
+    },
+    {
+      "number": 27,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "MDM Implementation Best Practices",
+      "question_text": "Based on best practices discussed in the course materials, design a phased MDM implementation approach for a company that wants to implement customer and product MDM but has limited resources. Specify at least three phases, what each phase accomplishes, and why this phased approach reduces risk compared to a big-bang implementation.",
+      "options": null,
+      "correct_answer": "Phased MDM Implementation Approach: Phase 1 (Pilot - Customer MDM for one business unit, 3-4 months): Implement customer MDM for a single region or business unit with ~10K customers. Establish governance structures, build core matching and golden record processes, and prove business value through improved customer analytics and reduced duplicate marketing touches. Limit scope to minimize risk while learning MDM processes. Phase 2 (Expand Customer MDM enterprise-wide, 6-8 months): Roll out customer MDM to all business units, incorporating lessons learned from pilot. Establish enterprise-wide data governance council, standardize customer data model across divisions, and integrate MDM with critical systems (CRM, ERP, marketing automation). Measure success through metrics: duplicate rate reduction, 360-degree customer view adoption, improved data quality scores. Phase 3 (Product MDM implementation, 6-9 months): With customer MDM stable and team experienced, launch product MDM. Leverage established governance structures, reuse technical infrastructure and processes from customer MDM, and build product golden records. Focus on benefits like improved inventory management, reduced SKU proliferation, and enhanced product analytics. Why phased reduces risk: (1) Limits initial investment and organizational disruption\u2014failures are contained and lessons learned before enterprise-wide rollout. (2) Builds organizational capability gradually\u2014teams learn matching algorithms, survivorship rules, and governance before tackling complex domains. (3) Demonstrates ROI early through pilot, securing executive support and budget for subsequent phases. (4) Allows technology and process refinement in controlled environment before scaling. Big-bang risks: overwhelming change, higher failure rate, difficulty isolating issues, and loss of credibility if initial rollout fails.",
+      "explanation": "This question tests understanding that MDM is a complex, multi-year organizational transformation that requires careful change management and risk mitigation. The phased approach (pilot \u2192 expand \u2192 new domain) is a proven best practice that reduces risk, builds competency, and maintains organizational support through visible wins. Strong answers recognize that starting with a single domain (customer) is easier than simultaneous multi-domain MDM, and that proving value in a limited scope secures budget for expansion. This demonstrates MS-level strategic thinking about applying MDM tools and practices in realistic organizational contexts where politics, budgets, and change fatigue are constraints.",
+      "learning_objective": "Apply MDM tools and practices",
+      "keywords": [
+        "phased",
+        "pilot",
+        "incremental",
+        "expand",
+        "risk reduction",
+        "lessons learned",
+        "ROI",
+        "governance"
+      ]
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "MDM Success Metrics",
+      "question_text": "Which metric best indicates that an MDM implementation is successfully improving data quality and business outcomes?",
+      "options": [
+        "A) Number of records stored in the MDM system",
+        "B) Percentage reduction in duplicate customer records and improvement in marketing campaign response rates",
+        "C) Number of systems integrated with the MDM platform",
+        "D) Amount of money spent on MDM tools and implementation"
+      ],
+      "correct_answer": "B",
+      "explanation": "Option B correctly measures both technical success (duplicate reduction indicates better matching and data quality) and business impact (improved campaign response rates show that better data quality drives better business outcomes). MDM success must be measured by business value delivered, not just technical metrics. Option A (record count) doesn't indicate quality improvement\u2014more records could mean more duplicates. Option C (system integrations) measures implementation progress but not quality or business value. Option D (spending) measures investment, not outcomes. Strong MDM metrics tie data quality improvements (completeness %, accuracy %, duplicate rate) to business KPIs (marketing efficiency, customer satisfaction, operational cost reduction). This tests understanding of how to measure and demonstrate MDM success, which is critical for sustaining organizational support for MDM initiatives.",
+      "learning_objective": "Apply MDM tools and practices",
+      "keywords": []
+    }
+  ]
+}
