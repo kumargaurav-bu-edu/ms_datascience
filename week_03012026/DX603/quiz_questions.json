@@ -1,0 +1,541 @@
+{
+  "quiz_metadata": {
+    "title": "DX603 Spring 2026: Week 7 - Ensemble Methods: Bagging, Boosting, and Random Forests",
+    "description": "Comprehensive assessment covering ensemble learning methods including how they improve accuracy, reduce overfitting, and the tradeoffs between Bagging, Boosting, and Random Forests in terms of performance and interpretability.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Ensemble Methods Fundamentals",
+      "question_text": "___ methods combine predictions from multiple models to produce a final prediction that is typically more accurate than any individual model.",
+      "options": null,
+      "correct_answer": "Ensemble",
+      "explanation": "Ensemble methods are a foundational concept in machine learning that leverage the wisdom of crowds principle\u2014combining multiple weak learners to create a strong learner. The key insight is that while individual models may make errors, their collective prediction can be more robust. Ensemble methods include Bagging (Bootstrap Aggregating), Boosting (sequential learning), and Stacking (meta-learning). They improve accuracy by reducing variance (Bagging), bias (Boosting), or both. Popular implementations include Random Forest (Bagging-based), XGBoost (Boosting-based), and are dominant in Kaggle competitions and production ML systems. Understanding ensemble methods is essential for building high-performance predictive models.",
+      "learning_objective": "Explain how ensemble methods improve accuracy and reduce overfitting compared to individual models",
+      "keywords": [
+        "ensemble",
+        "ensemble methods",
+        "combine predictions",
+        "multiple models",
+        "weak learners"
+      ]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Ensemble Methods Fundamentals",
+      "question_text": "True or False: Ensemble methods reduce overfitting by averaging predictions from multiple models, which helps cancel out individual model errors and variance.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Ensemble methods reduce overfitting through variance reduction. When you train multiple models on different subsets of data (as in Bagging), each model overfits to its training data in different ways. Averaging their predictions cancels out these random errors\u2014errors that cause model A to overpredict often compensate for errors causing model B to underpredict. This is mathematically grounded in the bias-variance decomposition: ensemble methods reduce the variance component of error without necessarily increasing bias. For example, a single decision tree might overfit and have high variance, but averaging 100 trees (Random Forest) dramatically reduces this variance. This is why ensemble methods like Random Forests and Gradient Boosting consistently outperform single models.",
+      "learning_objective": "Explain how ensemble methods improve accuracy and reduce overfitting compared to individual models",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Ensemble Methods Fundamentals",
+      "question_text": "The ___ states that the average of independent random samples converges to the true mean, which explains why averaging predictions from multiple models in Bagging reduces variance.",
+      "options": null,
+      "correct_answer": "Central Limit Theorem (or CLT)",
+      "explanation": "The Central Limit Theorem (CLT) provides the mathematical foundation for why Bagging works. CLT states that the average of independent random variables converges to the true mean with reduced variance as sample size increases. In Bagging, each model is trained on a bootstrap sample (random sampling with replacement) from the data, creating slightly different models. These models' predictions are approximately independent random variables. When we average them, CLT ensures the ensemble prediction has lower variance than individual predictions. Specifically, if each model has variance \u03c3\u00b2, averaging B independent models gives variance \u03c3\u00b2/B. This explains why Random Forests (which use Bagging) with more trees generally perform better\u2014up to a point where additional trees provide diminishing returns.",
+      "learning_objective": "Explain how ensemble methods improve accuracy and reduce overfitting compared to individual models",
+      "keywords": [
+        "Central Limit Theorem",
+        "CLT",
+        "averaging",
+        "variance reduction",
+        "independent samples"
+      ]
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Ensemble Methods Fundamentals",
+      "question_text": "A single decision tree achieves 85% accuracy on training data but only 70% on test data (high variance, overfitting). An ensemble of 100 decision trees achieves 82% on training and 78% on test data. What does this demonstrate about ensemble methods?",
+      "options": [
+        "A) Ensembles reduce training accuracy because they underfit the data",
+        "B) Ensembles reduce variance and overfitting by averaging out individual tree errors, improving generalization",
+        "C) Ensembles always achieve higher training accuracy than single models",
+        "D) Ensembles eliminate all bias in the model, which is why test accuracy improves"
+      ],
+      "correct_answer": "B",
+      "explanation": "The scenario shows classic variance reduction through ensembling. The single tree overfits (large gap between train/test accuracy), indicating high variance. The ensemble trades slightly lower training accuracy (82% vs 85%) for significantly better test accuracy (78% vs 70%), demonstrating better generalization. This happens because averaging multiple trees smooths out the erratic predictions that cause overfitting\u2014each tree overfits differently, and their errors partially cancel when averaged. Option A is wrong\u2014ensembles can reduce training accuracy but this isn't underfitting, it's controlled complexity. Option C is wrong\u2014ensembles often have lower training accuracy than overfitted single models. Option D is wrong\u2014ensembles (specifically Bagging) primarily reduce variance, not bias. This illustrates the fundamental value of ensemble methods in practical ML.",
+      "learning_objective": "Explain how ensemble methods improve accuracy and reduce overfitting compared to individual models",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "scenario",
+      "section": "Ensemble Methods Fundamentals",
+      "question_text": "A fraud detection model using a single neural network achieves 95% accuracy but has 40% false positive rate (flagging legitimate transactions as fraud). The team builds an ensemble of 50 diverse models (neural nets, decision trees, logistic regression) and uses majority voting. Explain how this ensemble approach could reduce false positives while maintaining accuracy.",
+      "options": null,
+      "correct_answer": "The ensemble reduces false positives through error diversity and majority voting. Each model makes different errors based on its architecture and training\u2014the neural net might falsely flag transactions with unusual amounts, the tree might flag based on merchant patterns, etc. For a transaction to be flagged as fraud in the ensemble, the majority (26+ of 50) models must agree. Legitimate transactions that one model flags incorrectly are unlikely to be flagged by most other models, so they pass through. True fraud cases that exhibit multiple suspicious patterns get flagged by many models, maintaining detection accuracy. This reduces false positive rate from 40% to potentially 10-15% while keeping high accuracy because diverse models' random errors don't correlate, but their correct predictions do.",
+      "explanation": "This scenario tests understanding of how ensemble diversity reduces specific error types. The key is that false positives are often noise-driven\u2014a model overreacts to an unusual pattern. In an ensemble with diverse architectures, these noise-driven errors are uncorrelated across models. However, true positives (actual fraud) exhibit patterns that multiple models independently detect. Majority voting acts as a noise filter\u2014it requires consensus, suppressing outlier predictions. This principle is used in production fraud detection, medical diagnosis, and security systems where false positives have high costs. The scenario also illustrates that ensembles can target specific metrics (precision/recall tradeoff) by adjusting voting thresholds or weights, demonstrating practical ensemble design considerations beyond just accuracy.",
+      "learning_objective": "Explain how ensemble methods improve accuracy and reduce overfitting compared to individual models",
+      "keywords": [
+        "majority voting",
+        "error diversity",
+        "false positives",
+        "consensus",
+        "diverse models",
+        "uncorrelated errors"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Ensemble Methods Fundamentals",
+      "question_text": "A dataset has 10,000 samples and 50 features. A single decision tree with max_depth=20 achieves 99% training accuracy and 65% test accuracy. An ensemble of 100 trees with max_depth=20 achieves 98% training and 75% test accuracy. However, an ensemble of 100 trees with max_depth=5 achieves 88% training and 82% test accuracy. Analyze what's happening and explain the bias-variance tradeoff at play.",
+      "options": null,
+      "correct_answer": "Analysis: All models show the bias-variance tradeoff. Single deep tree (depth=20): High variance (overfits), low bias\u2014captures training data perfectly but doesn't generalize (99% train, 65% test). Ensemble of deep trees: Reduces variance through averaging but trees are still individually complex, so some overfitting remains (98% train, 75% test). Ensemble of shallow trees (depth=5): Each shallow tree has higher bias (underfits individually) but much lower variance. The ensemble reduces variance further while the higher individual bias is acceptable because the errors are different and partially cancel. Result: 82% test accuracy beats deep ensemble because it better balances bias-variance. The sweet spot is ensembles of moderately complex base learners, not overly complex ones.",
+      "explanation": "This tests deep understanding of how ensemble methods interact with base learner complexity in the bias-variance framework. The counterintuitive insight is that ensemble members should be somewhat simple (higher bias, lower variance) rather than complex (lower bias, higher variance). Complex trees each overfit differently, and while averaging helps, they still collectively capture noise. Shallow trees have more bias but their errors are more diverse and average out better. This is why Random Forest default parameters typically use max_depth limits. The principle: ensemble methods reduce variance, so start with low-variance base learners to minimize total error. This reflects production tuning\u2014XGBoost and LightGBM use shallow trees (depth 3-6) with hundreds of estimators, not deep trees with few estimators.",
+      "learning_objective": "Explain how ensemble methods improve accuracy and reduce overfitting compared to individual models",
+      "keywords": [
+        "bias-variance tradeoff",
+        "shallow trees",
+        "deep trees",
+        "variance reduction",
+        "overfitting",
+        "complexity"
+      ]
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Bagging vs Boosting vs Random Forests",
+      "question_text": "___ is an ensemble technique that trains multiple models in parallel on bootstrap samples of the data and averages their predictions.",
+      "options": null,
+      "correct_answer": "Bagging (or Bootstrap Aggregating)",
+      "explanation": "Bagging (Bootstrap Aggregating) is a parallel ensemble method invented by Leo Breiman in 1996. It works by creating multiple bootstrap samples (random sampling with replacement) from the training data, training a separate model on each sample, and combining predictions (averaging for regression, voting for classification). Bagging reduces variance by ensuring models see slightly different training data and make different errors. The bootstrap sampling creates diversity without needing different model architectures. Bagging is most effective with high-variance, unstable models like decision trees. Random Forest is the most famous Bagging implementation. Unlike Boosting (which is sequential), Bagging's parallel nature makes it easily parallelizable and less prone to overfitting.",
+      "learning_objective": "Differentiate between Bagging, Boosting, and Random Forests",
+      "keywords": [
+        "Bagging",
+        "Bootstrap Aggregating",
+        "parallel",
+        "bootstrap samples",
+        "averaging"
+      ]
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Bagging vs Boosting vs Random Forests",
+      "question_text": "___ is an ensemble technique that trains models sequentially, where each new model focuses on correcting errors made by previous models.",
+      "options": null,
+      "correct_answer": "Boosting",
+      "explanation": "Boosting is a sequential ensemble method where models are trained one after another, with each subsequent model trying to correct the mistakes of the ensemble so far. This is achieved by reweighting training samples\u2014giving more weight to previously misclassified examples\u2014or by training on the residuals (errors) of previous models. Famous algorithms include AdaBoost (Adaptive Boosting), Gradient Boosting, XGBoost, and LightGBM. Boosting reduces both bias and variance but is more prone to overfitting than Bagging if not carefully regularized. It's particularly effective when individual models are weak learners (high bias), as the sequential correction mechanism systematically reduces bias. The sequential nature makes Boosting harder to parallelize than Bagging.",
+      "learning_objective": "Differentiate between Bagging, Boosting, and Random Forests",
+      "keywords": [
+        "Boosting",
+        "sequential",
+        "correcting errors",
+        "reweighting",
+        "weak learners"
+      ]
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bagging vs Boosting vs Random Forests",
+      "question_text": "What is the PRIMARY difference between Bagging and Boosting in how they create model diversity?",
+      "options": [
+        "A) Bagging uses different algorithms for each model while Boosting uses the same algorithm",
+        "B) Bagging trains models in parallel on bootstrap samples; Boosting trains models sequentially with reweighted data to focus on previous errors",
+        "C) Bagging always uses decision trees while Boosting can use any model type",
+        "D) Bagging reduces bias while Boosting reduces variance"
+      ],
+      "correct_answer": "B",
+      "explanation": "The fundamental distinction is the training approach. Bagging creates diversity through data sampling (bootstrap) and trains all models independently in parallel. Each model sees a random subset of data and makes independent predictions. Boosting creates diversity through sequential error correction\u2014each model is trained specifically to improve on the ensemble's current mistakes by reweighting misclassified samples or fitting residuals. Option A is wrong\u2014both typically use the same algorithm repeatedly. Option C is wrong\u2014Bagging works with any model (though trees are common), and Boosting primarily uses weak learners. Option D is backwards\u2014Bagging reduces variance, Boosting reduces bias (and variance). This conceptual difference drives all other differences: Bagging is parallelizable and stable, Boosting is sequential and can overfit.",
+      "learning_objective": "Differentiate between Bagging, Boosting, and Random Forests",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Bagging vs Boosting vs Random Forests",
+      "question_text": "True or False: Random Forest is a specific implementation of Bagging that uses decision trees as base learners and adds randomness in feature selection at each split.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Random Forest extends Bagging by adding an extra layer of randomization. Like Bagging, it trains multiple decision trees on bootstrap samples. However, Random Forest adds feature randomization: at each split in each tree, instead of considering all features, only a random subset (typically \u221an features for classification, n/3 for regression) is considered. This decorrelates the trees\u2014without feature sampling, all trees might split on the same strongest features and make similar errors. The additional randomness ensures trees are more diverse, further reducing variance. Random Forest is one of the most successful ML algorithms because it combines Bagging's variance reduction with feature randomization to handle correlated features better. It's widely used because it requires minimal tuning and works well out-of-the-box.",
+      "learning_objective": "Differentiate between Bagging, Boosting, and Random Forests",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Bagging vs Boosting vs Random Forests",
+      "question_text": "A dataset has one dominant feature that's highly predictive and 20 weak features with small correlations. In standard Bagging with decision trees, most trees split on the dominant feature first. Explain why Random Forest's feature randomization helps in this scenario.",
+      "options": null,
+      "correct_answer": "In standard Bagging, all trees will split on the dominant feature at the root because it provides the best immediate information gain. This causes high correlation between trees\u2014they all make similar initial splits and potentially similar errors. Their predictions aren't truly independent, limiting variance reduction. Random Forest's feature sampling forces some trees to exclude the dominant feature from consideration at certain splits. These trees must rely on the weak features, discovering secondary patterns the dominant feature masks. This decorrelates predictions\u2014trees now disagree more, and averaging becomes more effective. The dominant feature still influences the final model (it appears in most trees) but the ensemble captures more diverse patterns, improving generalization beyond what the single dominant feature provides.",
+      "explanation": "This tests understanding of why Random Forest improves on basic Bagging. The problem with correlated trees is mathematical: if predictions from B trees have correlation \u03c1, variance reduction is \u03c3\u00b2(\u03c1 + (1-\u03c1)/B), not the ideal \u03c3\u00b2/B. When \u03c1 is high (trees are similar), variance reduction is limited regardless of B. Feature randomization reduces \u03c1 by forcing diversity. This is critical in real-world datasets with dominant features (e.g., credit scores dominating default prediction, age dominating medical outcomes). Random Forest ensures the ensemble doesn't become B copies of essentially the same tree. This explains why Random Forest often outperforms Bagging with trees\u2014not because trees are special, but because feature correlation is common.",
+      "learning_objective": "Differentiate between Bagging, Boosting, and Random Forests",
+      "keywords": [
+        "feature randomization",
+        "decorrelate",
+        "dominant feature",
+        "tree correlation",
+        "variance reduction",
+        "diverse patterns"
+      ]
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bagging vs Boosting vs Random Forests",
+      "question_text": "In which scenario would Boosting likely outperform Random Forest?",
+      "options": [
+        "A) Dataset with high noise and outliers where robustness is critical",
+        "B) Dataset where the signal is weak and incremental pattern learning would help capture complex relationships",
+        "C) Dataset requiring fast training time with parallel computing resources",
+        "D) Dataset where model stability and avoiding overfitting is the top priority"
+      ],
+      "correct_answer": "B",
+      "explanation": "Boosting excels when the underlying signal is weak or complex because its sequential error-correction mechanism gradually builds up prediction strength. Each boosting iteration focuses on hard-to-predict samples, allowing the ensemble to learn nuanced patterns that simple averaging (Bagging/Random Forest) might miss. This makes Boosting powerful for problems like subtle fraud patterns, rare disease prediction, or complex behavioral signals. Option A is wrong\u2014Boosting is sensitive to outliers because it reweights misclassified samples, potentially overfitting to outliers. Random Forest is more robust. Option C is wrong\u2014Boosting is sequential and harder to parallelize than Random Forest. Option D is wrong\u2014Boosting can overfit more easily and requires careful regularization; Random Forest is more stable. This tests understanding of when to choose each method based on problem characteristics.",
+      "learning_objective": "Differentiate between Bagging, Boosting, and Random Forests",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Bagging vs Boosting vs Random Forests",
+      "question_text": "A medical diagnosis system uses a Random Forest with 500 trees achieving 92% accuracy. The team considers switching to Gradient Boosting, which achieves 94% accuracy in cross-validation but takes 10x longer to train. However, the Boosting model's accuracy drops to 88% when tested on patients from a different hospital. The Random Forest maintains 91% accuracy on the new hospital data. Analyze what's happening and recommend which model to deploy.",
+      "options": null,
+      "correct_answer": "Recommendation: Deploy Random Forest. Analysis: The Gradient Boosting model is overfitting to the training distribution despite good cross-validation performance. Cross-validation splits come from the same hospital, so they share biases (demographics, equipment, diagnostic protocols). Boosting's sequential error-correction aggressively fits these patterns, including hospital-specific quirks. Random Forest's simpler averaging mechanism is more robust to distribution shift. The 4% drop in new hospital data (94% to 88%) vs Random Forest's 1% drop (92% to 91%) indicates Random Forest generalizes better. For medical deployment across hospitals, robustness to distribution shift is more valuable than maximizing single-site accuracy. Additionally, Random Forest's faster training enables easier retraining with new data.",
+      "explanation": "This scenario tests understanding of overfitting vs generalization in real-world deployment. Boosting's higher training site accuracy comes at the cost of capturing site-specific patterns that don't transfer. This is a critical ML engineering lesson: cross-validation performance isn't always predictive of deployment performance, especially when training and deployment distributions differ. Medical ML faces this constantly\u2014models trained at university hospitals fail at community hospitals due to different patient populations, equipment, and protocols. Random Forest's simpler mechanism and robustness to noise makes it preferable when generalization across environments is critical. The scenario also illustrates the speed-accuracy tradeoff and when faster, simpler models win. This reflects real decisions in production ML where robustness often beats peak performance.",
+      "learning_objective": "Differentiate between Bagging, Boosting, and Random Forests",
+      "keywords": [
+        "Random Forest",
+        "Gradient Boosting",
+        "overfitting",
+        "generalization",
+        "distribution shift",
+        "robustness"
+      ]
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Bagging vs Boosting vs Random Forests",
+      "question_text": "A Random Forest uses 100 trees. Each tree individually has an error variance of 0.04. If the trees were perfectly uncorrelated, what would be the ensemble's error variance? If trees have correlation \u03c1=0.25, what would the actual ensemble variance be?",
+      "options": null,
+      "correct_answer": "Perfect uncorrelation (\u03c1=0): Ensemble variance = \u03c3\u00b2/B = 0.04/100 = 0.0004. With correlation \u03c1=0.25: Ensemble variance = \u03c1\u03c3\u00b2 + (1-\u03c1)\u03c3\u00b2/B = 0.25(0.04) + 0.75(0.04)/100 = 0.01 + 0.0003 = 0.0103. The correlation reduces variance reduction from 0.0004 to 0.0103, showing why decorrelating trees (via feature randomization in Random Forest) is crucial for performance.",
+      "explanation": "This calculation tests quantitative understanding of how tree correlation limits ensemble performance. The formula \u03c3\u00b2_ensemble = \u03c1\u03c3\u00b2 + (1-\u03c1)\u03c3\u00b2/B shows that correlation \u03c1 dominates: even with B=1000 trees, if \u03c1=0.5, variance only reduces to 0.5\u03c3\u00b2. This mathematical insight explains why Random Forest adds feature randomization\u2014it specifically targets reducing \u03c1. Without feature randomization (standard Bagging), trees trained on bootstrap samples of the same data with the same features remain highly correlated (\u03c1 often 0.5-0.8), limiting improvement. With randomization, \u03c1 drops to 0.1-0.3, dramatically improving effectiveness. This is why Random Forest with 100 trees often beats Bagging with 500 trees. Understanding this relationship guides hyperparameter tuning\u2014the max_features parameter in Random Forest directly impacts \u03c1.",
+      "learning_objective": "Differentiate between Bagging, Boosting, and Random Forests",
+      "keywords": [
+        "correlation",
+        "variance",
+        "\u03c1",
+        "0.0103",
+        "decorrelate",
+        "ensemble variance"
+      ]
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Decision Boundaries in Ensembles",
+      "question_text": "As more models are added to an ensemble, the decision boundary typically becomes ___ compared to individual model boundaries.",
+      "options": null,
+      "correct_answer": "Smoother (or less jagged or more refined or more stable)",
+      "explanation": "Ensemble decision boundaries smooth out as models are added because averaging predictions dampens extreme classifications. A single decision tree creates axis-aligned, rectangular decision regions with sharp boundaries. As you add trees in Random Forest, each tree contributes slightly different boundaries based on its bootstrap sample and random feature selections. The ensemble boundary is the averaged confidence across trees, creating smoother transitions between classes. Instead of abrupt 0/1 classifications, you get gradual probability changes (e.g., 0.3 \u2192 0.5 \u2192 0.7), resulting in curved, organic boundaries. This smoothing reduces sensitivity to individual data points and training noise, contributing to better generalization. Visualizing decision boundaries shows this dramatically\u2014single trees have blocky regions, ensembles have smooth contours.",
+      "learning_objective": "Illustrate how decision boundaries evolve in ensemble methods as models are added",
+      "keywords": [
+        "smoother",
+        "less jagged",
+        "refined",
+        "averaged",
+        "stable"
+      ]
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Decision Boundaries in Ensembles",
+      "question_text": "In a binary classification problem, a single decision tree creates axis-aligned rectangular decision regions. As you add more trees in a Random Forest, the ensemble decision boundary becomes curved and non-linear. Explain why this happens and how it relates to model flexibility.",
+      "options": null,
+      "correct_answer": "Each individual tree creates rectangular regions aligned with feature axes (due to axis-parallel splits). However, different trees split at different thresholds and on different features due to bootstrap sampling and feature randomization. When you average their predictions, you're effectively taking a weighted vote at each point in feature space. A point near a boundary might get votes like [tree1: class 0, tree2: class 1, tree3: class 0,...], producing a probability around 0.5. Points farther from boundaries get more consensus. This averaging across differently positioned rectangular boundaries creates smooth, curved ensemble boundaries that can approximate complex shapes. The ensemble's effective flexibility is much higher than any single tree\u2014it can represent decision regions no individual tree could, like circular or diagonal boundaries, without losing trees' simplicity and interpretability of axis-aligned splits.",
+      "explanation": "This tests understanding of how ensemble aggregation creates emergent complexity from simple base learners. Each tree is constrained to axis-aligned splits but the ensemble transcends this limitation. This is powerful: you get the training speed and robustness of simple models with the representational capacity of complex models. Mathematically, this is a form of basis expansion\u2014each tree is a basis function, and averaging them creates a flexible function approximator. This explains Random Forest's success: it achieves high model complexity (fitting intricate boundaries) without the optimization difficulties of training a single complex model like a deep neural network. The smooth boundaries also improve generalization\u2014sharp boundaries often reflect noise, smooth boundaries reflect true patterns.",
+      "learning_objective": "Illustrate how decision boundaries evolve in ensemble methods as models are added",
+      "keywords": [
+        "axis-aligned",
+        "curved boundary",
+        "averaging predictions",
+        "rectangular regions",
+        "smooth",
+        "flexibility"
+      ]
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Decision Boundaries in Ensembles",
+      "question_text": "In Boosting, how does the decision boundary change as sequential models are added compared to the first model?",
+      "options": [
+        "A) The boundary stays the same since all models use identical architectures",
+        "B) The boundary expands to cover previously misclassified regions, becoming more complex and focusing on difficult boundary areas",
+        "C) The boundary becomes simpler and more linear to avoid overfitting",
+        "D) The boundary randomly shifts based on bootstrap sampling"
+      ],
+      "correct_answer": "B",
+      "explanation": "Boosting's sequential nature specifically targets misclassified regions from previous iterations. Each new weak learner focuses on samples near the current decision boundary where the ensemble is making errors. This progressively refines the boundary, adding complexity in regions where discrimination is difficult. Early iterations establish rough boundaries; later iterations add fine-grained adjustments around ambiguous regions. The result is a boundary that's smooth in easy regions (where early models were confident) but complex near class overlaps (where many weak learners contribute small corrections). Option A is wrong\u2014same architecture doesn't mean same boundary when trained on reweighted data. Option C is wrong\u2014Boosting increases complexity. Option D is wrong\u2014Boosting doesn't use bootstrap sampling; it uses reweighting. This adaptive boundary refinement is why Boosting captures subtle patterns but can also overfit if unconstrained.",
+      "learning_objective": "Illustrate how decision boundaries evolve in ensemble methods as models are added",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Decision Boundaries in Ensembles",
+      "question_text": "A two-dimensional dataset has two classes: Class A forms a circle in the center, Class B surrounds it in a ring. A single decision tree with depth 3 achieves only 65% accuracy because axis-aligned splits can't capture the circular boundary. Describe how a Random Forest with 200 trees could achieve 95% accuracy despite each tree being limited to axis-aligned splits.",
+      "options": null,
+      "correct_answer": "Each decision tree creates rectangular regions with axis-aligned splits (e.g., x > 0.5, y < 0.3). While no single tree can create a circular boundary, 200 trees with different bootstrap samples and feature randomizations create rectangles at different positions and sizes. Some trees create small rectangles tightly fitting parts of the inner circle. Others create rectangles approximating the outer ring. When you average their predictions, each point in space gets votes from trees whose rectangles overlap that location. Points inside the circle get votes from inner-circle trees. Points in the ring get votes from outer-ring trees. The ensemble average creates a pixelated approximation of the circular boundary that becomes increasingly smooth with more trees. This demonstrates how ensembles achieve representation flexibility beyond any individual base learner.",
+      "explanation": "This tests deep understanding of how ensemble averaging creates emergent model capacity. The scenario illustrates that simple + diverse > complex + singular. A single complex model (like a neural network) could learn the circular boundary directly but requires careful training and risks overfitting. Random Forest approximates it by tiling feature space with simple rectangles from different trees. This is analogous to approximating a circle with many small squares\u2014more squares give better approximation. Mathematically, this connects to universal function approximation: sufficiently many simple functions can approximate any continuous function. The practical insight is that ensemble methods make simple, robust base learners (decision trees) competitive with sophisticated single models (neural nets) for many tasks while being easier to train and tune.",
+      "learning_objective": "Illustrate how decision boundaries evolve in ensemble methods as models are added",
+      "keywords": [
+        "circular boundary",
+        "axis-aligned splits",
+        "rectangular regions",
+        "approximate",
+        "averaging",
+        "ensemble capacity"
+      ]
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Interpretability of Ensemble Methods",
+      "question_text": "Ensemble methods are generally ___ interpretable than single decision trees because they aggregate predictions from many models rather than following one clear decision path.",
+      "options": null,
+      "correct_answer": "Less (or harder to interpret or not as)",
+      "explanation": "Interpretability is a key tradeoff with ensemble methods. A single decision tree can be visualized as a flowchart\u2014you can trace the exact decision path for any prediction (e.g., if income > 50K AND age > 30 \u2192 approved). This transparency is valuable in regulated industries (finance, healthcare, hiring) where explaining decisions is legally required. Ensemble methods sacrifice this clarity: a Random Forest with 100 trees makes predictions based on votes across 100 different paths. You can't easily explain 'why' by showing all 100 trees. While techniques like feature importance help (showing which features matter overall), you lose the simple if-then rule structure. This is the accuracy-interpretability tradeoff: ensembles gain 5-10% accuracy by giving up explicit interpretability.",
+      "learning_objective": "Explain why ensemble methods are less interpretable than simpler models",
+      "keywords": [
+        "less",
+        "harder",
+        "not as interpretable",
+        "less transparent",
+        "less explainable"
+      ]
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Interpretability of Ensemble Methods",
+      "question_text": "Why might a bank prefer a single decision tree over a Random Forest for credit approval decisions, even if the Random Forest is 3% more accurate?",
+      "options": [
+        "A) Decision trees train faster and cost less computationally",
+        "B) Decision trees provide explainable if-then rules that satisfy regulatory requirements for explaining loan rejections to applicants",
+        "C) Random Forests cannot handle categorical features like employment type",
+        "D) Decision trees have better performance on imbalanced datasets"
+      ],
+      "correct_answer": "B",
+      "explanation": "Regulatory explainability drives this choice. The Equal Credit Opportunity Act (ECOA) and Fair Credit Reporting Act (FCRA) require lenders to provide specific reasons for credit denials. A single decision tree produces clear rules: 'rejected because income < $40K AND debt-to-income > 0.45'. This explanation is auditable and understandable to applicants. Random Forest can only say 'rejected based on weighted combination of 100 models considering income, debt ratio, credit history...', which doesn't meet legal standards. Option A is wrong\u2014training cost difference is negligible for most credit applications. Option C is wrong\u2014Random Forest handles categorical features well. Option D is wrong\u2014neither has inherent advantages with imbalance. This illustrates the real-world tradeoff: accuracy isn't always the primary objective when interpretability, fairness, and regulatory compliance matter.",
+      "learning_objective": "Explain why ensemble methods are less interpretable than simpler models",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Interpretability of Ensemble Methods",
+      "question_text": "A Random Forest outputs feature importance scores: [credit_score: 0.45, income: 0.30, age: 0.15, employment: 0.10]. Explain what these scores mean and what limitations they have for understanding individual predictions.",
+      "options": null,
+      "correct_answer": "Feature importance scores show the average contribution of each feature across all trees in the forest, typically measured by how much each feature decreases impurity (Gini or entropy) when used for splits. Credit_score=0.45 means it accounts for 45% of total predictive power across the ensemble. These scores are useful for global understanding (which features matter overall) but have limitations: 1) They don't explain individual predictions\u2014a person rejected might not have low credit score. 2) They don't show feature interactions\u2014credit score might matter only for high-income applicants. 3) They don't indicate direction\u2014is high or low age predictive? 4) Correlated features dilute importance. For individual explanations, need SHAP or LIME.",
+      "explanation": "This tests understanding of what feature importance provides and doesn't provide. Feature importance is a global, aggregate measure\u2014useful for data science (which features to collect?) and model validation (do important features make domain sense?), but insufficient for explaining why a specific person was rejected. Real-world implications: if a bank rejects someone and says 'our model found credit score important overall', that doesn't explain this rejection. The person might have excellent credit score but be rejected due to other factors. SHAP (SHapley Additive exPlanations) and LIME (Local Interpretable Model-agnostic Explanations) were developed to address this gap, providing instance-level explanations for black-box models. This distinction between global and local interpretability is crucial in responsible AI.",
+      "learning_objective": "Explain why ensemble methods are less interpretable than simpler models",
+      "keywords": [
+        "feature importance",
+        "global",
+        "average contribution",
+        "doesn't explain individual",
+        "SHAP",
+        "LIME"
+      ]
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Interpretability of Ensemble Methods",
+      "question_text": "A hospital uses a Random Forest for sepsis prediction in ICU patients. The model achieves 92% AUC but doctors complain they can't understand why specific patients are flagged. The ML team proposes (a) adding SHAP explanations for each prediction, (b) switching to a simpler logistic regression with 85% AUC, or (c) extracting a small decision tree that approximates the Random Forest. Evaluate each option for the clinical setting.",
+      "options": null,
+      "correct_answer": "Evaluation: (a) SHAP explanations: Best balance. Maintains 92% AUC while providing patient-specific explanations showing which lab values and vital signs contributed to the alert. Doctors see 'flagged because lactate=5.2 (+0.3 risk), blood pressure=85 (+0.2 risk)'. Downside: computational cost per prediction and doctors need training to interpret. (b) Logistic regression: Maximally interpretable (clear coefficients) but 85% AUC might miss life-threatening cases. 7% AUC difference could translate to missed sepsis cases. Only acceptable if interpretability legally required. (c) Approximating tree: Loses accuracy unpredictably\u2014no guarantee the approximation captures critical patterns. Recommendation: Option (a). Clinical decision support should prioritize accuracy (lives at stake) while providing actionable explanations. SHAP enables this.",
+      "explanation": "This scenario tests judgment about interpretability tradeoffs in high-stakes domains. Healthcare is unique: lives depend on accuracy, but clinicians won't trust black boxes. The 'SHAP on accurate model' approach reflects current best practice in clinical ML\u2014maintain prediction quality while adding post-hoc interpretability. Studies show doctors are more likely to follow evidence-based recommendations when they understand the reasoning. Option (b)'s 7% AUC drop isn't abstract\u2014at 1000 ICU admissions/year, that might be 20-30 missed sepsis cases. Option (c)'s approximation is risky because you don't know what's lost. This reflects real debates in medical ML: FDA is exploring requirements for explainability, and health systems are adopting SHAP/LIME. Understanding these tradeoffs is essential for responsible ML deployment.",
+      "learning_objective": "Explain why ensemble methods are less interpretable than simpler models",
+      "keywords": [
+        "SHAP",
+        "logistic regression",
+        "interpretability",
+        "accuracy tradeoff",
+        "clinical",
+        "post-hoc explanation"
+      ]
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Efficiency of Ensemble Methods",
+      "question_text": "___ is more computationally efficient for training than ___ because it can train models in parallel rather than sequentially. (Fill in: Bagging/Random Forest and Boosting)",
+      "options": null,
+      "correct_answer": "Bagging (or Random Forest), Boosting",
+      "explanation": "Training efficiency differs fundamentally between parallel and sequential ensemble methods. Bagging/Random Forest trains all trees independently\u2014each tree only needs its bootstrap sample and doesn't depend on other trees' results. This enables perfect parallelization across CPU cores or distributed systems: 100 trees on 10 cores trains in approximately the time of 10 trees on 1 core. Boosting trains models sequentially\u2014each iteration must wait for previous models to finish to know which samples to emphasize or what residuals to fit. This sequential dependency prevents parallelization of the training loop (though individual tree training can be parallelized). On modern multi-core systems, Random Forest trains 5-10x faster than Gradient Boosting for the same number of trees. However, Boosting often needs fewer iterations to achieve comparable accuracy.",
+      "learning_objective": "Evaluate the efficiency of the various methods",
+      "keywords": [
+        "Bagging",
+        "Random Forest",
+        "Boosting",
+        "parallel",
+        "sequential"
+      ]
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Efficiency of Ensemble Methods",
+      "question_text": "A Random Forest with 500 trees achieves 89% accuracy. Training time is 5 minutes. Which change would likely reduce training time the MOST without significantly hurting accuracy?",
+      "options": [
+        "A) Increase max_depth from 10 to 20 to capture more complex patterns faster",
+        "B) Reduce number of trees from 500 to 100, since ensemble benefits plateau",
+        "C) Decrease max_features to use fewer features per split for faster split evaluations",
+        "D) Increase min_samples_split to create smaller trees by stopping splits earlier"
+      ],
+      "correct_answer": "B",
+      "explanation": "Reducing tree count provides the most dramatic speedup. Training time is roughly linear in number of trees, so cutting from 500 to 100 trees could reduce time from 5 minutes to 1 minute (5x speedup). Research and practice show ensemble benefits plateau around 50-200 trees\u2014beyond that, marginal accuracy gains diminish while computational cost remains linear. Option A is backwards\u2014increasing depth increases training time exponentially. Option C helps slightly but effect is minor compared to tree count. Option D might speed training slightly by creating smaller trees but could hurt accuracy more than reducing tree count. The general principle: first tune number of estimators (trees/iterations) for speed-accuracy balance, then optimize individual estimator complexity. Random Forest's forgiving nature means it maintains good performance even with fewer trees.",
+      "learning_objective": "Evaluate the efficiency of the various methods",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Efficiency of Ensemble Methods",
+      "question_text": "A single decision tree takes 2 seconds to train on a dataset. A Random Forest with 200 trees on a 4-core CPU takes 110 seconds. A Gradient Boosting model with 200 trees takes 420 seconds. Calculate the parallelization efficiency for Random Forest and explain why Boosting takes longer despite having the same number of trees.",
+      "options": null,
+      "correct_answer": "Random Forest ideal time (perfect parallelization): 200 trees \u00d7 2 seconds \u00f7 4 cores = 100 seconds. Actual time: 110 seconds. Parallelization efficiency: 100/110 \u2248 91%. Boosting time: 200 trees \u00d7 2 seconds = 400 seconds expected for sequential training; actual 420 seconds includes overhead from reweighting samples and computing residuals between iterations. Boosting can't parallelize across trees (must train sequentially), so it takes 400+ seconds regardless of CPU cores. Random Forest achieves 91% efficiency showing effective parallel training.",
+      "explanation": "This calculation demonstrates the practical performance difference between parallel and sequential ensemble methods. Random Forest's 91% parallelization efficiency is realistic\u2014some overhead exists for managing parallel processes and combining results. Boosting's 420-second time shows it's fundamentally sequential: you can't start tree N+1 until tree N finishes computing which samples need more attention. Modern Boosting implementations (XGBoost, LightGBM) parallelize within each tree construction (parallel split finding) but not across trees. This is why Random Forest is preferred for rapid prototyping and when training time matters. However, Boosting often achieves better accuracy with fewer trees\u2014100 boosting iterations might match 200 Random Forest trees, partially offsetting the speed disadvantage. This calculation tests understanding of algorithmic constraints on parallelization.",
+      "learning_objective": "Evaluate the efficiency of the various methods",
+      "keywords": [
+        "parallel",
+        "sequential",
+        "91%",
+        "100 seconds",
+        "420 seconds",
+        "parallelization efficiency"
+      ]
+    },
+    {
+      "number": 26,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Efficiency of Ensemble Methods",
+      "question_text": "An e-commerce company needs real-time fraud detection scoring 10,000 transactions per second. Their Random Forest (200 trees) scores at 2000 TPS per CPU core. Their Gradient Boosting model (100 trees) scores at 3000 TPS per core but has 2% better recall. They have budget for 8 CPU cores. Which model should they deploy and what optimization strategies could improve throughput?",
+      "options": null,
+      "correct_answer": "Deploy Random Forest (200 trees). Reasoning: Random Forest throughput = 2000 TPS \u00d7 8 cores = 16,000 TPS > 10,000 required. Gradient Boosting = 3000 \u00d7 8 = 24,000 TPS also sufficient, but Random Forest is simpler to operate. Optimization strategies: 1) Use smaller ensemble: Test with 100 trees; often maintains accuracy with 2x speedup. 2) Model compression: Prune low-importance trees, reducing to 50-100 effective trees. 3) Early stopping in prediction: For Random Forest, stop aggregating after 50 trees if prediction confidence >0.95; most predictions converge early. 4) Approximate predictions: Use only 20-30 trees for low-risk transactions, full ensemble for suspicious ones. 5) Hardware acceleration: Deploy on GPU or use ONNX Runtime for 5-10x inference speedup. These approaches can achieve 50,000+ TPS on 8 cores.",
+      "explanation": "This tests practical ML systems thinking\u2014accuracy isn't the only metric; latency, throughput, and operational complexity matter. Both models meet raw throughput requirements but production considerations include: Random Forest's simpler deployment (no sequential dependencies), easier monitoring, and better understood behavior under load. The optimization strategies represent real production techniques: model compression is standard in industry (shipping smaller models to mobile/edge); early stopping leverages that many predictions are obvious and don't need full ensemble; tiered prediction uses expensive models only when needed. These optimizations often achieve 5-10x speedup with <1% accuracy loss. This reflects actual challenges at companies like Stripe, PayPal, and Amazon where fraud detection must run at millions of TPS. Understanding inference optimization is crucial for production ML.",
+      "learning_objective": "Evaluate the efficiency of the various methods",
+      "keywords": [
+        "throughput",
+        "TPS",
+        "optimization",
+        "model compression",
+        "early stopping",
+        "inference"
+      ]
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Efficiency of Ensemble Methods",
+      "question_text": "Explain why prediction (inference) time for ensemble methods is roughly proportional to the number of models, but why this might not be a practical limitation for many applications.",
+      "options": null,
+      "correct_answer": "Inference time is proportional to model count because each model must evaluate the input and contribute to the ensemble prediction\u2014100 trees require 100 evaluations. However, this isn't limiting because: 1) Individual tree predictions are fast (microseconds), so 100 trees take milliseconds, acceptable for most applications. 2) Inference parallelizes perfectly\u2014each tree evaluates independently. 3) Modern CPUs with vectorization (SIMD) evaluate batches simultaneously. 4) Many predictions can use early stopping. 5) For latency-critical applications, smaller ensembles (20-50 models) often suffice. Trade training time (where ensemble is built once) for fast inference matters more than inference cost that repeats per prediction.",
+      "explanation": "This tests nuanced understanding of computational tradeoffs. While O(n) inference complexity seems problematic, actual wall-clock time is acceptable for most applications. A Random Forest with 100 trees on tabular data makes predictions in 1-5 milliseconds on modern CPUs\u2014fast enough for web APIs (200ms budget), fraud detection (100ms requirement), and medical devices (second-scale decisions). Where inference time truly matters (autonomous vehicles needing <10ms, high-frequency trading needing <1ms), simpler models or neural networks with constant-time inference are preferred. But for 95% of applications, ensemble inference is not the bottleneck\u2014database queries, network latency, and feature engineering dominate. This perspective tests practical ML engineering judgment: optimizing for the right bottleneck, not premature optimization.",
+      "learning_objective": "Evaluate the efficiency of the various methods",
+      "keywords": [
+        "inference time",
+        "proportional",
+        "milliseconds",
+        "parallelizes",
+        "acceptable",
+        "early stopping"
+      ]
+    },
+    {
+      "number": 28,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Efficiency of Ensemble Methods",
+      "question_text": "True or False: Bagging reduces variance but does not reduce bias, meaning if individual models systematically underestimate a target value, the ensemble will also underestimate it.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "This is a fundamental property of Bagging. Variance reduction works because models trained on different bootstrap samples make different random errors that average out. Bias, however, is systematic error\u2014if all individual models underestimate expensive houses because they lack complexity to model high-end features, averaging won't fix this. The average of biased predictions is still biased: E[average(biased_models)] = E[biased_model]. This is why Bagging works best with low-bias, high-variance models like deep decision trees. If you use shallow trees (high bias), Bagging won't significantly improve accuracy because the bias remains. This explains scenarios where Boosting outperforms Bagging: Boosting actively reduces bias through sequential correction. Understanding this distinction is crucial for choosing the right ensemble method based on base learner characteristics.",
+      "learning_objective": "Evaluate the efficiency of the various methods",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Efficiency of Ensemble Methods",
+      "question_text": "A data scientist observes that increasing Random Forest from 50 to 200 trees improves validation accuracy from 87.2% to 88.1%, but going from 200 to 500 trees only improves it to 88.3%. Training time scales linearly (200 trees = 4 minutes, 500 trees = 10 minutes). Analyze the diminishing returns and recommend optimal hyperparameter strategy considering both accuracy and computational cost.",
+      "options": null,
+      "correct_answer": "Analysis: The improvement curve shows diminishing returns\u2014first 50\u2192200 trees gains 0.9% accuracy (4 minutes), but 200\u2192500 trees gains only 0.2% (additional 6 minutes). This follows theory: variance reduction \u03c3\u00b2/B improves rapidly at low B but plateaus. Recommendation: Use 200 trees as optimal accuracy-cost tradeoff. The 0.2% gain from 500 trees rarely justifies 2.5x training time. Better strategies: 1) Use those 6 minutes for hyperparameter tuning (max_depth, min_samples_split, max_features) which often yields >1% improvement. 2) Invest time in feature engineering providing larger gains than more trees. 3) For production, 100-150 trees might suffice\u2014test if accuracy degrades significantly. General principle: Beyond 100-200 estimators, ensemble returns diminish; optimize other aspects first.",
+      "explanation": "This tests ML engineering judgment about resource allocation. The mathematical basis is that variance reduction \u03c3\u00b2/B has derivative -\u03c3\u00b2/B\u00b2, so marginal benefit decreases quadratically with B. Practically, this means the first 50 trees might reduce error by 50%, next 50 by 25%, next 50 by 12%, etc. Experienced practitioners rarely use >300 trees unless dealing with extremely high-dimensional data or the computational cost is negligible. The broader principle is optimizing the right bottleneck: once ensemble size is reasonable (100-200), other factors (feature quality, hyperparameters, class imbalance handling) dominate performance. This reflects real ML workflows where initial models use small ensembles for rapid iteration, and only final models use larger ensembles after other optimizations. Understanding diminishing returns prevents wasteful computation.",
+      "learning_objective": "Evaluate the efficiency of the various methods",
+      "keywords": [
+        "diminishing returns",
+        "200 trees",
+        "optimal tradeoff",
+        "hyperparameter tuning",
+        "variance reduction",
+        "\u03c3\u00b2/B"
+      ]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Efficiency of Ensemble Methods",
+      "question_text": "A mobile app needs on-device fraud detection with <100ms latency and <5MB model size. Current Random Forest (500 trees, 8MB) achieves 92% accuracy but violates both constraints (150ms, 8MB). The team considers: (a) Pruning to 100 trees, (b) Training smaller trees (max_depth=3 vs 8), (c) Switching to Gradient Boosting with 50 iterations. Evaluate each option for the mobile deployment constraints and recommend an approach.",
+      "options": null,
+      "correct_answer": "Recommendation: Combine (a) and (b)\u2014use 100 trees with max_depth=4. Analysis: (a) Pruning to 100 trees: Reduces model size to ~1.6MB and latency to ~30ms (linear reduction). Likely maintains 90-91% accuracy based on diminishing returns. (b) Smaller trees (depth 3): Reduces size per tree significantly (fewer nodes) and speeds inference. Depth 3\u21924 is better than 3 to maintain accuracy. (c) Gradient Boosting 50 iterations: While potentially more accurate per iteration, each boosting tree must evaluate sequentially for that prediction path, and achieving 5MB with good accuracy is challenging. Combined approach: 100 trees \u00d7 depth-4 \u2248 2-3MB, ~40-50ms latency, ~90% accuracy. Additional optimization: quantize model parameters (float32\u2192int8) for 4x size reduction with <1% accuracy loss, achieving <1MB and <30ms.",
+      "explanation": "This tests edge deployment optimization, increasingly important for mobile ML. The constraints are hard limits\u2014exceeding them makes deployment impossible. The analysis requires understanding: model size scales with tree count and tree depth (nodes), inference latency scales with tree count and depth (evaluations per prediction), accuracy benefits from both but with diminishing returns. The quantization suggestion reflects production techniques: mobile TensorFlow Lite and ONNX Runtime support int8 inference with specialized hardware acceleration on mobile CPUs. Real companies (Google, Meta, Uber) deploy lightweight ensembles on mobile for spam detection, content ranking, and fraud prevention. This scenario tests ability to navigate hard constraints, evaluate multiple dimensions (size, speed, accuracy), and propose creative solutions (quantization) beyond obvious hyperparameter changes.",
+      "learning_objective": "Evaluate the efficiency of the various methods",
+      "keywords": [
+        "mobile deployment",
+        "model size",
+        "latency",
+        "pruning",
+        "quantization",
+        "depth",
+        "constraints"
+      ]
+    }
+  ]
+}

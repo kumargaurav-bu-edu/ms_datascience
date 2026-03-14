@@ -1,0 +1,501 @@
+{
+  "quiz_metadata": {
+    "title": "DX604 Spring 2026: Week 5 - Data Types and Database Fundamentals",
+    "description": "Comprehensive assessment covering structured/unstructured/semi-structured data differentiation, database fundamentals and components, and relational database concepts.",
+    "version": "1.0",
+    "total_questions": 28
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "___ data is organized in a predefined format with rows and columns, making it easily searchable in relational databases.",
+      "options": null,
+      "correct_answer": "Structured",
+      "explanation": "Structured data follows a rigid schema with defined fields, columns, and data types. Examples include SQL tables, Excel spreadsheets, and CSV files. This organization makes it easily queryable using SQL and compatible with traditional relational database management systems. Unstructured data lacks this predefined format, while semi-structured has some organizational properties but not a rigid schema. This distinction is foundational for choosing appropriate storage and processing technologies.",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": [
+        "structured",
+        "schema",
+        "predefined",
+        "relational",
+        "organized"
+      ]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "___ data lacks a predefined data model and includes formats like text documents, images, videos, and social media posts.",
+      "options": null,
+      "correct_answer": "Unstructured",
+      "explanation": "Unstructured data has no fixed format or schema, making it challenging to store in traditional relational databases. It constitutes approximately 80-90% of enterprise data and requires specialized storage solutions like data lakes, object storage, or NoSQL databases. Processing unstructured data often requires natural language processing, computer vision, or machine learning techniques. This differentiation is critical when designing data architectures at scale.",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": [
+        "unstructured",
+        "no schema",
+        "text",
+        "images",
+        "videos",
+        "NoSQL"
+      ]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "True or False: Semi-structured data has some organizational properties like tags or hierarchies but does not conform to a rigid tabular schema.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Semi-structured data sits between structured and unstructured data. Examples include JSON, XML, and YAML files which use tags, hierarchies, or key-value pairs for organization without requiring a fixed table structure. This flexibility makes semi-structured formats popular for APIs, configuration files, and NoSQL databases like MongoDB. Unlike structured data in RDBMS, semi-structured data can have varying fields across records and nested structures.",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "A healthcare organization stores patient records with demographics in SQL tables, medical images in object storage, and clinical notes as text files. Which categorization is correct?",
+      "options": [
+        "A) All data is unstructured because it comes from multiple sources",
+        "B) Demographics are structured, images and notes are unstructured",
+        "C) Only demographics are structured; images are semi-structured with metadata tags",
+        "D) Everything should be converted to structured format for HIPAA compliance"
+      ],
+      "correct_answer": "B",
+      "explanation": "Patient demographics in SQL tables are structured data with predefined schemas (patient_id, name, DOB, etc.). Medical images (DICOM files, X-rays, MRIs) and clinical notes are unstructured\u2014they lack fixed schemas and require specialized processing. While images may have DICOM metadata tags, the image content itself is unstructured. HIPAA compliance doesn't require converting all data to structured format; it requires appropriate security controls regardless of data type. This scenario illustrates real-world data heterogeneity in healthcare systems.",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "scenario",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "A financial services company wants to analyze customer sentiment from call center recordings and social media while maintaining transaction records in PostgreSQL. What data architecture approach should they use and why?",
+      "options": null,
+      "correct_answer": "Use a hybrid architecture: maintain PostgreSQL for structured transaction data (account balances, transactions, customer demographics), store call recordings and social media posts in object storage (S3) or data lake as unstructured data, and use NLP tools to extract sentiment scores which can be stored back as structured data in PostgreSQL for reporting and analytics.",
+      "explanation": "This scenario requires a hybrid data architecture because different data types have different storage and processing requirements. Structured transactional data belongs in RDBMS for ACID compliance and efficient querying. Unstructured audio and text require scalable object storage and specialized ML/NLP processing. The extracted insights (sentiment scores) can be structured and linked to customer records via foreign keys. This pattern is common in modern data platforms combining data warehouses with data lakes. Trying to force all data into one format sacrifices performance, cost efficiency, or analytical capability.",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": [
+        "hybrid",
+        "PostgreSQL",
+        "object storage",
+        "data lake",
+        "NLP",
+        "structured transactions"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "Which statement BEST describes when to use semi-structured data formats like JSON instead of structured relational tables?",
+      "options": [
+        "A) When data schema changes frequently and nested hierarchies are common, requiring flexibility without ALTER TABLE migrations",
+        "B) When you need the fastest possible query performance for analytical workloads",
+        "C) When regulatory compliance like SOX or HIPAA requires audit trails",
+        "D) When you want to ensure data integrity with foreign key constraints"
+      ],
+      "correct_answer": "A",
+      "explanation": "Semi-structured formats like JSON excel when schemas evolve frequently (adding new fields without database migrations) and when data has nested or hierarchical relationships (e.g., order with multiple line items). This flexibility is why JSON is popular in APIs, document databases (MongoDB), and microservices. Option B is incorrect\u2014relational databases with indexed columns outperform JSON for analytical queries. Option C is incorrect\u2014compliance can be achieved with both formats. Option D is incorrect\u2014relational databases enforce referential integrity better than document stores. This tests understanding of architectural tradeoffs between flexibility and structure.",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "An e-commerce company stores product catalog data in MySQL, customer reviews as text in MongoDB, and product images in S3. They notice slow performance when building recommendation models that need all three data types. Propose two specific improvements to their architecture and explain how each addresses the performance issue.",
+      "options": null,
+      "correct_answer": "1) Create a unified feature store: Extract structured features from reviews (sentiment scores, keyword counts) and images (category labels via ML) and store them alongside product catalog data in a columnar database like Redshift or BigQuery for fast analytical queries. 2) Implement data pipeline with Apache Airflow or similar: Build scheduled ETL jobs that pre-join product, review features, and image features into materialized views or denormalized tables, eliminating real-time joins across heterogeneous systems during model training.",
+      "explanation": "The performance bottleneck stems from joining data across three different storage systems with different access patterns. The feature store solution addresses this by converting unstructured insights into structured features that can be efficiently queried together. The ETL pipeline solution pre-computes joins and creates optimized datasets for ML workloads. Both approaches follow data engineering best practices: separate operational and analytical workloads, denormalize for analytics, and use appropriate storage for each data type. This scenario tests understanding of how data type differences affect system architecture and the practical strategies to handle heterogeneous data at scale.",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": [
+        "feature store",
+        "ETL",
+        "denormalize",
+        "materialized view",
+        "columnar",
+        "pre-join"
+      ]
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "JSON and XML are examples of ___ data because they use tags and hierarchies but don't require a fixed tabular structure.",
+      "options": null,
+      "correct_answer": "Semi-structured",
+      "explanation": "JSON and XML are classic examples of semi-structured data. They have organizational elements (tags in XML, key-value pairs in JSON) that provide self-describing structure, but don't enforce the rigid row-column format of structured databases. This allows flexibility for varying fields across records and nested data structures, making them ideal for APIs, configuration files, and document databases. The semi-structured classification determines storage technology choices (document stores vs RDBMS) and query patterns (XPath, JSONPath vs SQL).",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": [
+        "semi-structured",
+        "flexible",
+        "tags",
+        "hierarchical",
+        "self-describing"
+      ]
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "A data lake contains 500TB of log files, JSON API responses, and CSV exports. A business analyst complains queries take hours. Explain what's likely causing this and what architectural change would help.",
+      "options": null,
+      "correct_answer": "The data lake stores mixed structured and semi-structured data without optimization for queries. Log files and JSON are unindexed and require full scans. To improve performance, implement a lakehouse architecture: use Apache Parquet or Delta Lake to convert frequently queried data into columnar format with partitioning and indexing. Add a metadata layer (like Hive metastore) to enable SQL queries over structured portions while keeping raw data in the lake.",
+      "explanation": "Data lakes excel at storing diverse data types cheaply but sacrifice query performance without additional layers. Raw JSON and logs require parsing during every query. Converting to columnar formats (Parquet) reduces I/O dramatically\u2014reading only needed columns. Partitioning by date or key fields further reduces scanned data. The lakehouse pattern (combining lake storage with warehouse query capabilities) is the modern solution for this problem. This tests understanding that data type choice affects not just storage but query performance and requires architectural thinking beyond simple storage decisions.",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": [
+        "columnar",
+        "Parquet",
+        "Delta Lake",
+        "partitioning",
+        "lakehouse",
+        "indexing"
+      ]
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Structured vs Unstructured Data",
+      "question_text": "A retail company wants to implement GDPR right-to-be-forgotten requests. They store customer orders in PostgreSQL, customer service chat logs as text files, and product images in S3. Design a deletion strategy that handles all three data types and explain why each type requires different handling.",
+      "options": null,
+      "correct_answer": "1) PostgreSQL: Execute DELETE FROM customers WHERE customer_id = X and use CASCADE to remove related orders, leveraging foreign key constraints. 2) Text logs: Implement log redaction pipeline that scans files for customer_id patterns and replaces with [REDACTED] or removes entire entries, then rewrite files. 3) S3 images: If images contain customer data (uploaded photos), delete objects by key; if product catalog images, no action needed. Each type requires different handling because structured DB supports declarative deletion with referential integrity, unstructured text requires pattern matching and rewriting, and object storage requires key-based deletion without relationship awareness.",
+      "explanation": "GDPR compliance requires removing personal data across all storage systems, but each data type has different technical implementations. Structured databases provide relational constraints and transactions for safe deletion. Unstructured text requires custom parsing and may need to retain partial records for audit (redaction vs deletion). Object storage lacks relationship tracking, so applications must maintain separate metadata mapping customer IDs to S3 keys. This scenario tests practical understanding of how data type differences create operational complexity at scale. Real-world implementations often use data governance tools like Collibra or custom data catalogs to track data lineage across heterogeneous systems.",
+      "learning_objective": "Differentiate between structured, unstructured, and semi-structured data",
+      "keywords": [
+        "DELETE CASCADE",
+        "foreign key",
+        "log redaction",
+        "pattern matching",
+        "object storage",
+        "data lineage"
+      ]
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Database Fundamentals",
+      "question_text": "A ___ is an organized collection of structured data stored electronically and managed by a database management system (DBMS).",
+      "options": null,
+      "correct_answer": "Database",
+      "explanation": "A database is the foundational concept in data management\u2014it's a systematic collection of data that supports electronic storage, retrieval, and manipulation. Databases are managed by DBMS software (like PostgreSQL, MySQL, Oracle) that handles concurrent access, security, backup, and query optimization. This distinguishes databases from simple file storage by providing transactional guarantees, indexing, and query languages. Understanding this fundamental definition is essential before exploring specialized database types (relational, NoSQL, time-series, etc.).",
+      "learning_objective": "Recall database fundamentals and components",
+      "keywords": [
+        "database",
+        "DBMS",
+        "organized collection",
+        "structured",
+        "electronic storage"
+      ]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Database Fundamentals",
+      "question_text": "True or False: A Database Management System (DBMS) is software that provides an interface between the database and users, handling queries, security, and transaction management.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "A DBMS is the software layer that sits between users/applications and the physical database files. It provides critical services including query processing (SQL parsing and optimization), concurrency control (multiple users), security (authentication and authorization), backup and recovery, and transaction management (ACID properties). Examples include MySQL, PostgreSQL, Oracle, SQL Server, and MongoDB. Without a DBMS, applications would need to manage file I/O, locking, and consistency manually. This abstraction is what makes databases practical for enterprise applications.",
+      "learning_objective": "Recall database fundamentals and components",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Database Fundamentals",
+      "question_text": "___ properties (Atomicity, Consistency, Isolation, Durability) ensure database transactions are processed reliably even in case of system failures.",
+      "options": null,
+      "correct_answer": "ACID",
+      "explanation": "ACID properties are fundamental guarantees that databases provide for transaction reliability. Atomicity ensures transactions complete fully or not at all (no partial updates). Consistency maintains database constraints and rules. Isolation prevents concurrent transactions from interfering with each other. Durability ensures committed data survives system crashes. These properties are critical for financial systems, inventory management, and any application where data integrity is paramount. ACID compliance is a key differentiator between traditional RDBMS and some NoSQL databases that prioritize availability over consistency (BASE model).",
+      "learning_objective": "Recall database fundamentals and components",
+      "keywords": [
+        "ACID",
+        "atomicity",
+        "consistency",
+        "isolation",
+        "durability",
+        "transactions"
+      ]
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Database Fundamentals",
+      "question_text": "A banking application processes money transfers between accounts. During a transfer, the system must deduct from account A and credit to account B atomically. Which database component ensures this happens correctly?",
+      "options": [
+        "A) The query optimizer improves query execution speed",
+        "B) The transaction manager ensures both operations succeed or both fail (ACID atomicity)",
+        "C) The indexing system speeds up account lookups",
+        "D) The schema definition enforces data types for account balances"
+      ],
+      "correct_answer": "B",
+      "explanation": "The transaction manager enforces ACID properties, specifically atomicity, which guarantees that all operations within a transaction either complete successfully or none do. For money transfers, this prevents scenarios where money is deducted from one account but not credited to another due to failures. If any operation fails, the transaction manager rolls back all changes. Option A (query optimizer) improves performance but doesn't ensure correctness. Option C (indexing) speeds lookups but doesn't handle transaction logic. Option D (schema) validates data types but doesn't coordinate multi-step operations. This real-world scenario demonstrates why ACID properties are non-negotiable for financial systems.",
+      "learning_objective": "Recall database fundamentals and components",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Database Fundamentals",
+      "question_text": "Explain the role of indexing in database performance. What is the tradeoff between read and write performance?",
+      "options": null,
+      "correct_answer": "Indexes are data structures (like B-trees or hash tables) that speed up data retrieval by creating pointers to table rows based on indexed column values. They dramatically improve SELECT query performance by avoiding full table scans. The tradeoff is that indexes slow down INSERT, UPDATE, and DELETE operations because the index structures must be updated alongside the table data. Too many indexes hurt write performance and consume storage space.",
+      "explanation": "Indexes are essential database components that create auxiliary data structures for fast lookups. Without indexes, finding a record requires scanning every row (O(n) complexity). With indexes, lookups become O(log n) or O(1). However, every write operation must update both the table and all associated indexes, creating maintenance overhead. This tradeoff is why database design involves carefully selecting which columns to index based on query patterns\u2014heavily queried columns benefit from indexes, but write-heavy tables should minimize them. This tests understanding of performance optimization in database systems.",
+      "learning_objective": "Recall database fundamentals and components",
+      "keywords": [
+        "index",
+        "B-tree",
+        "query performance",
+        "SELECT",
+        "write overhead",
+        "INSERT UPDATE DELETE"
+      ]
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Database Fundamentals",
+      "question_text": "Which database component is responsible for ensuring that concurrent transactions don't interfere with each other (preventing issues like dirty reads)?",
+      "options": [
+        "A) Query optimizer determines the most efficient execution plan",
+        "B) Buffer manager caches frequently accessed pages in memory",
+        "C) Concurrency control manager enforces isolation using locks or MVCC",
+        "D) Storage engine writes data to disk in a persistent format"
+      ],
+      "correct_answer": "C",
+      "explanation": "The concurrency control manager enforces the Isolation property of ACID by preventing transactions from seeing uncommitted changes from other transactions (dirty reads) and ensuring serializable execution. This is implemented using locking mechanisms (pessimistic concurrency) or Multi-Version Concurrency Control/MVCC (optimistic concurrency). Option A (optimizer) improves performance but doesn't handle concurrency. Option B (buffer manager) manages memory but doesn't coordinate transactions. Option D (storage engine) handles persistence but not isolation. Understanding concurrency control is critical for applications with multiple simultaneous users, which is virtually all production databases.",
+      "learning_objective": "Recall database fundamentals and components",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Database Fundamentals",
+      "question_text": "An inventory management system experiences deadlocks when multiple warehouse workers simultaneously update stock levels. The DBA suggests either (a) using row-level locking with timeout detection, or (b) switching to an append-only event log pattern. Evaluate both approaches and recommend which is better for this use case.",
+      "options": null,
+      "correct_answer": "Recommendation: Use row-level locking with timeout detection. Reasoning: Row-level locks isolate only the specific inventory rows being updated, allowing concurrent updates to different products. Timeout detection prevents permanent deadlocks by aborting and retrying transactions. The event log pattern (option b) would work but adds complexity\u2014requires consumers to rebuild current state from events and doesn't provide immediate read-after-write consistency that inventory systems need. For this OLTP use case with moderate concurrency and strong consistency requirements, optimistic locking or row-level locks with proper transaction design is simpler and sufficient.",
+      "explanation": "This scenario tests understanding of database concurrency patterns and their tradeoffs. Deadlocks occur when transactions wait circularly for locks held by each other. Row-level locking (vs table-level) reduces contention by locking only affected rows. Timeout detection breaks deadlocks automatically. The event sourcing pattern (append-only log) eliminates locking but requires eventual consistency and complex CQRS implementation. For inventory management, immediate consistency matters (can't oversell stock), making traditional ACID transactions with fine-grained locking the better choice. Event sourcing suits audit-heavy or high-write scenarios like financial ledgers. This tests architectural decision-making based on workload characteristics.",
+      "learning_objective": "Recall database fundamentals and components",
+      "keywords": [
+        "row-level locking",
+        "deadlock",
+        "timeout",
+        "concurrency",
+        "ACID",
+        "consistency"
+      ]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Relational Database Fundamentals",
+      "question_text": "In a relational database, a ___ key uniquely identifies each row in a table and cannot contain NULL values.",
+      "options": null,
+      "correct_answer": "Primary",
+      "explanation": "A primary key is a column (or combination of columns) that uniquely identifies each record in a table. Primary keys enforce two critical constraints: uniqueness (no duplicate values) and NOT NULL (every row must have a value). Common examples include customer_id, order_id, or employee_id. Primary keys enable relationships between tables through foreign keys and ensure data integrity by preventing duplicate records. Most tables should have a primary key, often implemented as an auto-incrementing integer or UUID.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": [
+        "primary",
+        "primary key",
+        "unique",
+        "NOT NULL",
+        "identifier"
+      ]
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Relational Database Fundamentals",
+      "question_text": "A ___ key is a column in one table that references the primary key of another table, establishing relationships between tables.",
+      "options": null,
+      "correct_answer": "Foreign",
+      "explanation": "Foreign keys create relationships between tables in relational databases, enabling normalized data design. For example, an orders table might have a customer_id foreign key referencing the customers table primary key. Foreign keys enforce referential integrity\u2014preventing orphaned records (orders pointing to non-existent customers). They enable JOIN operations to combine data from related tables. Foreign keys can be configured with CASCADE rules (DELETE CASCADE, UPDATE CASCADE) to automatically maintain consistency when referenced records change. This is fundamental to relational database design.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": [
+        "foreign",
+        "foreign key",
+        "reference",
+        "referential integrity",
+        "relationship"
+      ]
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Relational Database Fundamentals",
+      "question_text": "True or False: Normalization is the process of organizing database tables to reduce data redundancy and improve data integrity.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Normalization is a systematic approach to structuring relational databases by breaking data into related tables following normal forms (1NF, 2NF, 3NF, BCNF). This reduces redundancy by storing each piece of information once and using foreign keys to reference it. Benefits include reduced storage, easier updates (change data in one place), and improved consistency. However, normalization can increase JOIN complexity, so data warehouses sometimes denormalize for query performance. Understanding normalization principles is essential for designing efficient, maintainable relational schemas.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Relational Database Fundamentals",
+      "question_text": "Given two tables: Customers (customer_id, name) with 1000 rows and Orders (order_id, customer_id, amount) with 5000 rows. How many rows maximum could result from an INNER JOIN on customer_id? How many maximum from a LEFT JOIN starting from Customers?",
+      "options": null,
+      "correct_answer": "INNER JOIN maximum: 5000 rows (all orders that match existing customers). LEFT JOIN maximum: 5000 rows (same as inner join if all orders have valid customer_id) OR more accurately could be higher if some customers have multiple orders, but typically 5000 is the constraint from Orders table. More precisely: LEFT JOIN from Customers returns at minimum 1000 rows (one per customer, even if no orders) and maximum 5000 rows if every order belongs to an existing customer.",
+      "explanation": "INNER JOIN returns only rows where customer_id exists in both tables, so it's bounded by the Orders table (5000 rows maximum). LEFT JOIN starting from Customers returns all customers plus their matching orders. If every customer has orders, you get the same 5000 order rows. If some customers have no orders, they appear once with NULL order values (minimum 1000 rows). The maximum is still around 5000 assuming all orders have valid customer references. This tests understanding of JOIN cardinality, which is critical for query optimization and preventing accidental Cartesian products that can crash systems with billions of rows.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": [
+        "INNER JOIN",
+        "LEFT JOIN",
+        "5000",
+        "1000",
+        "cardinality",
+        "matching"
+      ]
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Relational Database Fundamentals",
+      "question_text": "A developer writes: SELECT * FROM products WHERE category = 'electronics'. The query takes 45 seconds on a table with 10 million rows. What is the MOST likely cause and solution?",
+      "options": [
+        "A) The table needs normalization; split into products and categories tables",
+        "B) The category column lacks an index; create INDEX idx_category ON products(category)",
+        "C) The query needs a LEFT JOIN instead of WHERE clause",
+        "D) The database needs more memory for the buffer pool"
+      ],
+      "correct_answer": "B",
+      "explanation": "Without an index on the category column, the database performs a full table scan\u2014reading all 10 million rows to find matches. Creating an index on category builds a B-tree structure that allows the database to directly locate rows with category='electronics' in O(log n) time instead of O(n). Option A (normalization) doesn't address the performance issue; the schema may already be normalized. Option C (LEFT JOIN) doesn't apply\u2014there's no second table referenced. Option D (memory) might help slightly by caching more data, but won't fix the fundamental missing index problem. This is a classic query optimization scenario in production systems.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Relational Database Fundamentals",
+      "question_text": "A database schema has tables: Patients, Doctors, and Appointments. Appointments has foreign keys to both Patients and Doctors. What type of relationship does this represent and why is this design pattern used?",
+      "options": null,
+      "correct_answer": "This represents a many-to-many relationship implemented via a junction/bridge table. The Appointments table serves as an associative entity because one patient can have many appointments with many doctors, and one doctor can have appointments with many patients. This design pattern avoids storing redundant doctor information in the Patients table or patient information in the Doctors table, maintaining normalization while enabling flexible scheduling queries.",
+      "explanation": "Many-to-many relationships cannot be directly represented in relational databases without a junction table. The Appointments table resolves the many-to-many relationship by creating two one-to-many relationships (one patient to many appointments, one doctor to many appointments). This pattern maintains referential integrity through foreign keys, prevents data duplication, and allows querying all appointments for a patient or all patients for a doctor efficiently. This is a fundamental relational design pattern used in scheduling systems, e-commerce (products-orders), and social networks (users-friends). The alternative\u2014storing arrays of doctor IDs in patient records\u2014violates first normal form and prevents efficient querying.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": [
+        "many-to-many",
+        "junction table",
+        "bridge table",
+        "associative",
+        "foreign keys",
+        "normalization"
+      ]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Relational Database Fundamentals",
+      "question_text": "___ is the standard query language used to interact with relational databases for operations like SELECT, INSERT, UPDATE, and DELETE.",
+      "options": null,
+      "correct_answer": "SQL",
+      "explanation": "SQL (Structured Query Language) is the declarative language standard for relational database operations. It allows users to specify what data they want (SELECT with WHERE conditions) without specifying how to retrieve it\u2014the query optimizer determines execution. SQL includes DDL (Data Definition Language: CREATE, ALTER, DROP), DML (Data Manipulation Language: INSERT, UPDATE, DELETE), and DCL (Data Control Language: GRANT, REVOKE). SQL's declarative nature and standardization across databases (with vendor-specific extensions) makes it the universal interface for relational data management. This is foundational knowledge for any data professional.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": [
+        "SQL",
+        "Structured Query Language",
+        "declarative",
+        "query language"
+      ]
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Relational Database Fundamentals",
+      "question_text": "What is the primary difference between INNER JOIN and LEFT JOIN when combining two tables?",
+      "options": [
+        "A) INNER JOIN is faster because it uses hash joins while LEFT JOIN uses nested loops",
+        "B) INNER JOIN returns only rows with matches in both tables; LEFT JOIN returns all rows from the left table plus matches from the right",
+        "C) INNER JOIN requires a primary key; LEFT JOIN works without keys",
+        "D) INNER JOIN locks both tables; LEFT JOIN locks only the left table"
+      ],
+      "correct_answer": "B",
+      "explanation": "INNER JOIN returns only rows where the join condition matches in both tables, effectively filtering out non-matching rows. LEFT JOIN (or LEFT OUTER JOIN) returns all rows from the left table and matched rows from the right table, with NULL values for right-table columns when no match exists. This distinction is critical for queries where you need to preserve all records from one table regardless of matches. Option A is incorrect\u2014both can use various join algorithms. Option C is incorrect\u2014neither requires primary keys (though foreign keys improve performance). Option D is incorrect\u2014locking depends on isolation level, not join type. This tests core SQL knowledge essential for data analysis and reporting.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Relational Database Fundamentals",
+      "question_text": "A data engineer needs to find all customers who have NOT placed any orders. Which SQL pattern correctly identifies these customers?",
+      "options": [
+        "A) SELECT * FROM customers INNER JOIN orders ON customers.id = orders.customer_id WHERE orders.id IS NULL",
+        "B) SELECT * FROM customers LEFT JOIN orders ON customers.id = orders.customer_id WHERE orders.id IS NULL",
+        "C) SELECT * FROM customers RIGHT JOIN orders ON customers.id = orders.customer_id WHERE orders.id IS NULL",
+        "D) SELECT * FROM customers, orders WHERE customers.id != orders.customer_id"
+      ],
+      "correct_answer": "B",
+      "explanation": "LEFT JOIN from customers preserves all customer rows, with NULL in order columns when no orders exist. The WHERE orders.id IS NULL filter selects only customers with NULL order values\u2014those without orders. Option A (INNER JOIN) fails because it only returns customers with orders, then filters them out (returns empty set). Option C (RIGHT JOIN) would need to start from orders, which doesn't make sense for finding customers without orders. Option D creates a Cartesian product and incorrect logic. This query pattern (LEFT JOIN + IS NULL filter) is a standard technique for finding non-matching records across tables.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Relational Database Fundamentals",
+      "question_text": "A hospital database has tables: Patients (patient_id, name, dob), Medications (med_id, name, dosage), and Prescriptions (prescription_id, patient_id, med_id, date). A query to find all prescriptions with patient and medication names takes 30 seconds. The DBA checks and finds no indexes on foreign keys. Propose two specific indexing changes and explain the performance impact of each.",
+      "options": null,
+      "correct_answer": "1) CREATE INDEX idx_prescriptions_patient ON Prescriptions(patient_id): This speeds up the JOIN between Prescriptions and Patients by allowing fast lookups of prescriptions for each patient instead of full table scans. Expected impact: 5-10x faster for patient lookups. 2) CREATE INDEX idx_prescriptions_med ON Prescriptions(med_id): This speeds up the JOIN between Prescriptions and Medications by indexing the foreign key to medications table. Expected impact: 5-10x faster for medication lookups. Combined, these indexes could reduce query time from 30 seconds to 1-3 seconds by converting O(n*m) nested loop scans to O(log n) index lookups.",
+      "explanation": "This scenario tests practical understanding of index placement for JOIN optimization. Foreign key columns are prime candidates for indexing because they're frequently used in JOIN conditions. Without indexes, the database performs nested loop joins with full table scans\u2014checking every prescription against every patient/medication. With indexes, the database uses index seeks (B-tree lookups) which are logarithmic instead of linear. In healthcare systems with millions of prescriptions, this performance difference is critical for clinical decision support systems that need real-time data. The scenario also reinforces that indexes should be monitored and created based on actual query patterns.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": [
+        "CREATE INDEX",
+        "foreign key",
+        "JOIN performance",
+        "patient_id",
+        "med_id",
+        "B-tree"
+      ]
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Relational Database Fundamentals",
+      "question_text": "A social media platform originally stored user profiles, posts, and relationships in PostgreSQL. As they scaled to 500 million users, they experienced slow query performance for friend recommendations and news feed generation. Should they migrate to a NoSQL database, and if so, which aspects should remain in PostgreSQL? Justify your recommendation with specific reasoning about workload characteristics.",
+      "options": null,
+      "correct_answer": "Hybrid approach recommended: Keep user authentication, billing, and transactional data in PostgreSQL for ACID guarantees. Migrate social graph (friendships, follows) to a graph database like Neo4j for efficient relationship traversal needed in friend recommendations. Migrate posts and activity feeds to a document store like MongoDB or Cassandra for horizontal scalability and flexible schema as post formats evolve. Reasoning: PostgreSQL excels at transactional consistency but struggles with highly connected graph queries and massive write throughput. Graph databases optimize for relationship queries (friend-of-friend in milliseconds vs seconds). NoSQL document stores handle high write volumes and schema flexibility for user-generated content. This polyglot persistence strategy uses each database type for its strengths.",
+      "explanation": "This scenario tests architectural decision-making for real-world scale challenges. Relational databases provide strong consistency and relational integrity but face scalability limits with complex graph traversals (friends-of-friends requires recursive JOINs) and massive concurrent writes. Graph databases like Neo4j use native graph storage optimized for relationship queries. NoSQL databases like Cassandra provide horizontal scalability through sharding. However, critical transactional operations (payments, authentication) should remain in RDBMS for ACID guarantees. The key insight is polyglot persistence\u2014using multiple database types in one system based on workload characteristics. This reflects real architectures at companies like Facebook, Twitter, and LinkedIn that evolved from monolithic RDBMS to specialized databases.",
+      "learning_objective": "Explain relational database fundamentals",
+      "keywords": [
+        "hybrid",
+        "ACID",
+        "graph database",
+        "Neo4j",
+        "NoSQL",
+        "horizontal scaling",
+        "polyglot persistence"
+      ]
+    }
+  ]
+}
