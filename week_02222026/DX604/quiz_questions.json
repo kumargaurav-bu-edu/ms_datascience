@@ -1,0 +1,544 @@
+{
+  "quiz_metadata": {
+    "title": "DX604 Spring 2026: Week 6 - Normalization, Database Development, and Query Optimization",
+    "description": "Comprehensive assessment covering data normalization processes, database development fundamentals, and query behavior with performance best practices for efficient database operations.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Normalization",
+      "question_text": "___ is the process of organizing relational database tables to minimize data redundancy and improve data integrity.",
+      "options": null,
+      "correct_answer": "Normalization",
+      "explanation": "Normalization is a systematic approach to designing database schemas that reduces redundant data and enforces data integrity through well-defined rules called normal forms (1NF, 2NF, 3NF, BCNF). This process eliminates insertion, update, and deletion anomalies that can occur in poorly designed databases. By properly normalizing tables, you ensure data is stored once and referenced via foreign keys, making updates simpler and preventing inconsistencies. This is fundamental to relational database design and directly impacts database reliability and maintenance costs.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": [
+        "normalization",
+        "minimize redundancy",
+        "data integrity",
+        "organize",
+        "relational"
+      ]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Normalization",
+      "question_text": "First Normal Form (1NF) requires that each column contains only ___ values and each row is unique.",
+      "options": null,
+      "correct_answer": "Atomic",
+      "explanation": "First Normal Form (1NF) is the foundation of normalization. Atomic values mean each cell contains a single, indivisible value\u2014no arrays, lists, or comma-separated values. For example, instead of storing 'phone_numbers: 555-1234, 555-5678' in one cell, 1NF requires separate rows or a related table for each phone number. This atomicity enables efficient querying and prevents ambiguity in data retrieval. Without 1NF, SQL queries become complex and unreliable. 1NF also requires a primary key to ensure row uniqueness.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": [
+        "atomic",
+        "single value",
+        "indivisible",
+        "1NF",
+        "no arrays"
+      ]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data Normalization",
+      "question_text": "True or False: Second Normal Form (2NF) requires that a table be in 1NF and all non-key attributes must be fully functionally dependent on the entire primary key.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Second Normal Form (2NF) builds on 1NF by eliminating partial dependencies. This means every non-key column must depend on the complete primary key, not just part of it. This primarily affects tables with composite primary keys. For example, if a table has primary key (order_id, product_id), then columns like customer_name shouldn't be in this table because they depend only on order_id, not the full composite key. Violating 2NF creates update anomalies and redundancy. Achieving 2NF typically requires decomposing tables into smaller, more focused entities.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Normalization",
+      "question_text": "A table stores: (student_id, course_id, instructor_name, instructor_email). The instructor teaches multiple courses, and instructor_email depends on instructor_name, not on student or course. What normal form is violated and what should be done?",
+      "options": [
+        "A) Violates 1NF; split instructor_name into first_name and last_name columns",
+        "B) Violates 2NF; move instructor columns to separate table since they partially depend on course",
+        "C) Violates 3NF; create separate Instructors table with instructor_id as foreign key to eliminate transitive dependency",
+        "D) No violation; this design is already normalized because all columns relate to enrollments"
+      ],
+      "correct_answer": "C",
+      "explanation": "This violates Third Normal Form (3NF) due to transitive dependency: student_id + course_id determines instructor_name, and instructor_name determines instructor_email. Non-key attributes shouldn't depend on other non-key attributes. The solution is to create an Instructors table (instructor_id, instructor_name, instructor_email) and reference it via foreign key. Option A is incorrect\u20141NF concerns atomic values, not name splitting. Option B is incorrect\u2014this isn't a partial dependency issue (2NF). Option D is incorrect\u2014transitive dependencies cause update anomalies (changing instructor email requires updating multiple enrollment records). This scenario is common in academic and HR databases.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "scenario",
+      "section": "Data Normalization",
+      "question_text": "A healthcare system has a table storing patient appointments with columns: (appointment_id, patient_id, patient_name, patient_dob, doctor_id, doctor_name, clinic_name, appointment_date). They notice that when a doctor changes clinics, they must update hundreds of appointment records. Diagnose the normalization issue and propose the corrected schema.",
+      "options": null,
+      "correct_answer": "The table violates 3NF due to transitive dependencies. Doctor_name and clinic_name depend on doctor_id, not directly on appointment_id. Corrected schema: 1) Appointments table (appointment_id PK, patient_id FK, doctor_id FK, appointment_date). 2) Patients table (patient_id PK, patient_name, patient_dob). 3) Doctors table (doctor_id PK, doctor_name, clinic_name). This eliminates redundancy\u2014doctor information is stored once and updates propagate automatically via foreign key relationships.",
+      "explanation": "This is a classic update anomaly caused by poor normalization. The current design stores doctor and patient information redundantly in every appointment record. When a doctor moves clinics, all their appointment records need updating, risking inconsistencies if some updates fail. The normalized solution uses three tables with foreign keys, storing each entity's attributes once. This design follows 3NF by eliminating transitive dependencies and implements referential integrity through foreign keys. In healthcare systems with millions of appointments, proper normalization is critical for HIPAA compliance and data accuracy.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": [
+        "3NF",
+        "transitive dependency",
+        "foreign key",
+        "update anomaly",
+        "referential integrity",
+        "separate tables"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Data Normalization",
+      "question_text": "An e-commerce database stores order details in one table: (order_id, customer_email, product1, qty1, product2, qty2, product3, qty3). Explain why this design is problematic and what normalization principle is violated.",
+      "options": null,
+      "correct_answer": "This violates 1NF (First Normal Form) because it stores multiple values implicitly through repeating groups (product1/qty1, product2/qty2, etc.). Columns should not encode position or sequence. This design limits orders to 3 products, makes queries difficult (how to find all orders containing a specific product?), and wastes space when orders have fewer than 3 items. The normalized solution uses two tables: Orders (order_id, customer_email, order_date) and OrderItems (order_item_id, order_id FK, product_id FK, quantity), allowing unlimited items per order and efficient querying.",
+      "explanation": "Repeating groups violate 1NF and create severe practical problems. This design pattern appears in legacy systems but fails modern requirements. Searching for orders containing a specific product requires checking product1 AND product2 AND product3 columns. Adding a 4th product requires schema changes. NULL values waste space when orders have 1-2 products. The normalized design using a junction table (OrderItems) is the standard many-to-many relationship pattern, enabling flexible queries, unlimited items per order, and proper inventory tracking. This tests understanding of why 1NF matters practically, not just theoretically.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": [
+        "1NF",
+        "repeating groups",
+        "atomic",
+        "junction table",
+        "many-to-many",
+        "OrderItems"
+      ]
+    },
+    {
+      "number": 7,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Data Normalization",
+      "question_text": "A financial trading platform designed their database in 3NF for data integrity. However, generating real-time trading dashboards requires joining 8 tables, causing 2-second delays that violate regulatory requirements for sub-second quote display. The CTO proposes denormalizing key metrics into a single reporting table. Evaluate this decision: What are the tradeoffs, and what hybrid approach would balance integrity and performance?",
+      "options": null,
+      "correct_answer": "The denormalization proposal addresses a legitimate performance issue but creates integrity risks. Tradeoffs: Denormalized reporting table speeds reads but risks stale data and update anomalies. Hybrid recommendation: 1) Keep transactional tables fully normalized (3NF) for ACID compliance on trades. 2) Create materialized views or separate read-optimized denormalized tables refreshed every 100ms via change data capture (CDC) or triggers. 3) Use caching layer (Redis) for real-time dashboard data with 50ms TTL. 4) Consider columnar storage (Redshift/BigQuery) for analytics. This maintains transactional integrity while achieving performance through strategic replication, not by compromising source data quality.",
+      "explanation": "This scenario tests architectural judgment about the normalization-performance tradeoff. Full normalization optimizes writes and integrity but can slow complex reads. Denormalization speeds reads but creates maintenance burdens and consistency risks. The key insight is separating OLTP (transactional) from OLAP (analytical) workloads. Financial systems must maintain normalized source data for regulatory compliance and audit trails. However, derived views/caches can be denormalized since they're disposable and regenerable. Technologies like materialized views, CDC pipelines, and caching layers enable this hybrid pattern. This reflects real architectures at trading firms where microsecond latency matters but regulatory compliance is non-negotiable.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": [
+        "denormalization",
+        "materialized view",
+        "OLTP",
+        "OLAP",
+        "caching",
+        "integrity vs performance"
+      ]
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Normalization",
+      "question_text": "Which statement BEST describes when denormalization might be appropriate in database design?",
+      "options": [
+        "A) Always denormalize to improve performance since modern storage is cheap and redundancy doesn't matter",
+        "B) Denormalize read-heavy analytical workloads where query performance is critical and data integrity can be managed through controlled ETL processes",
+        "C) Denormalize whenever you have more than 3 tables to simplify development",
+        "D) Never denormalize because it violates database theory and always causes data corruption"
+      ],
+      "correct_answer": "B",
+      "explanation": "Denormalization is a strategic tool for specific use cases, not a universal rule. Option B correctly identifies the scenario: read-heavy analytics/reporting where complex joins hurt performance, and data flows from normalized source systems through controlled ETL. Data warehouses commonly denormalize (star/snowflake schemas) because they're refresh-based, not transactional. Option A is wrong\u2014redundancy causes update anomalies, not just storage waste. Option C is wrong\u2014table count doesn't dictate denormalization; query patterns do. Option D is wrong\u2014denormalization is legitimate when managed properly (Netflix, Amazon, and others use it extensively). This tests understanding that normalization is a design choice based on access patterns, not dogma.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Normalization",
+      "question_text": "___ anomalies occur when you cannot insert a new record because some required data is not yet available, often due to poor normalization.",
+      "options": null,
+      "correct_answer": "Insertion",
+      "explanation": "Insertion anomalies happen in poorly normalized databases when you can't add data without having complete information. For example, if employee data and department data are in one table, you can't add a new department until you hire someone for it. Or if student and course enrollments are combined, you can't add a course until a student enrolls. Proper normalization (separating entities into their own tables) eliminates this problem\u2014you can add departments independently of employees. This is one of three major anomalies (insertion, update, deletion) that normalization prevents.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": [
+        "insertion",
+        "insertion anomaly",
+        "cannot insert",
+        "poor normalization",
+        "missing data"
+      ]
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Normalization",
+      "question_text": "A company stores employee data: (emp_id, emp_name, dept_name, dept_budget, manager_name). When a department budget changes, they must update every employee record in that department. What type of anomaly is this and what normal form would fix it?",
+      "options": [
+        "A) Deletion anomaly; fixed by 1NF through atomic values",
+        "B) Update anomaly; fixed by 2NF through eliminating partial dependencies",
+        "C) Update anomaly; fixed by 3NF through creating separate Department table to eliminate transitive dependency",
+        "D) Insertion anomaly; fixed by BCNF through eliminating all functional dependencies"
+      ],
+      "correct_answer": "C",
+      "explanation": "This is an update anomaly\u2014changing one logical fact (department budget) requires updating multiple physical records, risking inconsistencies if some updates fail. The root cause is a transitive dependency: emp_id determines dept_name, and dept_name determines dept_budget and manager_name. Third Normal Form (3NF) fixes this by creating a Departments table (dept_id, dept_name, dept_budget, manager_name) referenced by Employees via foreign key. Option A is wrong\u20141NF handles atomic values, not redundancy. Option B is wrong\u20142NF handles partial dependencies on composite keys. Option D is wrong\u2014this isn't an insertion problem. This scenario is extremely common in HR and enterprise systems.",
+      "learning_objective": "Outline the data normalization process",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Database Development Fundamentals",
+      "question_text": "___ is the systematic process of planning, designing, implementing, and maintaining a database to meet organizational data requirements.",
+      "options": null,
+      "correct_answer": "Database development",
+      "explanation": "Database development is the complete lifecycle of creating and managing database systems. It includes requirements gathering (understanding what data needs to be stored and how it will be accessed), logical design (creating entity-relationship diagrams and schemas), physical implementation (creating tables, indexes, constraints), and ongoing maintenance (backups, optimization, schema evolution). Proper database development follows methodologies like SDLC or Agile, involves stakeholder collaboration, and considers scalability, security, and performance from the start. This structured approach prevents costly redesigns and ensures databases support business needs effectively.",
+      "learning_objective": "Recall the fundamentals of database development",
+      "keywords": [
+        "database development",
+        "lifecycle",
+        "planning",
+        "designing",
+        "implementing",
+        "maintaining"
+      ]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Database Development Fundamentals",
+      "question_text": "True or False: In database development, logical design focuses on defining entities, attributes, and relationships independent of specific DBMS implementation details.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Logical design is the conceptual phase where you model the data using entity-relationship diagrams (ERDs) or similar tools without worrying about how it will physically be implemented. You define entities (tables), attributes (columns), relationships (foreign keys), and constraints (business rules) based on business requirements. This abstraction separates what data you need from how it's stored. Physical design comes later, addressing DBMS-specific details like storage engines, partitioning, index types, and tablespaces. Separating logical and physical design allows you to potentially migrate between different database systems and focuses stakeholder discussions on business logic, not technical implementation.",
+      "learning_objective": "Recall the fundamentals of database development",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Database Development Fundamentals",
+      "question_text": "An ___ diagram is a visual modeling tool used in database development to represent entities, attributes, and relationships between data objects.",
+      "options": null,
+      "correct_answer": "Entity-Relationship (or ER or ERD)",
+      "explanation": "Entity-Relationship Diagrams (ERDs) are fundamental tools in database design. They use rectangles for entities (tables), ovals for attributes (columns), and diamonds or lines for relationships (foreign keys). ERDs help stakeholders visualize data structure, identify missing entities, spot redundancy, and validate that the design meets requirements before implementation. Common notations include Chen notation, crow's foot notation, and UML class diagrams. ERDs serve as documentation and communication tools between business analysts, database designers, and developers. Most database design tools (MySQL Workbench, pgAdmin, Lucidchart) support ERD creation and can generate SQL DDL directly from diagrams.",
+      "learning_objective": "Recall the fundamentals of database development",
+      "keywords": [
+        "Entity-Relationship",
+        "ER",
+        "ERD",
+        "diagram",
+        "visual modeling",
+        "entities relationships"
+      ]
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Database Development Fundamentals",
+      "question_text": "During database development, requirements gathering reveals that the system must support 10,000 concurrent users with sub-second query response times. In which phase should these requirements primarily influence decisions?",
+      "options": [
+        "A) Only in logical design when defining entities and relationships",
+        "B) Only in physical design when choosing indexes and partitioning strategies",
+        "C) In both logical design (schema optimization, denormalization decisions) and physical design (indexing, hardware, DBMS selection)",
+        "D) After implementation during performance tuning and optimization"
+      ],
+      "correct_answer": "C",
+      "explanation": "Performance and scalability requirements must influence both logical and physical design phases. In logical design, high concurrency might lead to denormalization decisions, caching strategies, and read/write separation patterns. In physical design, you'll choose appropriate indexes, partitioning schemes, hardware specs, and potentially distributed databases. Option A is wrong\u2014logical design alone can't guarantee performance. Option B is wrong\u2014poor logical design (e.g., deeply nested joins) can't be fixed by indexing alone. Option D is wrong\u2014addressing performance after implementation is reactive and often requires expensive redesigns. This tests understanding that non-functional requirements must be considered throughout development, not retrofitted.",
+      "learning_objective": "Recall the fundamentals of database development",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "scenario",
+      "section": "Database Development Fundamentals",
+      "question_text": "A startup is building a customer relationship management (CRM) system. The product manager wants to start coding immediately, but the database architect insists on spending 2 weeks on requirements gathering and logical design. Justify the architect's position with specific examples of problems that can be prevented.",
+      "options": null,
+      "correct_answer": "The architect is correct. Proper requirements gathering and logical design prevent costly problems: 1) Missing entities: Without understanding all use cases, you might omit critical tables (e.g., forgot audit logs needed for compliance, no table for recurring billing). 2) Wrong relationships: Incorrectly modeling many-to-many as one-to-many (e.g., assuming one customer has one address) requires schema rewrites when reality is complex. 3) Performance issues: Not anticipating query patterns means missing optimization opportunities like denormalization for reports. 4) Data integrity: Without constraint planning, orphaned records and inconsistent data emerge. Fixing these post-implementation costs 10-100x more than upfront design. Two weeks of design saves months of refactoring and data migration.",
+      "explanation": "This tests understanding of why database development methodology matters practically. Skipping design phases is tempting in fast-paced environments but creates technical debt. Real examples include: Uber's early database couldn't handle driver/rider many-to-many relationships; Facebook had to rebuild data architecture multiple times; healthcare systems face HIPAA violations from missing audit tables. Requirements gathering identifies entities, relationships, business rules, compliance needs, and scale requirements. Logical design validates these through ERDs and normalization. This prevents schema redesigns that require data migration, application rewrites, and potential downtime. The 2-week investment has exponential ROI in large-scale systems.",
+      "learning_objective": "Recall the fundamentals of database development",
+      "keywords": [
+        "requirements gathering",
+        "logical design",
+        "prevent problems",
+        "schema",
+        "technical debt",
+        "planning"
+      ]
+    },
+    {
+      "number": 16,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Database Development Fundamentals",
+      "question_text": "A multinational corporation is developing a new ERP system. They must decide between (a) a single global database design standardized across all regions, or (b) region-specific designs optimized for local regulations and workflows. Analyze the tradeoffs and recommend an approach that balances standardization with flexibility.",
+      "options": null,
+      "correct_answer": "Recommendation: Implement a hybrid core-plus-extensions model. Core design: Standardize critical entities globally (customers, products, orders, financials) with consistent schemas, enabling consolidated reporting and data sharing. This core must accommodate the superset of all regional requirements (e.g., extra fields for GDPR, additional tax tables for India). Regional extensions: Allow region-specific tables and columns for unique regulations (e.g., China's social credit requirements, Brazil's fiscal notes, EU's VAT schemas). Use database schemas/namespaces to separate extensions (global.customers vs cn.customer_extensions). Benefits: Maintains data governance and reporting consistency while providing regional flexibility. Avoids lowest-common-denominator compromises that hurt all regions. Implementation uses views to present unified schemas while underlying storage varies by region.",
+      "explanation": "This architectural decision tests understanding of how business requirements shape database development at scale. Pure standardization fails because regulations differ (GDPR vs CCPA vs China's data laws), workflows vary (US vs Japanese procurement), and local feature requests accumulate. Pure customization fails because reporting becomes impossible, maintenance costs explode, and data migration between regions is blocked. The core-plus-extensions pattern reflects real enterprise architectures (SAP, Oracle, Salesforce use variants). The core ensures global consistency for critical processes and consolidated analytics. Extensions provide agility without fragmenting the core. This requires mature governance: change review boards, schema versioning, migration testing. This tests strategic thinking about database development at enterprise scale.",
+      "learning_objective": "Recall the fundamentals of database development",
+      "keywords": [
+        "hybrid",
+        "standardization",
+        "regional",
+        "core design",
+        "extensions",
+        "governance",
+        "flexibility"
+      ]
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Database Development Fundamentals",
+      "question_text": "A database team uses version control (Git) for their schema definitions and migrations scripts. Explain why this is important and what problems it prevents.",
+      "options": null,
+      "correct_answer": "Version controlling database schemas and migrations is critical for several reasons: 1) Traceability: Track who changed what and when, essential for debugging and compliance audits. 2) Reproducibility: Any developer can recreate exact database state from version history, enabling consistent dev/staging/production environments. 3) Collaboration: Multiple developers can work on schema changes with merge conflict detection. 4) Rollback capability: If a migration breaks production, you can revert to previous version. 5) CI/CD integration: Automated testing and deployment of schema changes like application code. Without version control, teams rely on manual SQL scripts, lose change history, experience environment drift (dev differs from production), and struggle with disaster recovery.",
+      "explanation": "This tests understanding of modern database development practices that treat infrastructure as code. Tools like Flyway, Liquibase, and Alembic enable versioned migrations. Version control prevents common disasters: accidental DROP TABLE in production without backups, schema drift where dev/staging/prod differ subtly causing bugs, inability to identify when/why a change was made during incident response, and collaborative conflicts where two developers modify the same table incompatibly. GitOps practices for databases mirror application development, bringing reliability and velocity. This is standard at mature engineering organizations and represents the shift from ad-hoc database management to software engineering discipline.",
+      "learning_objective": "Recall the fundamentals of database development",
+      "keywords": [
+        "version control",
+        "Git",
+        "migrations",
+        "traceability",
+        "rollback",
+        "CI/CD",
+        "reproducibility"
+      ]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Query Behavior and Performance",
+      "question_text": "The SQL ___ clause is executed first in query processing, determining which tables to access and how to join them.",
+      "options": null,
+      "correct_answer": "FROM",
+      "explanation": "Understanding SQL execution order is critical for writing efficient queries. Despite SQL being written SELECT-FROM-WHERE-GROUP BY-ORDER BY, the actual execution order is FROM \u2192 WHERE \u2192 GROUP BY \u2192 HAVING \u2192 SELECT \u2192 ORDER BY. The FROM clause executes first, identifying source tables and performing joins to create the working dataset. This matters for optimization: filtering in WHERE happens early (after FROM), reducing data processed by later stages. Large joins without WHERE conditions process full Cartesian products. Query optimizers use this execution model to reorder operations for performance. This foundational knowledge helps debug query behavior and write efficient SQL.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": [
+        "FROM",
+        "executed first",
+        "joins",
+        "tables",
+        "execution order"
+      ]
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Query Behavior and Performance",
+      "question_text": "True or False: In SQL execution order, the WHERE clause is processed before the SELECT clause, which means you cannot reference SELECT aliases in the WHERE clause.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "SQL execution order is FROM \u2192 WHERE \u2192 GROUP BY \u2192 HAVING \u2192 SELECT \u2192 ORDER BY. Since WHERE executes before SELECT, aliases defined in SELECT aren't available in WHERE. For example, 'SELECT price * 1.1 AS final_price ... WHERE final_price > 100' fails because final_price doesn't exist when WHERE evaluates. You must repeat the calculation: 'WHERE price * 1.1 > 100' or use a subquery/CTE. However, you CAN use SELECT aliases in ORDER BY because ORDER BY executes last. This restriction prevents circular dependencies and maintains query evaluation logic. Understanding this prevents common SQL errors and explains why some intuitive queries fail.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Query Behavior and Performance",
+      "question_text": "___ is a database optimization technique that pre-computes and stores query results, significantly improving performance for frequently accessed complex queries.",
+      "options": null,
+      "correct_answer": "Materialized view (or materialized views or caching)",
+      "explanation": "Materialized views store query results physically as tables, unlike regular views which are virtual (re-executed each time). For expensive queries involving complex joins, aggregations, or calculations across large datasets, materialized views provide dramatic speedups by precomputing results. They're refreshed on schedules or triggers (every hour, nightly, or on-demand). Tradeoffs: They consume storage, may have stale data between refreshes, and add overhead to source table updates. Use cases include dashboards, reports, and analytics where slight staleness is acceptable for massive performance gains. This differs from query result caching (temporary, automatic) and is a deliberate optimization strategy for specific known-slow queries.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": [
+        "materialized view",
+        "precompute",
+        "store results",
+        "cache",
+        "performance"
+      ]
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Query Behavior and Performance",
+      "question_text": "A query joins Orders (10M rows), Customers (1M rows), and Products (100K rows) with WHERE customer.country = 'USA'. The query takes 2 minutes. What optimization would likely have the biggest impact?",
+      "options": [
+        "A) Add ORDER BY to sort results, helping the database optimize execution",
+        "B) Replace JOIN with subqueries to reduce memory usage",
+        "C) Ensure customer.country has an index and the WHERE filter is applied before joins to reduce Orders table size early",
+        "D) Use SELECT * instead of listing columns to reduce query compilation time"
+      ],
+      "correct_answer": "C",
+      "explanation": "The key insight is filtering early reduces data volume before expensive join operations. If only 5% of customers are in USA, filtering first reduces the Orders join from 10M rows to ~500K rows, dramatically cutting computational cost. An index on customer.country enables fast filtering. Option A is wrong\u2014ORDER BY happens last and doesn't reduce data processed. Option B is wrong\u2014subqueries often perform worse than joins for this pattern. Option D is wrong\u2014SELECT * is an anti-pattern that increases I/O and compilation time is negligible. This tests understanding of query execution flow: filter early (WHERE), then join, then aggregate. Database optimizers try to do this automatically but indexes and query structure help.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Query Behavior and Performance",
+      "question_text": "A database table has 100 million rows. Without an index, a query must scan all rows (O(n) complexity). With a B-tree index, lookups are O(log n). If each row comparison takes 1 microsecond, approximately how much faster is the indexed lookup for finding a single record? (Assume log\u2082(100M) \u2248 27)",
+      "options": null,
+      "correct_answer": "Full scan: 100,000,000 microseconds = 100 seconds. Indexed lookup: 27 microseconds. Speedup: 100,000,000 / 27 \u2248 3.7 million times faster. The indexed query returns in 27 microseconds (essentially instant) while the full scan takes 100 seconds.",
+      "explanation": "This calculation demonstrates why indexes are transformative for database performance. B-tree indexes organize data in a balanced tree structure where each node comparison eliminates half the remaining possibilities, resulting in logarithmic search time. For 100 million rows, you need only ~27 comparisons instead of 100 million. This mathematical advantage compounds with scale\u2014at 1 billion rows, full scan takes 1000 seconds but indexed lookup takes ~30 comparisons. However, indexes have costs: they slow writes (must update index structures) and consume storage. This calculation tests understanding of algorithmic complexity and its practical impact on database design decisions.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": [
+        "B-tree",
+        "index",
+        "O(log n)",
+        "faster",
+        "27",
+        "100 seconds",
+        "microseconds"
+      ]
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Query Behavior and Performance",
+      "question_text": "A query with WHERE status = 'active' AND created_date > '2024-01-01' runs slowly. The database has separate indexes on status and created_date but not a composite index. Explain why performance might still be poor and what index would help.",
+      "options": null,
+      "correct_answer": "The database can efficiently use one index (likely created_date since it's more selective) but must then scan those results checking the other condition without index benefit. If 30% of rows are 'active' and 40% are after 2024-01-01, it scans 40% of rows checking status. A composite index on (status, created_date) or (created_date, status) would allow the database to use both conditions efficiently via the index. The optimal column order depends on selectivity: put the more selective column first. With a composite index, the query becomes an index-only operation, dramatically faster than using one index then filtering.",
+      "explanation": "This tests understanding of how multiple WHERE conditions interact with indexes. While databases can use multiple single-column indexes via index merge operations, this is less efficient than a composite index that structures data by both columns simultaneously. The query optimizer must choose one index to use primarily, then apply the other filter. Composite indexes enable index-only scans where all required data lives in the index structure, avoiding table access entirely. However, composite indexes are specific to column order and conditions\u2014they benefit queries matching their structure but don't help queries using different column combinations. This is why index strategy requires analyzing actual query patterns, not just indexing every column.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": [
+        "composite index",
+        "multiple WHERE",
+        "selectivity",
+        "index-only scan",
+        "both conditions",
+        "column order"
+      ]
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Query Behavior and Performance",
+      "question_text": "Which SQL query pattern is generally MOST efficient for large datasets?",
+      "options": [
+        "A) SELECT * FROM orders WHERE order_id IN (SELECT order_id FROM large_table WHERE condition)",
+        "B) SELECT * FROM orders o INNER JOIN large_table l ON o.order_id = l.order_id WHERE l.condition",
+        "C) SELECT * FROM orders WHERE EXISTS (SELECT 1 FROM large_table WHERE order_id = orders.order_id AND condition)",
+        "D) All patterns have identical performance because the query optimizer rewrites them identically"
+      ],
+      "correct_answer": "B",
+      "explanation": "INNER JOIN is typically most efficient because modern query optimizers can leverage indexes on both tables, choose optimal join algorithms (hash join, merge join, nested loop), and apply predicates early. The IN subquery (option A) may execute the subquery fully and create a large intermediate result set. EXISTS (option C) stops at first match and can be efficient for existence checks but typically slower for retrieving data. Option D is wrong\u2014while optimizers attempt rewrites, explicit joins give optimizers more information and flexibility. However, with proper indexes and modern optimizers, performance can converge. Best practice: use explicit JOINs for clarity, maintainability, and giving the optimizer maximum optimization opportunities. This tests understanding of query patterns and optimizer behavior.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Query Behavior and Performance",
+      "question_text": "An analytics platform runs a nightly report aggregating sales data: SELECT region, SUM(amount), AVG(amount), COUNT(*) FROM sales WHERE date >= '2024-01-01' GROUP BY region. The sales table has 500M rows and the query takes 45 minutes. Propose three specific optimizations and explain how each improves performance.",
+      "options": null,
+      "correct_answer": "1) Partition the sales table by date (monthly or quarterly partitions): This enables partition pruning\u2014the query only scans 2024 partitions instead of all 500M rows, potentially reducing scan to 50M rows. 2) Create a covering index on (date, region) INCLUDE (amount): This enables index-only scans\u2014all data needed (date for filtering, region for grouping, amount for aggregation) exists in the index without accessing the table. 3) Create a materialized view pre-aggregating daily regional sales: The nightly job updates the materialized view incrementally (only new day's data), and the report queries the much smaller aggregated table instead of raw transactions. Combined, these could reduce runtime from 45 minutes to under 1 minute.",
+      "explanation": "This scenario tests comprehensive understanding of query optimization strategies. Partitioning addresses data volume by enabling the database to skip irrelevant partitions. Covering indexes provide all query data from index structures which are smaller and more cache-friendly than full tables. Materialized views shift computational cost from query time to incremental maintenance. Real-world considerations: partitioning requires partition key in WHERE clauses; covering indexes consume storage and slow writes; materialized views introduce staleness. The combination is powerful because they address different bottlenecks: partitioning (I/O reduction), covering indexes (table access elimination), materialized views (pre-computation). This reflects production optimization approaches at companies with large-scale analytics workloads.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": [
+        "partition",
+        "covering index",
+        "materialized view",
+        "index-only scan",
+        "pre-aggregate",
+        "partition pruning"
+      ]
+    },
+    {
+      "number": 26,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Query Behavior and Performance",
+      "question_text": "A database team debates adding indexes. Developer A says 'Index every column users might filter on.' Developer B says 'Only index columns used in slow queries.' Developer C says 'Index based on query patterns and measure the write overhead.' Which approach is correct and why? Discuss the tradeoffs of over-indexing vs under-indexing.",
+      "options": null,
+      "correct_answer": "Developer C is correct\u2014index strategy must be data-driven based on actual query patterns and measured against write performance costs. Over-indexing (approach A) problems: Every write (INSERT/UPDATE/DELETE) updates all indexes, potentially slowing writes 5-10x. Indexes consume significant storage. Query optimizer may choose wrong index, hurting performance. Under-indexing (approach B is reactive) problems: Waiting for slow queries means poor user experience first. Some queries never reported but still cause resource contention. Correct approach: 1) Analyze query logs to find frequent patterns. 2) Index high-cardinality columns in WHERE/JOIN clauses. 3) Use covering indexes for critical queries. 4) Monitor write performance and index usage (unused indexes should be dropped). 5) Benchmark before/after. Balance read vs write workload characteristics.",
+      "explanation": "This tests strategic thinking about index management, a critical real-world database administration skill. The over-indexing approach (index everything) ignores write costs\u2014in write-heavy systems (IoT sensor data, trading platforms), excessive indexes can make writes impossible. The under-indexing approach (wait for problems) is reactive and allows performance debt to accumulate. The measured approach uses database query analyzers, slow query logs, and EXPLAIN plans to guide index decisions. Modern tools (pg_stat_statements in PostgreSQL, Performance Schema in MySQL) track query frequency and cost. Best practice: start with essential indexes (primary keys, foreign keys), add indexes for known query patterns, monitor usage, and remove unused indexes during maintenance windows. This reflects database performance engineering as an iterative, measurement-driven discipline.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": [
+        "query patterns",
+        "write overhead",
+        "measure",
+        "index usage",
+        "tradeoffs",
+        "data-driven"
+      ]
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Query Behavior and Performance",
+      "question_text": "Explain why SELECT * is considered an anti-pattern for query performance and list three specific problems it causes.",
+      "options": null,
+      "correct_answer": "SELECT * is an anti-pattern because: 1) Network overhead: Transfers unnecessary columns, wasting bandwidth especially for tables with TEXT/BLOB columns. 2) Memory consumption: Application and database buffers hold unneeded data, reducing cache efficiency and increasing memory pressure. 3) Prevents covering indexes: Even if needed columns are in an index, SELECT * forces table access to retrieve all columns. 4) Schema changes break code: Adding columns changes result shape, potentially breaking application parsing. Best practice: explicitly list only required columns to minimize I/O, enable optimizer optimizations, and make code intentions clear.",
+      "explanation": "SELECT * seems convenient but causes multiple performance and maintenance issues. The I/O impact is significant\u2014transferring a 1KB text field in 1M rows wastes 1GB of network and memory. Cache pollution is subtle: limited database buffer cache fills with unused data, evicting useful cached data. The covering index issue is critical: an index on (user_id, email) can satisfy 'SELECT email WHERE user_id = X' without table access, but 'SELECT * WHERE user_id = X' must access the table for other columns. Schema evolution problems create bugs when new columns appear unexpectedly. This anti-pattern test distinguishes developers who understand performance implications from those following convenience patterns without considering costs.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": [
+        "SELECT *",
+        "anti-pattern",
+        "network overhead",
+        "covering index",
+        "memory",
+        "explicit columns"
+      ]
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Query Behavior and Performance",
+      "question_text": "A query uses WHERE UPPER(email) = 'USER@EXAMPLE.COM' to perform case-insensitive matching. Why is this problematic for performance?",
+      "options": [
+        "A) UPPER() function is deprecated and should be replaced with LOWER()",
+        "B) Applying functions to columns prevents index usage, forcing full table scans even if email has an index",
+        "C) Case-insensitive comparisons are not supported in SQL and require application-level processing",
+        "D) String functions are always slow and should be avoided in WHERE clauses"
+      ],
+      "correct_answer": "B",
+      "explanation": "Applying functions to indexed columns (UPPER(email), SUBSTRING(name), etc.) prevents the database from using the index efficiently. The index stores original values, not transformed values. The database must apply UPPER() to every row, effectively doing a full table scan. Solution: store email in lowercase (or use case-insensitive collation), or create a functional/expression index on UPPER(email). This principle applies broadly: WHERE DATE(timestamp) = '2024-01-01' can't use timestamp index; WHERE salary * 1.1 > 50000 can't use salary index. Option A is wrong\u2014both UPPER/LOWER work equally. Option C is wrong\u2014SQL supports case-insensitive collations and functions. Option D is wrong\u2014functions aren't inherently slow, but using them on indexed columns prevents index usage. This is a common performance pitfall.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Query Behavior and Performance",
+      "question_text": "A financial services company must query transaction history: SELECT * FROM transactions WHERE amount > 10000 OR merchant_category = 'cash_withdrawal'. The table has 2B rows, indexed on amount and merchant_category separately. The query times out after 10 minutes. The DBA suggests rewriting as a UNION. Explain why UNION might help and write the optimized query structure.",
+      "options": null,
+      "correct_answer": "OR conditions often prevent efficient index usage\u2014the database can't effectively use both indexes simultaneously and may resort to full table scan. UNION allows each condition to use its respective index separately, then combines results. Optimized query: SELECT * FROM transactions WHERE amount > 10000 UNION SELECT * FROM transactions WHERE merchant_category = 'cash_withdrawal' AND amount <= 10000. The second query adds 'AND amount <= 10000' to avoid duplicates (eliminates UNION overhead). Each subquery efficiently uses its index: first uses amount index, second uses merchant_category index. UNION then merges results. Alternative: UNION ALL if duplicates are acceptable, which is faster (skips deduplication).",
+      "explanation": "This tests advanced query optimization knowledge about OR condition performance. OR clauses create optimization challenges because satisfying either condition requires checking both, potentially defeating indexes. Modern optimizers attempt index merge operations but often fall back to full scans. The UNION approach explicitly separates conditions, allowing independent index usage on each branch. The amount <= 10000 clause in the second SELECT prevents duplicates more efficiently than UNION's deduplication. Real-world considerations: UNION has overhead for deduplication; UNION ALL is faster if duplicates are acceptable or impossible. This pattern appears in fraud detection, compliance monitoring, and security systems with complex multi-condition queries. Understanding when to manually guide the optimizer (via UNION) versus trusting automatic optimization is an advanced database skill.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": [
+        "UNION",
+        "OR condition",
+        "separate indexes",
+        "merge results",
+        "avoid duplicates",
+        "index usage"
+      ]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Query Behavior and Performance",
+      "question_text": "A database serves both transactional workloads (thousands of small writes per second) and analytical queries (complex aggregations over millions of rows). Both workloads are deteriorating: transactions lock up during analytics queries, and reports timeout during peak transaction periods. The team debates solutions: (a) add more indexes, (b) implement read replicas, (c) separate OLTP and OLAP databases. Evaluate each option and recommend an architecture.",
+      "options": null,
+      "correct_answer": "Recommendation: Implement option (c)\u2014separate OLTP and OLAP systems. Architecture: 1) Keep transactional database (PostgreSQL/MySQL) optimized for writes with minimal indexes needed for transactions. 2) Replicate data to analytical database (Snowflake/BigQuery/Redshift) via CDC (change data capture) or scheduled ETL. 3) Optimize OLAP database with heavy indexing, columnar storage, and denormalization. Evaluation: (a) More indexes worsen write performance and don't solve resource contention. (b) Read replicas help scalability but analytical queries still lock resources and replicas lag. Option (c) fully separates workloads\u2014transactions run uninterrupted, analytics can denormalize/index aggressively without impacting transactions. Tradeoff: OLAP data has slight lag (acceptable for analytics). This is the standard enterprise pattern (operational vs analytical databases).",
+      "explanation": "This architectural scenario tests understanding of the fundamental OLTP vs OLAP tradeoff. Transactional systems optimize for fast writes, consistent reads, and ACID guarantees\u2014they need minimal indexes and normalized schemas. Analytical systems optimize for complex read queries with heavy aggregation\u2014they benefit from denormalization, many indexes, and columnar storage. Attempting to serve both workloads from one database creates irreconcilable conflicts: indexes slow transactions, aggressive caching hurts analytics, query resource consumption blocks transactions. The separated architecture (option c) is ubiquitous at scale: Uber uses MySQL for transactions and Hive for analytics; Netflix uses Cassandra + Snowflake. CDC tools (Debezium, AWS DMS) enable near-real-time replication. This tests whether students understand when architectural separation is necessary versus when optimization suffices.",
+      "learning_objective": "Describe query behavior and best practices to ensure performant queries",
+      "keywords": [
+        "OLTP vs OLAP",
+        "separate databases",
+        "CDC",
+        "read replica",
+        "analytical database",
+        "transactional database",
+        "resource contention"
+      ]
+    }
+  ]
+}
