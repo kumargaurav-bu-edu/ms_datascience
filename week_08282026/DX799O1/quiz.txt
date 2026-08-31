@@ -1,0 +1,226 @@
+**Quiz: Advanced Regression & Model Diagnostics**
+
+---
+
+### **Section 1: Interaction Terms & Sample Size**
+
+1. **Why do interaction terms typically require a larger sample size than simple main effects?**
+* A) Interaction terms introduce non-linear parameters that violate OLS assumptions.
+* B) Interaction terms estimate subgroup or conditional effects, which drastically reduces the effective sample size for each comparison.
+* C) Interaction terms always create perfect multicollinearity in small samples.
+* D) Interaction terms double the variance of the error term ($\sigma^2$).
+
+
+2. **When testing a two-way interaction between two continuous variables ($X_1 \cdot X_2$), statistical power is fundamentally constrained by:**
+* A) The sum of the main effects.
+* B) The product of the variances of $X_1$ and $X_2$.
+* C) The residual variance and the reduced variation in the product term relative to main effects.
+* D) The intercept of the model.
+
+
+3. **In an experiment with a $2 \times 2$ factorial design, detecting a main effect of size $d$ requires a sample size $N$. Roughly how large a sample size is required to detect an interaction effect of the same magnitude ($d$)?**
+* A) $N$
+* B) $2N$
+* C) $4N$
+* D) $8N$
+
+
+4. **What happens to the standard error of an interaction coefficient ($\beta_3$) as sample size ($n$) decreases?**
+* A) It decreases proportionally.
+* B) It increases, leading to wider confidence intervals and lower statistical power (higher Type II error rate).
+* C) It remains unchanged because standard error depends only on $\sigma^2$.
+* D) It becomes zero when $n < 30$.
+
+
+5. **Why does high correlation between main effect terms ($X_1$ and $X_2$) and their product term ($X_1 X_2$) increase sample size requirements?**
+* A) It inflates the variance of the estimated interaction coefficient, requiring more data to achieve precise estimates.
+* B) It makes it mathematically impossible to calculate $R^2$.
+* C) It forces the model to use logistic regression instead of linear regression.
+* D) It biases the coefficient estimates toward zero.
+
+
+6. **If a study is powered at 80% to detect main effects, its statistical power to detect a cross-over interaction of the same effect size is generally:**
+* A) Much higher (near 95%)
+* B) Identical (80%)
+* C) Substantially lower (often around 20–50% depending on sample design)
+* D) 0%
+
+
+
+---
+
+### **Section 2: Polynomial Terms & Multicollinearity**
+
+7. **Why do polynomial terms (e.g., $X, X^2, X^3$) inherently tend to produce multicollinearity?**
+* A) Higher-order powers of positive numbers naturally correlate strongly with the original variable unless centered.
+* B) Polynomial terms violate the homoscedasticity assumption.
+* C) Exponents change the measurement units of the variable unpredictably.
+* D) Polynomial terms cause the dependent variable $Y$ to become non-normal.
+
+
+8. **In which of the following scenarios will polynomial terms generate severe structural multicollinearity?**
+* A) When $X$ is mean-centered before squaring ($X_{centered} = X - \bar{X}$).
+* B) When $X$ consists strictly of positive values far away from zero (e.g., age ranging from 40 to 80).
+* C) When $X$ is symmetrically distributed around zero (e.g., values from $-10$ to $+10$).
+* D) When the sample size is greater than $1,000$.
+
+
+9. **What simple transformation mitigates structural multicollinearity between a main effect $X$ and its polynomial $X^2$?**
+* A) Log-transforming the dependent variable $Y$.
+* B) Mean-centering the predictor variable $X$ before raising it to powers.
+* C) Multiplying $X$ by a constant $k$.
+* D) Dividing $X$ by the standard deviation of $Y$.
+
+
+10. **What is the difference between "structural multicollinearity" and "data-based multicollinearity" in polynomial regression?**
+* A) Structural multicollinearity is caused by creating mathematical functions (powers) of variables; data-based is inherent to relationships between distinct predictors in the population.
+* B) Data-based multicollinearity can be fixed by mean-centering; structural multicollinearity cannot.
+* C) Structural multicollinearity biases $R^2$; data-based multicollinearity does not.
+* D) There is no functional difference; the terms are interchangeable synonyms for heteroscedasticity.
+
+
+11. **If $X$ ranges strictly from $100$ to $150$, what is the expected relationship between $X$ and $X^2$?**
+* A) Zero correlation ($r = 0$).
+* B) Perfect negative correlation ($r = -1.0$).
+* C) Extremely high positive correlation ($r \approx 0.98+$).
+* D) Non-monotonic relationship.
+
+
+12. **Does high structural multicollinearity between $X$ and $X^2$ invalidate the overall model's predictions ($\hat{Y}$)?**
+* A) Yes, the predicted values become entirely uninterpretable.
+* B) No, overall model fit and predictions remain unaffected; only the individual coefficient standard errors and interpretability are impacted.
+* C) Yes, it introduces severe bias into the $F$-statistic.
+* D) Only if $R^2 < 0.50$.
+
+
+
+---
+
+### **Section 3: Variance Inflation Factor (VIF) vs. Correlation Matrix**
+
+13. **Why is a bivariate correlation matrix insufficient for detecting multicollinearity in a model with three or more predictors ($X_1, X_2, X_3$)?**
+* A) Correlation matrices only evaluate linear relationships between two variables at a time, missing complex linear combinations among multiple variables.
+* B) Bivariate correlation cannot be calculated for continuous variables.
+* C) Correlation values are capped at $0.50$ in multiple regression.
+* D) Correlation matrices do not report $p$-values.
+
+
+14. **How is the Variance Inflation Factor (VIF) for a predictor $X_j$ calculated?**
+* A) $\text{VIF}_j = \frac{1}{r_{y, x_j}}$
+* B) $\text{VIF}_j = \frac{1}{1 - R_j^2}$, where $R_j^2$ is the coefficient of determination from regressing $X_j$ on all other predictors.
+* C) $\text{VIF}_j = \frac{\text{Var}(Y)}{\text{Var}(X_j)}$
+* D) $\text{VIF}_j = 1 + R_{overall}^2$
+
+
+15. **A VIF value of $1.0$ indicates:**
+* A) Perfect collinearity between $X_j$ and other predictors.
+* B) That $X_j$ explains 100% of the variance in $Y$.
+* C) Complete absence of linear correlation between $X_j$ and all other predictors in the model.
+* D) That the standard error of the coefficient is inflated by a factor of 10.
+
+
+16. **If three predictors ($X_1, X_2, X_3$) collectively predict $X_4$ with an $R_4^2 = 0.90$, what is the VIF for $X_4$?**
+* A) $0.10$
+* B) $1.11$
+* C) $9.0$
+* D) $10.0$
+
+
+17. **What standard threshold for VIF is most commonly cited as indicating problematic multicollinearity requiring remediation?**
+* A) $\text{VIF} > 1.0$
+* B) $\text{VIF} > 2.0$
+* C) $\text{VIF} > 5 \text{ or } 10$
+* D) $\text{VIF} > 100$
+
+
+18. **Multicollinearity driven by a combination of predictors (e.g., $X_1 \approx X_2 + X_3$) where no single pairwise correlation exceeds $0.30$ is known as:**
+* A) Pairwise collinearity.
+* B) Multicollinear homoscedasticity.
+* C) Multicollinearity due to linear dependence (or hyper-planar collinearity).
+* D) Non-linear endogeneity.
+
+
+19. **What does a VIF of $4.0$ mean for the standard error of a coefficient?**
+* A) The standard error is $4$ times larger than it would be if the predictor were uncorrelated with other predictors.
+* B) The standard error is $\sqrt{4} = 2$ times larger than it would be if the predictor were uncorrelated with other predictors.
+* C) The variance of the error term is multiplied by $4$.
+* D) The confidence interval is $16$ times wider.
+
+
+
+---
+
+### **Section 4: Why/When to Use Correlation Instead of VIF**
+
+20. **Under which condition is a pairwise correlation matrix preferred over VIF for diagnosing data issues?**
+* A) During initial Exploratory Data Analysis (EDA) prior to model specification, to quickly spot direct pairwise redundancies.
+* B) When assessing multicollinearity among 20+ mutually orthogonal predictors.
+* C) When calculating interaction terms between non-centered continuous variables.
+* D) When fitting non-linear neural networks.
+
+
+21. **Why might an investigator rely on pairwise correlations rather than VIF when screening a massive dataset with thousands of features ($p \gg n$)?**
+* A) VIF cannot be calculated computationally when $p > n$ because the design matrix is not invertible.
+* B) Correlation values are always more accurate than VIF.
+* C) Correlation eliminates the need for cross-validation.
+* D) VIF requires normal distributions, whereas correlation does not.
+
+
+22. **What is a major conceptual limitation of VIF compared to a correlation matrix?**
+* A) VIF cannot detect collinearity between two predictors.
+* B) VIF gives an aggregate score for a predictor against all others, but does not explicitly show *which specific pair* of variables is causing the collinearity.
+* C) VIF is bounded between $-1$ and $+1$.
+* D) VIF depends on the scale of the dependent variable $Y$.
+
+
+23. **If two variables ($X_1$ and $X_2$) have a pairwise correlation of $r = 0.95$, what does this tell you that a VIF value alone does not?**
+* A) The exact direction (positive or negative) and specific identity of the collinear pair.
+* B) The exact inflation factor of the coefficient's variance.
+* C) The proportion of variance explained in $Y$.
+* D) Whether the model satisfies linear regression assumptions.
+
+
+24. **In screening for bivariate non-linear patterns or preliminary data cleaning, correlation matrices (and visual scatterplot matrices) are superior to VIF because VIF:**
+* A) Only measures total linear predictability ($R_j^2$) of one feature from a set of features in a specified model structure.
+* B) Is an unstable statistic in sample sizes over 100.
+* C) Automatically removes non-linear patterns.
+* D) Can only be computed for categorical predictors.
+
+
+25. **Which diagnostic tool combination represents best practice when building a multiple linear regression model with potential collinearity issues?**
+* A) Relying solely on $R^2$ and $p$-values.
+* B) Inspecting bivariate correlations/plots during initial feature screening, followed by evaluating VIFs once the multiple regression model is specified.
+* C) Using VIF for simple linear regression and correlation matrices for multiple regression.
+* D) Ignoring both unless the $F$-statistic is non-significant.
+
+
+
+---
+
+### **Answer Key & Brief Explanations**
+
+1. **B** — Interaction terms evaluate conditional effects (subgroups), which drastically reduces statistical power and effective sample size compared to main effects.
+2. **C** — The product term has less independent variation than the main terms, leading to larger standard errors unless sample sizes are large.
+3. **C** — Standard power calculations show that detecting an interaction of equal magnitude to a main effect typically requires at least 4 times the sample size.
+4. **B** — Smaller sample sizes lead to higher standard errors ($\text{SE}(\hat{\beta}) \propto 1/\sqrt{n}$).
+5. **A** — High correlation inflates variance, requiring more observations to lower standard errors back down to acceptable levels.
+6. **C** — Power drops significantly for interactions because variance for product terms is higher.
+7. **A** — Taking powers of positive numbers naturally preserves monotonic ordering, creating high linear correlation between $X$ and $X^k$.
+8. **B** — When values are strictly positive and far from zero, $X$ and $X^2$ track each other almost linearly.
+9. **B** — Mean-centering places the origin at the mean, making $X$ and $X^2$ orthogonal or nearly orthogonal if $X$ is symmetric.
+10. **A** — Structural multicollinearity is an artifact of model creation ($X^2, X_1 X_2$); data-based is inherent in raw data relationships.
+11. **C** — Squaring numbers in a range far above zero generates an almost perfectly correlated straight curve over that interval.
+12. **B** — Multicollinearity inflates standard errors of individual coefficients, but overall model fit ($R^2$, overall predictions) remains unbiased and valid.
+13. **A** — High linear combinations among 3+ variables (e.g., $X_1 \approx X_2 + X_3$) can exist even if all pairwise correlations are low ($r < 0.30$).
+14. **B** — Standard mathematical definition of Variance Inflation Factor.
+15. **C** — $\text{VIF} = 1 / (1 - 0) = 1.0$, indicating zero correlation with other predictors in the model.
+16. **D** — $\text{VIF} = 1 / (1 - 0.90) = 1 / 0.10 = 10.0$.
+17. **C** — A VIF exceeding 5 or 10 is standard convention for problematic collinearity.
+18. **C** — Linear combination/dependence across multiple dimensions.
+19. **B** — $\text{SE}$ inflation factor is $\sqrt{\text{VIF}} = \sqrt{4} = 2$.
+20. **A** — Correlation matrices are simple, fast, and intuitive tools for initial pre-modeling feature inspection.
+21. **A** — Regressing each variable on all others when $p > n$ causes matrix non-invertibility (overdetermined system), making standard VIF calculation impossible.
+22. **B** — VIF tells you *that* a variable is collinear with the rest of the model, but not *which specific other variable(s)* it is collinear with.
+23. **A** — Pairwise correlation explicitly reveals the sign ($+$ or $-$) and pinpoints the exact pair of variables involved.
+24. **A** — VIF summarizes multiple linear regression $R^2$; scatterplots and correlation matrices allow pair-by-pair examination.
+25. **B** — Using correlation/plots first for data cleaning, then VIF for multiple regression diagnostics is standard statistical practice.
