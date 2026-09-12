@@ -1,0 +1,30 @@
+In all cases, written answers (apart from code) should not be longer than about three paragraphs.  Graders may not read all of your
+submission if it is longer than that.
+
+Homework reflection 1
+
+1. In Coding Quiz 1, you are asked to find the distance of the farthest match in a set.  Is this farthest match distance too far to be a meaningful match?  How can you decide this?
+
+2. In Coding Quiz 1, there are two approaches to matching: 
+(A) Picking the best match X = 0 corresponding to each X = 1 using Z values.
+(B) Using radius_neighbors to pick all matches X = 0 within a distance of 0.2 of each X = 1.
+
+Invent your own type of matching similar to 1 and 2 (or look one up on the internet), which has a different way to pick the matches in X = 0.  Clearly explain the approach you invented or found.
+
+Homework reflection 2
+
+1. Invent an example situation that would use fixed effects.
+
+2. Write a Python program that performs a bootstrap simulation to find the variance in the mean of the Pareto distribution when different samples are taken.  Explain what you had to do for this.  As you make the full sample size bigger (for the same distribution), what happens to the variance of the mean of the samples?  Does it stay about the same, get smaller, or get bigger?
+
+Homework reflection 3
+
+1. In the event study in Coding Quiz 3, how would we go about testing for a change in the second derivative as well?
+
+2. Create your own scenario that illustrates differences-in-differences. Describe the story behind the data and show whether there is a nonzero treatment effect.
+
+Homework reflection 4
+
+1. The Coding Quiz gives two options for instrumental variables.  For the second item (dividing the range of W into multiple ranges), explain how you did it, show your code, and discuss any issues you encountered.
+
+2. Plot the college outcome (Y) vs. the test score (X) in a small range of test scores around 80. On the plot, compare it with the Y probability predicted by logistic regression. The ground truth Y value is 0 or 1; don't just plot 0 or 1 - that will make it unreadable.  Find some way to make it look better than that.
