@@ -6,4 +6,4 @@ Invent your own example situation that uses fixed effects
 Perform bootstrap simulation  
 Describe an example of a data-generating process
 
-    
+
