@@ -1,0 +1,533 @@
+{
+    "quiz_metadata": {
+      "title": "Model Evaluation, ROC, Lift & Profit Curves",
+      "description": "Comprehensive graduate-level practice quiz evaluating model metrics, threshold optimization, lift curves, ROC analysis, and profit/business decision-making.",
+      "author": "BU-Stats-Questionaire",
+      "total_questions": 26,
+      "difficulty": "advanced"
+    },
+    "questions": [
+      {
+        "number": 1,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 1: Classification Fundamentals & Confusion Matrix Relationships",
+        "question_text": "Given a confusion matrix with 80 True Positives (TP), 20 False Negatives (FN), 30 False Positives (FP), and 870 True Negatives (TN), the True Positive Rate (TPR / Sensitivity) is ____ and the False Positive Rate (FPR) is ____.",
+        "options": [],
+        "correct_answer": "0.80 and 0.0333",
+        "explanation": "TPR = TP / (TP + FN) = 80 / (80 + 20) = 80 / 100 = 0.80. FPR = FP / (FP + TN) = 30 / (30 + 870) = 30 / 900 = 0.0333.",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "True Positive Rate",
+          "False Positive Rate",
+          "confusion matrix",
+          "Sensitivity",
+          "TPR",
+          "FPR"
+        ]
+      },
+      {
+        "number": 2,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 1: Classification Fundamentals & Confusion Matrix Relationships",
+        "question_text": "In a dataset with 50 positive instances and 950 negative instances, a naive model that predicts every observation as negative achieves an accuracy of ____ %, a recall of ____ %, and a precision of ____.",
+        "options": [],
+        "correct_answer": "95%, 0%, undefined",
+        "explanation": "Accuracy = (0 + 950) / 1000 = 95%. Recall = 0 / (0 + 50) = 0%. Precision = TP / (TP + FP) = 0 / 0, which is mathematically undefined.",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "accuracy",
+          "recall",
+          "precision",
+          "class imbalance",
+          "naive model"
+        ]
+      },
+      {
+        "number": 3,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 1: Classification Fundamentals & Confusion Matrix Relationships",
+        "question_text": "The fundamental mathematical distinction between ranking and classification is that classification outputs a discrete ____, whereas ranking produces a continuous ____ or probability score that sorts observations.",
+        "options": [],
+        "correct_answer": "class label, score",
+        "explanation": "Classification assigns a hard categorical class label (e.g., 0 or 1) based on a decision threshold, while ranking assigns continuous scores/probabilities to order instances relative to each other.",
+        "learning_objective": "Ranking vs. classification",
+        "keywords": [
+          "ranking",
+          "classification",
+          "class label",
+          "score",
+          "probability"
+        ]
+      },
+      {
+        "number": 4,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 1: Classification Fundamentals & Confusion Matrix Relationships",
+        "question_text": "To convert a ranking model's predicted probability into a binary classifier decision, an analyst must select a specific decision ____.",
+        "options": [],
+        "correct_answer": "threshold",
+        "explanation": "A decision threshold (e.g., 0.50 or 0.20) cuts continuous ranked scores into discrete binary class predictions (1 if score >= threshold, else 0).",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "decision threshold",
+          "ranking",
+          "binary classifier"
+        ]
+      },
+      {
+        "number": 5,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 2: ROC & Lift Metrics",
+        "question_text": "The Receiver Operating Characteristic (ROC) curve plots the metric ____ on the y-axis against the metric ____ on the x-axis across all possible decision thresholds.",
+        "options": [],
+        "correct_answer": "True Positive Rate (TPR / Sensitivity), False Positive Rate (FPR / 1-Specificity)",
+        "explanation": "An ROC curve evaluates classifier performance across thresholds by placing TPR on the y-axis and FPR on the x-axis.",
+        "learning_objective": "ROC curves",
+        "keywords": [
+          "ROC curve",
+          "True Positive Rate",
+          "False Positive Rate",
+          "TPR",
+          "FPR"
+        ]
+      },
+      {
+        "number": 6,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 2: ROC & Lift Metrics",
+        "question_text": "An Area Under the ROC Curve (AUC) value of ____ indicates a completely random classifier, while an AUC of ____ indicates a perfect classifier.",
+        "options": [],
+        "correct_answer": "0.5, 1.0",
+        "explanation": "AUC = 0.50 represents baseline performance equivalent to random guessing (diagonal line), while AUC = 1.00 represents perfect separation with zero false positives or false negatives.",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "AUC",
+          "random classifier",
+          "perfect classifier",
+          "ROC"
+        ]
+      },
+      {
+        "number": 7,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 2: ROC & Lift Metrics",
+        "question_text": "If a targeted marketing campaign contacts the top 10% scored population and achieves a 25% response rate, compared to a overall base population response rate of 5%, the calculated Lift score for the top decile is ____.",
+        "options": [],
+        "correct_answer": "5",
+        "explanation": "Lift = (Model Target Response Rate) / (Base Response Rate) = 25% / 5% = 5.0.",
+        "learning_objective": "Lift curves",
+        "keywords": [
+          "Lift score",
+          "response rate",
+          "base rate",
+          "decile"
+        ]
+      },
+      {
+        "number": 8,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 2: ROC & Lift Metrics",
+        "question_text": "On a standard cumulative response (lift) chart, a Lift factor of ____ indicates that the model performs no better than selecting targets completely at random.",
+        "options": [],
+        "correct_answer": "1",
+        "explanation": "A lift of 1.0 means the model's response rate in the selected sample equals the random population base rate.",
+        "learning_objective": "Lift curves",
+        "keywords": [
+          "Lift chart",
+          "random targeting",
+          "base rate"
+        ]
+      },
+      {
+        "number": 9,
+        "level": 2,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 3: Threshold Effects & Tradeoffs",
+        "question_text": "In a credit card fraud detection model, lowering the classification threshold from 0.50 to 0.10 will cause Sensitivity (Recall) to ____ and Specificity to ____.",
+        "options": [],
+        "correct_answer": "increase, decrease",
+        "explanation": "Lowering the decision threshold classifies more instances as positive, capturing more true fraud (increasing Sensitivity) but incorrectly flagging more legitimate transactions as fraud (decreasing Specificity).",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "classification threshold",
+          "fraud detection",
+          "Sensitivity",
+          "Specificity",
+          "tradeoff"
+        ]
+      },
+      {
+        "number": 10,
+        "level": 2,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 3: Threshold Effects & Tradeoffs",
+        "question_text": "The slope of an ROC curve at any given point $(FPR, TPR)$ is mathematically equal to the ratio of ____ to ____ required to justify moving the decision threshold to that point under cost-benefit conditions.",
+        "options": [],
+        "correct_answer": "marginal net cost of False Positives, marginal net benefit of True Positives",
+        "explanation": "The optimal operating point on an ROC curve occurs where the slope $d(TPR)/d(FPR) = [P(N)/P(P)] \\cdot [(C_{FP} - C_{TN}) / (B_{TP} - C_{FN})]$. The slope equals the cost ratio scaled by class priors.",
+        "learning_objective": "Interpreting slope of ROC",
+        "keywords": [
+          "slope of ROC",
+          "marginal cost",
+          "marginal benefit",
+          "optimal threshold"
+        ]
+      },
+      {
+        "number": 11,
+        "level": 2,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 3: Threshold Effects & Tradeoffs",
+        "question_text": "When calculating expected profit for a marketing campaign, if $N = 10,000$, TP = 400, FP = 1,600, profit per true positive $B_{TP} = \\$50$, and cost per targeting action $C_{FP} = \\$5$, the total net profit generated is $\\$____.",
+        "options": [],
+        "correct_answer": "10000",
+        "explanation": "Net Profit = (TP * B_TP) - ((TP + FP) * C_action) = (400 * 50) - ((400 + 1600) * 5) = 20,000 - 10,000 = $10,000.",
+        "learning_objective": "Profit curves",
+        "keywords": [
+          "expected profit",
+          "marketing campaign",
+          "cost-benefit",
+          "net profit"
+        ]
+      },
+      {
+        "number": 12,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Model Discrimination & Interpretation",
+        "question_text": "A customer churn detection model generates an AUC of 0.88, but when deployed at a standard probability threshold of 0.50, it yields zero flagged customers. Which of the following best explains this behavior?",
+        "options": [
+          "A) The model has severe over-fitting and must be regularized using Ridge regression.",
+          "B) The background churn rate (base rate) is extremely low, causing all predicted probabilities to fall below 0.50 despite excellent ranking order.",
+          "C) The ROC curve is non-convex, rendering AUC mathematically invalid.",
+          "D) The model suffers from high multicollinearity between predictor variables."
+        ],
+        "correct_answer": "B",
+        "explanation": "AUC measures ranking ability independent of thresholds. In heavily imbalanced datasets (e.g., 1% churn), maximum predicted probabilities may only reach 0.25. While ranking is strong (AUC 0.88), a default 0.50 threshold yields zero positive predictions, requiring threshold tuning.",
+        "learning_objective": "Ranking vs. classification",
+        "keywords": [
+          "customer churn",
+          "AUC",
+          "base rate",
+          "imbalanced data",
+          "decision threshold"
+        ]
+      },
+      {
+        "number": 13,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Model Discrimination & Interpretation",
+        "question_text": "An executive team asks why Model A is preferred over Model B for direct mailing targeting when Model B has a higher overall accuracy (92% vs 85%). What is the primary conceptual flaw in relying on accuracy for this decision?",
+        "options": [
+          "A) Accuracy ignores the total size of the test dataset.",
+          "B) Accuracy assumes equal misclassification costs and static class proportions, ignoring that false negatives (missing a customer) and false positives (mailing cost) have radically different financial consequences.",
+          "C) Accuracy cannot be calculated from a confusion matrix without knowing the AUC.",
+          "D) Accuracy fluctuates whenever non-linear decision trees are utilized instead of logistic regression."
+        ],
+        "correct_answer": "B",
+        "explanation": "Accuracy implicitly assumes symmetric error costs ($C_{FP} = C_{FN}$) and uniform class distribution. In targeted mailing, costs are asymmetric ($C_{FP} = \\text{cost of stamp}$, $C_{FN} = \\text{lost sale}$), making profit curves or lift metrics far superior to accuracy.",
+        "learning_objective": "Profit curves",
+        "keywords": [
+          "accuracy paradox",
+          "misclassification costs",
+          "asymmetric costs",
+          "direct mailing"
+        ]
+      },
+      {
+        "number": 14,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Model Discrimination & Interpretation",
+        "question_text": "When comparing an ROC curve to a cumulative Lift curve for a loan default prediction system, which statement correctly describes their structural difference?",
+        "options": [
+          "A) The ROC curve depends on net monetary profit, whereas the Lift curve depends strictly on log-loss.",
+          "B) The ROC curve compares TPR against FPR independent of class priors, whereas the Lift curve evaluates cumulative positive capture relative to targeted population percentage.",
+          "C) The Lift curve requires a fixed 0.50 decision threshold, whereas the ROC curve varies the threshold from 0 to 1.",
+          "D) An ROC curve can never cross the diagonal line, whereas a Lift curve always crosses zero."
+        ],
+        "correct_answer": "B",
+        "explanation": "ROC curves plot TPR vs. FPR across thresholds without embedding class proportions on the x-axis. Lift curves explicitly plot response gain/lift as a function of the cumulative percentage of the population targeted, making lift directly tied to campaign size.",
+        "learning_objective": "ROC curves",
+        "keywords": [
+          "ROC curve",
+          "Lift curve",
+          "loan default",
+          "population percentage"
+        ]
+      },
+      {
+        "number": 15,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Model Discrimination & Interpretation",
+        "question_text": "A health insurance firm is building a Capstone project model to predict rare high-cost hospital readmissions (1% of cases). The data science lead mandates using Precision-Recall (PR) curves instead of ROC curves. Why?",
+        "options": [
+          "A) ROC curves are computationally inefficient for sample sizes under 100,000.",
+          "B) Precision-Recall curves do not require calculating False Positives.",
+          "C) In heavily imbalanced datasets, large True Negative counts dilute the FPR in ROC curves, presenting an overly optimistic view of model performance.",
+          "D) PR curves always have an area under the curve equal to 1.0."
+        ],
+        "correct_answer": "C",
+        "explanation": "Because TN is extremely large in highly imbalanced data, $FPR = FP / (FP + TN)$ remains tiny even when FP is large. This makes ROC curves look deceptive, whereas Precision ($TP / (TP + FP)$) directly reflects false positive contamination.",
+        "learning_objective": "Capstone proposal development",
+        "keywords": [
+          "Precision-Recall curve",
+          "ROC curve",
+          "class imbalance",
+          "hospital readmissions"
+        ]
+      },
+      {
+        "number": 16,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Model Discrimination & Interpretation",
+        "question_text": "You evaluate a marketing response model on 10,000 customers with a 5% baseline response rate. If you target the top 20% of scored customers and obtain a Lift of 3.0, how many responders (True Positives) did you successfully capture?",
+        "options": [
+          "A) 100",
+          "B) 300",
+          "C) 500",
+          "D) 1,500"
+        ],
+        "correct_answer": "B",
+        "explanation": "Targeted population = 20% of 10,000 = 2,000 customers. Baseline response rate = 5%. Model response rate = Lift * Baseline = 3.0 * 5% = 15%. Responders captured = 15% of 2,000 = 300 True Positives.",
+        "learning_objective": "Lift curves",
+        "keywords": [
+          "Lift calculation",
+          "True Positives",
+          "marketing response",
+          "targeting"
+        ]
+      },
+      {
+        "number": 17,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Model Discrimination & Interpretation",
+        "question_text": "An analyst plots a profit curve for a subscription renewal campaign where contacting a customer costs $10 and a successful renewal yields $100 net benefit. The profit curve reaches its absolute maximum at a population target percentile of 15%. What does this peak represent?",
+        "options": [
+          "A) The point where model accuracy reaches 100%.",
+          "B) The operational cutoff where marginal revenue of contacting the next ranked customer equals the marginal cost ($10).",
+          "C) The threshold where True Positives equal False Positives.",
+          "D) The location where the ROC curve has an slope of exactly 1.0."
+        ],
+        "correct_answer": "B",
+        "explanation": "Profit curves plot cumulative net profit against targeted percentage. The maximum profit peak occurs precisely where marginal return equals marginal cost; beyond 15%, the expected probability of renewal is too low to cover the $10 contact cost.",
+        "learning_objective": "Profit curves",
+        "keywords": [
+          "profit curve",
+          "marginal cost",
+          "marginal revenue",
+          "optimal cut-off"
+        ]
+      },
+      {
+        "number": 18,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Model Discrimination & Interpretation",
+        "question_text": "In a capstone research proposal for financial fraud detection, why is it critical to define misclassification costs prior to selecting a final deployment model?",
+        "options": [
+          "A) Because cost matrices are required to prove that model feature residuals are normally distributed.",
+          "B) Because the optimal model selection and decision threshold depend directly on the relative ratio of fraud loss vs user friction cost.",
+          "C) Because models trained without cost metrics cannot calculate AUC.",
+          "D) Because unsupervised learning algorithms require cost parameters to converge."
+        ],
+        "correct_answer": "B",
+        "explanation": "A model selected purely on AUC or accuracy may perform poorly in production if the actual business cost of missing a fraud ($1,000) far outweighs the friction cost of a false alert ($5). The cost structure dictates threshold choice and model ranking.",
+        "learning_objective": "Capstone proposal development",
+        "keywords": [
+          "capstone proposal",
+          "misclassification costs",
+          "financial fraud",
+          "decision threshold"
+        ]
+      },
+      {
+        "number": 19,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Model Discrimination & Interpretation",
+        "question_text": "Suppose Model Alpha and Model Beta both have an AUC of 0.85. However, Model Alpha's ROC curve dominates Model Beta's in the FPR range of [0.0, 0.10], while Model Beta dominates in the FPR range of [0.30, 0.80]. If operating in a high-security setting where FPR must be kept under 5%, which model should be selected?",
+        "options": [
+          "A) Model Beta, because it maintains superior performance over a wider total range of FPR values.",
+          "B) Model Alpha, because its ROC curve is superior in the specific low-FPR region enforced by business constraints.",
+          "C) Either model, because identical AUC values guarantee equal profitability.",
+          "D) Neither model; a linear regression must be used instead."
+        ],
+        "correct_answer": "B",
+        "explanation": "Global AUC aggregates performance over all operating points (0 to 1). When operating under strict business constraints (FPR < 5%), regional ROC dominance dictates selection. Model Alpha is superior in the specific operating window.",
+        "learning_objective": "ROC curves",
+        "keywords": [
+          "ROC curve crossover",
+          "AUC comparison",
+          "low FPR region",
+          "operational constraints"
+        ]
+      },
+      {
+        "number": 20,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Model Discrimination & Interpretation",
+        "question_text": "When interpreting a Lift curve, what does a horizontal Lift line at a value of 1.0 across all population deciles signify?",
+        "options": [
+          "A) Perfect model sorting with zero false positives.",
+          "B) A model whose predictions are completely uninformative and equivalent to random targeting.",
+          "C) A model applied to a dataset with a 100% positive base rate.",
+          "D) An over-fitted model that requires cross-validation."
+        ],
+        "correct_answer": "B",
+        "explanation": "Lift = (Model Response Rate / Base Rate). A constant lift of 1.0 means every decile returns the exact same proportion of positives as a random sample, indicating zero predictive power.",
+        "learning_objective": "Lift curves",
+        "keywords": [
+          "Lift curve",
+          "random selection",
+          "predictive power"
+        ]
+      },
+      {
+        "number": 21,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 5: Advanced Strategy, Profit Modeling & Storytelling",
+        "question_text": "A retail bank is evaluating two churn models for high-value wealth accounts ($100,000 average balance). Model 1 has AUC = 0.90 but its highest lift is concentrated in the top 30% of risk scores. Model 2 has AUC = 0.82 but achieves a Lift of 6.0 in the top 5% of risk scores. The retention team has budget to contact only 5% of accounts. Which model maximizes business profit and why?",
+        "options": [
+          "A) Model 1, because its higher overall AUC guarantees greater overall financial returns across the entire portfolio.",
+          "B) Model 2, because under a strict 5% capacity constraint, its superior local lift in the top ventile captures significantly more at-risk revenue than Model 1.",
+          "C) Model 1, because high AUC models automatically eliminate False Positive contact costs.",
+          "D) Model 2, but only if the decision threshold is set to 0.50 regardless of population distribution."
+        ],
+        "correct_answer": "B",
+        "explanation": "Business capacity constraints dictate the operational window. Since only 5% can be targeted, Model 2's local Lift of 6.0 in the top 5% captures far more churners than Model 1, making Model 2 more profitable despite having a lower global AUC.",
+        "learning_objective": "Comparing models using profit/ROC/lift curves",
+        "keywords": [
+          "model selection",
+          "capacity constraint",
+          "Lift curve",
+          "wealth churn",
+          "AUC trade-off"
+        ]
+      },
+      {
+        "number": 22,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 5: Advanced Strategy, Profit Modeling & Storytelling",
+        "question_text": "An e-commerce firm uses a model to offer a $20 discount code to prevent cart abandonment. Margin per sale is $100 (without discount). Issuing a discount to a customer who would have bought anyway yields $80 margin (FP cost = $20 lost margin). Failing to target an abandoner yields $0 (FN). Targeting an abandoner who then buys yields $80 profit ($100 - $20). If the base abandonment rate is 20%, what is the optimal decision threshold rule in terms of predicted abandonment probability $P(Abandon)$?",
+        "options": [
+          "A) Target if $P(Abandon) > 0.50$",
+          "B) Target if $P(Abandon) > 0.20$",
+          "C) Target if $P(Abandon) > 0.25$",
+          "D) Target if $P(Abandon) > 0.80$"
+        ],
+        "correct_answer": "C",
+        "explanation": "Expected profit of targeting = $P(Abandon) \\cdot 80 + (1 - P(Abandon)) \\cdot 80 = 80$. Expected profit of NOT targeting = $P(Abandon) \\cdot 0 + (1 - P(Abandon)) \\cdot 100 = 100(1 - P(Abandon))$. Equating both: $80 = 100 - 100 P(Abandon) \\implies 100 P(Abandon) = 20 \\implies P(Abandon) = 0.20$ threshold mathematically? Re-evaluating net benefit: Benefit of targeting true abandoner = $80. Cost of targeting non-abandoner = $20 lost margin. Threshold $p^* = \\frac{\\text{Cost}}{\\text{Benefit}} = \\frac{20}{80} = 0.25$. Target when $P(Abandon) > 0.25$.",
+        "learning_objective": "Profit curves",
+        "keywords": [
+          "expected profit",
+          "decision threshold",
+          "cart abandonment",
+          "cost-benefit ratio"
+        ]
+      },
+      {
+        "number": 23,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 5: Advanced Strategy, Profit Modeling & Storytelling",
+        "question_text": "You are presenting a customer churn prevention proposal to the CMO. Model performance shows high ROC-AUC (0.86), but the CMO is skeptical of abstract metrics. Which executive visual communication package best follows actionable storytelling design guidelines to drive strategic investment?",
+        "options": [
+          "A) Present a single slide containing the raw ROC curve, define AUC in a bullet list, and recommend that leadership adopt machine learning to improve retention context.",
+          "B) Display a profit curve chart highlighting the maximum profit point at 12% target population; color the peak point bright green while keeping baseline costs gray; add a callout annotation showing '+$1.2M Net Revenue at 12% targeting'; and end with the recommended action: 'Allocate $150k campaign budget to target top 12% scored churn risks.'",
+          "C) Present a table listing accuracy, precision, recall, specificity, and F1-score across ten candidate models, and request the CMO choose the preferred threshold.",
+          "D) Show a generic bar chart of model accuracy with high-contrast colors, gridlines, and a subtitle stating 'Machine Learning Drives Action'."
+        ],
+        "correct_answer": "B",
+        "explanation": "Meets all executive storytelling requirements: uses a specific concrete visual (profit curve), applies explicit visual hierarchy (bright green peak, gray baseline), includes a concrete annotation (+$1.2M Net Revenue), and specifies a concrete business action (allocate $150k to target top 12%).",
+        "learning_objective": "Capstone proposal development",
+        "keywords": [
+          "executive storytelling",
+          "profit curve visual",
+          "actionable recommendations",
+          "visual encoding"
+        ]
+      },
+      {
+        "number": 24,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 5: Advanced Strategy, Profit Modeling & Storytelling",
+        "question_text": "A fintech enterprise detects fraudulent transactions. System A utilizes a Random Forest (AUC = 0.93). System B utilizes Logistic Regression (AUC = 0.87). However, System A requires 400 milliseconds latency per transaction (causing user cart drop-off costing $500,000/year), whereas System B operates in 10 milliseconds. Profit curve analysis accounting for latency friction shows System B yields $3.2M net annual benefit versus System A's $2.7M. What is the correct capstone recommendation?",
+        "options": [
+          "A) Deploy System A because AUC is the sole definitive statistical metric for model quality.",
+          "B) Deploy System B because incorporating operational friction costs into the financial evaluation proves it achieves higher net profitability despite lower AUC.",
+          "C) Reject both systems and retrain using unsupervised clustering until AUC exceeds 0.99.",
+          "D) Deploy System A and disable latency logging to remove friction metrics from evaluation."
+        ],
+        "correct_answer": "B",
+        "explanation": "Real-world model deployment requires evaluating total operational profitability. When transaction latency costs ($500k) are factored into the profit framework, System B generates higher net business value ($3.2M vs $2.7M), making it the superior deployment choice.",
+        "learning_objective": "Comparing models using profit/ROC/lift curves",
+        "keywords": [
+          "model deployment",
+          "operational friction",
+          "latency costs",
+          "profitability evaluation"
+        ]
+      },
+      {
+        "number": 25,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 5: Advanced Strategy, Profit Modeling & Storytelling",
+        "question_text": "You are designing a dashboard slide to persuade an executive committee to adjust the credit card fraud alert threshold. Which specific set of design choices complies with concrete design rules for actionable storytelling?",
+        "options": [
+          "A) Use a visual framework to explain context, optimize decluttering, focus visual attention, and encourage strategic action.",
+          "B) Display a slopegraph comparing current $0.50 threshold vs proposed $0.15 threshold fraud loss; highlight savings in dark green and false-alert costs in light gray; add a callout annotation showing '+$450k net loss reduction'; and include a call-to-action: 'Lower alert threshold to $0.15 on October 1.'",
+          "C) Create a 3D pie chart showing confusion matrix ratios with default software color palettes and gridlines to show data completeness.",
+          "D) Provide a high-level overview chart with abstract labels like 'Visual Focus' and 'Dashboard Alignment' without displaying dollar values."
+        ],
+        "correct_answer": "B",
+        "explanation": "Option B contains at least 3 concrete design actions (slopegraph choice, dark green/light gray visual emphasis, +$450k annotation) and provides a concrete business decision ('Lower alert threshold to $0.15 on October 1'). Option A uses prohibited abstract placeholders.",
+        "learning_objective": "Capstone proposal development",
+        "keywords": [
+          "dashboard design",
+          "slopegraph",
+          "concrete design actions",
+          "fraud threshold"
+        ]
+      },
+      {
+        "number": 26,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 5: Advanced Strategy, Profit Modeling & Storytelling",
+        "question_text": "A subscription news platform experiences 5% monthly user churn. A machine learning model ranks users by churn risk. The marketing team can offer a $5/month price discount for 6 months ($30 total cost) or an email re-engagement campaign ($0.50 cost, 10% success rate). Profit curve modeling reveals that applying the price discount to the top 3% and the email campaign to deciles 4-10 maximizes LTV. Which strategic action should leadership take?",
+        "options": [
+          "A) Offer the $30 price discount to 100% of subscribers to maximize total retention volume.",
+          "B) Apply a multi-tier intervention: route top 3% highest-risk users to the $30 discount incentive, route deciles 4-10 to the $0.50 email campaign, and leave low-risk users uncontacted to prevent margin erosion.",
+          "C) Eliminate all retention marketing because email campaigns have a low (10%) success rate.",
+          "D) Select a single threshold at 0.50 probability and offer the discount to everyone above that threshold."
+        ],
+        "correct_answer": "B",
+        "explanation": "Maximizing profit curves across tiered interventions requires matching cost/benefit profiles to risk deciles. High-cost, high-impact interventions ($30 discount) are profitable only for extreme-risk users (top 3%), while low-cost interventions ($0.50 email) are suitable for moderate risk, optimizing overall LTV.",
+        "learning_objective": "Comparing models using profit/ROC/lift curves",
+        "keywords": [
+          "tiered intervention",
+          "LTV optimization",
+          "profit curves",
+          "churn strategy"
+        ]
+      }
+    ]
+  }

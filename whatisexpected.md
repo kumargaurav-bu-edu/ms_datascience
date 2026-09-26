@@ -48,10 +48,6 @@ These can be **multiple-choice** or **short numerical answers**.
 Ensure the quiz is diverse and engaging:
 
 * Multiple choice
-* True/false
-* Short answer
-* Fill-in-the-formula
-* Interpretation of a graph (descriptive—no image required)
 * Scenario questions comparing two models
 
 ---

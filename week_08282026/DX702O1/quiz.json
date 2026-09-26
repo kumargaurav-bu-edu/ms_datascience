@@ -1,0 +1,483 @@
+{
+    "quiz_metadata": {
+      "title": "Causal Inference, Research Design, Matching & Regression Foundations",
+      "description": "Comprehensive graduate-level practice quiz covering causality, research questions, variable properties, matching techniques, and performance curves.",
+      "author": "BU-Stats-Questionaire",
+      "total_questions": 26,
+      "difficulty": "advanced"
+    },
+    "questions": [
+      {
+        "number": 1,
+        "level": 1,
+        "question_type": "short_answer",
+        "section": "Section 1: Causal Inference & Research Design",
+        "question_text": "In the highway expansion example, why do raw traffic count numbers fail to demonstrate whether expanding a highway reduces traffic congestion?",
+        "correct_answer": "Raw traffic counts fail because of reverse causality and confounding; highway expansions are typically built on roads that are already experiencing rapid traffic growth.",
+        "explanation": "Observational data suffers from simultaneity and selection bias. High traffic prompts expansion, so post-expansion traffic levels reflect underlying demand growth rather than the isolated causal effect of additional lanes.",
+        "learning_objective": "Understand causal inference and research design principles.",
+        "keywords": [
+          "traffic",
+          "highway",
+          "causal",
+          "confounding",
+          "observational"
+        ]
+      },
+      {
+        "number": 2,
+        "level": 1,
+        "question_type": "short_answer",
+        "section": "Section 1: Causal Inference & Research Design",
+        "question_text": "According to research design principles, what are three criteria required to formulate a well-defined research question?",
+        "correct_answer": "A good research question must clearly specify a target population, an identifiable intervention or treatment, and a measurable outcome variable.",
+        "explanation": "A precise research question establishes the exact scope of inference by defining who is being studied (population), what variable is manipulated (treatment), and how the response is quantified (outcome).",
+        "learning_objective": "Understand causal inference and research design principles.",
+        "keywords": [
+          "research question",
+          "population",
+          "treatment",
+          "outcome"
+        ]
+      },
+      {
+        "number": 3,
+        "level": 1,
+        "question_type": "short_answer",
+        "section": "Section 2: Variable Properties & Distributions",
+        "question_text": "If a continuous variable follows a log-normal distribution, what mathematical transformation converts it into a normal distribution?",
+        "correct_answer": "Applying the natural logarithm transformation, ln(X).",
+        "explanation": "By definition, if X is log-normally distributed, then Y = ln(X) is normally distributed.",
+        "learning_objective": "Analyze properties of probability distributions and continuous variables.",
+        "keywords": [
+          "log-normal",
+          "logarithm",
+          "transformation",
+          "normal distribution"
+        ]
+      },
+      {
+        "number": 4,
+        "level": 1,
+        "question_type": "short_answer",
+        "section": "Section 2: Variable Properties & Distributions",
+        "question_text": "Under a standard normal distribution Z ~ N(0,1), what exact formula defines the z-score calculation for an observation X?",
+        "correct_answer": "Z = (X - mu) / sigma",
+        "explanation": "Subtracting the population mean (mu) and dividing by the standard deviation (sigma) centers the distribution at 0 with a standard deviation of 1.",
+        "learning_objective": "Analyze properties of probability distributions and continuous variables.",
+        "keywords": [
+          "z-score",
+          "standard normal",
+          "mean",
+          "standard deviation"
+        ]
+      },
+      {
+        "number": 5,
+        "level": 1,
+        "question_type": "short_answer",
+        "section": "Section 3: Matching in Experimental Design",
+        "question_text": "In propensity score matching, what is the fundamental purpose of matching treatment and control units?",
+        "correct_answer": "To balance observable baseline covariates between treatment and control groups to eliminate selection bias.",
+        "explanation": "Matching replicates the conditional independence assumption of randomized controlled trials by ensuring treated and untreated units have identical pre-treatment covariate distributions.",
+        "learning_objective": "Perform matching using different approaches to control for confounding variables.",
+        "keywords": [
+          "matching",
+          "covariates",
+          "selection bias",
+          "confounding"
+        ]
+      },
+      {
+        "number": 6,
+        "level": 1,
+        "question_type": "short_answer",
+        "section": "Section 3: Matching in Experimental Design",
+        "question_text": "How does radius (caliper) matching restrict match selection compared to nearest-neighbor matching?",
+        "correct_answer": "Radius matching enforces a maximum allowable distance (caliper) threshold and excludes control units outside that radius, whereas nearest-neighbor matching always pairs the closest unit regardless of distance.",
+        "explanation": "Radius matching avoids poor quality matches by setting a strict distance boundary, reducing bias at the cost of potentially dropping treated units.",
+        "learning_objective": "Perform matching using different approaches to control for confounding variables.",
+        "keywords": [
+          "radius matching",
+          "caliper",
+          "nearest neighbor",
+          "distance"
+        ]
+      },
+      {
+        "number": 7,
+        "level": 1,
+        "question_type": "short_answer",
+        "section": "Section 4: Performance Metrics & Formulas",
+        "question_text": "Write the exact mathematical formulas for True Positive Rate (TPR) and False Positive Rate (FPR) using confusion matrix entries.",
+        "correct_answer": "TPR = TP / (TP + FN); FPR = FP / (FP + TN)",
+        "explanation": "TPR measures the proportion of actual positives correctly identified (sensitivity), while FPR measures the proportion of actual negatives incorrectly classified as positive (1 - specificity).",
+        "learning_objective": "Derive performance metrics and derive relationships in confusion matrices.",
+        "keywords": [
+          "TPR",
+          "FPR",
+          "True Positive Rate",
+          "False Positive Rate",
+          "Confusion Matrix"
+        ]
+      },
+      {
+        "number": 8,
+        "level": 1,
+        "question_type": "short_answer",
+        "section": "Section 4: Performance Metrics & Formulas",
+        "question_text": "If a dataset has an overall baseline response rate of 5% and a scoring model achieves a response rate of 20% in the top decile, what is the lift score?",
+        "correct_answer": "4.0",
+        "explanation": "Lift = (Model Response Rate) / (Baseline Response Rate) = 0.20 / 0.05 = 4.0.",
+        "learning_objective": "Derive performance metrics and derive relationships in confusion matrices.",
+        "keywords": [
+          "lift",
+          "decile",
+          "baseline rate",
+          "response rate"
+        ]
+      },
+      {
+        "number": 9,
+        "level": 2,
+        "question_type": "short_answer",
+        "section": "Section 5: Hypothesis Testing & Null Hypothesis",
+        "question_text": "In a linear regression evaluating a fraud detection model, the p-value for a coefficient beta_1 is 0.02. State the formal statistical decision at alpha = 0.05 and interpret what this implies regarding the null hypothesis H0: beta_1 = 0.",
+        "correct_answer": "Reject H0 because 0.02 < 0.05; there is statistically significant evidence that beta_1 differs from zero.",
+        "explanation": "Since the p-value is strictly less than the significance threshold alpha, we reject the null hypothesis of no relationship.",
+        "learning_objective": "Analyze properties of probability distributions and continuous variables.",
+        "keywords": [
+          "p-value",
+          "null hypothesis",
+          "alpha",
+          "significance"
+        ]
+      },
+      {
+        "number": 10,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 5: Hypothesis Testing & Null Hypothesis",
+        "question_text": "A researcher evaluates a credit scoring model on 10,000 loan applicants. The model yields a Type I error rate (alpha) of 0.05 and a Type II error rate (beta) of 0.10. If the bank lowers the classification threshold to accept more applicants, how do alpha and statistical power (1 - beta) change?",
+        "options": [
+          "A) Alpha increases and power decreases.",
+          "B) Alpha increases and power increases.",
+          "C) Alpha decreases and power increases.",
+          "D) Both alpha and power remain unchanged."
+        ],
+        "correct_answer": "B",
+        "explanation": "Lowering the classification threshold makes the model predict positive more frequently. This increases false positives (alpha increases) and increases true positives (reducing Type II error, which increases power 1 - beta).",
+        "learning_objective": "Analyze properties of probability distributions and continuous variables.",
+        "keywords": [
+          "Type I error",
+          "Type II error",
+          "power",
+          "threshold"
+        ]
+      },
+      {
+        "number": 11,
+        "level": 2,
+        "question_type": "short_answer",
+        "section": "Section 6: Matching Approaches & Tradeoffs",
+        "question_text": "A policy analyst performs 1:1 nearest-neighbor matching on propensity scores without replacement. If the sample contains 100 treated units and 500 control units, but the control propensity scores are concentrated near 0.1 while treated scores are near 0.8, what specific problem occurs during matching?",
+        "correct_answer": "Severe bias occurs due to poor common support; distant control units will be forcefully matched to treated units.",
+        "explanation": "Nearest-neighbor matching without a caliper forces a match even when propensity score distances are extreme, violating the overlap (common support) assumption and introducing heavy bias.",
+        "learning_objective": "Perform matching using different approaches to control for confounding variables.",
+        "keywords": [
+          "nearest neighbor",
+          "common support",
+          "overlap",
+          "propensity score"
+        ]
+      },
+      {
+        "number": 12,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 6: Matching Approaches & Tradeoffs",
+        "question_text": "When evaluating customer churn in a telecommunications dataset, an analyst compares radius matching with a tight caliper (caliper = 0.01) against 1:1 nearest-neighbor matching without replacement. What trade-off in variance and bias will the radius matching approach exhibit?",
+        "options": [
+          "A) Higher bias and lower variance due to larger sample size.",
+          "B) Lower bias and higher variance due to dropping unmatched treated units.",
+          "C) Zero bias and zero variance across all estimators.",
+          "D) Higher bias and higher variance due to non-random dropping."
+        ],
+        "correct_answer": "B",
+        "explanation": "Enforcing a strict caliper removes bad matches (reducing bias) but discards treated units that lack close matches, reducing sample size and increasing the variance of the estimate.",
+        "learning_objective": "Perform matching using different approaches to control for confounding variables.",
+        "keywords": [
+          "radius matching",
+          "caliper",
+          "bias-variance tradeoff",
+          "churn"
+        ]
+      },
+      {
+        "number": 13,
+        "level": 2,
+        "question_type": "short_answer",
+        "section": "Section 7: Confusion Matrix Calculations",
+        "question_text": "A fraud detection classifier yields the following confusion matrix on 1,000 transactions: TP = 80, FP = 20, FN = 20, TN = 880. Calculate the exact Precision and Recall of this model.",
+        "correct_answer": "Precision = 0.80 (80%), Recall = 0.80 (80%).",
+        "explanation": "Precision = TP / (TP + FP) = 80 / (80 + 20) = 0.80. Recall = TP / (TP + FN) = 80 / (80 + 20) = 0.80.",
+        "learning_objective": "Derive performance metrics and derive relationships in confusion matrices.",
+        "keywords": [
+          "Precision",
+          "Recall",
+          "Confusion Matrix",
+          "Fraud"
+        ]
+      },
+      {
+        "number": 14,
+        "level": 2,
+        "question_type": "short_answer",
+        "section": "Section 7: Confusion Matrix Calculations",
+        "question_text": "Using the confusion matrix values TP = 80, FP = 20, FN = 20, TN = 880, calculate the False Positive Rate (FPR) and Specificity.",
+        "correct_answer": "FPR = 0.0222 (2.22%), Specificity = 0.9778 (97.78%).",
+        "explanation": "FPR = FP / (FP + TN) = 20 / (20 + 880) = 20 / 900 = 0.0222. Specificity = TN / (TN + FP) = 880 / 900 = 0.9778.",
+        "learning_objective": "Derive performance metrics and derive relationships in confusion matrices.",
+        "keywords": [
+          "FPR",
+          "Specificity",
+          "Confusion Matrix"
+        ]
+      },
+      {
+        "number": 15,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 8: ROC Curves & Threshold Interpretation",
+        "question_text": "On an ROC curve plotting TPR vs. FPR, what does the slope of the tangent line at any given operating point represent?",
+        "options": [
+          "A) The ratio of total revenue to total operational cost.",
+          "B) The likelihood ratio, indicating the marginal rate of trade-off between TP and FP at that decision threshold.",
+          "C) The exact Area Under the Curve (AUC).",
+          "D) The baseline response rate of the population."
+        ],
+        "correct_answer": "B",
+        "explanation": "The slope of the ROC curve corresponds to d(TPR)/d(FPR), which represents the marginal likelihood ratio at that specific decision threshold.",
+        "learning_objective": "Interpret ROC curves, AUC, and decision thresholds.",
+        "keywords": [
+          "ROC curve",
+          "slope",
+          "likelihood ratio",
+          "operating point"
+        ]
+      },
+      {
+        "number": 16,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 8: ROC Curves & Threshold Interpretation",
+        "question_text": "A marketing response model generates an AUC of 0.85. If an analyst modifies the decision threshold from 0.50 to 0.30, how does the AUC change?",
+        "options": [
+          "A) AUC increases because more true positives are captured.",
+          "B) AUC decreases because false positives increase.",
+          "C) AUC remains exactly 0.85.",
+          "D) AUC drops to 0.50."
+        ],
+        "correct_answer": "C",
+        "explanation": "AUC evaluates model ranking performance across ALL possible thresholds simultaneously; changing an individual classification threshold moves the operating point along the curve but does not alter the underlying AUC.",
+        "learning_objective": "Interpret ROC curves, AUC, and decision thresholds.",
+        "keywords": [
+          "AUC",
+          "ROC curve",
+          "threshold",
+          "ranking"
+        ]
+      },
+      {
+        "number": 17,
+        "level": 2,
+        "question_type": "short_answer",
+        "section": "Section 9: Lift & Cumulative Response Curves",
+        "question_text": "In a customer targeting campaign of 100,000 customers, a cumulative lift curve shows a Lift of 2.5 at the 20th percentile (top 20,000 customers). If the average response rate in the general population is 2%, how many responders are captured in the top 20,000 customers?",
+        "correct_answer": "1,000 responders.",
+        "explanation": "Targeted response rate = Baseline Rate * Lift = 2% * 2.5 = 5%. Responders captured = 20,000 * 0.05 = 1,000.",
+        "learning_objective": "Interpret lift curves and cumulative response rates.",
+        "keywords": [
+          "lift curve",
+          "percentile",
+          "targeting",
+          "responders"
+        ]
+      },
+      {
+        "number": 18,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 9: Lift & Cumulative Response Curves",
+        "question_text": "When comparing an ROC curve to a Cumulative Lift curve for a direct marketing model, what fundamental difference exists in their axes?",
+        "options": [
+          "A) ROC plots Precision vs Recall, while Lift plots Sensitivity vs Specificity.",
+          "B) ROC plots TPR vs FPR, while Cumulative Lift plots Lift Factor against the cumulative percentage of population targeted.",
+          "C) ROC is dependent on sample prevalence, whereas Lift is completely prevalence-invariant.",
+          "D) ROC can only be calculated for binary models, while Lift requires continuous regression."
+        ],
+        "correct_answer": "B",
+        "explanation": "ROC space is defined by TPR (y-axis) vs FPR (x-axis), whereas cumulative lift plots the ratio of model performance relative to random targeting against the percentage of population contacted (x-axis).",
+        "learning_objective": "Interpret lift curves and cumulative response rates.",
+        "keywords": [
+          "ROC curve",
+          "Lift curve",
+          "axes",
+          "population"
+        ]
+      },
+      {
+        "number": 19,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 10: Model Diagnostics & Data Visualization Best Practices",
+        "question_text": "An executive dashboard presents a churn risk model. Which set of design modifications fulfills best practices for clear data storytelling?",
+        "options": [
+          "A) Display a 3D pie chart of churn risk tiers with gridlines and a full rainbow color palette.",
+          "B) Use a slopegraph comparing 2025 vs 2026 risk scores, highlight high-risk segments in dark red while muting low-risk segments in gray, and add a callout annotation showing +15% churn risk.",
+          "C) Use a general chart format, ensure high visual focus, declutter background elements, and drive leadership action.",
+          "D) Present a tabular raw dump of all 10,000 customer probability scores without summary indicators."
+        ],
+        "correct_answer": "B",
+        "explanation": "Option B executes specific visual techniques (slopegraph, targeted color contrast, concrete callout annotation) rather than relying on abstract guidelines.",
+        "learning_objective": "Apply model diagnostics and data storytelling best practices.",
+        "keywords": [
+          "slopegraph",
+          "annotation",
+          "visual encoding",
+          "storytelling"
+        ]
+      },
+      {
+        "number": 20,
+        "level": 2,
+        "question_type": "short_answer",
+        "section": "Section 10: Model Diagnostics & Data Visualization Best Practices",
+        "question_text": "To present a rising customer acquisition cost (CAC) risk to executive leadership, state three concrete design actions that should be applied to a time-series plot.",
+        "correct_answer": "1. Use a line chart comparing CAC to LTV across quarters. 2. Highlight the CAC trendline in bold red and mute LTV in light gray. 3. Add a direct callout annotation displaying '+40% CAC increase' with a reference line at the target threshold.",
+        "explanation": "Concrete best practices require specifying chart type (line chart), deliberate visual emphasis (color highlighting/muting), and explicit context/annotation.",
+        "learning_objective": "Apply model diagnostics and data storytelling best practices.",
+        "keywords": [
+          "line chart",
+          "annotation",
+          "color contrast",
+          "CAC"
+        ]
+      },
+      {
+        "number": 21,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 11: Profit Curve Optimization & Strategic Thresholds",
+        "question_text": "A commercial bank deploys a credit scoring model where approving a good loan yields +$1,000 profit (TP), rejecting a bad loan yields $0 (TN), approving a bad loan costs -$10,000 (FP), and rejecting a good loan costs -$500 in lost interest opportunity (FN). Model A has an AUC of 0.91, while Model B has an AUC of 0.86. However, at a threshold of t = 0.70, Model B minimizes false positives significantly better than Model A. Why might Model B yield higher net profit than Model A?",
+        "options": [
+          "A) AUC evaluates global ranking capacity across all thresholds, but because FP carries a severe $10,000 penalty, Model B's superior performance at the localized high-precision threshold maximizes profit.",
+          "B) Model A violates the homoscedasticity assumption, causing its AUC to be mathematically invalid.",
+          "C) AUC is always inversely proportional to net profit in financial applications.",
+          "D) Model B has a higher false negative rate, which increases overall revenue."
+        ],
+        "correct_answer": "A",
+        "explanation": "AUC aggregates performance across all decision thresholds evenly. When cost asymmetries are extreme (FP loss is 20x FN loss), the optimal economic operating point depends strictly on localized curve slope, allowing a model with lower overall AUC to generate higher peak profit.",
+        "learning_objective": "Evaluate profit curves and optimize strategic decision thresholds.",
+        "keywords": [
+          "profit curve",
+          "AUC",
+          "threshold",
+          "asymmetric costs"
+        ]
+      },
+      {
+        "number": 22,
+        "level": 3,
+        "question_type": "short_answer",
+        "section": "Section 11: Profit Curve Optimization & Strategic Thresholds",
+        "question_text": "You are designing a fraud prevention strategy for an e-commerce platform handling $50 million in annual transaction volume. Average fraud loss per undetected incident is $500 (FN cost), manual review of a flagged transaction costs $10 (FP cost), and genuine transaction processing nets $25 profit (TP value). Formulate a specific business recommendation and explain how you will derive the optimal classification threshold using a profit curve.",
+        "correct_answer": "Construct a profit curve by plotting Net Profit = (TP * $25) - (FP * $10) - (FN * $500) across all threshold levels from 0.00 to 1.00. Identify the threshold max(t) where Net Profit is maximized. Recommend setting the automated rule threshold at max(t) and routing flagged transactions immediately to manual review, while auto-declining transactions exceeding a high-risk score of 0.90 to minimize manual review labor costs.",
+        "explanation": "Deriving the optimal threshold requires constructing a full profit matrix, multiplying costs/benefits by confusion matrix counts across thresholds, and stating concrete operational actions (manual review routing, threshold cutoff).",
+        "learning_objective": "Evaluate profit curves and optimize strategic decision thresholds.",
+        "keywords": [
+          "profit curve",
+          "threshold",
+          "fraud",
+          "business decision"
+        ]
+      },
+      {
+        "number": 23,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 12: Model Comparison: ROC vs. Lift vs. Profit Curves",
+        "question_text": "A marketing team is choosing between two customer churn models for a premium subscription service ($100/month). Model X exhibits a higher AUC on the ROC curve (0.88 vs 0.81). Model Y shows higher Lift in the top 5th percentile (Lift of 6.0 vs 3.5). If the retention budget only allows reaching the top 5% of at-risk subscribers, which model should leadership select and why?",
+        "options": [
+          "A) Model X, because higher AUC guarantees better economic returns across any budget constraint.",
+          "B) Model Y, because its top-decile Lift curve indicates superior concentrated precision in the specific operational capacity band (top 5%) being targeted.",
+          "C) Model X, because Lift curves ignore true positive rates.",
+          "D) Neither model; linear regression should be used to model subscriber churn instead of classification curves."
+        ],
+        "correct_answer": "B",
+        "explanation": "When operational capacity is constrained to a narrow top percentile, high localized Lift in that specific band is more relevant than overall global ROC/AUC performance.",
+        "learning_objective": "Compare ROC, Lift, and Profit curves to guide strategic decision-making.",
+        "keywords": [
+          "Lift curve",
+          "ROC curve",
+          "churn",
+          "capacity constraint"
+        ]
+      },
+      {
+        "number": 24,
+        "level": 3,
+        "question_type": "short_answer",
+        "section": "Section 12: Model Comparison: ROC vs. Lift vs. Profit Curves",
+        "question_text": "An analyst asserts: 'Model A has an AUC of 0.90, so it is universally superior to Model B which has an AUC of 0.82.' Critique this assertion in the context of a subscription renewal campaign where outreach resources are severely limited. Recommend a concrete business action.",
+        "correct_answer": "The analyst's assertion is flawed because AUC measures overall ranking accuracy across all thresholds, ignoring budget constraints and cost-benefit asymmetries. If Model B concentrates its true positives in the top 2% of scores while Model A spreads them across top 20%, Model B will outperform under strict capacity constraints. Recommendation: Evaluate both models using Cumulative Lift and Profit curves at the specific budget cutoff; deploy Model B if its top-tier Lift yields higher net ROI, and reallocate outreach funds to high-performing organic retention channels.",
+        "explanation": "AUC ignores capacity limits and relative unit economics. Model selection must evaluate localized lift/profit at the exact operational operating point.",
+        "learning_objective": "Compare ROC, Lift, and Profit curves to guide strategic decision-making.",
+        "keywords": [
+          "AUC",
+          "Lift",
+          "Profit curve",
+          "budget constraint"
+        ]
+      },
+      {
+        "number": 25,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 13: Capstone Proposal & Executive Synthesis",
+        "question_text": "You are presenting a capstone proposal to executive leadership advocating for a new automated credit scoring engine. Leadership is hesitant due to potential default losses. Which strategic communication approach best combines analytical rigor with actionable decision-making?",
+        "options": [
+          "A) Present an ROC curve showing an AUC of 0.89 and state that the model uses machine learning algorithms.",
+          "B) Present a profit curve overlaying expected revenue vs default costs, demonstrate that operating at a probability threshold of 0.65 maximizes net revenue by $1.2M, and recommend auto-approving applicants above 0.65 while manually auditing those between 0.45 and 0.65.",
+          "C) Explain the mathematical derivation of sensitivity and specificity and request executive approval to choose any threshold.",
+          "D) Display a correlation matrix of all 50 financial predictors and highlight variables with high p-values."
+        ],
+        "correct_answer": "B",
+        "explanation": "Executive proposals require bridging statistical diagnostics (profit curves) with explicit operational threshold recommendations and dollar-quantified business outcomes.",
+        "learning_objective": "Develop capstone proposals and executive decision frameworks.",
+        "keywords": [
+          "capstone",
+          "profit curve",
+          "executive decision",
+          "threshold"
+        ]
+      },
+      {
+        "number": 26,
+        "level": 3,
+        "question_type": "short_answer",
+        "section": "Section 13: Capstone Proposal & Executive Synthesis",
+        "question_text": "In a capstone proposal addressing customer acquisition for a fintech firm, the current channel strategy produces an unsustainable CAC of $180 against an LTV of $200. Propose a complete analytical framework using propensity matching, classification curves, and an explicit business decision to resolve this margin compression.",
+        "correct_answer": "1. Use radius matching on past customer data to match ad-click users with high-LTV converters, controlling for demographic confounding. 2. Build a propensity response model and construct a Cumulative Lift curve to identify the top 15% converter deciles. 3. Set a decision threshold that cuts acquisition spend on low-probability deciles. 4. Business Action: Immediately cut paid ad budget on the bottom 85% low-probability segments, shift $50,000 to referral channels, and reprice premium subscription tiers to raise LTV to $300.",
+        "explanation": "Combines propensity matching to control bias, lift curves for targeting, and concrete executive business decisions (budget reduction, re-channeling, pricing adjustments).",
+        "learning_objective": "Develop capstone proposals and executive decision frameworks.",
+        "keywords": [
+          "capstone proposal",
+          "matching",
+          "lift curve",
+          "CAC",
+          "LTV"
+        ]
+      }
+    ]
+  }
