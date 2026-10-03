@@ -1,0 +1,536 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 4 - DAGs, Causal Diagrams & Causal Inference",
+    "description": "Tests understanding of directed acyclic graphs (DAGs), front/back door paths, confounders, colliders, and time-based feedback loops as covered in the Week 4 learning objectives.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "DAG Construction",
+      "question_text": "A ___ is a graphical model made of nodes and directed arrows that represents causal relationships between variables, with no cycles allowed.",
+      "options": null,
+      "correct_answer": "Directed Acyclic Graph (DAG)",
+      "explanation": "A DAG (Directed Acyclic Graph) uses nodes to represent variables and directed arrows (edges) to represent causal influence from one variable to another. The 'acyclic' constraint means no variable can cause itself through a chain of effects. DAGs are the foundational tool for causal reasoning, helping distinguish correlation from causation. This directly maps to the LO: 'Draw directed acyclic graphs/causal diagrams to describe a particular situation.'",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": [
+        "DAG",
+        "directed acyclic graph",
+        "nodes",
+        "arrows",
+        "causal",
+        "acyclic"
+      ]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "DAG Construction",
+      "question_text": "True or False: In a directed acyclic graph, it is possible for variable A to cause variable B and for variable B to (through other variables) eventually cause variable A.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "The 'acyclic' property of a DAG explicitly forbids cycles. If A causes B and B eventually causes A, that would form a feedback cycle, making the graph cyclic \u2014 which violates the DAG definition. Feedback loops are only representable in DAGs by introducing time-indexed copies of variables (e.g., A_t1 \u2192 B_t1 \u2192 A_t2). This distinction is essential to the LO about drawing valid causal diagrams.",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "DAG Construction",
+      "question_text": "An ecologist believes that pesticide use reduces flower density, and lower flower density reduces the deer population. Which DAG correctly represents this causal story?",
+      "options": [
+        "A) Deer \u2192 Flowers \u2192 Pesticide",
+        "B) Pesticide \u2192 Flowers \u2192 Deer",
+        "C) Flowers \u2192 Pesticide \u2192 Deer",
+        "D) Pesticide \u2190 Flowers \u2190 Deer"
+      ],
+      "correct_answer": "B",
+      "explanation": "The causal story states pesticide causes a reduction in flowers, and flower reduction causes a reduction in deer. The correct arrow direction follows the causal mechanism: Pesticide \u2192 Flowers \u2192 Deer. Option A reverses causality entirely. Option C places flowers as the cause of pesticide, which contradicts the story. Option D uses reversed arrows, implying deer causes pesticide via flowers \u2014 the opposite of the described mechanism. Drawing causal arrows in the correct direction is the core skill in this LO.",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "DAG Construction",
+      "question_text": "In a DAG, an arrow from node X to node Y means: 'X ___ Y.' In contrast, the absence of an arrow between X and Y means the researcher is asserting ___.",
+      "options": null,
+      "correct_answer": "X causes Y; the absence of an arrow asserts no direct causal effect of X on Y (a causal exclusion assumption).",
+      "explanation": "Every directed arrow in a DAG encodes a causal claim \u2014 that the source variable has a direct causal effect on the target. The absence of an arrow is equally meaningful: it encodes the explicit assumption that there is no direct causal path from X to Y. This is a causal exclusion restriction, not merely a statement about correlation. Misreading absence-of-arrow as 'no relationship at all' (including indirect) is a common error. This links to the LO on using DAGs to represent causal structure in a given situation.",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": [
+        "causes",
+        "causal effect",
+        "exclusion restriction",
+        "direct",
+        "arrow",
+        "DAG"
+      ]
+    },
+    {
+      "number": 5,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "DAG Construction",
+      "question_text": "A public health researcher wants to study whether smoking (S) causes lung cancer (C). They know that both smoking and cancer are influenced by genetic predisposition (G), and that smoking also causes tar buildup (T), which in turn causes cancer. Draw (describe) the correct DAG with all four variables and explain why each arrow is included.",
+      "options": null,
+      "correct_answer": "G \u2192 S, G \u2192 C, S \u2192 T, T \u2192 C, S \u2192 C (optional direct path). Arrows: G causes both smoking behavior and cancer risk independently; smoking causes tar buildup as a mediator; tar buildup causes cancer; smoking may also have a direct effect on cancer beyond tar.",
+      "explanation": "This DAG has multiple structural features: G is a confounder (causes both S and C), T is a mediator on the path S \u2192 T \u2192 C, and there may be a direct path S \u2192 C as well. Including G \u2192 S and G \u2192 C is critical \u2014 omitting G would leave a backdoor path open and bias estimates of smoking's causal effect on cancer. The path through T (S \u2192 T \u2192 C) is a front-door path. This real-world scenario reinforces the LO on drawing causal diagrams for specific situations and sets up the concepts of confounders and paths introduced in subsequent LOs.",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": [
+        "confounder",
+        "mediator",
+        "backdoor",
+        "front door",
+        "genetic predisposition",
+        "DAG"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "DAG Construction",
+      "question_text": "In a causal diagram, a variable that lies on the causal path between treatment X and outcome Y \u2014 meaning X causes M, and M causes Y \u2014 is called a ___.",
+      "options": null,
+      "correct_answer": "Mediator",
+      "explanation": "A mediator (M) lies on the causal path from treatment X to outcome Y, meaning it transmits part or all of X's effect on Y. The path X \u2192 M \u2192 Y is called a mediated path or indirect effect. Mediators are distinct from confounders (which are common causes) and colliders (which are common effects). Recognizing mediators is essential when drawing DAGs because conditioning on a mediator blocks the causal path and can induce bias. This connects to the LO on drawing DAGs and identifying path types.",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": [
+        "mediator",
+        "mediated path",
+        "indirect effect",
+        "causal path",
+        "transmit",
+        "X causes M"
+      ]
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Causal Paths",
+      "question_text": "A ___ path between treatment X and outcome Y is a non-causal path that flows 'through the back' via a common cause, and must be blocked to obtain an unbiased causal estimate.",
+      "options": null,
+      "correct_answer": "Backdoor path",
+      "explanation": "A backdoor path is any path from treatment X to outcome Y that begins with an arrow pointing INTO X (i.e., from a common cause). These paths create spurious associations between X and Y that are not due to X causing Y. To estimate the causal effect of X on Y, all backdoor paths must be blocked \u2014 either by conditioning on confounders or by design (randomization). This is the foundation of the backdoor criterion in causal inference. This directly addresses the LO: 'Identify front door and back door paths in causal diagrams.'",
+      "learning_objective": "Identify front door and back door paths in causal diagrams.",
+      "keywords": [
+        "backdoor path",
+        "common cause",
+        "spurious association",
+        "block",
+        "confounder",
+        "non-causal"
+      ]
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Causal Paths",
+      "question_text": "True or False: A front door path from X to Y consists entirely of directed arrows flowing forward from X toward Y with no arrows pointing into X.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "A front door path is a directed causal path where every arrow points forward in the causal direction: from X, through intermediate variables (mediators), to Y. There are no arrows pointing into X along this path. Front door paths carry the actual causal effect of X on Y. This is contrasted with backdoor paths, which involve arrows pointing into X from common causes. The front door criterion uses front door paths to estimate causal effects when backdoor adjustment is not possible. This supports the LO on identifying front and back door paths.",
+      "learning_objective": "Identify front door and back door paths in causal diagrams.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Causal Paths",
+      "question_text": "Consider the DAG: Z \u2192 X \u2192 Y and Z \u2192 Y. A researcher wants to estimate the effect of X on Y. Which path is a backdoor path that must be blocked?",
+      "options": [
+        "A) X \u2192 Y (direct effect)",
+        "B) X \u2190 Z \u2192 Y (path through Z, entering X from Z)",
+        "C) X \u2192 Y \u2192 Z (downstream path)",
+        "D) Z \u2192 X \u2192 Y (full front door path)"
+      ],
+      "correct_answer": "B",
+      "explanation": "The backdoor path here is X \u2190 Z \u2192 Y. It begins with an arrow pointing INTO X (from Z), which means Z is a common cause of both X and Y. This non-causal path creates a spurious correlation between X and Y that is not due to X causing Y. To block it, condition on Z. Option A is the direct causal effect \u2014 not a backdoor path. Option C is incorrect because Y doesn't cause Z in this DAG. Option D is the full causal chain from Z through X to Y, which is a front door path from X's perspective once Z is fixed. This reinforces the LO on identifying backdoor paths.",
+      "learning_objective": "Identify front door and back door paths in causal diagrams.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Causal Paths",
+      "question_text": "In the front door criterion, a mediator M lies on the path X \u2192 M \u2192 Y, and X has an unmeasured confounder U (U \u2192 X and U \u2192 Y). Explain in 2\u20133 sentences why the front door path through M can still be used to identify the causal effect of X on Y, even though U is unobserved.",
+      "options": null,
+      "correct_answer": "Because U does not directly affect M (only X does), we can estimate the effect of X on M without confounding. Then, to estimate M's effect on Y, we condition on X to block the backdoor path U \u2192 X \u2192 M, isolating M's causal effect on Y. Multiplying these two estimates gives the total causal effect of X on Y via the front door path.",
+      "explanation": "The front door criterion exploits a two-step process: (1) X \u2192 M is unconfounded because U does not directly cause M; (2) M \u2192 Y can be estimated by conditioning on X, which blocks the backdoor path from U through X. The product of these two effect estimates equals the total causal effect of X on Y. This is powerful because it allows causal identification without observing or adjusting for U. This advanced application ties directly to the LO on identifying and using front door paths.",
+      "learning_objective": "Identify front door and back door paths in causal diagrams.",
+      "keywords": [
+        "front door criterion",
+        "mediator",
+        "unconfounded",
+        "condition on X",
+        "causal identification",
+        "unobserved confounder"
+      ]
+    },
+    {
+      "number": 11,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Causal Paths",
+      "question_text": "A data scientist wants to estimate the causal effect of a job training program (T) on earnings (E). The DAG includes: Motivation (M) \u2192 T, M \u2192 E, T \u2192 Skills (S), S \u2192 E. There is no direct arrow from T to E. (a) Identify all paths from T to E. (b) Which path is a backdoor path? (c) What should the analyst do to get an unbiased estimate of T's effect on E?",
+      "options": null,
+      "correct_answer": "(a) Paths: T \u2192 S \u2192 E (front door/causal), T \u2190 M \u2192 E (backdoor). (b) T \u2190 M \u2192 E is the backdoor path because M causes both T and E, and the arrow enters T. (c) Condition on Motivation (M) to block the backdoor path, then estimate T's effect through S \u2192 E.",
+      "explanation": "There are two paths from T to E: the causal path T \u2192 S \u2192 E (front door) and the backdoor path T \u2190 M \u2192 E (M is a confounder). Blocking the backdoor path by conditioning on M removes the spurious correlation between T and E due to motivated people both seeking training and earning more. Once M is controlled, only the causal path through Skills remains, giving an unbiased estimate of the training program's effect. This scenario mirrors real-world labor economics and reinforces the LO on identifying and using front and back door paths.",
+      "learning_objective": "Identify front door and back door paths in causal diagrams.",
+      "keywords": [
+        "backdoor path",
+        "front door path",
+        "confounder",
+        "condition on",
+        "skills",
+        "motivation"
+      ]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Confounders",
+      "question_text": "A ___ is a variable that causally affects both the treatment variable X and the outcome variable Y, creating a spurious association between X and Y that is not due to X causing Y.",
+      "options": null,
+      "correct_answer": "Confounder",
+      "explanation": "A confounder (also called a common cause) is a variable C such that C \u2192 X and C \u2192 Y. Because C affects both, it induces a statistical association between X and Y even if X does not cause Y. In observational studies, failing to account for confounders leads to biased causal estimates (confounding bias). Randomization eliminates confounding by breaking the C \u2192 X arrow. The classic example: ice cream sales and drowning are correlated because both are caused by hot weather (the confounder). This addresses the LO: 'Identify confounders in causal diagrams.'",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": [
+        "confounder",
+        "common cause",
+        "spurious association",
+        "affects both",
+        "C causes X",
+        "C causes Y"
+      ]
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Confounders",
+      "question_text": "True or False: In a DAG, a confounder must have arrows pointing TO both the treatment variable and the outcome variable.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "By definition, a confounder C has C \u2192 X (causes the treatment) and C \u2192 Y (causes the outcome). If C only affects one of the two, it is not a confounder \u2014 it may be a mediator or just a covariate. Both arrows pointing outward from C toward X and Y is the structural signature of confounding. This visual pattern in a DAG \u2014 a variable with arrows into both X and Y \u2014 is what analysts look for when identifying confounders to include in adjustment sets. This directly maps to the LO on identifying confounders in causal diagrams.",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Confounders",
+      "question_text": "A study finds that people who carry lighters have higher rates of lung cancer. The DAG includes: Smoking \u2192 Cancer, Smoking \u2192 Carrying a Lighter. Which variable is the confounder in the relationship between carrying a lighter and cancer?",
+      "options": [
+        "A) Lung Cancer, because it is the outcome",
+        "B) Lighter Carrying, because it correlates with cancer",
+        "C) Smoking, because it causes both carrying a lighter and lung cancer",
+        "D) Age, because older people smoke more"
+      ],
+      "correct_answer": "C",
+      "explanation": "Smoking is the confounder: it causes both carrying a lighter (smokers carry lighters) and lung cancer (smoking causes cancer). This creates a spurious association between lighter-carrying and cancer that has nothing to do with lighters causing cancer. Option A is incorrect \u2014 the outcome cannot be a confounder. Option B is incorrect \u2014 the exposure variable itself is not a confounder. Option D introduces age as a potential confounder but this is not supported by the stated DAG; the question asks about the confounder in the given structure. This scenario illustrates the LO on identifying confounders in real-world causal diagrams.",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Confounders",
+      "question_text": "In the deer-flowers-pesticide example, a researcher observes that areas with more deer have fewer flowers. They suspect deer eat flowers. However, pesticide use in an area reduces flowers AND drives deer away. What role does pesticide play?",
+      "options": [
+        "A) Pesticide is a mediator on the path Deer \u2192 Flowers",
+        "B) Pesticide is a collider between Deer and Flowers",
+        "C) Pesticide is a confounder that causes both lower flower density and lower deer population",
+        "D) Pesticide is an instrument variable that only affects flowers"
+      ],
+      "correct_answer": "C",
+      "explanation": "Pesticide \u2192 Flowers (reduces flowers) and Pesticide \u2192 Deer (drives deer away), making it a common cause of both \u2014 i.e., a confounder. The observed correlation between deer count and flower density may be entirely or partially due to pesticide use, not because deer eat flowers. Option A is wrong \u2014 a mediator lies on the causal path between treatment and outcome; pesticide is not caused by deer. Option B is wrong \u2014 a collider is caused by both variables, not a cause of both. Option D is wrong \u2014 an instrument only affects the outcome through the treatment. This is the real-world deer example from the week's materials and directly tests the LO on identifying confounders.",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Confounders",
+      "question_text": "A researcher controls for a variable C in a regression model to remove confounding. Later, they realize that C is actually a mediator on the path X \u2192 C \u2192 Y, not a common cause. What problem did they introduce?",
+      "options": null,
+      "correct_answer": "By conditioning on mediator C, the researcher blocked the indirect causal path X \u2192 C \u2192 Y, removing part of X's true causal effect on Y. This causes post-treatment bias and leads to an underestimate of X's total causal effect on Y.",
+      "explanation": "Conditioning on a mediator is a classic error in causal analysis. When C is a mediator, it transmits X's effect to Y. Controlling for C effectively removes this channel, leaving only the direct effect (if any) of X on Y. The estimate of X's effect is then biased downward (or entirely eliminated if C is the only path). This is called post-treatment bias or overcontrol bias. Correctly identifying whether a variable is a confounder (should be conditioned on) or a mediator (should NOT be conditioned on for total effect estimation) requires drawing the correct DAG \u2014 reinforcing both the confounder LO and the DAG construction LO.",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": [
+        "mediator",
+        "post-treatment bias",
+        "overcontrol",
+        "indirect path",
+        "total effect",
+        "condition on"
+      ]
+    },
+    {
+      "number": 17,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Confounders",
+      "question_text": "A hospital study finds that patients who receive Treatment A have worse outcomes than those who receive Treatment B. A colleague claims Treatment A is harmful. You examine the DAG and find: Disease Severity \u2192 Treatment A (sicker patients are more likely to receive A) and Disease Severity \u2192 Outcome (sicker patients have worse outcomes). Explain what is happening and what analysis should be done. Provide 2 specific corrective actions.",
+      "options": null,
+      "correct_answer": "(1) Disease Severity is a confounder \u2014 it causes both Treatment A assignment and worse outcomes, creating confounding bias that makes A look harmful when it may not be. (2) Corrective actions: (a) Stratify the analysis by Disease Severity or include it as a covariate in a regression model to control for the confounder. (b) If possible, use propensity score matching to balance Disease Severity between the treatment groups before comparing outcomes.",
+      "explanation": "This is a classic case of confounding by indication: sicker patients are more likely to receive an aggressive treatment (A), and also more likely to have worse outcomes. Without controlling for Disease Severity, the comparison between A and B is not apples-to-apples \u2014 it conflates the treatment effect with the severity effect. The DAG makes this explicit: Severity \u2192 A and Severity \u2192 Outcome is the backdoor path that must be blocked. Adjusting for Severity (via regression, stratification, or propensity scoring) removes this confounder. This real-world healthcare example directly reinforces the LO on identifying and correcting for confounders.",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": [
+        "confounding by indication",
+        "disease severity",
+        "confounder",
+        "propensity score",
+        "stratify",
+        "backdoor path"
+      ]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Colliders",
+      "question_text": "A ___ is a variable that is caused by two other variables \u2014 both X and Y have arrows pointing INTO it \u2014 and conditioning on it opens a spurious association between X and Y.",
+      "options": null,
+      "correct_answer": "Collider",
+      "explanation": "A collider C is a variable where two causal paths collide: X \u2192 C \u2190 Y. By default, a collider BLOCKS the path between X and Y (there is no spurious association). However, conditioning on (controlling for) the collider opens the path and creates a spurious association between X and Y \u2014 this is known as collider bias or Berkson's paradox. This is the opposite behavior from a confounder (which creates spurious association when not controlled). Recognizing colliders in a DAG is essential to avoid inadvertently inducing collider bias by controlling for the wrong variables. This addresses the LO: 'Identify colliders in causal diagrams.'",
+      "learning_objective": "Identify colliders in causal diagrams.",
+      "keywords": [
+        "collider",
+        "two arrows in",
+        "conditioning opens path",
+        "collider bias",
+        "spurious association",
+        "Berkson's paradox"
+      ]
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Colliders",
+      "question_text": "By default, a collider on a path between X and Y ___ the path. Conditioning on the collider ___ the path.",
+      "options": null,
+      "correct_answer": "Blocks the path; opens (activates) the path.",
+      "explanation": "This is a fundamental rule of d-separation in DAG theory. A collider (X \u2192 C \u2190 Y) sits at the collision point of two causal arrows. When C is not conditioned on, the path is blocked \u2014 X and Y are independent through this path. When C IS conditioned on (or any descendant of C), the path becomes active and a spurious association between X and Y is induced. This is the mechanism behind collider bias. Knowing when paths are open versus blocked is essential for correct causal adjustment and directly tests the LO on identifying colliders.",
+      "learning_objective": "Identify colliders in causal diagrams.",
+      "keywords": [
+        "blocks",
+        "opens",
+        "collider",
+        "conditioning",
+        "d-separation",
+        "active path"
+      ]
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Colliders",
+      "question_text": "In a study of hospital patients, researchers notice that among hospitalized patients, there is a negative correlation between disease severity and accidental injury. But in the general population, these two are unrelated. The DAG is: Disease Severity \u2192 Hospitalization \u2190 Accidental Injury. What explains the in-hospital correlation?",
+      "options": [
+        "A) Disease severity causes accidental injuries in hospitals",
+        "B) Hospitalization is a confounder that causes both disease severity and injury",
+        "C) Hospitalization is a collider; conditioning on being hospitalized opens a spurious path between severity and injury",
+        "D) Accidental injury reduces disease severity, creating a negative causal effect"
+      ],
+      "correct_answer": "C",
+      "explanation": "Hospitalization is a collider: both Disease Severity and Accidental Injury cause hospitalization (Severity \u2192 Hospitalization \u2190 Injury). In the general population, severity and injury are unrelated (the collider blocks the path). But the study is restricted to hospitalized patients \u2014 equivalent to conditioning on Hospitalization \u2014 which opens the path and induces a spurious negative correlation (if you are hospitalized but not severely ill, you are more likely there due to injury, and vice versa). This is Berkson's paradox. Option A proposes a direct causal effect not in the DAG. Option B misidentifies hospitalization as a confounder when its arrows point inward. Option D invents a causal effect. This directly tests the LO on identifying colliders.",
+      "learning_objective": "Identify colliders in causal diagrams.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Colliders",
+      "question_text": "A researcher includes 'Job Promotion' as a control variable in a model estimating the effect of Performance (P) on Salary (S). The DAG shows: Performance \u2192 Promotion \u2190 Networking, and Promotion \u2192 Salary. Is Promotion a confounder or a collider on the path P \u2192 Salary? What error does controlling for Promotion introduce?",
+      "options": null,
+      "correct_answer": "Promotion is a collider on the path between Performance and Networking (P \u2192 Promotion \u2190 Networking), and a mediator on the path Performance \u2192 Promotion \u2192 Salary. Controlling for Promotion blocks the mediated path (post-treatment/overcontrol bias) AND opens a spurious path between Performance and Networking (collider bias), both distorting the estimate of Performance's effect on Salary.",
+      "explanation": "Promotion serves dual roles: it is a collider between Performance and Networking (both cause it), and it is a mediator between Performance and Salary (it transmits Performance's effect to Salary). Conditioning on Promotion introduces two biases simultaneously: (1) collider bias \u2014 opening a spurious association between P and Networking; (2) overcontrol bias \u2014 blocking the indirect causal path P \u2192 Promotion \u2192 Salary. The correct analysis depends on the research question: for the total effect of P on S, do not condition on Promotion; for the direct effect only, condition on Promotion but be aware of collider bias. This reinforces the LO on identifying colliders and distinguishing them from mediators and confounders.",
+      "learning_objective": "Identify colliders in causal diagrams.",
+      "keywords": [
+        "collider",
+        "mediator",
+        "overcontrol bias",
+        "collider bias",
+        "spurious path",
+        "conditioning"
+      ]
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Colliders",
+      "question_text": "A credit scoring model developer notices that among loan applicants who were approved, there is a negative correlation between credit score and income. In the general population, credit score and income are positively correlated. The DAG is: Credit Score \u2192 Approval \u2190 Income. Which is the BEST explanation and correct action?",
+      "options": [
+        "A) Income causes credit score to drop for approved applicants; include both as predictors",
+        "B) Approval is a collider; the analysis is restricted to approved applicants, inducing collider bias \u2014 widen the analysis to all applicants to remove the bias",
+        "C) Approval is a confounder between credit score and income; control for approval status in the full population",
+        "D) The negative correlation is real and reflects that high-income applicants take on riskier debt"
+      ],
+      "correct_answer": "B",
+      "explanation": "Approval is a collider (Credit Score \u2192 Approval \u2190 Income). Restricting the sample to approved applicants is equivalent to conditioning on the collider, which opens a spurious negative path between Credit Score and Income. A person with a low credit score who was still approved likely has high income (and vice versa), creating the negative in-sample correlation. The fix is to use the full applicant population and avoid conditioning on Approval when studying the Credit Score\u2013Income relationship. Option A invents a causal mechanism not in the DAG. Option C misidentifies Approval as a confounder (its arrows point inward, not outward). Option D is a substantive claim not supported by the DAG structure. This applies collider logic to a real-world credit risk scenario, reinforcing the LO.",
+      "learning_objective": "Identify colliders in causal diagrams.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Colliders",
+      "question_text": "A marketing analyst studies the effect of Ad Spend (A) on Sales (S). They include Customer Satisfaction (CS) as a control variable, reasoning that satisfied customers buy more. The DAG shows: Ad Spend \u2192 Customer Satisfaction \u2190 Product Quality, and Customer Satisfaction \u2192 Sales, and Ad Spend \u2192 Sales. Identify the structural role of Customer Satisfaction and explain the consequence of controlling for it.",
+      "options": null,
+      "correct_answer": "Customer Satisfaction is both a collider (Ad Spend \u2192 CS \u2190 Product Quality) and a mediator (Ad Spend \u2192 CS \u2192 Sales). Controlling for CS: (1) blocks the indirect causal path Ad Spend \u2192 CS \u2192 Sales (overcontrol bias, underestimating Ad Spend's total effect); (2) opens a spurious path between Ad Spend and Product Quality via the collider CS (collider bias). To estimate the total effect of Ad Spend on Sales, do NOT control for CS.",
+      "explanation": "CS plays a dual structural role. As a collider between Ad Spend and Product Quality, conditioning on CS induces a spurious association between Ad Spend and Product Quality (e.g., if CS is high and we know Product Quality is low, we infer Ad Spend must have been high \u2014 a selection artifact). As a mediator on the path to Sales, conditioning on CS removes the indirect effect from the total effect estimate. Both biases operate simultaneously. This scenario reinforces the critical skill of reading DAGs before deciding what to control for, directly applying the collider LO in a marketing analytics context.",
+      "learning_objective": "Identify colliders in causal diagrams.",
+      "keywords": [
+        "collider",
+        "mediator",
+        "overcontrol bias",
+        "spurious path",
+        "total effect",
+        "conditioning"
+      ]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Feedback Loops and Time",
+      "question_text": "In a standard DAG, feedback loops are forbidden because the graph must be ___. To represent a feedback relationship between variables A and B over time, we create ___ copies of each variable indexed by time.",
+      "options": null,
+      "correct_answer": "Acyclic; separate time-indexed copies (e.g., A_t1 \u2192 B_t1 \u2192 A_t2 \u2192 B_t2).",
+      "explanation": "A DAG must be acyclic \u2014 no variable can be its own ancestor. This means we cannot write A \u2192 B \u2192 A in a single DAG. The solution is to unfold the process across time: A at time 1 (A_t1) causes B at time 1 (B_t1), which causes A at time 2 (A_t2), and so on. Each time-indexed variable is treated as a distinct node. This preserves the acyclic property while accurately representing dynamic feedback between variables. This technique is fundamental to causal analysis of longitudinal data and directly addresses the LO: 'Draw causal diagrams that use time to permit feedback loops.'",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": [
+        "acyclic",
+        "time-indexed",
+        "feedback loop",
+        "longitudinal",
+        "A_t1",
+        "unfold"
+      ]
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Feedback Loops and Time",
+      "question_text": "True or False: Introducing time-indexed variable copies (e.g., X_t1, X_t2, X_t3) in a DAG allows researchers to represent bidirectional causal relationships without violating the acyclic constraint.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "By treating the same variable at different time points as distinct nodes, a DAG can represent what appears to be bidirectional causation: X_t1 \u2192 Y_t1 \u2192 X_t2 \u2192 Y_t2. Each arrow points forward in time, so no cycle ever forms. The key insight is that X at time 1 and X at time 2 are different nodes, even though they represent the same variable. This approach is used in causal inference for time series, panel data, and dynamic systems. It preserves the formal acyclicity of DAGs while modeling the full complexity of feedback-driven real-world processes. This directly maps to the LO on using time in causal diagrams.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Feedback Loops and Time",
+      "question_text": "A public health researcher models the relationship between stress (S) and sleep deprivation (D) over time: high stress causes poor sleep, and poor sleep increases stress. Which DAG structure correctly represents this feedback loop without violating acyclicity?",
+      "options": [
+        "A) S \u2194 D (bidirectional arrow between single nodes)",
+        "B) S \u2192 D \u2192 S (a cycle between two nodes)",
+        "C) S_t1 \u2192 D_t1 \u2192 S_t2 \u2192 D_t2 (time-indexed nodes with forward arrows)",
+        "D) S_t1 \u2190 D_t1 \u2192 S_t2 (D as a common cause of S at both time points)"
+      ],
+      "correct_answer": "C",
+      "explanation": "Option C correctly represents the feedback loop using time-indexed nodes: Stress at time 1 causes Sleep Deprivation at time 1, which then causes Stress at time 2, and so on. Each arrow points forward in time, maintaining acyclicity. Option A uses a bidirectional arrow, which is not valid in a DAG \u2014 it implies simultaneous mutual causation without temporal ordering. Option B creates a cycle (S \u2192 D \u2192 S), violating the acyclic constraint. Option D makes D a common cause of S at two time points, which doesn't capture that S also affects D. Option C is the structurally correct approach and reinforces the LO on using time in causal diagrams.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Feedback Loops and Time",
+      "question_text": "A researcher uses a time-indexed DAG to study the effect of exercise (E) on weight (W) over two periods. The DAG is: E_t1 \u2192 W_t1, W_t1 \u2192 E_t2, E_t2 \u2192 W_t2, and there is an unobserved confounder U \u2192 E_t1 and U \u2192 E_t2. What analytical challenge does U create that a standard cross-sectional analysis would miss?",
+      "options": [
+        "A) U has no effect because time-indexed DAGs automatically remove confounding",
+        "B) U confounds both E_t1 \u2192 W_t1 and E_t2 \u2192 W_t2 paths; a single cross-sectional analysis cannot adjust for time-varying confounding induced by past treatment (W_t1) affecting future treatment (E_t2)",
+        "C) U only confounds the first time period and can be safely ignored in the second period",
+        "D) W_t1 is a mediator that fully absorbs U's influence before the second period"
+      ],
+      "correct_answer": "B",
+      "explanation": "When past treatment outcome (W_t1) affects future treatment uptake (E_t2) \u2014 as shown by W_t1 \u2192 E_t2 \u2014 and an unobserved confounder U affects exercise at both periods, standard regression cannot handle this. Adjusting for W_t1 to block confounding would simultaneously open a collider path (if W_t1 is a collider in some paths) and create time-varying confounding. This is the fundamental challenge addressed by methods like G-computation and Marginal Structural Models (MSMs), which are designed for longitudinal causal inference. Option A is incorrect \u2014 time-indexing does not remove confounding. Option C is wrong because U persists across time. Option D is incorrect \u2014 W_t1 is not a collider here. This reinforces the LO on using time in DAGs and extends it to real-world analytic complexity.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Feedback Loops and Time",
+      "question_text": "Consider the economic feedback loop: Income (I) affects Education (Ed), and Education affects future Income. Using a time-indexed DAG with two periods, describe the complete DAG structure and identify one potential confounder that would create a backdoor path in this system.",
+      "options": null,
+      "correct_answer": "DAG: I_t1 \u2192 Ed_t1 \u2192 I_t2. A confounder like Parental Wealth (PW) could cause both I_t1 (higher initial income) and Ed_t1 (better educational access), creating a backdoor path: I_t1 \u2190 PW \u2192 Ed_t1 \u2192 I_t2.",
+      "explanation": "The time-indexed DAG captures the feedback between income and education across time while remaining acyclic. Parental Wealth is a classic confounder: it independently raises both the initial income level of an individual (through inheritance or family resources) and their educational attainment (through access to better schools and resources). This creates a backdoor path I_t1 \u2190 PW \u2192 Ed_t1, which must be blocked to estimate the true causal effect of income on education. Conditioning on Parental Wealth closes this backdoor. This example connects the feedback loop LO with the confounder LO and demonstrates real-world application in labor economics.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": [
+        "time-indexed",
+        "feedback loop",
+        "parental wealth",
+        "confounder",
+        "backdoor path",
+        "acyclic"
+      ]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Feedback Loops and Time",
+      "question_text": "A tech company wants to understand how product usage (U) affects user satisfaction (S), which in turn affects future usage. The team observes: U_t1 \u2192 S_t1 \u2192 U_t2 \u2192 S_t2. A data scientist proposes running a single linear regression of S on U using all time periods pooled. Identify two causal problems with this approach and recommend a better analytical strategy.",
+      "options": null,
+      "correct_answer": "Problem 1: Pooling ignores the feedback loop \u2014 U_t2 is caused by S_t1 (past satisfaction), so treating all U observations as independent exposure measurements is incorrect. Problem 2: S_t1 is both an outcome (of U_t1) and a mediator/confounder for U_t2, so including it as a covariate creates post-treatment bias while omitting it leaves confounding. Better strategy: Use a lagged panel model or Marginal Structural Model (MSM) that models each period separately, uses inverse probability weighting to handle time-varying confounding, and respects the causal ordering in the time-indexed DAG.",
+      "explanation": "Pooled regression on longitudinal feedback data violates two causal assumptions: (1) it treats observations across time as exchangeable, ignoring that U_t2 is causally downstream of S_t1; (2) S_t1 creates the 'treatment-confounder feedback' problem \u2014 it is a prior outcome that affects future treatment, making it simultaneously a confounder and a post-treatment variable. Standard regression cannot resolve this. MSMs with inverse probability weighting (IPW) are specifically designed for this scenario: they reweight observations to mimic a randomized trial at each time point, correctly separating the feedback dynamics. This advanced scenario integrates the time-indexed DAG LO with practical data analysis decision-making at MS-level rigor.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": [
+        "feedback loop",
+        "time-varying confounding",
+        "marginal structural model",
+        "lagged panel",
+        "post-treatment bias",
+        "causal ordering"
+      ]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Feedback Loops and Time",
+      "question_text": "A pharmaceutical company studies whether Drug D reduces inflammation (I) over time. They draw the DAG: D_t1 \u2192 I_t1 \u2192 D_t2 \u2192 I_t2, meaning inflammation level at t1 determines the drug dosage at t2. An unmeasured factor (diet quality, Q) affects inflammation at both time points: Q \u2192 I_t1 and Q \u2192 I_t2. (a) Identify the structural role of I_t1 in this DAG. (b) Explain why conditioning on I_t1 is problematic for estimating D's effect on I_t2. (c) Recommend one method that handles this correctly.",
+      "options": null,
+      "correct_answer": "(a) I_t1 is simultaneously a mediator (on the path D_t1 \u2192 I_t1 \u2192 D_t2 \u2192 I_t2), an outcome of D_t1, and a time-varying confounder for D_t2 \u2192 I_t2 (because I_t1 \u2192 D_t2). (b) Conditioning on I_t1 blocks the mediated path D_t1 \u2192 I_t1 \u2192 D_t2 (overcontrol bias) and, if Q \u2192 I_t1 \u2192 D_t2 exists, opens a backdoor path through Q (collider-like bias), distorting the estimate of D's total effect on I_t2. (c) Use a Marginal Structural Model (MSM) with inverse probability of treatment weighting (IPTW) to correctly adjust for time-varying confounding without conditioning directly on I_t1.",
+      "explanation": "I_t1 plays three causal roles: (1) it is an outcome of D_t1; (2) it is a mediator transmitting D_t1's effect to subsequent drug decisions and outcomes; (3) it is a time-varying confounder for D_t2 because it causes D_t2 assignment. This 'treatment-confounder feedback' is the central challenge of longitudinal causal inference. Directly conditioning on I_t1 in a regression model both blocks the indirect effect and may introduce collider/selection bias through Q. MSMs with IPTW create pseudo-populations that break the I_t1 \u2192 D_t2 link through reweighting, allowing unbiased estimation of D's cumulative causal effect on inflammation. This represents the highest level of synthesis expected in this LO and demonstrates MS-level analytical rigor.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": [
+        "time-varying confounder",
+        "mediator",
+        "marginal structural model",
+        "IPTW",
+        "treatment-confounder feedback",
+        "overcontrol bias"
+      ]
+    }
+  ]
+}
