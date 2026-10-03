@@ -1,0 +1,494 @@
+{
+    "quiz_metadata": {
+      "title": "Ethical Foundations, Model Evaluation & Decision Analytics",
+      "description": "Comprehensive practice quiz covering classification vs ranking, confusion matrices, ROC/Lift/Profit curves, algorithmic fairness tradeoffs, and actionable data storytelling.",
+      "author": "DX701 Responsible and Ethical Data Science",
+      "total_questions": 25,
+      "difficulty": "advanced"
+    },
+    "questions": [
+      {
+        "number": 1,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 1: Classification Metrics & Confusion Matrix",
+        "question_text": "A fraud detection model evaluated on 100 actual fraud cases correctly flags 80 of them as fraud and misses 20. Calculate the True Positive Rate (TPR / Recall) of the model.",
+        "options": [],
+        "correct_answer": "0.80 (or 80%)",
+        "explanation": "True Positive Rate (TPR) or Recall is defined as TP / (TP + FN). Here, TP = 80 and FN = 20, giving 80 / (80 + 20) = 80 / 100 = 0.80 (80%).",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "TPR",
+          "Recall",
+          "Confusion Matrix",
+          "True Positives"
+        ]
+      },
+      {
+        "number": 2,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 1: Classification Metrics & Confusion Matrix",
+        "question_text": "In a spam filter evaluation, 30 legitimate emails out of 100 total legitimate emails were incorrectly marked as spam. Calculate the False Positive Rate (FPR).",
+        "options": [],
+        "correct_answer": "0.30 (or 30%)",
+        "explanation": "False Positive Rate (FPR) is defined as FP / (FP + TN). Here, FP = 30 and actual negatives (FP + TN) = 100, giving 30 / 100 = 0.30 (30%).",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "FPR",
+          "False Positive Rate",
+          "Confusion Matrix"
+        ]
+      },
+      {
+        "number": 3,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 1: Classification Metrics & Confusion Matrix",
+        "question_text": "A credit risk model flags 100 applicants as high risk. Out of these 100 flagged applicants, 80 actually defaulted while 20 did not default. Calculate the Precision of the model.",
+        "options": [],
+        "correct_answer": "0.80 (or 80%)",
+        "explanation": "Precision is defined as TP / (TP + FP). Here, TP = 80 and FP = 20, yielding 80 / (80 + 20) = 80 / 100 = 0.80 (80%).",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "Precision",
+          "Confusion Matrix",
+          "Positive Predictive Value"
+        ]
+      },
+      {
+        "number": 4,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 2: Ranking vs Classification & Lift Curves",
+        "question_text": "Write the mathematical definition of Lift score for a specific decile or sample segment in terms of sample response rate and overall population baseline response rate.",
+        "options": [],
+        "correct_answer": "Lift = (Sample Target Response Rate) / (Population Baseline Response Rate)",
+        "explanation": "Lift measures how much better a predictive model targets positive instances compared to random guessing: Lift = (TP / (TP + FP)) / (Overall Positive Prevalence).",
+        "learning_objective": "Lift curves and ranking performance",
+        "keywords": [
+          "Lift Score",
+          "Lift Curve",
+          "Baseline Prevalence"
+        ]
+      },
+      {
+        "number": 5,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 2: Ranking vs Classification & Lift Curves",
+        "question_text": "Explain the fundamental functional difference between a ranking model and a classification model.",
+        "options": [],
+        "correct_answer": "Classification assigns discrete class labels based on a decision threshold, whereas ranking orders instances by predicted probability without requiring a fixed threshold.",
+        "explanation": "Classification produces discrete predictions (e.g., 0 or 1) dependent on a specific decision threshold, whereas ranking sorts all instances continuously by score/probability to prioritize relative risk.",
+        "learning_objective": "Ranking vs. classification",
+        "keywords": [
+          "Ranking",
+          "Classification",
+          "Decision Threshold"
+        ]
+      },
+      {
+        "number": 6,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 3: ROC & Profit Curves",
+        "question_text": "State the precise probabilistic interpretation of the Area Under the Receiver Operating Characteristic Curve (ROC AUC).",
+        "options": [],
+        "correct_answer": "The probability that a randomly selected positive instance receives a higher predicted score than a randomly selected negative instance.",
+        "explanation": "ROC AUC is non-parametrically equivalent to the Mann-Whitney U statistic: P(Score(Positive) > Score(Negative)).",
+        "learning_objective": "ROC curves and AUC interpretation",
+        "keywords": [
+          "ROC AUC",
+          "Probabilistic Interpretation",
+          "Mann-Whitney"
+        ]
+      },
+      {
+        "number": 7,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 4: Ethical Foundations & Algorithmic Fairness",
+        "question_text": "Write the mathematical expression for Demographic Parity across an unprotected group (A = 0) and a protected group (A = 1) for a binary decision Y_hat.",
+        "options": [],
+        "correct_answer": "P(Y_hat = 1 | A = 0) = P(Y_hat = 1 | A = 1)",
+        "explanation": "Demographic Parity requires that the probability of receiving a positive prediction is equal across demographic groups, regardless of true outcome prevalence.",
+        "learning_objective": "Ethical Foundations and Fairness Metrics",
+        "keywords": [
+          "Demographic Parity",
+          "Disparate Impact",
+          "Algorithmic Fairness"
+        ]
+      },
+      {
+        "number": 8,
+        "level": 1,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 4: Ethical Foundations & Algorithmic Fairness",
+        "question_text": "State the criteria required to satisfy Equalized Odds across demographic groups A = 0 and A = 1 for binary prediction Y_hat and ground truth Y.",
+        "options": [],
+        "correct_answer": "P(Y_hat = 1 | A = 0, Y = y) = P(Y_hat = 1 | A = 1, Y = y) for both y = 0 and y = 1 (Equal TPR and equal FPR across groups).",
+        "explanation": "Equalized Odds enforces that both True Positive Rate (Sensitivity) and False Positive Rate (1 - Specificity) are equal across protected and unprotected groups.",
+        "learning_objective": "Ethical Foundations and Fairness Metrics",
+        "keywords": [
+          "Equalized Odds",
+          "True Positive Rate",
+          "False Positive Rate",
+          "Fairness"
+        ]
+      },
+      {
+        "number": 9,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 3: ROC & Profit Curves",
+        "question_text": "What does the geometric slope of the ROC curve (d(TPR)/d(FPR)) at a specific point on the curve represent?",
+        "options": [
+          "A) The ratio of True Positive Rate to False Positive Rate (TPR / FPR).",
+          "B) The likelihood ratio p(score | Positive) / p(score | Negative) at that decision score, which equals the marginal benefit-to-cost ratio required to justify lowering the threshold.",
+          "C) The overall accuracy of the binary classifier at that threshold.",
+          "D) The total profit generated by the model at that operating point."
+        ],
+        "correct_answer": "B",
+        "explanation": "The derivative d(TPR)/d(FPR) at any point on the ROC curve equals the likelihood ratio of the score distribution for positives vs negatives. In cost-benefit optimization, optimal slope equals (Cost_FP - Cost_TN) / (Benefit_TP - Loss_FN) * ((1 - Prev) / Prev).",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "ROC Slope",
+          "Likelihood Ratio",
+          "Cost-Benefit Ratio"
+        ]
+      },
+      {
+        "number": 10,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 2: Ranking vs Classification & Lift Curves",
+        "question_text": "A marketing response model produces a Lift score of 3.5 at the top 10% decile of targeted prospects. If the baseline response rate in the overall customer population is 4%, what is the expected response rate among the top 10% model-ranked prospects?",
+        "options": [
+          "A) 3.5%",
+          "B) 10.0%",
+          "C) 14.0%",
+          "D) 35.0%"
+        ],
+        "correct_answer": "C",
+        "explanation": "Lift is defined as Sample Response Rate / Baseline Response Rate. Therefore, Sample Response Rate = Lift * Baseline = 3.5 * 4% = 14.0%.",
+        "learning_objective": "Lift curves and ranking performance",
+        "keywords": [
+          "Lift Score",
+          "Response Rate",
+          "Marketing Response"
+        ]
+      },
+      {
+        "number": 11,
+        "level": 2,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 3: ROC & Profit Curves",
+        "question_text": "A commercial bank deploys a credit scoring model. Approving a solvent borrower (True Positive) yields $1,000 profit. Approving a defaulting borrower (False Positive) results in a -$4,000 net loss. Rejecting an applicant (True Negative or False Negative) yields $0 net impact. If a threshold produces TP = 400, FP = 50, FN = 50, and TN = 500, calculate the total net profit.",
+        "options": [],
+        "correct_answer": "$200,000",
+        "explanation": "Net Profit = (TP * $1,000) + (FP * -$4,000) = (400 * 1,000) + (50 * -4,000) = $400,000 - $200,000 = $200,000.",
+        "learning_objective": "Profit curves and cost-benefit analysis",
+        "keywords": [
+          "Profit Curve",
+          "Cost Matrix",
+          "Net Profit",
+          "Credit Scoring"
+        ]
+      },
+      {
+        "number": 12,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 3: ROC & Profit Curves",
+        "question_text": "Why can Model A have a lower overall ROC AUC (0.78) than Model B (AUC = 0.85), yet generate significantly higher net business profit when deployed?",
+        "options": [
+          "A) AUC aggregates performance across all theoretical operating thresholds, whereas Model A outperforms Model B specifically around the narrow region of thresholds corresponding to the operational cost-benefit ratio.",
+          "B) Model A uses linear regression while Model B uses a decision tree, which distorts profit calculations.",
+          "C) ROC AUC ignores False Positives entirely, rendering high AUC models unprofitable.",
+          "D) Profit curves are independent of confusion matrix outcomes, making AUC irrelevant."
+        ],
+        "correct_answer": "A",
+        "explanation": "AUC measures global ranking across all thresholds from 0 to 1. However, business deployments operate at a single threshold determined by unit costs. If Model A dominates Model B in the relevant threshold interval, it yields higher total profit despite lower global AUC.",
+        "learning_objective": "Profit curves and ROC curves comparison",
+        "keywords": [
+          "ROC AUC",
+          "Profit Curve",
+          "Operating Threshold"
+        ]
+      },
+      {
+        "number": 13,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 1: Classification Metrics & Confusion Matrix",
+        "question_text": "In a medical diagnostic system, clinical guidelines prioritize reducing False Negatives (missed diagnoses). If the medical board lowers the probability decision threshold from 0.50 down to 0.15, how do Sensitivity and Specificity change?",
+        "options": [
+          "A) Sensitivity decreases and Specificity increases.",
+          "B) Sensitivity increases and Specificity decreases.",
+          "C) Both Sensitivity and Specificity increase.",
+          "D) Both Sensitivity and Specificity decrease."
+        ],
+        "correct_answer": "B",
+        "explanation": "Lowering the decision threshold flags more instances as positive. This increases True Positives (higher Sensitivity / Recall) but increases False Positives (lower Specificity / True Negative Rate).",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "Sensitivity",
+          "Specificity",
+          "Threshold Effects",
+          "Tradeoffs"
+        ]
+      },
+      {
+        "number": 14,
+        "level": 2,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 4: Ethical Foundations & Algorithmic Fairness",
+        "question_text": "In an automated screening process, un-protected Group A has a selection rate of 60% (0.60). Protected Group B has a selection rate of 42% (0.42). Calculate the Disparate Impact ratio (Group B selection rate / Group A selection rate) and state whether it violates the EEOC 80% (4/5ths) rule.",
+        "options": [],
+        "correct_answer": "0.70 (or 70%), which violates the EEOC 80% rule because 0.70 is less than 0.80.",
+        "explanation": "Disparate Impact ratio = 0.42 / 0.60 = 0.70 (70%). Under the EEOC 4/5ths rule, any selection rate ratio below 0.80 indicates adverse impact / disparate impact.",
+        "learning_objective": "Ethical Foundations and Fairness Metrics",
+        "keywords": [
+          "Disparate Impact",
+          "EEOC 80% Rule",
+          "Algorithmic Bias"
+        ]
+      },
+      {
+        "number": 15,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 3: ROC & Profit Curves",
+        "question_text": "A credit card fraud detection system operates on a dataset where fraudulent transactions represent 0.1% of all volume (1 in 1,000). Why is Precision-Recall AUC preferred over ROC AUC in this setting?",
+        "options": [
+          "A) ROC curves cannot be generated when target prevalence is under 1%.",
+          "B) The False Positive Rate in ROC uses total actual negatives in the denominator; with 99.9% negatives, thousands of false alarms yield an artificially near-zero FPR, masking poor precision.",
+          "C) Precision-Recall curves do not require True Positives in their calculation.",
+          "D) Precision-Recall curves are independent of confusion matrix entries."
+        ],
+        "correct_answer": "B",
+        "explanation": "When negative instances vastly outnumber positive instances, FPR = FP / (FP + TN) stays tiny even if FP is huge relative to TP. Precision = TP / (TP + FP) directly exposes false alarm overload.",
+        "learning_objective": "Understanding of AUC, thresholds, confusion matrix relationships",
+        "keywords": [
+          "Precision-Recall",
+          "ROC AUC",
+          "Imbalanced Data",
+          "Fraud Detection"
+        ]
+      },
+      {
+        "number": 16,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Ethical Foundations & Algorithmic Fairness",
+        "question_text": "According to the Fairness Impossibility Theorem (Chouldechova 2017; Kleinberg et al. 2016), when baseline prevalence rates differ across demographic groups, which two fairness metrics are mathematically impossible to satisfy simultaneously (unless the model is 100% perfect, AUC = 1.0)?",
+        "options": [
+          "A) Predictive Parity (Equal Positive Predictive Value across groups) and Equalized Odds (Equal TPR and FPR across groups).",
+          "B) Demographic Parity and Total Accuracy.",
+          "C) Sensitivity and Recall.",
+          "D) Individual Fairness and Group Variance."
+        ],
+        "correct_answer": "A",
+        "explanation": "Chouldechova (2017) proved that if base rates differ across groups (P(Y=1|A=0) != P(Y=1|A=1)), a predictive model cannot achieve both Predictive Parity (equal PPV) and Equalized Odds (equal TPR and FPR) unless predictions are 100% perfect.",
+        "learning_objective": "Ethical Foundations and Fairness Metrics",
+        "keywords": [
+          "Fairness Impossibility Theorem",
+          "Predictive Parity",
+          "Equalized Odds"
+        ]
+      },
+      {
+        "number": 17,
+        "level": 2,
+        "question_type": "fill_in_the_blank",
+        "section": "Section 2: Ranking vs Classification & Lift Curves",
+        "question_text": "A telecommunications company evaluates a customer churn model on 10,000 customers containing 500 total actual churners. When sorting customers by predicted churn risk, the top 2,000 customers (top 20%) capture 350 actual churners. Calculate the Cumulative Gain percentage for this top 20% decile.",
+        "options": [],
+        "correct_answer": "70%",
+        "explanation": "Cumulative Gain = (True Positives Captured in Sample) / (Total Actual Positives in Population) = 350 / 500 = 0.70 or 70%.",
+        "learning_objective": "Lift curves and cumulative gains",
+        "keywords": [
+          "Cumulative Gains",
+          "Lift Curve",
+          "Churn Model"
+        ]
+      },
+      {
+        "number": 18,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 3: ROC & Profit Curves",
+        "question_text": "An e-commerce retailer faces a $200 loss for every undetected fraudulent purchase (False Negative). Flagging a legitimate transaction for manual review (False Positive) costs $10 in customer verification friction. Assuming zero cost for True Negatives and $0 additional cost for True Positives, what is the optimal theoretical decision threshold t* for flagging fraud?",
+        "options": [
+          "A) t* = 10 / (10 + 200) approx 0.0476",
+          "B) t* = 200 / (10 + 200) approx 0.9524",
+          "C) t* = 10 / 200 = 0.0500",
+          "D) t* = 0.5000"
+        ],
+        "correct_answer": "A",
+        "explanation": "In decision theory, optimal threshold t* = Cost_FP / (Cost_FP + Cost_FN). Plugging in costs: 10 / (10 + 200) = 10 / 210 approx 0.0476 (4.76%).",
+        "learning_objective": "Profit curves and threshold optimization",
+        "keywords": [
+          "Threshold Optimization",
+          "Cost Matrix",
+          "Asymmetric Costs"
+        ]
+      },
+      {
+        "number": 19,
+        "level": 2,
+        "question_type": "multiple_choice",
+        "section": "Section 5: Capstone Proposal & Data Bias Audit",
+        "question_text": "A data science capstone team proposes building a mortgage default prediction model trained on historical 2010–2020 bank records. An ethical audit reveals that historical discriminatory lending practices created artificial default disparities across postal codes. Which intervention directly mitigates this systemic historical bias during pre-processing?",
+        "options": [
+          "A) Retain postal code as a predictor but apply L2 Ridge regularization.",
+          "B) Apply re-weighting or target re-sampling on underrepresented historical subgroups, or remove proxy variables (like postal code) while testing counterfactual fairness.",
+          "C) Raise the probability decision threshold from 0.50 to 0.80 across all applicants.",
+          "D) Transition from logistic regression to XGBoost without modifying the input dataset."
+        ],
+        "correct_answer": "B",
+        "explanation": "Systemic historical bias in training labels requires pre-processing interventions such as re-weighting, re-sampling, or counterfactual fairness auditing rather than simple regularization or model swapping.",
+        "learning_objective": "Capstone proposal development and ethical auditing",
+        "keywords": [
+          "Ethical Audit",
+          "Historical Bias",
+          "Mitigation",
+          "Capstone"
+        ]
+      },
+      {
+        "number": 20,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 6: Storytelling with Data & Executive Communication",
+        "question_text": "A Lead Data Scientist must present a critical unit economics crisis to the C-suite: Customer Acquisition Cost (CAC) has increased by 40% while Lifetime Value (LTV) declined by 10% between 2024 and 2025. Which exact set of design actions adheres to executive data storytelling best practices?",
+        "options": [
+          "A) Display a 3D stacked bar chart comparing monthly CAC and LTV figures, retain all gridlines and legend boxes, and title the slide 'Monthly CAC and LTV Overview'.",
+          "B) Deploy a slopegraph comparing 2024 vs 2025 CAC and LTV, highlight the rising CAC line in bold red with a '+40% CAC Increase' callout annotation, mute LTV in gray, remove background gridlines, and title the slide 'Rising Acquisition Costs Are Eroding Unit Economics'.",
+          "C) Construct a multi-colored pie chart showing acquisition channels, add a generic text box stating 'Chart visualizes CAC trends', and ask the executive board to analyze the channels.",
+          "D) Present a dense scatterplot of all individual customer transactions with default software blue/orange colors and a full raw summary table."
+        ],
+        "correct_answer": "B",
+        "explanation": "Option B executes at least 3 concrete design best practices: (1) appropriate chart choice (slopegraph for two-period comparison), (2) visual emphasis (bold red for CAC, muted gray for LTV), (3) direct callout annotation ('+40% CAC Increase'), (4) decluttering (removed gridlines), and (5) an action-oriented slide title.",
+        "learning_objective": "Storytelling with Data and executive communication",
+        "keywords": [
+          "Slopegraph",
+          "Data Storytelling",
+          "CAC",
+          "LTV",
+          "Executive Communication"
+        ]
+      },
+      {
+        "number": 21,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 2: Ranking vs Classification & Lift Curves",
+        "question_text": "A streaming platform evaluates two churn prevention models. Model X achieves an ROC AUC of 0.88, with exceptional lift in the top 5% decile. Model Y achieves an ROC AUC of 0.92, but its lift advantage occurs only in the 30%–50% deciles. The marketing team has a strict operational budget constraint allowing $20 retention offers to only the top 5% highest-risk subscribers. What strategic decision should executive leadership make?",
+        "options": [
+          "A) Select Model Y because its overall ROC AUC (0.92) is higher than Model X (0.88).",
+          "B) Deploy Model X because its lift performance in the top 5% decile directly aligns with the operational capacity constraint of the $20 retention offer campaign.",
+          "C) Expand the marketing budget to target 50% of subscribers so Model Y can be used.",
+          "D) Lower the risk threshold to 0.01 and distribute a $2 offer to all subscribers regardless of model score."
+        ],
+        "correct_answer": "B",
+        "explanation": "Model selection in practice must align with operational budget constraints. Model X outperforms Model Y specifically in the top 5% decile targeted by the retention campaign, making it more profitable despite a lower aggregate AUC.",
+        "learning_objective": "Ranking vs. classification and business decision making",
+        "keywords": [
+          "Model Selection",
+          "Lift Curve",
+          "Capacity Constraint",
+          "Strategic Decision"
+        ]
+      },
+      {
+        "number": 22,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 4: Ethical Foundations & Algorithmic Fairness",
+        "question_text": "An enterprise HR recruitment algorithm exhibits Equalized Odds disparity: qualified male applicants (True Positives) are selected at an 82% rate, whereas equally qualified female applicants are selected at only a 55% rate. What immediate technical and business actions should human resources executive leadership mandate?",
+        "options": [
+          "A) Continue automated candidate selection because total model accuracy across all applicants is 88%.",
+          "B) Halt automated decisioning, re-calibrate subgroup probability thresholds to equalize True Positive Rates at 82% across genders, and audit feature weights for gender-correlated resume keywords.",
+          "C) Hide gender identifiers from candidate profiles while retaining gender-correlated university names, and lower overall hiring quotas.",
+          "D) Replace accuracy with F1-score as the evaluation metric without altering model training data or decision thresholds."
+        ],
+        "correct_answer": "B",
+        "explanation": "Equalized Odds disparity (82% vs 55% TPR) requires immediate operational intervention: pausing automated rejections, adjusting subgroup thresholds to match TPRs, and conducting a root-cause feature audit to remove gender-proxy features.",
+        "learning_objective": "Ethical Foundations and Fairness Metrics",
+        "keywords": [
+          "Equalized Odds",
+          "Algorithmic Bias",
+          "Actionable Mitigation",
+          "HR Analytics"
+        ]
+      },
+      {
+        "number": 23,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 3: ROC & Profit Curves",
+        "question_text": "A FinTech lender evaluates an auto-loan default model. A False Positive (approving a defaulting loan) costs -$12,000. A True Positive (approving a solvent borrower) yields +$1,500 in net interest. Plotting net profit against approval thresholds reveals peak net profit of $3.2M at a threshold of t = 0.42. At the default threshold of t = 0.50, net profit drops to $2.1M due to missing profitable solvent borrowers. What explicit business decision should executive leadership mandate?",
+        "options": [
+          "A) Lower the operational credit approval threshold from 0.50 down to 0.42 to capture optimal net interest profit of $3.2M.",
+          "B) Maintain the 0.50 threshold to keep total approval volume high regardless of net interest revenue.",
+          "C) Set the approval threshold to 0.10 to eliminate all default risk, even if loan originations fall by 90%.",
+          "D) Abandon algorithmic scoring and approve all applicants automatically to maximize market share."
+        ],
+        "correct_answer": "A",
+        "explanation": "Maximizing business value requires setting the decision threshold to the point that peaks the profit curve (t = 0.42), which captures an additional $1.1M in net profit compared to the default 0.50 threshold.",
+        "learning_objective": "Profit curves and business decision making",
+        "keywords": [
+          "Profit Curve",
+          "Threshold Optimization",
+          "FinTech",
+          "Credit Default"
+        ]
+      },
+      {
+        "number": 24,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 5: Capstone Proposal & Data Bias Audit",
+        "question_text": "A healthcare provider deploys a model to refer high-risk patients to high-touch care management. The model was trained using 'prior annual healthcare costs' as the target variable for illness severity. An ethical audit reveals that low-income patients faced systemic barriers to care, generating lower historical costs despite equal disease severity, causing severe under-referral of low-income patients. What structural correction should the data science team execute?",
+        "options": [
+          "A) Retain 'prior healthcare costs' as the target variable but add a flat $500 artificial uplift to low-income predictions.",
+          "B) Redefine the target variable from 'prior healthcare costs' to a direct clinical health status index (e.g., number of chronic conditions, lab abnormalities, and emergency visits).",
+          "C) Remove income from the feature matrix while keeping prior healthcare cost as the prediction target.",
+          "D) Increase training sample size by pooling ten years of historical billing data."
+        ],
+        "correct_answer": "B",
+        "explanation": "This classic target variable bias (Obermeyer et al., 2019) occurs when cost is used as a proxy for health need. The correct structural fix is changing the prediction target itself to direct measures of health severity rather than financial expenditure.",
+        "learning_objective": "Capstone proposal development and ethical auditing",
+        "keywords": [
+          "Target Variable Bias",
+          "Healthcare Analytics",
+          "Ethical Audit",
+          "Proxy Variables"
+        ]
+      },
+      {
+        "number": 25,
+        "level": 3,
+        "question_type": "multiple_choice",
+        "section": "Section 6: Storytelling with Data & Executive Communication",
+        "question_text": "A SaaS enterprise team presents a churn intervention proposal to the CEO. Operating at threshold t = 0.50 captures 200 churners but misses 300 churners ($1.5M ARR lost). Shifting threshold to t = 0.25 captures 420 churners, saving $1.1M in ARR while requiring $150k in proactive retention offers (Net Gain: +$950k ARR). Which visual presentation slide design and business recommendation best communicates this strategy?",
+        "options": [
+          "A) Display a complex matrix of confusion values across thresholds 0.10 to 0.90, label the slide 'Threshold Sensitivity Matrix', and ask the CEO to select a threshold.",
+          "B) Display a profit curve line chart plotting Net ARR Saved vs Decision Threshold, highlight threshold 0.25 in vibrant green with a '+$950k Net ARR Saved' callout annotation, remove background gridlines, and recommend immediately shifting the churn outreach threshold to 0.25 while allocating $150k for retention offers.",
+          "C) Display a pie chart of churned vs retained customers with default software colors and suggest conducting customer focus groups before making changes.",
+          "D) Present an ROC curve with AUC = 0.84, explain integral calculus under the curve, and recommend staying at threshold 0.50 to prevent unnecessary retention offers."
+        ],
+        "correct_answer": "B",
+        "explanation": "Option B combines optimal visual design (profit curve line chart, vibrant green highlight at 0.25, decluttered gridlines, callout annotation '+$950k Net ARR Saved') with a concrete, actionable business decision (shifting threshold to 0.25 and allocating $150k budget).",
+        "learning_objective": "Storytelling with Data and executive communication",
+        "keywords": [
+          "Profit Curve",
+          "Data Storytelling",
+          "Executive Recommendation",
+          "SaaS Churn"
+        ]
+      }
+    ]
+  }
