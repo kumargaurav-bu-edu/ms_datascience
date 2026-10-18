@@ -10,6 +10,7 @@ If no file is specified, defaults to quiz_questions.json in the same directory.
 """
 
 import json
+import math
 import os
 import sys
 import random
@@ -205,6 +206,13 @@ class Quiz:
         elif question.question_type in [QuestionType.SHORT_ANSWER, QuestionType.SCENARIO, 
                                         QuestionType.CALCULATION, QuestionType.INTERPRETATION, 
                                         QuestionType.ANALYSIS]:
+            if question.question_type == QuestionType.CALCULATION:
+                try:
+                    if math.isclose(float(user_answer), float(correct), rel_tol=1e-9, abs_tol=1e-9):
+                        return True, question.explanation
+                except ValueError:
+                    pass
+
             # For open-ended questions, check for keywords
             user_lower = user_answer.lower()
             if question.keywords:
