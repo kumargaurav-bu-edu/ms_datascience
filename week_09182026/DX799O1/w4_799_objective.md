@@ -1,4 +1,4 @@
-Week 5 Overview
+Week 4 Overview
 This week we will cover directed acyclic graphs (DAGs). DAGs visually represent causal relationships using nodes and arrows, helping us distinguish correlation from causation. Through examples, including one involving deer, flowers, and pesticides, we see how confounders and colliders affect our interpretation of data. DAGs also introduce tools like front door paths and placebo tests, which support more accurate causal analysis. 
 
 

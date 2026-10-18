@@ -1,0 +1,329 @@
+{
+  "quiz_metadata": {
+    "title": "DX702 O1 Fall 2026: Week 5 L2 - DAGs with Applied Causal Examples",
+    "description": "A second Week 5 quiz using new practical examples to test causal diagrams, path identification, confounding, collider bias, and time-indexed feedback.",
+    "version": "1.0",
+    "total_questions": 25
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Causal Diagram Construction",
+      "question_text": "A causal diagram represents variables as nodes and proposed causal relationships as directed ___.",
+      "options": null,
+      "correct_answer": "arrows",
+      "explanation": "Part 1: Directed arrows show the hypothesized direction from a cause to an effect, while nodes represent variables. Part 2: Undirected lines do not identify a causal direction, and a node alone does not describe a relationship. Part 3: This is the basic notation needed to draw a DAG for a real situation.",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": ["arrows", "directed", "cause", "effect"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Causal Diagram Construction",
+      "question_text": "True or False: A DAG can contain a path that follows arrows and eventually returns to the original node.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: A directed acyclic graph cannot contain a directed cycle. Part 2: A feedback process must be represented with time-indexed variables instead of drawing an undated loop. Part 3: This tests the defining structural restriction of a DAG.",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Causal Diagram Construction",
+      "question_text": "A school studies whether a breakfast program affects attendance. Household food insecurity affects both enrollment in the program and attendance. Which DAG matches the claims?",
+      "options": [
+        "A) food insecurity -> breakfast enrollment; food insecurity -> attendance; breakfast enrollment -> attendance",
+        "B) attendance -> food insecurity; breakfast enrollment -> food insecurity; attendance -> breakfast enrollment",
+        "C) breakfast enrollment -> food insecurity; food insecurity -> attendance; attendance -> breakfast enrollment",
+        "D) food insecurity -> breakfast enrollment; attendance -> food insecurity; breakfast enrollment -> attendance"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Option A shows food insecurity as a common cause of enrollment and attendance, with the program also affecting attendance. Part 2: The other options reverse the stated cause or introduce unsupported feedback without time labels. Part 3: This applies DAG construction to a school intervention with treatment-selection confounding.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Causal Diagram Construction",
+      "question_text": "A wildfire smoke alert causes residents to stay indoors, and staying indoors reduces outdoor exercise. Prior respiratory illness affects both whether residents respond to the alert and their exercise level. Describe four arrows in a DAG.",
+      "options": null,
+      "correct_answer": "Smoke alert -> staying indoors; staying indoors -> outdoor exercise; prior respiratory illness -> staying indoors; prior respiratory illness -> outdoor exercise.",
+      "explanation": "Part 1: These arrows represent the intervention pathway and the common cause that affects both response and outcome. Part 2: An arrow from outdoor exercise to the earlier alert reverses the stated time order, and omitting respiratory illness hides a back-door path. Part 3: The answer translates a public-health narrative into a causal diagram.",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": ["smoke alert", "staying indoors", "outdoor exercise", "respiratory illness"]
+    },
+    {
+      "number": 5,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Causal Diagram Construction",
+      "question_text": "A transit agency evaluates whether real-time arrival signs reduce passenger complaints. Route congestion affects sign installation and complaints, while weather affects complaints only. Describe a DAG and identify which variable is a confounder.",
+      "options": null,
+      "correct_answer": "The DAG includes route congestion -> sign installation, route congestion -> complaints, sign installation -> complaints, and weather -> complaints. Route congestion is the confounder because it causes both the treatment and outcome; weather is not a confounder in the stated DAG because it affects complaints only.",
+      "explanation": "Part 1: The common cause congestion creates the back-door path sign installation <- congestion -> complaints. Part 2: Weather is an outcome predictor but not a confounder unless it also affects installation or another open back-door path. Part 3: This distinguishes a treatment-outcome confounder from a variable that merely predicts the outcome.",
+      "learning_objective": "Draw directed acyclic graphs/causal diagrams to describe a particular situation.",
+      "keywords": ["arrival signs", "complaints", "route congestion", "weather", "confounder"]
+    },
+    {
+      "number": 6,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Front-Door and Back-Door Paths",
+      "question_text": "A path that begins with an arrow pointing into the treatment is a ___ path.",
+      "options": null,
+      "correct_answer": "back-door",
+      "explanation": "Part 1: A back-door path enters the treatment node and can transmit noncausal association from a common cause. Part 2: A path beginning with an arrow out of treatment is a directed causal path, not a back-door path. Part 3: This definition is the starting point for selecting adjustment variables.",
+      "learning_objective": "Identify front door and back door paths in causal diagrams.",
+      "keywords": ["back-door", "arrow into treatment", "path", "noncausal association"]
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Front-Door and Back-Door Paths",
+      "question_text": "In the DAG R <- Q -> S, where R is a recycling reminder and S is recycling behavior, which variable blocks the back-door path?",
+      "options": [
+        "A) Recycling behavior S",
+        "B) Recycling reminder R",
+        "C) Household environmental attitude Q",
+        "D) A variable measured after recycling behavior"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Q is the common cause on R <- Q -> S, so adjusting for environmental attitude blocks the back-door path. Part 2: Adjusting for the treatment or outcome is not the standard pre-treatment adjustment, and a post-outcome variable can introduce bias. Part 3: This applies back-door reasoning to an environmental behavior intervention.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Front-Door and Back-Door Paths",
+      "question_text": "A worker-safety training program T affects use of protective equipment M, and M affects injuries Y. Explain the role of M in a possible front-door path.",
+      "options": null,
+      "correct_answer": "M is a mediator on the causal path T -> M -> Y. A front-door strategy would require the T-M relationship to be unconfounded and would require adjustment for T to handle back-door paths from M to Y.",
+      "explanation": "Part 1: Protective-equipment use carries part of the training effect to injury outcomes. Part 2: Calling M a confounder would be wrong because M is downstream of training, and simply controlling for M would estimate a different effect by blocking mediation. Part 3: This identifies the mediator and the assumptions behind front-door identification.",
+      "learning_objective": "Identify front door and back door paths in causal diagrams.",
+      "keywords": ["training", "protective equipment", "injuries", "mediator", "front-door", "adjustment"]
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Front-Door and Back-Door Paths",
+      "question_text": "A utility studies whether smart-meter installation X reduces electricity use Y. An unmeasured conservation attitude affects both installation and use, but installation affects app usage M, and app usage affects electricity use. State when a front-door analysis through M would be plausible and name one assumption that would invalidate it.",
+      "options": null,
+      "correct_answer": "A front-door analysis is plausible if X -> M has no unblocked back-door path, M fully mediates the relevant effect of X on Y, and conditioning on X blocks the back-door paths from M to Y. It would be invalid if an unmeasured variable affected both X and M, or if there were a direct X -> Y path not covered by the assumptions.",
+      "explanation": "Part 1: The mediator creates the front-door route while the unmeasured attitude confounds X and Y. Part 2: A mediator alone is not sufficient; confounding of X-M or an unaccounted direct effect breaks the simple identification argument. Part 3: This evaluates a front-door design in an energy-use setting.",
+      "learning_objective": "Identify front door and back door paths in causal diagrams.",
+      "keywords": ["smart meter", "app usage", "electricity use", "front-door", "unmeasured attitude", "direct path"]
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Confounders",
+      "question_text": "A variable that causes both treatment and outcome is called a ___.",
+      "options": null,
+      "correct_answer": "confounder",
+      "explanation": "Part 1: A confounder is a common cause that creates a back-door path between treatment and outcome. Part 2: A mediator is downstream of treatment, while a collider is a common effect, so neither matches this definition. Part 3: This is the foundational term for causal adjustment.",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": ["confounder", "common cause", "treatment", "outcome"]
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Confounders",
+      "question_text": "True or False: A variable that predicts the outcome but does not affect treatment is automatically a confounder.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: A confounder must affect both treatment and outcome, not just the outcome. Part 2: A variable that predicts only the outcome may improve prediction but does not create the treatment-selection back-door path described by confounding. Part 3: This prevents over-labeling every outcome predictor as a confounder.",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Confounders",
+      "question_text": "A farmer tests whether irrigation causes crop yield to increase. Soil quality affects both the decision to irrigate and yield. Which adjustment is appropriate for the total effect?",
+      "options": [
+        "A) Adjust for soil quality before irrigation is assigned",
+        "B) Adjust for crop yield after harvest",
+        "C) Adjust for a variable caused by irrigation and yield",
+        "D) Adjust only for the irrigation outcome"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Soil quality is a pre-treatment common cause, so adjustment blocks irrigation <- soil quality -> yield. Part 2: Yield is the outcome, and a variable caused by both irrigation and yield is a collider that should not be conditioned on. Part 3: This applies confounder adjustment to an agricultural experiment.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Confounders",
+      "question_text": "A crude estimate says a remote-work policy increases productivity. After adjusting for job role, the effect is close to zero. Job role affects both policy adoption and productivity. Interpret the change.",
+      "options": null,
+      "correct_answer": "The crude estimate was partly confounded because job role affected both remote-work adoption and productivity. Adjusting for job role blocks the back-door path policy <- job role -> productivity, so the smaller estimate is the policy effect under the stated DAG assumptions.",
+      "explanation": "Part 1: The adjustment removes the association attributable to different job-role compositions across policy groups. Part 2: The result does not prove there is no effect if job role is measured poorly or another confounder remains unobserved. Part 3: This interprets how confounding can create an apparently positive treatment effect.",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": ["remote-work policy", "productivity", "job role", "confounding", "back-door", "adjustment"]
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Confounders",
+      "question_text": "A city estimates whether tree planting reduces neighborhood summer temperature. Neighborhood income affects both tree-planting priority and temperature. Housing density affects temperature but not planting priority in the proposed DAG. Identify the confounder and explain the role of housing density.",
+      "options": null,
+      "correct_answer": "Neighborhood income is the confounder because it causes tree-planting priority and temperature. Housing density is an outcome predictor only in the stated DAG; it is not a confounder unless it also affects planting priority or participates in another open back-door path.",
+      "explanation": "Part 1: Income creates planting priority <- income -> temperature, which must be addressed for a causal comparison. Part 2: Housing density does not meet the common-cause definition as stated, even though it predicts temperature. Part 3: This separates confounding from ordinary outcome prediction in an urban policy example.",
+      "learning_objective": "Identify confounders in causal diagrams.",
+      "keywords": ["tree planting", "summer temperature", "neighborhood income", "housing density", "common cause", "confounder"]
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Colliders",
+      "question_text": "A variable that is a common effect of two variables, represented by X -> C <- Y, is called a ___.",
+      "options": null,
+      "correct_answer": "collider",
+      "explanation": "Part 1: C is a collider because arrows from X and Y collide at C. Part 2: In X <- C -> Y, C is a common cause instead, so the arrow directions matter. Part 3: This notation is the basis for diagnosing collider bias.",
+      "learning_objective": "Identify colliders in causal diagrams.",
+      "keywords": ["collider", "common effect", "X", "Y", "arrows into C"]
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Colliders",
+      "question_text": "True or False: Conditioning on a collider can create an association between its two causes.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Conditioning on a collider or its descendant can open the path between its causes. Part 2: Without conditioning, the collider blocks that path in the usual DAG interpretation. Part 3: This is the central warning for selection and collider bias.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Colliders",
+      "question_text": "In a study of police stops, neighborhood surveillance and driver behavior both affect whether a driver is stopped. If an analyst studies only stopped drivers, what risk arises?",
+      "options": [
+        "A) Conditioning on the stop can create an association between surveillance and driver behavior",
+        "B) Conditioning on the stop always removes every confounder",
+        "C) The stop becomes a randomized treatment",
+        "D) Driver behavior can no longer affect the stop"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The stop is a common effect of surveillance and driver behavior, so restricting to stopped drivers conditions on a collider. Part 2: Selection does not remove all confounding, randomize the process, or erase the causal arrows that produced the stop. Part 3: This applies collider bias to a sample-selection problem in public safety data.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Colliders",
+      "question_text": "A hiring dataset includes only applicants who passed an initial screening test. Both portfolio quality and interview coaching affect passing. Explain why analyzing portfolio quality and coaching among passers may be misleading.",
+      "options": null,
+      "correct_answer": "Passing is a collider because portfolio quality and interview coaching both cause it. Conditioning on passing can induce a negative association between the two causes, so the relationship among passers may not represent their relationship in all applicants.",
+      "explanation": "Part 1: Selection on the common effect creates a tradeoff: a strong portfolio may compensate for less coaching among those who pass. Part 2: The observed negative relationship does not show that portfolio quality reduces coaching or that the same association exists in the applicant population. Part 3: This explains collider bias using a practical hiring sample.",
+      "learning_objective": "Identify colliders in causal diagrams.",
+      "keywords": ["screening", "portfolio quality", "interview coaching", "passers", "collider", "selection"]
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Colliders",
+      "question_text": "A cybersecurity team analyzes only organizations that purchased incident-response insurance. Both prior breach risk and executive risk tolerance affect insurance purchase. Explain why conditioning on insurance purchase can bias the relationship between breach risk and executive risk tolerance.",
+      "options": null,
+      "correct_answer": "Insurance purchase is a collider because prior breach risk and executive risk tolerance both affect it. Conditioning on purchase opens the path breach risk -> insurance purchase <- risk tolerance, producing an association between the causes that may not exist in all organizations.",
+      "explanation": "Part 1: Selection on insurance purchase induces dependence between the two causes of selection. Part 2: The association among insured organizations is not necessarily a causal relationship, and restricting the sample does not control confounding automatically. Part 3: This applies collider reasoning to a security-risk dataset.",
+      "learning_objective": "Identify colliders in causal diagrams.",
+      "keywords": ["cybersecurity", "insurance purchase", "breach risk", "risk tolerance", "collider", "selection"]
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Time and Feedback",
+      "question_text": "To draw feedback in a DAG, use separate time-indexed nodes such as demand_1 and demand_2 rather than one undated demand node.",
+      "options": null,
+      "correct_answer": "time-indexed nodes",
+      "explanation": "Part 1: Time-indexed nodes allow earlier variables to affect later variables without creating a directed cycle. Part 2: One undated node cannot distinguish whether an effect occurs before or after the variable itself. Part 3: This is the standard construction for dynamic causal diagrams.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": ["time-indexed nodes", "demand 1", "demand 2", "feedback", "DAG"]
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Time and Feedback",
+      "question_text": "A restaurant's menu promotion affects orders on Monday, and Monday orders affect the promotion selected for Tuesday. Which DAG is valid?",
+      "options": [
+        "A) promotion -> orders -> promotion, with no dates",
+        "B) promotion_Mon -> orders_Mon -> promotion_Tue",
+        "C) promotion_Tue -> orders_Mon -> promotion_Mon",
+        "D) orders_Mon -> promotion_Mon -> promotion_Tue only"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Option B preserves the temporal order and represents feedback without a cycle. Part 2: Option A is cyclic because dates are missing; Option C reverses time; Option D omits the stated effect of Monday promotion on Monday orders. Part 3: This applies time-indexed DAG construction to a business process.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Time and Feedback",
+      "question_text": "A weather forecast affects reservoir release today, today's release affects tomorrow's reservoir level, and tomorrow's level affects the next release. Describe the feedback path without creating a cycle.",
+      "options": null,
+      "correct_answer": "Forecast_1 -> release_1 -> reservoir level_2 -> release_2 is a valid forward-time path. Each release and reservoir level has a distinct time index, so the later release does not point back to the original forecast or release node.",
+      "explanation": "Part 1: Time labels preserve the order of decisions and state changes. Part 2: Writing forecast -> release -> reservoir level -> release without dates would make it appear that the same release both causes and is caused by the reservoir level. Part 3: This demonstrates how dynamic policy systems can be represented as DAGs.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": ["forecast", "release", "reservoir level", "time index", "forward-time", "feedback"]
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Time and Feedback",
+      "question_text": "Design a three-period DAG for a call center where staffing at day 1 affects wait time at day 1, wait time affects customer complaints at day 2, complaints affect staffing at day 3, and staffing at day 3 affects wait time at day 3. List at least six arrows.",
+      "options": null,
+      "correct_answer": "A valid diagram includes staffing_1 -> wait_time_1, wait_time_1 -> complaints_2, complaints_2 -> staffing_3, staffing_3 -> wait_time_3, and may include staffing_1 -> complaints_2 or wait_time_1 -> staffing_2 if supported by the process. The arrows use distinct dates, so the later staffing decision does not create a cycle back to staffing_1.",
+      "explanation": "Part 1: The diagram captures operational feedback through time and distinguishes initial staffing from later staffing. Part 2: Reusing one staffing node for all days would create an apparent loop and lose the temporal order. Part 3: This requires constructing a dynamic DAG from a realistic service system.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": ["staffing day 1", "wait time", "complaints day 2", "staffing day 3", "time-indexed", "feedback"]
+    },
+    {
+      "number": 24,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Time and Feedback",
+      "question_text": "A crop-monitoring service sends irrigation recommendations each week. Recommendations affect soil moisture that week, soil moisture affects crop stress the following week, and crop stress affects the next recommendation. Explain how to draw the process and name one post-treatment variable that should not be adjusted for when estimating the first week's recommendation effect.",
+      "options": null,
+      "correct_answer": "Draw recommendation_1 -> soil moisture_1 -> crop stress_2 -> recommendation_2, with later recommendations affecting later soil moisture and stress. Do not adjust for soil moisture_1 or crop stress_2 when estimating the total effect of recommendation_1 because they are downstream mediators.",
+      "explanation": "Part 1: The time-indexed path represents the feedback process and keeps the first recommendation distinct from later decisions. Part 2: Conditioning on downstream soil moisture or crop stress blocks part of the total effect rather than controlling a pre-treatment confounder. Part 3: This combines dynamic DAG construction with correct adjustment logic.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": ["recommendation 1", "soil moisture", "crop stress", "recommendation 2", "downstream mediator", "time"]
+    },
+    {
+      "number": 25,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Time and Feedback",
+      "question_text": "Create a time-indexed DAG for a workplace wellness program: enrollment at month 1 affects exercise at month 1; exercise affects health at month 2; health affects continued enrollment at month 2; and continued enrollment affects exercise at month 3. Include at least six arrows and explain why the graph remains acyclic.",
+      "options": null,
+      "correct_answer": "One valid DAG is enrollment_1 -> exercise_1, exercise_1 -> health_2, health_2 -> enrollment_2, enrollment_2 -> exercise_2, exercise_2 -> health_3, and health_3 -> enrollment_3, with enrollment_3 -> exercise_3 if the third period is modeled. The graph remains acyclic because arrows move forward through ordered periods and no later enrollment points back to enrollment_1.",
+      "explanation": "Part 1: The answer represents treatment, mediator, outcome, and continuation as distinct variables at distinct times. Part 2: An undated enrollment -> exercise -> health -> enrollment loop would violate the DAG requirement because it hides temporal order. Part 3: This synthesizes time-indexing, feedback, and causal diagram construction.",
+      "learning_objective": "Draw causal diagrams that use time to permit feedback loops.",
+      "keywords": ["enrollment month 1", "exercise", "health month 2", "enrollment month 2", "health month 3", "acyclic"]
+    }
+  ]
+}

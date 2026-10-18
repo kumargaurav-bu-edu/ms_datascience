@@ -1,0 +1,531 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 5 - Support Vector Machines & Kernel Methods",
+    "description": "Foundational quiz covering SVM decision boundaries, support vectors, kernel functions, and the C regularization trade-off for Week 5.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Decision Boundary and Margin",
+      "question_text": "The SVM decision boundary is the line or hyperplane that maximizes the ___ between the two classes.",
+      "options": null,
+      "correct_answer": "margin",
+      "explanation": "Why the answer is correct: The support vector machine objective is to find the separating hyperplane with the largest possible distance from the nearest training points of either class. That largest distance is the margin, and a wider margin usually gives better generalization. Why alternatives are wrong: A 'loss' value or 'threshold' is not the geometric objective SVM optimizes; the key concept is the separation distance, not raw prediction probability. Connection to LO: This directly matches the learning objective about how an SVM creates a decision boundary and how the margin relates to classification performance.",
+      "learning_objective": "Describe how a support vector machine creates a decision boundary and how the margin relates to classification performance.",
+      "keywords": [
+        "margin",
+        "separation",
+        "distance",
+        "hyperplane",
+        "maximum margin"
+      ]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Decision Boundary and Margin",
+      "question_text": "True or False: A wider margin always guarantees better classification performance on future data.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Why the answer is correct: A larger margin often improves generalization, but it is not a universal guarantee because data quality, kernel choice, feature scaling, and class overlap matter. The margin is an important geometric signal, not an automatic guarantee of better real-world performance. Why alternatives are wrong: Option A is too absolute and ignores the role of noise, overlap, and model tuning; Option B would be a misunderstanding of the optimization target. Connection to LO: This reinforces the idea that the decision boundary and margin are central to SVM performance, but not the only determinant of classification quality.",
+      "learning_objective": "Describe how a support vector machine creates a decision boundary and how the margin relates to classification performance.",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Decision Boundary and Margin",
+      "question_text": "Which statement best describes the role of the margin in SVM classification?",
+      "options": [
+        "A) The margin is the number of points in the training data that are incorrectly classified.",
+        "B) The margin is the distance between the decision boundary and the nearest points from each class, and SVM maximizes it.",
+        "C) The margin is the same as the class probability output from a classifier.",
+        "D) The margin is the curve that defines the kernel transformation."
+      ],
+      "correct_answer": "B",
+      "explanation": "Why the answer is correct: In SVMs, the decision boundary is chosen to maximize the distance to the closest examples of each class, which is the margin. A larger margin tends to reduce overfitting and improve generalization. Why alternatives are wrong: Option A confuses margin with training error; Option C mixes up probability outputs with geometric separation; Option D confuses the margin with the kernel function. Connection to LO: This directly explains the core relationship between the SVM decision boundary and the margin.",
+      "learning_objective": "Describe how a support vector machine creates a decision boundary and how the margin relates to classification performance.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Decision Boundary and Margin",
+      "question_text": "A model has a very small margin around its decision boundary. Explain in 2 to 3 sentences why this typically means the classifier is more sensitive to small changes in the data and may perform worse on new observations.",
+      "options": null,
+      "correct_answer": "A small margin means the boundary is close to some training examples, so a slight shift in data can cross the boundary and change the predicted class. That indicates the model is relying on points near the decision surface rather than a robust separation, which is often a sign of poor generalization. The model is more sensitive to noise and less stable on new data.",
+      "explanation": "Why the answer is correct: A small margin means the nearest points of each class are close to the separating hyperplane, so the classifier is not strongly separated. Such a boundary is unstable under small changes in the training data and is more likely to overfit or generalize poorly. Why alternatives are wrong: Answers that describe probabilities or kernel functions miss the geometric meaning of the margin; a narrow margin is about boundary robustness, not probability calibration. Connection to LO: This connects the margin directly to classification performance and the idea that a well-separated boundary improves model stability.",
+      "learning_objective": "Describe how a support vector machine creates a decision boundary and how the margin relates to classification performance.",
+      "keywords": [
+        "small margin",
+        "near decision boundary",
+        "unstable",
+        "poor generalization",
+        "noise",
+        "sensitive"
+      ]
+    },
+    {
+      "number": 5,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Decision Boundary and Margin",
+      "question_text": "A fraud detection team compares two SVM models. Model A has a very wide margin and Model B has a narrow margin. Both fit the same dataset. Which model is more likely to be more robust to noisy or slightly shifted claims, and why? Give a concrete recommendation for choosing between them.",
+      "options": null,
+      "correct_answer": "Model A is more likely to be more robust because a wider margin places the decision boundary farther from the nearest fraud and non-fraud claims, reducing sensitivity to noise and small changes in the data. The team should prefer the wider-margin model if validation performance remains strong, while using the narrow-margin model only if it clearly improves recall or business objectives without sacrificing generalization.",
+      "explanation": "Why the answer is correct: A wide margin indicates stronger separation between classes and usually translates to better robustness to noise and small feature shifts. In fraud detection, this means the boundary is less likely to react to minor claim differences that are just noise. Why alternatives are wrong: Answers that favor the narrow margin because it fits the training data more tightly ignore the risk of overfitting and poor generalization; a model that memorizes the current sample rarely performs best on future claims. Connection to LO: This scenario connects margin size to practical classification performance and real-world decision-making in a classification setting.",
+      "learning_objective": "Describe how a support vector machine creates a decision boundary and how the margin relates to classification performance.",
+      "keywords": [
+        "wide margin",
+        "robust",
+        "noise",
+        "generalization",
+        "validation",
+        "fraud detection"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Support Vectors",
+      "question_text": "The points closest to the separating hyperplane, and therefore the ones that determine the margin, are called the ___ .",
+      "options": null,
+      "correct_answer": "support vectors",
+      "explanation": "Why the answer is correct: Support vectors are the training examples that lie closest to the decision boundary and therefore define the margin. They are the critical points that determine the location and orientation of the separating hyperplane in an SVM. Why alternatives are wrong: Points far from the boundary do not strongly affect the decision boundary; they are not the points used to define the maximum-margin solution. Connection to LO: This directly matches the learning objective about support vectors and how they determine the position of the decision boundary.",
+      "learning_objective": "Identify the role of support vectors and explain how they determine the position of the decision boundary.",
+      "keywords": [
+        "support vectors",
+        "closest to boundary",
+        "margin",
+        "determine hyperplane",
+        "training points"
+      ]
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Support Vectors",
+      "question_text": "True or False: All training points influence the final SVM decision boundary equally.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Why the answer is correct: Most training points do not affect the final hyperplane; only the support vectors do because they are the points closest to the margin and define its position. The decision boundary is determined by the narrow set of critical examples rather than every observation. Why alternatives are wrong: The claim of equal influence contradicts the maximum-margin objective in SVMs, where only the support vectors matter for the final solution. Connection to LO: This highlights the specific role of support vectors in fixing the decision boundary.",
+      "learning_objective": "Identify the role of support vectors and explain how they determine the position of the decision boundary.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Support Vectors",
+      "question_text": "Which set of points is most likely to determine the final position of the SVM decision boundary?",
+      "options": [
+        "A) All training points equally",
+        "B) The observations nearest the separating line or hyperplane",
+        "C) Only the points that are misclassified",
+        "D) Only the points with the largest feature values"
+      ],
+      "correct_answer": "B",
+      "explanation": "Why the answer is correct: The support vectors are the examples nearest the decision boundary, and they define the maximum-margin hyperplane. The boundary is placed to maximize separation from these closest points. Why alternatives are wrong: Option A ignores the maximum-margin objective; Option C is incorrect because the support vectors are not necessarily misclassified, and many correctly classified points are not support vectors; Option D confuses large scales with influence. Connection to LO: This directly explains how support vectors determine the SVM decision boundary.",
+      "learning_objective": "Identify the role of support vectors and explain how they determine the position of the decision boundary.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Support Vectors",
+      "question_text": "Explain in 2 sentences why support vectors can be thought of as the most informative training examples for an SVM.",
+      "options": null,
+      "correct_answer": "Support vectors are the points closest to the decision boundary, so they measure how tightly the classes can be separated. Because the boundary is optimized to maximize the margin relative to these points, they carry the information that fixes the position and orientation of the classifier.",
+      "explanation": "Why the answer is correct: Support vectors are the critical examples that define the nearest class distances and therefore determine the optimal separating hyperplane. They are informative because they encode the margin constraints and identify the region where class overlap or separation is tightest. Why alternatives are wrong: Saying that all observations are equally informative misses the maximum-margin principle; saying points far from the boundary matter most also ignores the geometry of SVM. Connection to LO: This makes the role of support vectors concrete and ties it directly to boundary placement.",
+      "learning_objective": "Identify the role of support vectors and explain how they determine the position of the decision boundary.",
+      "keywords": [
+        "support vectors",
+        "closest to boundary",
+        "margin",
+        "determine boundary",
+        "most informative"
+      ]
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Kernel Functions and Kernel Trick",
+      "question_text": "A ___ kernel computes the similarity of two samples without transforming data into a new feature space, using the dot product directly.",
+      "options": null,
+      "correct_answer": "linear",
+      "explanation": "Why the answer is correct: A linear kernel simply computes the dot product between feature vectors, so it represents a straight-line decision boundary in the original feature space. It is the simplest kernel and does not require an explicit basis expansion. Why alternatives are wrong: A polynomial or Gaussian kernel explicitly changes the geometry of the similarity measure; the linear kernel does not. Connection to LO: This directly addresses the use of different kernel functions and the kernel trick to transform data for classification.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": [
+        "linear kernel",
+        "dot product",
+        "original feature space",
+        "no transformation",
+        "straight line"
+      ]
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Kernel Functions and Kernel Trick",
+      "question_text": "True or False: The kernel trick allows an SVM to model nonlinear decision boundaries without explicitly computing the transformed feature space.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Why the answer is correct: The kernel trick uses kernel functions to compute similarities in a transformed feature space implicitly, avoiding the expensive computation of the full transformed representation. This allows SVMs to separate classes that are not linearly separable in the original feature space. Why alternatives are wrong: Explicit feature transformations are computationally expensive and unnecessary when the kernel function can represent the same geometry implicitly. Connection to LO: This is the core idea behind using kernels to transform data for better classification.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Kernel Functions and Kernel Trick",
+      "question_text": "Which kernel is most appropriate when the data have a circular or highly curved boundary and the classes are not linearly separable in the original space?",
+      "options": [
+        "A) Linear kernel",
+        "B) Polynomial kernel",
+        "C) Gaussian RBF kernel",
+        "D) Identity kernel"
+      ],
+      "correct_answer": "C",
+      "explanation": "Why the answer is correct: The Gaussian RBF kernel measures similarity based on distance in feature space and can model curved, nonlinear boundaries such as circular class regions. It is widely used when the class structure is not well described by a straight line. Why alternatives are wrong: A linear kernel only creates straight separators; a polynomial kernel can model curvature but is usually less flexible or more tuned than the Gaussian RBF for complicated class shapes; the identity kernel does not transform the data. Connection to LO: This connects kernel choice to the classification task and the kernel trick for nonlinear data.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Kernel Functions and Kernel Trick",
+      "question_text": "Explain the main difference between a linear kernel and a Gaussian kernel in terms of the kind of decision boundary each one can produce.",
+      "options": null,
+      "correct_answer": "A linear kernel produces a straight-line or hyperplane decision boundary because it uses the original feature space. A Gaussian kernel creates a nonlinear, curved boundary because it measures similarity based on distance and can capture localized patterns and circular class structures.",
+      "explanation": "Why the answer is correct: Linear kernels cannot model curved separation because they operate in the original space with a single hyperplane. Gaussian kernels implement a nonlinear similarity measure and adapt the decision boundary to local structure, creating curved boundaries that can fit more complex class shapes. Why alternatives are wrong: Saying that both kernels are equivalent ignores the fact that the Gaussian kernel changes the geometry of similarity; saying the linear kernel can model any curve is incorrect because it cannot create nonlinearity without feature transformation. Connection to LO: This directly contrasts the kernel functions and shows how the kernel trick can enable better classification on transformed data.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": [
+        "linear kernel",
+        "Gaussian kernel",
+        "straight line",
+        "curved boundary",
+        "nonlinear",
+        "similarity"
+      ]
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Kernel Functions and Kernel Trick",
+      "question_text": "A dataset has two classes that are separated by a curved boundary shaped like a circle. Which kernel choice is most likely to work well with an SVM?",
+      "options": [
+        "A) Linear kernel, because it uses the simplest geometry",
+        "B) Polynomial kernel, because it only fits straight-line boundaries",
+        "C) Gaussian RBF kernel, because it captures nonlinear similarity based on distance",
+        "D) No kernel; the classes must be re-labeled"
+      ],
+      "correct_answer": "C",
+      "explanation": "Why the answer is correct: A Gaussian RBF kernel is designed to capture nonlinear similarity patterns and can represent curved decision boundaries such as circular class separation. Why alternatives are wrong: Option A ignores nonlinearity; Option B reverses the idea of polynomial kernels, which can capture curvature but are not the best default for circular structures; Option D is unnecessary because kernel methods are designed for exactly this type of problem. Connection to LO: This scenario shows how using a different kernel function can improve classification when the data are not separable with a linear hyperplane.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Kernel Functions and Kernel Trick",
+      "question_text": "A researcher wants to classify handwritten digits using features derived from pixel intensities. The classes overlap in the original feature space, and a linear boundary clearly fails. Recommend a kernel choice and explain why it is a better fit than a linear kernel in 2 to 3 sentences.",
+      "options": null,
+      "correct_answer": "A Gaussian RBF kernel is a strong choice because handwritten digit data often form complex nonlinear patterns that are not separable by a single straight line. The kernel trick allows the SVM to work in a richer feature space implicitly, capturing local structure and curved boundaries without the computational cost of explicitly transforming all pixels.",
+      "explanation": "Why the answer is correct: Handwritten digit data are highly structured and nonlinear, so a Gaussian kernel is often better than a linear kernel because it captures similarity according to Euclidean distance in a transformed space. The kernel trick makes this powerful representation computationally feasible. Why alternatives are wrong: A linear kernel would produce only a straight separator and would miss the curved, local patterns in the data; a uniform answer that does not specify the kernel choice is not concrete enough. Connection to LO: This scenario demonstrates how different kernel functions and the kernel trick can transform data into a representation that improves classification.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": [
+        "Gaussian RBF",
+        "nonlinear",
+        "kernel trick",
+        "curved boundary",
+        "handwritten digits",
+        "local structure"
+      ]
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Kernel Functions and Kernel Trick",
+      "question_text": "The kernel trick avoids computing the full transformed feature representation by evaluating ___ between samples instead.",
+      "options": null,
+      "correct_answer": "similarity",
+      "explanation": "Why the answer is correct: The kernel function measures similarity between sample vectors in the transformed feature space without explicitly constructing that space. This makes nonlinear SVMs computationally practical. Why alternatives are wrong: A 'probability' or 'error' is not what the kernel function computes; it computes pairwise similarity used by the optimization. Connection to LO: This is the essential computational idea behind applying kernel functions in SVMs.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": [
+        "similarity",
+        "kernel function",
+        "transformed space",
+        "implicit",
+        "pairwise"
+      ]
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Regularization with C",
+      "question_text": "The parameter ___ in an SVM controls the trade-off between maximizing the margin and minimizing classification errors on the training set.",
+      "options": null,
+      "correct_answer": "C",
+      "explanation": "Why the answer is correct: The SVM regularization parameter C adjusts how strongly the model penalizes training errors. Larger C makes the model more willing to classify training points correctly, even if that reduces the margin; smaller C allows a wider margin with more training errors. Why alternatives are wrong: Gamma controls the shape of a nonlinear kernel, not the penalty on training error; the margin is not itself the regularization parameter. Connection to LO: This directly matches the objective about tuning C to balance margin size and classification accuracy on the training data.",
+      "learning_objective": "Adjust the regularization parameter C in SVMs to balance margin size and classification accuracy on the training data.",
+      "keywords": [
+        "C",
+        "regularization",
+        "margin",
+        "training error",
+        "trade-off"
+      ]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Regularization with C",
+      "question_text": "True or False: A large value of C usually leads to a wider margin and fewer training errors.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Why the answer is correct: A large C imposes a stronger penalty on misclassified training points, so the model usually reduces training error by accepting a narrower margin. A smaller C encourages a wider margin and tolerates more training mistakes. Why alternatives are wrong: The direction of the trade-off is reversed: large C prioritizes training accuracy, while small C prioritizes margin width. Connection to LO: This directly captures how C balances margin size and training-data accuracy in SVMs.",
+      "learning_objective": "Adjust the regularization parameter C in SVMs to balance margin size and classification accuracy on the training data.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regularization with C",
+      "question_text": "If an SVM uses a very small value of C, which outcome is most likely?",
+      "options": [
+        "A) A very narrow margin with nearly all training points correctly classified",
+        "B) A wider margin that tolerates more training errors",
+        "C) A decision boundary that ignores the kernel entirely",
+        "D) A probability estimate instead of a class label"
+      ],
+      "correct_answer": "B",
+      "explanation": "Why the answer is correct: Small C means the model is less concerned with training-point mistakes and more concerned with keeping the margin large, so it often produces a wider margin and may misclassify more training examples. Why alternatives are wrong: Option A describes large C rather than small C; Option C confuses C with kernel choice; Option D confuses SVM classification with probability calibration. Connection to LO: This question emphasizes the regularization trade-off controlled by C.",
+      "learning_objective": "Adjust the regularization parameter C in SVMs to balance margin size and classification accuracy on the training data.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Regularization with C",
+      "question_text": "In an SVM, a very large C is chosen. Explain in 2 sentences what this implies about the chosen decision boundary and why it may not generalize as well on future data.",
+      "options": null,
+      "correct_answer": "A large C heavily penalizes misclassification, so the model tries to classify the training data correctly even if it means a narrower margin and a more jagged boundary. This can adapt too closely to noise or outliers, leading to poorer generalization on future data.",
+      "explanation": "Why the answer is correct: Large C strongly prioritizes training accuracy, often shrinking the margin to fit the sample more tightly. That can produce a boundary that memorizes noise and fails to separate unseen examples well. Why alternatives are wrong: A large C does not necessarily mean a more accurate model on new data; it often means the opposite in noisy settings. Connection to LO: This directly addresses how C changes the margin-vs-accuracy trade-off in practical classification settings.",
+      "learning_objective": "Adjust the regularization parameter C in SVMs to balance margin size and classification accuracy on the training data.",
+      "keywords": [
+        "large C",
+        "training accuracy",
+        "narrow margin",
+        "overfit",
+        "poor generalization",
+        "penalizes errors"
+      ]
+    },
+    {
+      "number": 21,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Regularization with C",
+      "question_text": "A fraud team has noisy insurance claims data with many mislabeled edge cases. They are choosing between a high-C and a low-C SVM. Which setting is more likely to be appropriate and what business risk would a poorly chosen C create?",
+      "options": null,
+      "correct_answer": "A moderate or low C is more appropriate because the data are noisy and the model should avoid fitting individual outliers too aggressively. A very high C could overfit noisy claims, producing a boundary that reacts to small fraud-like quirks and triggers too many false positives or misses genuine fraud patterns.",
+      "explanation": "Why the answer is correct: In noisy data, a large C increases sensitivity to individual training examples and can overfit. A more tolerant setting preserves a wider margin and can generalize better, reducing costly false alerts and improving operational stability. Why alternatives are wrong: Choosing a high C simply because it fits the training data best ignores the real-world consequence of overfitting noisy labels. Connection to LO: This shows how tuning C in SVMs affects the trade-off between training accuracy, margin size, and practical classification outcomes.",
+      "learning_objective": "Adjust the regularization parameter C in SVMs to balance margin size and classification accuracy on the training data.",
+      "keywords": [
+        "noisy data",
+        "moderate C",
+        "overfit",
+        "false positives",
+        "generalization",
+        "fraud"
+      ]
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regularization with C",
+      "question_text": "Which change would most likely increase the SVM margin?",
+      "options": [
+        "A) Increase C sharply",
+        "B) Decrease C to a smaller value",
+        "C) Switch to a polynomial kernel with no tuning",
+        "D) Remove all support vectors"
+      ],
+      "correct_answer": "B",
+      "explanation": "Why the answer is correct: Reducing C lowers the penalty on misclassification and encourages a wider margin to prioritize separation over perfect training fit. Why alternatives are wrong: Increasing C narrows the margin; kernel changes do not automatically increase margin by themselves; removing support vectors would fundamentally change the dataset and not be a valid tuning step. Connection to LO: This question emphasizes the direct effect of C on the size of the SVM margin.",
+      "learning_objective": "Adjust the regularization parameter C in SVMs to balance margin size and classification accuracy on the training data.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Support Vectors",
+      "question_text": "If a training sample is far from the decision boundary and never becomes a support vector, what does that tell you about its role in the final SVM model?",
+      "options": null,
+      "correct_answer": "It tells you that the sample is not critical for determining the decision boundary because the model's margin is set by the points closest to the boundary. Such a point contributes little to the final separator, even if it is correctly classified.",
+      "explanation": "Why the answer is correct: Only the support vectors define the optimal hyperplane, so distant points are irrelevant to the final margin once the optimizer is solved. Their class membership may be correctly predicted, but they do not constrain the separator. Why alternatives are wrong: Saying the point defines the boundary incorrectly ignores the maximum-margin objective; saying it is always ignored even if mislabeled misses the fact that misclassified points can become support vectors when they violate margin constraints. Connection to LO: This clarifies the specific way support vectors determine the position of the decision boundary.",
+      "learning_objective": "Identify the role of support vectors and explain how they determine the position of the decision boundary.",
+      "keywords": [
+        "not critical",
+        "far from boundary",
+        "support vector",
+        "margin",
+        "decision boundary",
+        "not constraining"
+      ]
+    },
+    {
+      "number": 24,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Kernel Functions and Kernel Trick",
+      "question_text": "Suppose you are building an SVM for a medical classification problem where the classes form two crescent-shaped regions. Describe a realistic modeling plan: which kernel you would try first, how feature scaling would matter, and how you would decide whether C should be high or low. Include 2 concrete actions in your answer.",
+      "options": null,
+      "correct_answer": "I would start with a Gaussian RBF kernel because crescent-shaped classes are nonlinear and curved. I would standardize the features before training so that distance-based similarity is not dominated by large-scale variables, then compare cross-validation performance across a small grid of C and gamma values. A moderate or low C is preferable if the data are noisy or overlap, while a larger C is justified only when the training data are clean and the model still underfits.",
+      "explanation": "Why the answer is correct: Nonlinear, crescent-shaped class boundaries are a classic use case for a Gaussian RBF kernel, and feature scaling is essential because distance-based kernels are sensitive to feature magnitude. Model selection should involve tuning C and gamma using cross-validation, with C adjusted according to noise and overlap. Why alternatives are wrong: Generic answers that say 'use a better model' without naming the kernel or the scaling step are too vague; choosing a large C without regard to noise would risk overfitting. Connection to LO: This integrates kernel choice, scaling, and regularization into a realistic classification workflow.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": [
+        "Gaussian RBF",
+        "standardize",
+        "C",
+        "gamma",
+        "cross-validation",
+        "nonlinear"
+      ]
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Feature Scaling and SVMs",
+      "question_text": "For SVMs with distance-based kernels such as the Gaussian kernel, ___ is important because features with large numeric ranges can dominate the similarity measure.",
+      "options": null,
+      "correct_answer": "feature scaling",
+      "explanation": "Why the answer is correct: Distance-based kernels like the Gaussian RBF are sensitive to feature magnitudes, so one variable with a much larger scale can dominate the distance calculation and distort the similarity measure. Scaling brings all features to a comparable range and allows the model to use each variable appropriately. Why alternatives are wrong: A larger dataset or more support vectors does not fix the scale problem; the issue is the geometry of distances in the feature space. Connection to LO: This is a key practical requirement in SVM applications, especially when using nonlinear kernels.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": [
+        "feature scaling",
+        "Gaussian kernel",
+        "distance",
+        "large numeric ranges",
+        "normalize"
+      ]
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Feature Scaling and SVMs",
+      "question_text": "Why can an unscaled SVM with a Gaussian kernel behave poorly even when the data are otherwise suitable for classification? Answer in 2 to 3 sentences.",
+      "options": null,
+      "correct_answer": "Because the kernel measures similarity using distances, a feature with a much larger scale can dominate the distance calculation and overshadow the rest of the variables. This makes the model effectively compare mostly one variable rather than the combined structure of the data, which can distort the decision boundary and reduce classification quality.",
+      "explanation": "Why the answer is correct: Kernel methods rely on relative distances between points, and unscaled features can produce artificially large distances in one dimension. This makes the similarity metric misrepresent the underlying patterns in the dataset. Why alternatives are wrong: Saying the model needs more data misses the geometry issue; the problem is scale, not sample size. Connection to LO: This shows why kernel-based SVM classification depends on proper transformation of the data before applying the kernel trick.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": [
+        "distance-based kernel",
+        "scale",
+        "dominate",
+        "similarity measure",
+        "distorted boundary",
+        "standardize"
+      ]
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regularization with C",
+      "question_text": "Which statement is most accurate about the parameter C in an SVM?",
+      "options": [
+        "A) C controls the kernel shape and decides whether the boundary is linear or curved.",
+        "B) C decides how strongly the model penalizes training errors and thus how wide the margin can be.",
+        "C) C is only used in linear SVMs and has no effect on nonlinear kernels.",
+        "D) C is computed from the number of support vectors after training."
+      ],
+      "correct_answer": "B",
+      "explanation": "Why the answer is correct: C is the regularization parameter that balances margin width against classification errors on the training data. Larger C prioritizes training accuracy and narrower margins; smaller C allows wider margins and more training mistakes. Why alternatives are wrong: A controls kernel geometry, not the error penalty; C affects both linear and nonlinear kernels; it is not derived from the number of support vectors after training. Connection to LO: This captures the essential purpose of C in the SVM regularization trade-off.",
+      "learning_objective": "Adjust the regularization parameter C in SVMs to balance margin size and classification accuracy on the training data.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Synthesis",
+      "question_text": "A credit-scoring team wants to predict default risk using a large dataset with mixed feature scales and a likely nonlinear boundary. They are choosing between a linear SVM and a Gaussian SVM. What would you recommend, and what two tuning decisions would you make before deployment?",
+      "options": null,
+      "correct_answer": "I would start by standardizing the features and compare a linear SVM against a Gaussian RBF SVM using cross-validation. If the relationship is clearly nonlinear, I would prefer the Gaussian kernel and tune C and gamma on a validation set; if the data are more linearly separable, I would use the linear model with a moderate C to avoid unnecessary complexity.",
+      "explanation": "Why the answer is correct: Mixed feature scales make scaling essential for distance-based kernels, and a Gaussian RBF is appropriate when the class boundary is nonlinear. The key tuning decisions are kernel choice and regularization strength, guided by validation performance rather than training accuracy alone. Why alternatives are wrong: Recommending a linear SVM without testing nonlinear alternatives ignores the possibility of curved class boundaries; recommending a large C without model validation risks overfitting and poor generalization. Connection to LO: This integrates the SVM decision boundary, support vectors, kernel choice, and regularization into a realistic decision workflow.",
+      "learning_objective": "Use different kernel functions (linear, polynomial, Gaussian) to apply the kernel trick and transform data for better classification.",
+      "keywords": [
+        "standardize",
+        "Gaussian RBF",
+        "cross-validation",
+        "C",
+        "gamma",
+        "nonlinear"
+      ]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Synthesis",
+      "question_text": "Compare the consequences of choosing a very high C versus a very low C in an SVM for a noisy binary classification dataset. Discuss the decision boundary, the support vectors, and likely model performance on unseen data.",
+      "options": null,
+      "correct_answer": "A very high C makes the model prioritize classifying training points correctly, often generating a narrow margin and a boundary that depends strongly on noisy or borderline examples. The support vectors become more numerous or more extreme, and the model can overfit. A very low C produces a wider margin and a simpler boundary that may ignore some training errors, which often improves generalization but risks underfitting if C is too low. The best model sits between these extremes and is chosen using validation data.",
+      "explanation": "Why the answer is correct: C directly governs the trade-off between margin width and training accuracy. In noisy data, high C often overfits by emphasizing difficult points, while low C can be too permissive and underfit. The support vectors are the points that define the boundary, so their behavior changes as C changes. Why alternatives are wrong: Generic statements that say 'high C is better' or 'low C is always better' ignore the dataset-specific trade-off and the common practice of tuning C using validation data. Connection to LO: This synthesizes the learning objectives on margin, support vectors, and regularization with practical model selection.",
+      "learning_objective": "Adjust the regularization parameter C in SVMs to balance margin size and classification accuracy on the training data.",
+      "keywords": [
+        "high C",
+        "low C",
+        "support vectors",
+        "narrow margin",
+        "wide margin",
+        "generalization"
+      ]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Synthesis",
+      "question_text": "An analyst says: 'The SVM boundary is defined by all points in the training data, so I do not need to inspect the support vectors.' Explain why this statement is incorrect, and provide a practical strategy for diagnosing whether the model is underfitting or overfitting.",
+      "options": null,
+      "correct_answer": "The statement is incorrect because the final SVM boundary is determined by the support vectors, which are the points closest to the margin; the other training examples usually do not directly define the separator. A practical diagnostic is to compare training performance and validation performance, and to inspect whether the support vector count is large or whether the margin is very narrow; overfitting is suggested by very high training accuracy with poor validation performance, while underfitting is suggested by poor performance on both sets. Adjusting C and testing different kernels can help diagnose the issue.",
+      "explanation": "Why the answer is correct: SVMs optimize a maximum-margin objective, so geometry is defined by support vectors rather than all training samples. Diagnostic checks should compare training and validation behavior, not rely on the full dataset alone. Why alternatives are wrong: Saying all points matter equally ignores the maximum-margin principle; saying we should inspect only the training accuracy ignores the need to evaluate generalization. Connection to LO: This ties together the concepts of support vectors, decision boundary, and regularization into a practical diagnosis workflow.",
+      "learning_objective": "Identify the role of support vectors and explain how they determine the position of the decision boundary.",
+      "keywords": [
+        "support vectors",
+        "decision boundary",
+        "training performance",
+        "validation performance",
+        "overfitting",
+        "underfitting"
+      ]
+    }
+  ]
+}
