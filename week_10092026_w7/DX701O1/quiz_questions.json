@@ -1,0 +1,420 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 7 - Online Communities, AI Content Moderation & Bias (Nextdoor Case)",
+    "description": "Tests the social challenges of virtual communities at scale, the role of AI in social networks and content moderation, and how to identify and design against prejudice, bias, and stereotyping, using Tavani Ch. 11 and the Nextdoor racial-profiling case.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Virtual Community Challenges",
+      "question_text": "Psychologist John Suler's term for the tendency of people to say and do things online (insults, harassment, oversharing) that they would not do face-to-face, because of anonymity, invisibility, and delayed feedback, is the ___ effect.",
+      "options": null,
+      "correct_answer": "Online disinhibition effect",
+      "explanation": "Part 1: The online disinhibition effect (Suler, 2004) explains why anonymity ('you don't know me'), invisibility ('you can't see me'), and asynchronous replies ('see you later') lower the social brakes that normally restrain behavior; its harmful form is 'toxic disinhibition' (trolling, flaming, harassment). Part 2: It is not the same as an echo chamber (which is about who you hear from) or context collapse (which is about mixing audiences); it is specifically about reduced self-restraint. Part 3: This is one of the core social challenges unique to virtual communities, and it is why online platforms need explicit norms and moderation that physical neighborhoods rely on informal social pressure to provide.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": ["disinhibition", "online disinhibition", "toxic disinhibition", "Suler"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Virtual Community Challenges",
+      "question_text": "True or False: Under Section 230 of the U.S. Communications Decency Act, a platform like Nextdoor or Facebook is generally treated as the legal 'publisher' of its users' posts and is therefore liable for defamatory content those users write.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: Section 230(c)(1) says an interactive computer service shall not be treated as the publisher or speaker of information provided by another user, so platforms are generally NOT liable for user-written defamation; Section 230(c)(2) additionally protects good-faith removal of objectionable content. Part 2: The statement reverses the rule; liability attaches to the user who wrote the post, not to the platform hosting it (with exceptions such as federal criminal law and intellectual property). Part 3: Because the law does not force moderation, how a platform governs its community at scale is largely a voluntary ethical and business choice, which is exactly why cases like Nextdoor's self-directed redesign matter.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Virtual Community Challenges",
+      "question_text": "Anthropologist Robin Dunbar proposed that humans can maintain stable social relationships with only about ___ people, a cognitive limit that helps explain why informal trust and reputation break down as online communities grow to millions of members.",
+      "options": null,
+      "correct_answer": "150 (Dunbar's number)",
+      "explanation": "Part 1: Dunbar's number (~150) is the approximate cognitive limit on stable relationships in which you know who each person is and how they relate to others. Part 2: Values like 50 or 1,000 are wrong; 150 is the commonly cited figure (with layers at roughly 5, 15, 50, 150). Part 3: Once a community exceeds this size, members are mostly strangers, so reputation and peer pressure stop enforcing norms on their own; communities at scale need formal rules, moderators, and tooling, which is a central challenge of scale.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": ["150", "Dunbar", "one hundred fifty", "one hundred and fifty"]
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Virtual Community Challenges",
+      "question_text": "A political discussion app ranks each user's feed only by 'likes from people you follow.' After six months, surveys show users rate the other party's supporters far more negatively than at sign-up, even though no false content was detected. Which concept best explains this outcome?",
+      "options": [
+        "A) The online disinhibition effect, because users are anonymous and write more aggressively",
+        "B) Context collapse, because posts written for friends are being seen by employers and family",
+        "C) Echo chambers / group polarization (Sunstein), because the ranking keeps showing users like-minded views that push group opinion toward the extreme",
+        "D) The Dunbar limit, because users follow more than 150 accounts and cannot track them all"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Cass Sunstein's work on echo chambers and group polarization (discussed in Tavani's treatment of online communities) shows that when people deliberate mostly with like-minded others, the group shifts toward a more extreme version of its starting view; a feed ranked by likes from people you already follow amplifies this. Part 2: A is wrong because the outcome is attitude change, not aggressive writing, and anonymity is not mentioned; B is wrong because nothing indicates audiences are being mixed; D is wrong because the number of follows does not explain one-directional opinion drift. Part 3: Polarization without any 'bad content' is a social challenge unique to algorithmically curated communities at scale, which shows harm can come from system design, not just from individual posts.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Virtual Community Challenges",
+      "question_text": "A high-school teacher posts a sarcastic joke about 'surviving parent-teacher night' on her public social media account, intending it for her college friends. A screenshot reaches the school's parent group, and she is disciplined. Name the concept that explains why this happened and give one concrete platform feature that would reduce the risk.",
+      "options": null,
+      "correct_answer": "Context collapse: on social networks, audiences that are separate offline (friends, parents, employer) collapse into one audience, so a message tuned for one group is judged by another. Concrete fix: audience-selection controls such as a 'Close Friends' list or per-post privacy setting (friends-only vs. public), plus a pre-post prompt that shows 'This post is public' before publishing.",
+      "explanation": "Part 1: Context collapse (Marwick & boyd) describes how a single online post reaches multiple audiences at once, removing the ability to adjust tone for each audience the way we do face-to-face. Part 2: This is not primarily disinhibition (she did not behave worse than usual) and not an echo chamber (the problem is audience mixing, not ideological filtering); a vague answer like 'be careful online' does not name a mechanism or fix. Part 3: Context collapse is a challenge specific to virtual communities, and per-post audience controls are an example of platform design reducing harm, a theme that recurs in the Nextdoor case.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": ["context collapse", "audience", "privacy setting", "close friends", "public", "screenshot"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Virtual Community Challenges",
+      "question_text": "In Julian Dibbell's 'A Rape in Cyberspace' (the LambdaMOO 'Mr. Bungle' incident, discussed by Tavani), a user used a program to make other players' avatars perform violent sexual acts in a text-based world. Victims reported real distress, and the community debated and eventually 'toaded' (deleted) his account. Which ethical lesson does the case best illustrate?",
+      "options": [
+        "A) Harm in virtual communities can be real even when no physical contact occurs, and communities must create their own governance processes to respond",
+        "B) Because no physical bodies were involved, the incident caused no moral harm and should have been ignored",
+        "C) The case shows Section 230 makes the MOO's operators criminally liable for Mr. Bungle's actions",
+        "D) The incident shows that real-name policies would have fully prevented the harm"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Tavani uses LambdaMOO to show that actions in virtual spaces can cause genuine psychological and moral harm, and that the community had to invent a process (debate, then the 'wizards' toading the account) because no existing law applied. Part 2: B denies the documented emotional harm; C misreads Section 230, which shields hosts rather than creating liability; D overclaims, since the harm came from a tool that let one user control others' avatars, and identity alone would not have prevented it. Part 3: The case anchors the LO by showing that virtual communities face unique questions about what counts as harm and who has authority to punish it.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Virtual Community Challenges",
+      "question_text": "A platform receives 500 million posts per day. Its moderation pipeline (AI + humans) makes the wrong decision (wrongly removes OR wrongly leaves up) on just 0.1% of posts. How many wrong moderation decisions happen per day, and what is one concrete operational consequence for the platform?",
+      "options": null,
+      "correct_answer": "500,000,000 x 0.001 = 500,000 wrong decisions per day (about 3.5 million per week). Consequence: even a 99.9%-accurate system produces a huge absolute number of errors, so the platform needs an appeals process with enough reviewers to handle hundreds of thousands of disputes, plus published transparency reports on removal and reversal rates.",
+      "explanation": "Part 1: Multiplying volume by error rate (500M x 0.001) gives 500,000 errors daily, which shows that at scale small percentages become very large absolute numbers of affected people. Part 2: Answers like 5,000 or 50,000 come from misplacing the decimal (0.1% = 0.001, not 0.00001 or 0.0001); saying 'the system is 99.9% accurate so it is fine' ignores the absolute harm. Part 3: This is the defining challenge of communities at scale: perfection is impossible, so governance must plan for errors through appeals, audit, and transparency rather than assuming the system is right.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": ["500,000", "500000", "appeal", "error", "transparency", "half a million"]
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Virtual Community Challenges",
+      "question_text": "Nextdoor verifies that each member actually lives at a real address in the neighborhood and requires real names. Which problem did this design choice NOT solve, as the 2015 racial-profiling controversy showed?",
+      "options": [
+        "A) Anonymous trolls from outside the area posting in a neighborhood's feed",
+        "B) Spam accounts created in bulk by bots",
+        "C) Users creating multiple fake identities to flood a local discussion",
+        "D) Real, identifiable neighbors posting 'suspicious person' alerts based only on someone's race"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Address and real-name verification reduce anonymity-driven harms, but the racial-profiling posts in Oakland and other cities were written by verified neighbors under their own names, so verification did not address bias. Part 2: A, B, and C are problems that verification was designed to address and largely does (outsiders, bots, sockpuppets). Part 3: This shows that the social challenges of virtual communities are not only about anonymity: even an accountable, hyperlocal community can amplify offline prejudice at scale, which requires design interventions aimed at behavior rather than identity.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Virtual Community Challenges",
+      "question_text": "You are the new community lead for an online support forum for people with Type 1 diabetes that just grew from 5,000 to 2 million members in a year. Long-time members complain about (1) posts promoting 'cure insulin with cinnamon' claims and (2) harassment of newcomers asking basic questions. Propose three specific governance actions, each tied to a challenge that comes from scale.",
+      "options": null,
+      "correct_answer": "(1) Medical misinformation: publish a written rule banning advice to stop or replace insulin, attach a 'verified clinician' badge to vetted moderators, and auto-label posts mentioning 'stop insulin' or 'cure' with a link to ADA guidance, since at 2M members strangers no longer know who is credible. (2) Harassment of newcomers: create a separate 'New to T1D' sub-forum with dedicated volunteer moderators and a code of conduct pinned at the top, and use a three-strike temporary-suspension policy, because peer pressure from a small group no longer enforces norms. (3) Moderation capacity: add a report button with categories (misinformation, harassment), a review queue prioritized by report count, and a monthly transparency post showing removals and appeals, because volume now exceeds what a few founders can read.",
+      "explanation": "Part 1: A strong answer links each action to a scale-specific cause: loss of personal reputation (beyond Dunbar's number), loss of informal norm enforcement, and volume exceeding human review capacity. Part 2: Generic answers such as 'moderate more' or 'ban bad users' fail because they name no rule, tool, or process; banning all medical discussion would destroy the community's purpose. Part 3: This applies the LO by translating abstract scale challenges into concrete governance for a real health community where misinformation can cause physical harm.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": ["misinformation", "code of conduct", "moderator", "report", "label", "sub-forum"]
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Virtual Community Challenges",
+      "question_text": "A neighborhood app's data shows that posts with angry or fearful language get 3x more comments, and the growth team proposes ranking 'Crime & Safety' posts at the top of every feed by comment count. Leadership wants more engagement but is worried about community harm. Which decision is best?",
+      "options": [
+        "A) Approve the proposal, because higher comment counts prove neighbors find the posts valuable",
+        "B) Reject ranking by comment count for Crime & Safety; rank by recency and proximity instead, and track a 'reported as profiling or fear-mongering' rate alongside engagement before any change ships",
+        "C) Remove the Crime & Safety category entirely so no safety information is ever shared",
+        "D) Approve the proposal but hide comment counts from users so they do not notice the ranking"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Ranking by comments rewards outrage and fear, which in a safety category amplifies suspicion of outsiders (often along racial lines, as in Nextdoor); ranking by recency and proximity keeps genuinely useful local alerts visible, and pairing engagement with a harm metric makes the trade-off measurable. Part 2: A treats engagement as value even though fear drives it; C throws away legitimate safety value (e.g., a real break-in pattern); D keeps the harmful ranking and only hides it, which reduces transparency. Part 3: This shows that at scale, ranking algorithms shape community behavior, so choosing the optimization target is itself an ethical decision.",
+      "learning_objective": "Explain the social challenges unique to virtual communities and communities at scale",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "Microsoft's ___ technology turns known illegal images (e.g., child sexual abuse material) into a digital fingerprint so platforms can automatically block re-uploads, even if the image is resized or slightly edited, without a human having to view it again.",
+      "options": null,
+      "correct_answer": "PhotoDNA (perceptual hash matching)",
+      "explanation": "Part 1: PhotoDNA creates a robust (perceptual) hash of a known image and compares new uploads against a shared database (e.g., NCMEC's), which allows near-perfect automated blocking of previously identified content. Part 2: It is not a machine-learning classifier that judges new, never-seen content, and it is not keyword filtering; it only matches content that humans already confirmed. Part 3: Hash matching is the clearest case where AI moderation works well, because the decision is 'is this the same file?' rather than a judgment about context, which contrasts with the hard cases like hate speech and sarcasm.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": ["PhotoDNA", "hash", "hashing", "perceptual hash", "fingerprint"]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "True or False: In a 'human-in-the-loop' moderation system, the AI model flags and prioritizes content, while trained human reviewers make the final decision on ambiguous cases such as satire, news reporting, or reclaimed slurs.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Human-in-the-loop means automation handles volume (triage, ranking the review queue, auto-actioning only very high-confidence cases) while humans handle cases that need cultural, linguistic, or situational context. Part 2: It would be false if it described full automation (AI decides everything) or fully manual review (no AI triage); this design is in between. Part 3: This hybrid is the standard industry answer to the LO question 'what role should AI play?': AI scales human judgment but does not replace it where context determines meaning.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "Tavani discusses philosopher John Searle's ___ thought experiment, in which a person who follows rules to manipulate Chinese symbols produces correct answers without understanding Chinese, to argue that a program can process language without truly understanding it.",
+      "options": null,
+      "correct_answer": "Chinese Room argument",
+      "explanation": "Part 1: Searle's Chinese Room argues that symbol manipulation (syntax) is not the same as understanding (semantics), challenging 'strong AI' claims that a correctly programmed computer literally has a mind. Part 2: It is not the Turing Test, which is a behavioral test of whether a machine's answers are indistinguishable from a human's; Searle's argument is a critique of exactly that kind of behavioral evidence. Part 3: For content moderation, the point is practical: a classifier can match patterns of toxic words without understanding irony, quotation, or reclaimed language, which explains many moderation errors.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": ["Chinese Room", "Chinese", "Searle", "room argument"]
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "A hate-speech classifier is tested on 10,000 neighborhood posts, of which 200 actually violate policy. The model flags 300 posts; 160 of the flagged posts are true violations. Calculate precision and recall, and state how many legitimate posts would be wrongly removed if the model auto-removed everything it flagged.",
+      "options": null,
+      "correct_answer": "TP = 160, FP = 300 - 160 = 140, FN = 200 - 160 = 40. Precision = 160 / 300 = 53.3%. Recall = 160 / 200 = 80%. Auto-removal would wrongly delete 140 legitimate posts (and still miss 40 violating posts), so this model should route flags to human review rather than auto-remove.",
+      "explanation": "Part 1: Precision = TP / (TP + FP) measures how many removals are justified; recall = TP / (TP + FN) measures how many violations are caught. Part 2: A common mistake is computing accuracy ((160 + 9,660) / 10,000 = 98.2%), which looks excellent only because 98% of posts are benign; another is swapping precision and recall. Part 3: With 53% precision, nearly half of removals would silence legitimate speech, which shows why the role of AI in moderation is usually triage, not final judgment.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": ["53", "80", "140", "precision", "recall", "human review"]
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "Researchers (Sap et al., 2019) found that widely used toxicity classifiers were about twice as likely to flag tweets written in African American English (AAE) as 'offensive' compared with other tweets. What is the most likely root cause?",
+      "options": [
+        "A) AAE tweets actually contain twice as much hate speech, so the model is accurate",
+        "B) The model used too few layers, so making it deeper would remove the disparity",
+        "C) Classifiers cannot process informal spelling at all, so they flag every informal post equally",
+        "D) The training labels came from annotators who were not primed for dialect, so they labeled in-group AAE expressions as toxic, and the model learned that dialect itself signals toxicity"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Sap et al. showed that annotator bias in the training data gets encoded into the model: words and spellings that are normal and non-hostile within AAE were labeled offensive, so the model learned dialect as a proxy for toxicity; priming annotators with dialect information reduced the bias. Part 2: A assumes the labels are ground truth when the labels are the problem; B treats a data problem as a model-capacity problem; C is contradicted by the disparity itself, since the errors fall more on one group. Part 3: This shows that AI moderation can automate and scale existing prejudice, disproportionately silencing the communities it should protect.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "Internal research at a large social network (reported in 2021) found that its recommendation algorithm, which weighted 'angry' reactions and comments heavily, boosted divisive and false posts. Explain the mechanism by which an engagement-optimized recommender can amplify harmful content even when no engineer intends it.",
+      "options": null,
+      "correct_answer": "The recommender is trained to maximize predicted engagement (clicks, comments, reshares, angry reactions). Outrage and fear generate more reactions than calm content, so the model learns to rank divisive posts higher; higher ranking brings more reactions, which feed back as training signal (a feedback loop). The algorithm optimizes a proxy (engagement) that diverges from the real goal (user well-being and accurate information), so harm grows without anyone choosing it.",
+      "explanation": "Part 1: The key ideas are the objective function (engagement as a proxy), the emotional bias of human attention (outrage spreads faster), and the feedback loop between ranking and training data. Part 2: Saying 'the AI is evil' or 'users just like bad content' misses the point that the harm comes from the optimization target and the reinforcing loop, not from intent. Part 3: This shows that AI's role in social networks is not only removing content; ranking decides what millions see, and that power shapes community norms.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": ["engagement", "feedback loop", "outrage", "proxy", "ranking", "amplif"]
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "A harassment classifier outputs a probability score from 0 to 1 for each comment. The trust-and-safety team has 40 human reviewers and wants to limit both wrongful removals and missed harassment. Which policy is best?",
+      "options": [
+        "A) Auto-remove every comment with score > 0.50 so nothing harmful gets through",
+        "B) Auto-remove only scores >= 0.95, send scores 0.60 to 0.95 to the human review queue sorted by score, and leave scores < 0.60 up while still allowing user reports",
+        "C) Send every comment to human reviewers and ignore the scores, because AI is biased",
+        "D) Auto-remove only scores >= 0.99 and take no action on anything else"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A tiered threshold uses AI where it is reliable (very high confidence), puts limited human capacity on the uncertain middle band where context matters, and keeps user reports as a backstop for low-score misses. Part 2: A uses a low threshold that maximizes recall but produces many false positives (wrongful removals); C ignores the scale problem, since 40 reviewers cannot read millions of comments; D maximizes precision but misses most harassment between 0.60 and 0.99. Part 3: This applies the LO by showing that AI's role in moderation is defined by thresholds and routing decisions, which are policy choices and not just technical settings.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "In 2019 Nextdoor introduced a 'Kindness Reminder': when a machine-learning model detects potentially offensive or hurtful language in a reply BEFORE it is posted, the user sees a prompt linking to community guidelines and is given the chance to edit. Explain why this pre-post nudge can be preferable to removing the comment after it is published.",
+      "options": null,
+      "correct_answer": "The nudge intervenes before harm happens: the target never sees the hurtful comment, unlike removal after publication. It preserves user autonomy because the person chooses to edit, so a false positive costs only a few seconds instead of wrongful censorship. It teaches the community guideline at the moment of behavior, which can change future posting habits, and it reduces moderator workload because fewer reports are filed.",
+      "explanation": "Part 1: Pre-post friction shifts AI from punishment to prevention; Nextdoor reported that a meaningful share of users who saw the reminder edited or withdrew their comment. Part 2: Post-hoc removal still lets the harm happen, can feel arbitrary to the user, and creates appeals volume; an answer saying 'AI deletes bad comments faster' misses the mechanism. Part 3: This shows a constructive role for AI in community management, nudging behavior rather than only policing it, which connects directly to the Nextdoor design philosophy.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": ["before", "edit", "nudge", "false positive", "guideline", "prevent"]
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "A video platform launching in India, Brazil, and Nigeria (Hindi, Portuguese, Yoruba, English, Nigerian Pidgin) must moderate hate speech from day one. Its only classifier was trained on U.S. English data. Design a moderation pipeline with at least three specific components, including how you protect the human moderators.",
+      "options": null,
+      "correct_answer": "(1) Language and locale routing: detect language per post and do NOT apply the U.S. English classifier to Yoruba or Pidgin; route those posts to native-speaker reviewers until local labeled datasets exist. (2) Local training data: hire in-country annotators to label 20,000+ examples per language using a locally written slur and context list (including reclaimed terms), and report per-language precision and recall before enabling auto-removal. (3) Tiered thresholds: auto-remove only hash-matched or >= 0.95-confidence content and send the rest to human review with an appeal button for users. (4) Moderator wellbeing: cap daily exposure to graphic content, blur or grayscale images by default, rotate reviewers across queues, and provide on-site counseling.",
+      "explanation": "Part 1: A strong design addresses the known weaknesses of AI moderation: poor transfer across languages and dialects, missing cultural context, and the psychological toll on human reviewers (documented in reports on outsourced moderators). Part 2: 'Just translate everything to English and use the existing model' loses slang, sarcasm, and local slurs; 'use only AI' ignores context; 'use only humans' does not scale. Part 3: This synthesizes the LO by showing AI as one layer in a socio-technical system that must be locally grounded and humane.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": ["native", "local", "human review", "threshold", "wellbeing", "appeal"]
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "AI in Social Networks & Moderation",
+      "question_text": "To cut costs by 60%, a social network's CFO proposes replacing all 3,000 human content moderators with a large language model that 'matches human accuracy on our benchmark.' As head of trust and safety, which recommendation is most defensible?",
+      "options": [
+        "A) Approve immediately, because benchmark parity proves the model is as good as humans on real traffic",
+        "B) Reject AI completely and hire 3,000 more moderators, because any automation is unethical",
+        "C) Pilot the LLM on one low-risk policy area (e.g., spam), keep humans for hate speech, self-harm, and appeals, and require per-language and per-dialect error audits plus a public transparency report before expanding",
+        "D) Approve, but let users vote on each removal instead of having moderators review appeals"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A staged pilot captures savings where errors are cheap (spam), keeps human judgment where context and harm are highest, and makes expansion depend on measured, disaggregated error rates instead of a single benchmark. Part 2: A assumes an average benchmark score reflects performance on new slang, minority dialects, and adversarial users; B ignores that AI triage is necessary at scale and can reduce moderator trauma; D replaces expert review with popularity, which invites brigading against minority users. Part 3: This captures the LO's core lesson: AI should augment moderation with accountability, not be adopted only on cost.",
+      "learning_objective": "Describe the role of artificial intelligence (AI) in social networks, community management, and content moderation",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "Nextdoor's Help Center defines racial ___ as assuming someone is suspicious because of their race or ethnicity, or posting a vague description (e.g., only race and gender) that casts suspicion on an entire group of people.",
+      "options": null,
+      "correct_answer": "Racial profiling",
+      "explanation": "Part 1: Nextdoor's definition has two parts: treating race or ethnicity as the reason for suspicion, and giving descriptions so vague that they point at a whole group rather than one individual. Part 2: This differs from simply reporting a crime; mentioning race alongside specific details (clothing, shoes, hair, a distinctive tattoo) about an actual act is not profiling under the policy. Part 3: A precise definition is the first step in identifying bias, because a platform cannot design against a behavior it has not clearly defined.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": ["profiling", "racial profiling", "profile"]
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "A ___ is a belief about the traits of a group (e.g., 'young men in hoodies are criminals'), ___ is a negative attitude or feeling toward that group, and discrimination is the action of treating group members unfairly. Fill in the first blank.",
+      "options": null,
+      "correct_answer": "Stereotype (the second blank is prejudice)",
+      "explanation": "Part 1: The classic three-part model separates the cognitive component (stereotype: a generalized belief), the affective component (prejudice: a negative judgment or feeling), and the behavioral component (discrimination: unequal treatment such as calling police on someone). Part 2: Bias is the broader umbrella term and implicit bias refers to automatic associations a person may not be aware of; neither term specifically names the belief itself. Part 3: Distinguishing these lets you identify which layer a platform intervention targets; Nextdoor's form did not try to change beliefs but blocked the belief from turning into a discriminatory post.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": ["stereotype", "stereotypes", "stereotyping"]
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "True or False: According to reporting by Kashmir Hill (Splinter, 2016), Nextdoor's redesigned Crime & Safety posting process reduced racially profiling posts by about 75% in its test markets.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Hill reported that after Nextdoor added a multi-step form with prompts about behavior and required descriptive details whenever race was mentioned, racial-profiling posts dropped by about 75% in the regions where it was tested. Part 2: The redesign did not eliminate profiling completely, and it also had a cost: adding friction reduced the overall number of Crime & Safety posts, which Nextdoor accepted. Part 3: This number is the central evidence in the case that interface design can measurably reduce biased behavior, which makes bias something that can be identified, measured, and engineered against.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "Which of the following Nextdoor Crime & Safety posts is the clearest instance of racial profiling under Nextdoor's policy?",
+      "options": [
+        "A) 'At 2:15 pm a man in a red Warriors jersey, gray sweatpants, and white Nike high-tops tried car door handles on Elm St. He left in a silver Honda Civic.'",
+        "B) 'Saw a Black guy walking slowly down our street looking at houses. Seemed sketchy, keep an eye out.'",
+        "C) 'My package was taken from my porch between 1 and 3 pm. Doorbell camera footage attached; I filed police report #24-1187.'",
+        "D) 'A Latina woman, about 5 ft 4 in, in a yellow raincoat with a black backpack and a pink cast on her left arm, pried open the community mailbox at 9 pm.'"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Option B fails both parts of the definition: race is the main descriptor, there is no crime (walking and looking are normal behavior), and the description would fit thousands of innocent people. Part 2: A gives specific clothing and an actual criminal act without mentioning race; C describes a crime with evidence and no person description; D mentions ethnicity but adds several distinctive identifiers (raincoat, backpack, pink cast) tied to a specific act, which Nextdoor's guidelines allow. Part 3: Spotting the difference between 'suspicious because of who they are' and 'suspicious because of what they did' is the core skill this LO requires.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "Nextdoor's redesigned Crime & Safety form asks users to describe WHAT the person was doing before asking what they looked like, and if the user mentions race, it requires at least two additional descriptors (such as clothing, hair, or shoes). Explain, using the idea of System 1 vs. System 2 thinking (Kahneman), why this sequence reduces profiling.",
+      "options": null,
+      "correct_answer": "Profiling posts often come from fast, automatic System 1 judgments where race acts as a mental shortcut for 'suspicious.' Asking first about behavior ('Was a crime committed? What exactly did the person do?') forces slower, deliberate System 2 thinking, and many users realize nothing criminal happened and stop. Requiring two extra descriptors such as clothing and shoes makes the description specific to one individual, so race cannot be the only identifier. The added friction interrupts the impulse at the moment of posting.",
+      "explanation": "Part 1: The redesign is a decision-point intervention: it adds 'speed bumps' that move the user from intuitive pattern-matching to reflection, which is why behavior-first ordering matters. Part 2: Answers like 'it banned the word Black' are factually wrong (race was still allowed with details), and 'it educated users about racism' misses that the change was structural, not a training course. Part 3: This shows how to identify where bias enters a process (a hurried judgment) and target that point, a transferable skill for any system where human or algorithmic bias appears.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": ["System 1", "System 2", "behavior", "friction", "descriptor", "clothing"]
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "Before the redesign, a city's Nextdoor network had 1,200 Crime & Safety posts per month, and audits found 240 were racial profiling. After the redesign, total posts fell to 600 per month, and profiling posts fell to 60. Calculate (a) the percentage reduction in profiling posts, and (b) the profiling RATE (share of all safety posts) before and after.",
+      "options": null,
+      "correct_answer": "(a) (240 - 60) / 240 = 180 / 240 = 75% reduction in profiling posts. (b) Before: 240 / 1,200 = 20% of safety posts were profiling. After: 60 / 600 = 10%. So profiling fell by 75% in absolute count, and the rate also halved from 20% to 10%, meaning the drop is not explained only by fewer total posts.",
+      "explanation": "Part 1: Comparing both the count and the rate separates two effects: friction reduced total posting (by 50%) AND made the remaining posts less likely to be profiling (rate 20% to 10%). Part 2: Reporting only '75%' could be misleading if total posts had dropped 75% too (the rate would then be unchanged); computing (240 - 60) / 60 = 300% uses the wrong base. Part 3: This applies the LO quantitatively: correctly identifying a reduction in bias requires normalizing by volume, the same discipline used in fairness audits of algorithms.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": ["75", "20", "10", "rate", "180"]
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "A neighborhood app trains a 'suspicious activity' model on five years of users' Crime & Safety posts and the people they described. In testing, the model flags Black pedestrians at four times the rate of white pedestrians showing identical behavior. Which type of bias is primarily at work?",
+      "options": [
+        "A) Historical (label) bias: the training data reflects neighbors' past profiling, so the model learned human prejudice as if it were ground truth",
+        "B) Measurement bias caused only by low-resolution doorbell cameras",
+        "C) Confirmation bias of the data scientists who wrote the code",
+        "D) Sampling bias because the dataset is too small, which would be solved by doubling the data from the same source"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: If historical posts over-reported Black residents as 'suspicious,' those labels encode prejudice; a model trained on them reproduces and scales that pattern even when behavior is identical. Part 2: B could add noise but would not create a 4x disparity under identical behavior; C may exist but is not what the evidence points to; D is wrong because more data from the same biased source reinforces the bias rather than fixing it. Part 3: Identifying bias in AI requires asking where the labels came from, and the Nextdoor history is a direct example of how human stereotyping becomes algorithmic bias.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "Nextdoor's redesign started after Oakland community groups (such as Neighbors for Racial Justice) and local journalists (e.g., an East Bay Express story in 2015) documented profiling posts. Name two concrete actions Nextdoor took beyond the form redesign, and explain why involving outside groups mattered.",
+      "options": null,
+      "correct_answer": "Actions: (1) worked with Oakland city officials and community groups such as Neighbors for Racial Justice to co-design and test the new posting flow; (2) updated community guidelines with an explicit anti-racial-profiling policy and Help Center page, and trained neighborhood leads and staff to recognize and remove profiling posts (plus a reporting option to flag a post as racial profiling). Outside groups mattered because the people being profiled can identify harm that a mostly non-affected product team may not notice, and they gave the change legitimacy and real-world test cases.",
+      "explanation": "Part 1: The case is not only a UI story; it combined policy (clear definition and rules), people (trained moderators and leads), tooling (a report category), and co-design with affected communities. Part 2: Answers that mention only 'they changed the button' or 'they used AI' miss the community partnership that triggered and shaped the work. Part 3: Identifying prejudice reliably requires input from the groups who experience it, which is a practical principle for any bias audit.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": ["Neighbors for Racial Justice", "community", "guidelines", "report", "Oakland", "co-design"]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "Nextdoor's redesign cut racial-profiling posts by about 75% but also reduced total Crime & Safety posts. A board member argues: 'We are losing safety engagement; roll back the form.' Which response best uses the evidence and the platform's ethical obligations?",
+      "options": [
+        "A) Roll back, because total engagement is the metric that matters most for the business",
+        "B) Keep the form, and report a 'useful-alert rate' (posts with a specific crime plus a specific descriptor) along with the profiling rate, to show that the lost posts were mostly vague, low-value suspicion and not real crime reports",
+        "C) Keep the form but make the race-related prompts optional so posting returns to its old volume",
+        "D) Remove the Crime & Safety category, since any post about people might involve bias"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The friction was designed to filter out exactly the posts the board member counts as 'lost'; measuring post quality (specific crime, specific descriptors) shows whether real safety value dropped, turning an ethics argument into evidence the business can track. Part 2: A treats raw volume as value even when the volume caused harm; C removes the mechanism that produced the 75% reduction; D throws away legitimate crime reporting. Part 3: This is the advanced form of the LO: once bias is identified, the decision is about defending the fix with the right metrics against pressure to optimize engagement.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Prejudice, Bias & Stereotyping",
+      "question_text": "You are the product lead for a ride-sharing app in which drivers can see a rider's name and profile photo before accepting a trip. Data shows riders with names associated with Black Americans wait 30% longer and get cancelled twice as often. Apply the Nextdoor lessons to propose three specific design or policy changes and one metric to prove they worked.",
+      "options": null,
+      "correct_answer": "(1) Hide rider name and photo from the driver until AFTER the trip is accepted, so race cues cannot drive the accept/decline decision (removing the trigger, like Nextdoor removing race-only descriptions). (2) Add friction to cancellations after acceptance: require the driver to pick a reason from a list, and flag drivers whose cancellation rate for one demographic group is much higher than their average for review. (3) Publish an anti-discrimination policy in the driver agreement, show a short reminder screen at onboarding, and suspend drivers after confirmed discriminatory cancellations. Metric: run an A/B test and compare wait-time and cancellation-rate gaps between rider groups (using name-based or self-reported demographic estimates) before and after; success = the 30% wait-time gap and 2x cancellation gap shrink toward zero without lowering overall trip completion.",
+      "explanation": "Part 1: The answer transfers the Nextdoor playbook: identify the decision point where bias enters (driver acceptance), remove or delay the cue (name and photo), add friction where bias can still act (cancellation), set explicit policy with enforcement, and measure disaggregated outcomes. Part 2: Answers like 'run diversity training' or 'tell drivers to be fair' are not concrete design changes; removing photos permanently might hurt safety verification, which is why delaying the cue until after acceptance is better. Part 3: This synthesizes the LO by showing that identifying bias is only useful when it leads to measurable interventions that reduce discriminatory outcomes.",
+      "learning_objective": "Identify instances of prejudice, bias, and stereotyping",
+      "keywords": ["hide", "photo", "name", "cancellation", "A/B test", "gap"]
+    }
+  ]
+}
