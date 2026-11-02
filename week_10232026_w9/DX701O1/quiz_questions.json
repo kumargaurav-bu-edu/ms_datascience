@@ -1,0 +1,460 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 9 - Cybersecurity, Cybercrime & Large-Scale Data Breaches",
+    "description": "Tests Tavani Chapters 6-7: defining cybercrime and cyber-related crimes, the elements of cybersecurity (data, system, and network security, plus cloud challenges), tradeoffs between data privacy and cybersecurity, and the dangers of large-scale data breaches such as Equifax, Target, and OPM.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Cybercrime and Cyber-Related Crimes",
+      "question_text": "According to Tavani, which condition makes a criminal act a GENUINE cybercrime rather than a cyber-related crime?",
+      "options": [
+        "A) The criminal used a computer at any point while planning the crime",
+        "B) The crime can be committed only through the use of cybertechnology and can be carried out only in the cyber realm",
+        "C) The victim reported the crime to a cybercrime unit such as the FBI's IC3",
+        "D) The crime caused financial losses above a statutory threshold"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Tavani's test is that a crime is a genuine cybercrime if, and only if, it can be committed only by using cybertechnology and only in the cyber realm (for example, launching a DDoS attack on a server). Part 2: A would count almost every modern crime, including a bank robbery planned on a laptop; C is about how a crime is reported, not what kind of crime it is; D is about how much damage was done, not what category the crime falls in. Part 3: This definition is what separates genuine cybercrimes from cyber-related crimes for the first learning objective.",
+      "learning_objective": "Define cybercrime and cyber-related crimes.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Cybercrime and Cyber-Related Crimes",
+      "question_text": "Tavani names three categories of genuine cybercrime: cyberpiracy (unauthorized copying or distribution of proprietary digital information), cybervandalism (disrupting or destroying digital property), and cyber___ (gaining unauthorized access to a computer system or network).",
+      "options": null,
+      "correct_answer": "trespass (cybertrespass)",
+      "explanation": "Part 1: Cybertrespass means entering a system or network you have no authorization to enter, even if you steal or damage nothing; one example is logging into a university server with guessed credentials. Part 2: Cyberpiracy is about copying or distributing protected content, such as pirated software, and cybervandalism is about destroying or disrupting it, such as deploying a worm or DDoS attack, so neither is just the act of entering. Part 3: Being able to name all three categories is central to defining genuine cybercrime.",
+      "learning_objective": "Define cybercrime and cyber-related crimes.",
+      "keywords": ["trespass", "cybertrespass", "unauthorized access", "break-in"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Cybercrime and Cyber-Related Crimes",
+      "question_text": "True or False: Online tax fraud, in which someone files a falsified tax return through an e-filing website, is best classified as a cyber-assisted crime rather than a genuine cybercrime.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Tax fraud existed long before the internet and can still be done on paper; the computer only helps the criminal, so it is cyber-assisted. Part 2: Calling this a genuine cybercrime fails Tavani's test, because the crime can be carried out outside the cyber realm; it is also not cyber-exacerbated, because e-filing does not dramatically expand the scale of harm. Part 3: This sorting exercise applies the cybercrime vs. cyber-related crime distinction.",
+      "learning_objective": "Define cybercrime and cyber-related crimes.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Cybercrime and Cyber-Related Crimes",
+      "question_text": "Which crime is the best example of a cyber-EXACERBATED crime, one whose scale or reach is dramatically increased by cybertechnology even though it can exist without it?",
+      "options": [
+        "A) Releasing a self-replicating worm that wipes hard drives",
+        "B) Using spreadsheet software to keep falsified accounting records",
+        "C) Cyberstalking, where a stalker tracks a victim across social media, location check-ins, and email from another country",
+        "D) Downloading a pirated copy of a commercial video game"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Stalking predates the internet, but social media and location data let a stalker follow a victim continuously, anonymously, and across borders, which greatly worsens the crime; Tavani lists cyberstalking, internet pedophilia, and identity theft as cyber-exacerbated. Part 2: A is cybervandalism and D is cyberpiracy, both genuine cybercrimes; B is cyber-assisted, because the software only stands in for paper records without changing the scale. Part 3: This tests the second half of the learning objective, the subcategories of cyber-related crime.",
+      "learning_objective": "Define cybercrime and cyber-related crimes.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Cybercrime and Cyber-Related Crimes",
+      "question_text": "A security researcher breaks into a retailer's server only to prove that a flaw exists and then reports it; a second person breaks into the same server to steal card numbers; the retailer's security team then launches an attack back at the thief's IP address. Which labels fit these three acts?",
+      "options": [
+        "A) Cracking, hacking, hacktivism",
+        "B) Hacking, cracking, counter-hacking (hacking back)",
+        "C) Hacktivism, cyberterrorism, information warfare",
+        "D) Counter-hacking, hacking, cracking"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: In the traditional usage, 'hacking' means non-malicious exploration of systems; 'cracking' means breaking in with malicious intent such as theft; 'counter-hacking' (hacking back) is a retaliatory or defensive attack on the attacker. Tavani notes that even well-intended hacking is still unauthorized access. Part 2: A and D mix up the order; C uses political and nation-state labels, but none of these acts has a political aim. Part 3: Telling hacking, cracking, and counter-hacking apart is an explicit item on the Active Reading Checklist.",
+      "learning_objective": "Define cybercrime and cyber-related crimes.",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Cybercrime and Cyber-Related Crimes",
+      "question_text": "A group defaces a government website with protest slogans to object to a new surveillance law, without damaging infrastructure or putting lives at risk. A separate group disables a regional power grid's control systems to cause fear and force a policy change. How should these be classified?",
+      "options": [
+        "A) The first is hacktivism; the second is cyberterrorism",
+        "B) Both are hacktivism, because both are politically motivated",
+        "C) The first is cyberterrorism; the second is information warfare",
+        "D) Both are cybertrespass only, because political motive is legally irrelevant"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Hacktivism combines hacking with political protest and usually causes disruption or embarrassment, as with website defacement; cyberterrorism uses attacks that cause serious harm or fear, such as attacks on critical infrastructure, to coerce a government. Part 2: B ignores the difference in severity and harm; C mislabels the protest, and information warfare usually refers to nation-state operations; D is wrong because Tavani's categories are ethical distinctions, not just legal ones. Part 3: This applies the hacktivism vs. cyberterrorism distinction in Tavani's discussion of cybercrime.",
+      "learning_objective": "Define cybercrime and cyber-related crimes.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Cybercrime and Cyber-Related Crimes",
+      "question_text": "True or False: The 2000 'ILOVEYOU' virus case shows a key challenge in prosecuting cybercrime: the suspect in the Philippines could not be successfully prosecuted there, because the country had no law at the time that clearly criminalized writing and releasing the virus.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: The virus caused billions of dollars in damage worldwide, but charges against the suspect were dropped because Philippine law did not yet cover the act; the Philippines passed an e-commerce law afterwards. Part 2: Calling this False ignores the jurisdiction problem: a cybercrime can cross many borders, while laws stop at national boundaries. That gap is why treaties such as the Council of Europe Convention on Cybercrime (Budapest, 2001) were created. Part 3: Understanding the legal and jurisdictional limits is part of defining cybercrime in practice.",
+      "learning_objective": "Define cybercrime and cyber-related crimes.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Cybercrime and Cyber-Related Crimes",
+      "question_text": "The Stuxnet worm, widely attributed to nation-states, physically damaged Iranian uranium-enrichment centrifuges by sabotaging their industrial control systems. Which classification is most defensible using Tavani's framework?",
+      "options": [
+        "A) Ordinary cybercrime, because unauthorized code was installed on computers",
+        "B) Hacktivism, because it had a political goal",
+        "C) Information warfare (a state-level cyberattack), because a state actor disrupted an adversary's critical infrastructure for strategic aims; this raises just-war questions rather than ordinary criminal ones",
+        "D) Cyber-assisted crime, because the physical damage was the real crime and the computer only helped"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Stuxnet was a state-sponsored operation that targeted another nation's infrastructure for strategic and military goals, which fits information warfare. That is why Tavani asks whether such acts are acts of war that need just-war reasoning, not criminal prosecution. Part 2: A ignores who did it and why; B wrongly applies a protest category to covert state sabotage; D gets it backwards, because the attack could only be carried out through cybertechnology. Part 3: Weighing actor, motive, and target is how you classify hard cases, including the Week 9 discussion question 'Is Stuxnet an act of war or a cybercrime?'",
+      "learning_objective": "Define cybercrime and cyber-related crimes.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Elements of Cybersecurity",
+      "question_text": "Tavani divides cybersecurity into three elements. Which list is correct?",
+      "options": [
+        "A) Encryption, firewalls, and antivirus software",
+        "B) Confidentiality, profitability, and usability",
+        "C) Physical security, personnel security, and legal security",
+        "D) Data security, system security, and network security"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Data security protects information that is stored or in transit; system security protects hardware, operating systems, and applications, for example from viruses and worms; network security protects the infrastructure that links systems, for example from DDoS attacks. Part 2: A lists tools rather than elements; B adds business goals that are not security elements; C describes organizational controls, not Tavani's cybertechnology framework. Part 3: This is the direct definition the learning objective asks for.",
+      "learning_objective": "Describe the elements of cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Elements of Cybersecurity",
+      "question_text": "Unlike a virus, which needs a host file and usually a user action to spread, a ___ is self-replicating malicious code that spreads across networks on its own, without attaching to another program.",
+      "options": null,
+      "correct_answer": "worm",
+      "explanation": "Part 1: A worm spreads automatically from machine to machine across a network; well-known examples include the 1988 Morris worm and Stuxnet. Part 2: A virus attaches to a host file and needs that file to run; a Trojan horse disguises itself as legitimate software and does not replicate on its own. Part 3: Knowing the types of malware is necessary to explain system and network security, two of Tavani's three elements of cybersecurity.",
+      "learning_objective": "Describe the elements of cybersecurity.",
+      "keywords": ["worm", "computer worm", "self-replicating"]
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Elements of Cybersecurity",
+      "question_text": "True or False: A distributed denial-of-service (DDoS) attack, in which a botnet floods a bank's website with traffic until customers cannot reach it, is primarily a NETWORK security threat.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: A DDoS attack overwhelms the network infrastructure and service availability; it disrupts access rather than reading data or corrupting a specific operating system. Part 2: It would be a data security breach if records were stolen or altered, and a system security attack if malware damaged the server's operating system; a DDoS attack typically does neither. Part 3: Matching each threat to the right element is how the three-part framework is used in practice.",
+      "learning_objective": "Describe the elements of cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Elements of Cybersecurity",
+      "question_text": "A hospital moves its patient records to a public-cloud Software-as-a-Service (SaaS) provider. Which cybersecurity challenge specific to cloud computing does Tavani's discussion highlight most directly?",
+      "options": [
+        "A) Cloud servers cannot be infected by malware, so system security is no longer needed",
+        "B) The hospital loses direct physical and administrative control over where the data sits and who can access it, so its security depends on the provider's practices, multi-tenant isolation, and the laws of the country where the servers are located",
+        "C) Public clouds make data security easier because the provider legally assumes all liability",
+        "D) The only cloud risk is slower internet speed when doctors open records"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: In the cloud, data is stored on third-party servers, often in many places, and shared with other customers (multi-tenancy). The hospital has to trust the provider's controls and accept uncertain jurisdiction, which are the core cloud security and privacy concerns. Part 2: A is false, because cloud systems can be hacked and misconfigured (Capital One, 2019); C is false, because the hospital is still legally responsible for its patients' data; D treats a performance issue as a security issue. Part 3: Cloud challenges are an explicit item under the elements of cybersecurity.",
+      "learning_objective": "Describe the elements of cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Elements of Cybersecurity",
+      "question_text": "Match each incident to the cybersecurity element it MOST directly compromises: (1) An attacker intercepts unencrypted customer passwords sent over café Wi-Fi. (2) Ransomware encrypts a company's operating system and applications so the servers won't boot. (3) A botnet saturates an ISP's routers so that thousands of customers lose connectivity.",
+      "options": [
+        "A) (1) Network, (2) Data, (3) System",
+        "B) (1) System, (2) Network, (3) Data",
+        "C) (1) Data, (2) System, (3) Network",
+        "D) (1) Data, (2) Network, (3) System"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: (1) Intercepting passwords in transit compromises the confidentiality of information, which is data security. (2) Locking up the OS and applications compromises the computing system, which is system security. (3) Saturating routers attacks the shared infrastructure, which is network security. Part 2: A, B, and D each swap at least two categories, for example treating ransomware that disables servers as a network attack. Part 3: Correct mapping shows that you can apply Tavani's three elements rather than just recite them.",
+      "learning_objective": "Describe the elements of cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Elements of Cybersecurity",
+      "question_text": "True or False: Tavani treats cybersecurity, cyberprivacy, and cybercrime as completely separate issues that never overlap.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: Tavani separates them conceptually (security protects data, systems, and networks; privacy concerns control over personal information; crime concerns illegal acts), but notes that they often overlap. A data breach, for example, is a security failure, a privacy harm, and a crime. Part 2: Saying they 'never overlap' contradicts examples such as Equifax, where an unpatched system led to a privacy loss for about 147 million people, caused by a criminal intrusion. Part 3: Understanding both the distinctions and the overlaps sets the scope of cybersecurity.",
+      "learning_objective": "Describe the elements of cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Elements of Cybersecurity",
+      "question_text": "A mid-size online retailer has budget for ONE major security investment this quarter. Its risk review shows: customer card data is stored unencrypted in a database, servers are fully patched, and it has had no DDoS incidents in three years. Which investment best addresses its highest-risk element?",
+      "options": [
+        "A) Buy a DDoS-mitigation service for the website",
+        "B) Replace all employee laptops with newer models",
+        "C) Launch a marketing campaign promoting the company's commitment to security",
+        "D) Encrypt card data at rest and in transit, tokenize stored card numbers, and restrict database access to least-privilege service accounts (a data security fix)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The review shows that data security, unencrypted card data, is the weakest element and the most valuable target. Encryption, tokenization, and least-privilege access reduce what a successful break-in could expose, and they align with PCI-DSS. Part 2: A addresses a network threat that has not occurred; B addresses system security, which is already patched; C is reputation management with no technical control. Part 3: Prioritizing across the three elements, based on evidence, is how the framework guides real security decisions.",
+      "learning_objective": "Describe the elements of cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Privacy vs. Cybersecurity Tradeoffs",
+      "question_text": "Which statement best captures the basic tension between data privacy and cybersecurity?",
+      "options": [
+        "A) Privacy and security always point the same way, so stronger security always means more privacy",
+        "B) Privacy only matters for celebrities, while security matters for everyone",
+        "C) Security measures that protect systems, such as monitoring traffic, logging user activity, and scanning content, often require collecting and inspecting personal data, which can reduce individual privacy",
+        "D) Privacy is a legal issue and security is a technical issue, so they never interact"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Many defenses work by watching people. Intrusion detection inspects network traffic, keystroke and activity logging tracks employees, and government surveillance scans communications, so more security can mean less privacy. Part 2: A ignores this tension, although some measures, such as encryption, do help both; B misstates who privacy protects; D ignores that controls like monitoring are both technical and legal and directly affect privacy. Part 3: This sets up the central tradeoff in the learning objective.",
+      "learning_objective": "Identify tradeoffs between data privacy and cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Privacy vs. Cybersecurity Tradeoffs",
+      "question_text": "True or False: End-to-end encryption is an example of a measure that can strengthen BOTH data privacy and data security at the same time, even though it can make law-enforcement investigations harder.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: End-to-end encryption keeps a message's contents unreadable to eavesdroppers and to the service provider, which protects both confidentiality (security) and the user's control over their information (privacy). Part 2: Calling this False assumes privacy and security always trade off; the real tradeoff here is with government access to communications, as in the 2016 Apple vs. FBI San Bernardino iPhone dispute. Part 3: Recognizing where the two align and where they conflict is the core of the tradeoff objective.",
+      "learning_objective": "Identify tradeoffs between data privacy and cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Privacy vs. Cybersecurity Tradeoffs",
+      "question_text": "In the 2016 Apple vs. FBI dispute, the FBI asked Apple to build custom software to bypass the passcode protections on the San Bernardino shooter's iPhone. What was Apple's strongest privacy-AND-security argument against complying?",
+      "options": [
+        "A) Creating a bypass tool would create a 'backdoor' that criminals or foreign governments could steal or demand, weakening security and privacy for every iPhone user, not just the suspect",
+        "B) The suspect's privacy rights outweighed the investigation, because the dead keep full constitutional protection",
+        "C) Apple did not have the engineering ability to write such software",
+        "D) Encryption is illegal to break under any U.S. law"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Apple argued that a tool that defeats encryption cannot be limited to one phone: once it exists, it becomes a target for theft and for demands from other governments, which would reduce security and privacy for hundreds of millions of users. Part 2: B misstates the argument, which was about all users, not the deceased; C is false, because Apple was technically able; D is false, because no such blanket law exists, and the FBI eventually used a third-party tool. Part 3: This shows that 'more access for security' can actually mean 'less security' overall, a key nuance in the privacy-security tradeoff.",
+      "learning_objective": "Identify tradeoffs between data privacy and cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Privacy vs. Cybersecurity Tradeoffs",
+      "question_text": "A company wants to detect insider data theft. Which design best balances security with employee privacy?",
+      "options": [
+        "A) Record every employee's screen and webcam all day and keep the footage indefinitely",
+        "B) Do nothing, because any monitoring violates privacy",
+        "C) Secretly read all employee personal email accounts accessed on work devices",
+        "D) Use data-loss-prevention (DLP) rules that flag only bulk downloads or transfers of files labeled 'confidential', disclose the policy in the employee handbook, keep logs for 90 days, and restrict log review to a security team with audit trails"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: D targets the specific risk (bulk movement of sensitive files), is transparent, minimizes retention, and limits who can see the logs. That applies purpose limitation and data minimization while still detecting theft. Part 2: A collects far more data than needed and creates its own breach risk; B gives up legitimate security duties; C is covert and intrudes on personal accounts beyond the employer's interest. Part 3: Good tradeoff decisions are proportional, transparent, and minimal, rather than all-or-nothing.",
+      "learning_objective": "Identify tradeoffs between data privacy and cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Privacy vs. Cybersecurity Tradeoffs",
+      "question_text": "True or False: Edward Snowden's 2013 disclosures about NSA bulk collection of telephone metadata illustrate the privacy-security tradeoff, because a program justified on national-security grounds collected records on millions of Americans who were not suspected of any wrongdoing.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: The NSA's Section 215 program collected call metadata (numbers, times, durations) in bulk to find links to terrorists, which reduced the privacy of the general public in the name of collective security. Part 2: Calling this False would require that only suspects' data was collected, which the disclosures showed was not the case; the USA FREEDOM Act of 2015 later ended bulk collection in that form. Part 3: This is a standard real-world case for weighing security benefits against privacy costs.",
+      "learning_objective": "Identify tradeoffs between data privacy and cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Privacy vs. Cybersecurity Tradeoffs",
+      "question_text": "In the WikiLeaks case, classified U.S. diplomatic cables and military records were published online. Which statement best frames the tension Tavani raises about prosecuting such leaks?",
+      "options": [
+        "A) There is no tension, because publishing any government document is always protected speech",
+        "B) There is no tension, because publishing classified data is always cyberterrorism",
+        "C) Governments' legitimate interest in protecting classified information and personnel conflicts with free-speech and press-freedom values; prosecuting a publisher (as opposed to the leaker) risks setting a precedent that also covers journalists",
+        "D) The only issue is whether WikiLeaks used encryption"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Tavani presents WikiLeaks as a hard case. Leaked cables can endanger sources and national security, yet the publisher's role looks like journalism, so prosecuting under laws such as the Espionage Act raises First Amendment concerns. Part 2: A and B each erase one side of a real dilemma; D treats a technical detail as the core ethical question. Part 3: Weighing security interests against free expression is a higher-level version of the privacy-security tradeoff and a challenge in prosecuting cyber-related crimes.",
+      "learning_objective": "Identify tradeoffs between data privacy and cybersecurity.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Privacy vs. Cybersecurity Tradeoffs",
+      "question_text": "A city plans to install facial-recognition cameras at all subway stations to identify people on a terrorism watchlist. As the city's privacy advisor, recommend at least 3 specific safeguards that keep a meaningful security benefit while limiting the privacy cost, and name the main tradeoff your safeguards address.",
+      "options": null,
+      "correct_answer": "Tradeoff: continuous identification of millions of innocent riders (privacy loss, chilling effect, risk of misidentification) vs. faster detection of a small number of watchlisted individuals (security). Safeguards: (1) Data minimization: match faces only against the watchlist and immediately delete non-matching face templates (no retention of innocent riders' data). (2) Human review: require a trained officer to confirm every match before any stop, and publish false-positive rates broken down by race and gender after an independent accuracy audit. (3) Purpose limitation and oversight: ban reuse for routine policing or immigration enforcement, require a warrant to access stored footage, log every query, and report annually to the city council. (4) Security of the system itself: encrypt the stored data so the camera system does not become a breach target.",
+      "explanation": "Part 1: Each safeguard reduces a specific privacy harm (retention, misidentification, mission creep, breach exposure) while keeping the narrow security goal of finding watchlisted people. Part 2: Banning the system outright gives up the security benefit, while deploying it with no limits makes the whole public subject to identification; vague advice like 'be transparent' without a concrete mechanism does not answer the question. Part 3: This is the kind of balancing the learning objective asks for: naming the tradeoff and designing proportional controls.",
+      "learning_objective": "Identify tradeoffs between data privacy and cybersecurity.",
+      "keywords": ["data minimization", "delete", "human review", "false positive", "purpose limitation", "oversight"]
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Dangers of Large-Scale Data Breaches",
+      "question_text": "The 2017 Equifax breach exposed names, Social Security numbers, birth dates, and addresses of about 147 million people. What was the root technical cause?",
+      "options": [
+        "A) A nation-state DDoS attack that took the website offline",
+        "B) An unpatched vulnerability in the Apache Struts web framework, for which a fix had been available for about two months",
+        "C) An employee losing an unencrypted laptop at an airport",
+        "D) A ransomware attack that encrypted Equifax's backups"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Attackers exploited a known Apache Struts flaw (CVE-2017-5638) in a public-facing dispute portal; the patch had been released in March 2017, but Equifax had not applied it before the intrusion began in May. Part 2: A describes an availability attack that steals no data; C and D describe other kinds of incidents that did not happen here. Part 3: Equifax shows how one basic failure, poor patch management, can cause a breach on a huge scale.",
+      "learning_objective": "Analyze the dangers of large-scale data breaches.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Dangers of Large-Scale Data Breaches",
+      "question_text": "True or False: Breached Social Security numbers and fingerprints are more dangerous than breached passwords because they are essentially permanent identifiers that victims cannot simply change.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: A password can be reset in minutes, but an SSN is rarely reissued and fingerprints can never be replaced, so exposure enables identity theft for life. The 2015 OPM breach exposed about 5.6 million federal employees' fingerprints. Part 2: Calling this False treats every type of data as equally recoverable and ignores how long the harm lasts. Part 3: How permanent the exposed data is happens to be a key factor in how dangerous a breach is.",
+      "learning_objective": "Analyze the dangers of large-scale data breaches.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Dangers of Large-Scale Data Breaches",
+      "question_text": "After a breach exposes millions of email-password pairs, attackers automatically try those same pairs on banking, shopping, and email sites, betting that users reuse passwords. This attack is called credential ___.",
+      "options": null,
+      "correct_answer": "stuffing",
+      "explanation": "Part 1: Credential stuffing uses bots to replay leaked username-password pairs on many other sites, so one breach turns into account takeovers elsewhere. Part 2: It is different from brute force, which guesses passwords without leaked data, and from phishing, which tricks users into revealing credentials. Part 3: This shows a danger that spreads beyond the breached company: password reuse lets one breach affect many organizations.",
+      "learning_objective": "Analyze the dangers of large-scale data breaches.",
+      "keywords": ["stuffing", "credential stuffing", "password reuse", "account takeover"]
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Dangers of Large-Scale Data Breaches",
+      "question_text": "In the 2013 Target breach, about 40 million payment cards were stolen. Attackers first got in using network credentials stolen from Target's HVAC (heating and air-conditioning) vendor. What broader danger does this illustrate?",
+      "options": [
+        "A) Third-party (supply-chain) risk: a weakly secured vendor with network access can become the entry point into a much larger target, so vendor access must be segmented and monitored",
+        "B) Payment cards are inherently unsafe and should be banned",
+        "C) Only large companies are targeted, so small vendors need no security",
+        "D) Physical theft of store terminals is the main breach risk for retailers"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Target's network was not segmented, so the attackers moved from a vendor-access portal to the point-of-sale systems. The weakest link was a partner, not Target's own front door. Part 2: B is an overreaction that ignores technical fixes; C is backwards, because small vendors are attacked precisely to reach big clients; D does not match the remote attack that actually happened. Part 3: Supply-chain exposure is a key reason large breaches are hard to prevent (see also SolarWinds, 2020).",
+      "learning_objective": "Analyze the dangers of large-scale data breaches.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Dangers of Large-Scale Data Breaches",
+      "question_text": "A health insurer's breach exposes 2 million member records. Analysts estimate a cost of $150 per record (notification, credit monitoring, legal fees, regulatory fines, and lost business). What is the estimated total cost?",
+      "options": [
+        "A) $3 million",
+        "B) $30 million",
+        "C) $3 billion",
+        "D) $300 million"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: 2,000,000 x $150 = $300,000,000, or $300 million. Part 2: A and B drop one or two zeros; C adds an extra factor of 10. Part 3: Per-record cost estimates show how breach costs grow linearly with the number of records, which is why large-scale breaches can threaten a company's survival and why data minimization (storing fewer records) is also a financial safeguard.",
+      "learning_objective": "Analyze the dangers of large-scale data breaches.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Dangers of Large-Scale Data Breaches",
+      "question_text": "The 2015 U.S. Office of Personnel Management (OPM) breach exposed background-investigation files (SF-86 forms) for about 21.5 million people with security clearances. Why is this breach considered especially dangerous compared with a typical retail card breach?",
+      "options": [
+        "A) Because card numbers were included, causing direct financial fraud",
+        "B) Because SF-86 files contain detailed personal histories (finances, foreign contacts, relatives, health and drug history), which a foreign intelligence service can use to identify, blackmail, or recruit cleared personnel; this is a national-security harm that cannot be undone",
+        "C) Because OPM's website was offline for several days",
+        "D) It is not more dangerous; all breaches have equal impact"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The sensitivity of the data, not just the number of records, decides the harm. Clearance files show exactly who has access to secrets and what weaknesses they have, which enables espionage and coercion for decades. Part 2: A is wrong, because the main loss was not payment data, which can be cancelled; C describes a service outage, not the harm of the data loss; D ignores that harm depends on the type of data and who the attacker is. Part 3: Judging breach danger by data sensitivity, permanence, and attacker motive is the core of the learning objective.",
+      "learning_objective": "Analyze the dangers of large-scale data breaches.",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Dangers of Large-Scale Data Breaches",
+      "question_text": "A company discovers that attackers copied 10 million customer records (names, emails, hashed passwords, and partial card numbers) three weeks ago. Which response plan best limits harm to customers AND to the company?",
+      "options": [
+        "A) Wait until the full forensic investigation is finished (estimated 6 months) before telling anyone, to avoid bad press",
+        "B) Announce the breach on social media but take no technical action",
+        "C) Pay the attackers to delete the data and tell no one",
+        "D) Contain the intrusion and patch the entry point; force password resets and invalidate active sessions; notify affected customers and regulators within legal deadlines (for example, 72 hours under GDPR) with specific guidance (enable MFA, watch for phishing); and offer credit monitoring"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: D combines containment (stop the bleeding), protection against credential stuffing (resets, invalidated sessions, MFA), legal compliance (timely notice), and support for victims. That limits both customer harm and regulatory exposure. Part 2: A violates notification laws and gives attackers months of exploitation; Equifax was heavily criticized for delayed disclosure. B informs people without containing anything; C is unreliable, may break the law, and hides the breach from the people at risk. Part 3: Analyzing how dangerous a breach is includes understanding how a poor response makes it worse.",
+      "learning_objective": "Analyze the dangers of large-scale data breaches.",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Dangers of Large-Scale Data Breaches",
+      "question_text": "Using a real breach such as Equifax (2017), analyze why large-scale data breaches are dangerous. Identify at least 3 distinct harms (to individuals, the organization, or society) and propose 2 concrete preventive controls that would have reduced the damage.",
+      "options": null,
+      "correct_answer": "Harms: (1) Individuals: about 147 million people had their SSNs and birth dates exposed, which enables identity theft and fraudulent credit applications for life, because SSNs are effectively permanent. (2) Organization: a settlement of up to about $700 million with the FTC, CFPB, and states, the CEO, CIO, and CSO leaving the company, and lasting damage to its reputation. (3) Society: loss of trust in credit bureaus, which collect data without consumers' consent; data aggregated across breaches makes phishing and synthetic-identity fraud easier; and in some breaches, possible national-security use by foreign intelligence. Preventive controls: (a) Patch management: apply critical patches such as the Apache Struts fix within days, tracked against an asset inventory. (b) Network segmentation and encryption at rest: isolate the dispute portal from core databases and encrypt SSNs, so one exploited web app cannot expose 147 million records. Also: renew expired SSL inspection certificates so exfiltration traffic is visible, and practice data minimization.",
+      "explanation": "Part 1: A strong answer links each harm to a specific feature of the breach (permanent identifiers, scale, data collected without consent) and ties each control to the specific failure (an unpatched framework, a flat network, unencrypted sensitive fields). Part 2: Generic answers such as 'improve security' or 'train employees' fail the concreteness test, because they do not address the actual cause; listing only financial harm misses the individual and societal dimensions. Part 3: This brings the learning objective together: analyzing scale, permanence, aggregation, and response failures, and turning that analysis into preventive action.",
+      "learning_objective": "Analyze the dangers of large-scale data breaches.",
+      "keywords": ["identity theft", "Social Security", "patch", "segmentation", "encryption", "trust"]
+    }
+  ]
+}

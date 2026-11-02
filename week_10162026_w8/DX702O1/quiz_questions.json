@@ -1,0 +1,460 @@
+{
+  "quiz_metadata": {
+    "title": "DX702 O1 Fall 2026: Week 8 - Matching, Propensity Scores, and Weighting",
+    "description": "A master's-level quiz on using matching to estimate ATE, ATT, and ATUT; performing inverse probability weighting and propensity score matching; and explaining matching variants such as Mahalanobis distance, the Epanechnikov kernel, coarsened exact matching, and entropy balancing.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Matching and Treatment Effects",
+      "question_text": "True or False: Matching closes back doors by comparing treated and untreated units that have similar values of the observed confounders, so the remaining difference in outcomes can be attributed to treatment.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Matching makes the treated and comparison groups look alike on the confounders X, so X can no longer explain the difference in outcomes; this closes the back door D <- X -> Y. Part 2: Calling this False would confuse matching with simple raw comparison, which leaves back doors open. Part 3: This is the core idea behind using matching to estimate ATE, ATT, and ATUT.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Matching and Treatment Effects",
+      "question_text": "An analyst finds, for every treated customer, the most similar untreated customer and averages the outcome differences (treated minus matched control). Which estimand does this produce?",
+      "options": [
+        "A) ATE - the average effect across the entire population",
+        "B) ATT - the average effect among those who actually received treatment",
+        "C) ATUT - the average effect among those who did not receive treatment",
+        "D) LATE - the average effect among compliers moved by an instrument"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The controls are chosen to look like the treated group, so the comparison describes the treated population, which gives the ATT. Part 2: A needs both treated and untreated units matched, giving a population-wide average; C requires matching each untreated unit to treated units; D comes from instrumental variables, not matching. Part 3: Which group is the 'anchor' in matching decides which treatment effect you estimate.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Matching and Treatment Effects",
+      "question_text": "True or False: When matching WITH replacement, a single untreated observation can serve as the match for more than one treated observation.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: With replacement, a control goes back into the pool after it is used, so a very good control can be matched to several treated units. Part 2: Without replacement, each control can be used only once, which can force worse matches later in the process. Part 3: This choice is a practical decision in matching that affects both bias and variance of the ATT estimate.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Matching and Treatment Effects",
+      "question_text": "The requirement that treated and untreated groups have overlapping covariate distributions, so that every treated unit has comparable untreated units available, is called common ___.",
+      "options": null,
+      "correct_answer": "support",
+      "explanation": "Part 1: Common support (overlap) means that for every covariate value among the treated, some untreated units exist with similar values. Part 2: Balance is a different idea: it describes whether the matched groups have similar covariate distributions after matching, while common support asks whether matches are possible at all. Part 3: Without common support, matching has to extrapolate, and the ATT or ATE is not identified for the unsupported units.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": ["support", "common support", "overlap", "overlapping"]
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Matching and Treatment Effects",
+      "question_text": "Job-training study, matching on age only (1-nearest-neighbor). Treated: Ann (age 25, earnings $30k), Ben (age 40, earnings $50k). Untreated: Cal (age 24, $26k), Dee (age 41, $47k), Eve (age 33, $38k). What is the matched ATT estimate?",
+      "options": [
+        "A) $3,000",
+        "B) $7,000",
+        "C) $3,500",
+        "D) $4,000"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Ann matches Cal (age gap 1): 30 - 26 = 4k. Ben matches Dee (age gap 1): 50 - 47 = 3k. ATT = (4 + 3) / 2 = $3,500. Part 2: A is the raw difference in means (treated 40k - all controls 37k = 3k), which ignores matching; B adds the differences instead of averaging them; D uses only Ann's pair. Part 3: This shows how matching turns paired comparisons into an ATT for the treated group.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Matching and Treatment Effects",
+      "question_text": "You want the ATUT of a voluntary wellness program, meaning its effect on employees who did NOT enroll. Which matching procedure targets ATUT?",
+      "options": [
+        "A) Match each untreated employee to the most similar treated employee(s) and average (matched treated outcome - untreated outcome)",
+        "B) Match each treated employee to the most similar untreated employee(s) and average (treated outcome - matched control outcome)",
+        "C) Compare the mean outcome of all enrolled employees with the mean outcome of all non-enrolled employees",
+        "D) Match treated employees to untreated employees, then drop all untreated employees who were not used"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: For ATUT, the untreated are the anchor group: we need a stand-in for their counterfactual treated outcome, so we find treated units that look like them. Part 2: B gives the ATT; C is a naive comparison with open back doors; D throws away the very population whose effect ATUT is about. Part 3: Matching gives ATUT when you reverse the direction of the match, and doing both directions and combining them gives ATE.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Matching and Treatment Effects",
+      "question_text": "A balance table for a credit-counseling study shows mean age: treated 42.1 vs. all controls 35.0 before matching, and treated 42.1 vs. matched controls 41.8 after matching. Mean income is $58k vs. $57k after matching. Which conclusion is most defensible?",
+      "options": [
+        "A) The ATT is now unbiased because all confounding has been removed",
+        "B) Matching failed because the treated mean did not change",
+        "C) Balance only matters for age; income does not need to be checked",
+        "D) Matching substantially improved balance on the observed covariates, but bias from unobserved confounders such as financial literacy is still possible"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The age gap shrinks from 7.1 years to 0.3, and income is close, so balance on the observed X is good. Part 2: A overclaims, because balance on observed covariates says nothing about unobserved ones; B misreads ATT matching, where the treated group is supposed to stay fixed; C ignores that every matching variable has to be checked in the balance table. Part 3: Balance tables measure matching quality, but valid causal inference still needs all back doors to run through the observed variables.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Matching and Treatment Effects",
+      "question_text": "True or False: If a balance table shows near-identical means on all matched covariates, matching has also removed bias from an unobserved confounder such as motivation.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: Matching can only balance the variables you match on; an unmeasured confounder such as motivation can still differ between groups and keep a back door open. Part 2: Calling this True assumes that balance on X implies balance on the unobserved U, which is only true if U is perfectly explained by X. Part 3: Matching is a selection-on-observables method, the same identifying assumption that regression uses.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Matching and Treatment Effects",
+      "question_text": "A city's voluntary energy-audit program currently serves 20% of households. The council asks: 'If we mandate audits for the 80% of households that have NOT joined, how much will their energy use fall?' Which estimand and matching design answer this question?",
+      "options": [
+        "A) ATT - match each audited household to similar non-audited households",
+        "B) ATE - compare the average energy use of audited vs. non-audited households without matching",
+        "C) ATUT - match each non-audited household to similar audited households and average the differences",
+        "D) ATT - because early adopters represent the typical household"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The policy targets households that have not been treated, so the relevant effect is the ATUT, estimated by finding treated stand-ins for each untreated household. Part 2: A answers 'what did the program do for current participants', which is likely larger because of self-selection; B is a raw comparison with open back doors; D assumes away the treatment-effect heterogeneity that makes ATT and ATUT differ. Part 3: Choosing ATE, ATT, or ATUT is a policy decision, and matching direction should follow it.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Matching and Treatment Effects",
+      "question_text": "A hospital evaluates a post-discharge nurse call program on 30-day readmission. Sicker patients were far more likely to be enrolled: 15% of treated patients have estimated enrollment probabilities above 0.95, and almost no untreated patients exist in that range. Give at least 3 concrete steps you would take before reporting an effect, and say which estimand you would end up reporting.",
+      "options": null,
+      "correct_answer": "(1) Check common support by plotting the propensity-score distributions for treated and untreated patients, and trim treated patients above 0.95 (or apply a caliper) because they have no comparable controls. (2) Re-match the remaining patients and produce a balance table (standardized mean differences on severity, age, and comorbidities) to confirm balance. (3) Estimate the effect with bootstrap standard errors, and optionally add regression adjustment on severity to reduce leftover imbalance. Report it as the ATT for treated patients within common support, not the ATT for all treated patients, and state how many patients were trimmed.",
+      "explanation": "Part 1: Without overlap, matching would pair the sickest treated patients with much healthier controls, which biases the estimate. Trimming to common support and checking balance fixes the comparison, and bootstrap SEs account for the sampling variability of the matching step. Part 2: Simply matching everyone, or extrapolating with a regression, hides the lack of support; reporting the result as the ATT for all treated patients would misstate who the effect applies to. Part 3: This connects common support, balance, and estimand choice from the matching learning objective.",
+      "learning_objective": "Explain matching and its application to average treatment effect (ATE), ATT (average treatment effect on the treated), and ATUT (average treatment effect on the untreated)",
+      "keywords": ["common support", "trim", "balance table", "bootstrap", "caliper", "ATT"]
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "Which expression defines the propensity score for unit i with covariates X_i and treatment indicator D_i?",
+      "options": [
+        "A) P(D_i = 1 | X_i), the probability of receiving treatment given the covariates",
+        "B) P(Y_i = 1 | D_i), the probability of a positive outcome given treatment",
+        "C) E[Y_i(1) - Y_i(0)], the expected individual treatment effect",
+        "D) P(X_i | D_i = 1), the covariate distribution among the treated"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The propensity score is the conditional probability of treatment given the observed covariates, usually estimated with logistic regression of D on X. Part 2: B models the outcome rather than treatment assignment; C is the treatment effect itself; D reverses the conditioning. Part 3: Collapsing many covariates into one treatment probability is what makes propensity score matching and IPW possible.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "True or False: Propensity scores are commonly estimated with a logistic (or probit) regression of the treatment indicator on the confounders, although binning or machine-learning classifiers can also be used.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Logistic regression of D on X gives a predicted probability between 0 and 1 for each unit, which is the estimated propensity score. Part 2: Binning (the share treated within each covariate cell) and ML methods such as boosted trees are valid alternatives; it would be wrong to say only one method is allowed. Part 3: Estimating the score is the first step of both propensity score matching and IPW.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "For estimating the ATE with inverse probability weighting, which weights are assigned (p = estimated propensity score)?",
+      "options": [
+        "A) Treated: p; Untreated: 1 - p",
+        "B) Treated: 1; Untreated: p / (1 - p)",
+        "C) Treated: 1 - p; Untreated: p",
+        "D) Treated: 1 / p; Untreated: 1 / (1 - p)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Each unit is weighted by the inverse of the probability of the treatment it actually received, so under-represented units, such as treated units with low p, count more. Part 2: A and C weight by the probability itself, which over-weights the units that are already common; B gives the ATT weights, which reweight controls to look like the treated group, not the whole population. Part 3: Knowing the ATE vs. ATT weight formulas is central to carrying out IPW.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "In an ATE inverse-probability-weighted analysis of a loyalty-app promotion, an untreated customer has an estimated propensity score of 0.75. What weight does this customer receive?",
+      "options": [
+        "A) 1.33",
+        "B) 4.0",
+        "C) 0.75",
+        "D) 3.0"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Untreated ATE weight = 1 / (1 - p) = 1 / 0.25 = 4. This customer looked very likely to be treated but was not, so they are rare and stand in for many similar people. Part 2: A applies the treated formula 1/p; C uses p itself; D is the ATT odds weight p/(1-p) = 3. Part 3: Calculating IPW weights correctly is the hands-on part of the IPW learning objective.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "Estimate the ATT with inverse probability weighting (treated weight = 1; untreated weight = p / (1 - p)). Treated: Y = 12 and Y = 14. Untreated: unit C has p = 0.50 and Y = 6; unit D has p = 0.75 and Y = 10. What is the ATT? (Enter a number.)",
+      "options": null,
+      "correct_answer": "4",
+      "explanation": "Part 1: Treated mean = (12 + 14) / 2 = 13. Control weights: C = 0.5/0.5 = 1, D = 0.75/0.25 = 3. Weighted control mean = (1*6 + 3*10) / (1 + 3) = 36 / 4 = 9. ATT = 13 - 9 = 4. Part 2: The unweighted control mean of 8 would give 5, which over-states the effect because it under-weights D, the control who looks most like the treated units; using ATE weights would answer a different question. Part 3: This shows how IPW reweights controls to resemble the treated group.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": ["4", "weighted mean", "p/(1-p)", "ATT", "13 - 9"]
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "In a propensity-score study of a premium credit card, 500 treated customers have high scores (0.7-0.9) but only 60 untreated customers fall in that range. Which statement about 1-nearest-neighbor matching with vs. without replacement is correct?",
+      "options": [
+        "A) Without replacement gives lower bias because every control is used exactly once",
+        "B) With and without replacement give identical estimates as long as a caliper is used",
+        "C) With replacement lets the 60 high-score controls be reused, giving closer matches (lower bias) but higher variance because a few controls carry a lot of weight",
+        "D) With replacement increases bias because reused controls are counted twice"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: When good controls are scarce, matching with replacement keeps match quality high, which reduces bias. The cost is that the estimate depends heavily on a few reused controls, which raises variance. Part 2: A is backwards, because without replacement, the treated units matched later get poor, distant controls; B ignores that the two procedures choose different matches; D confuses reuse (a variance issue) with bias. Part 3: This is the bias-variance tradeoff you face when choosing matches in propensity score matching.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "You split the sample into 5 propensity-score strata (quintiles). Within the top stratum, a regression of treatment on age gives a large, significant coefficient. What does this stratification test indicate, and what should you do?",
+      "options": [
+        "A) The propensity model is likely misspecified for age; add terms such as age-squared or age x income interactions, re-estimate the score, and repeat the test",
+        "B) The treatment effect is heterogeneous by age, so report a separate ATE for each stratum",
+        "C) The test passed, because a significant coefficient confirms that age is a confounder",
+        "D) Drop age from the propensity model so the test no longer shows a relationship"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: If the propensity score is correct, then within a narrow score band, covariates should not predict treatment. A strong age-treatment relationship means the score has not captured how age drives treatment. Part 2: B confuses covariate imbalance with effect heterogeneity, since the test is about treatment assignment, not outcomes; C misreads the test, where significance means failure; D makes confounding worse by omitting a back-door variable. Part 3: Validating the propensity model is a required step in performing PSM and IPW correctly.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "True or False: Treated units with propensity scores very close to 0 (or untreated units with scores very close to 1) receive extremely large IPW weights, which can make the ATE estimate highly variable; trimming extreme scores or capping weights is a common fix.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: A treated unit with p = 0.01 gets weight 1/0.01 = 100, so one observation can dominate the estimate and inflate its variance. Part 2: Calling this False ignores that 1/p explodes as p approaches 0; this is the IPW version of a common-support problem. Part 3: Spotting and handling extreme weights is part of carrying out IPW responsibly.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "Evaluating a microloan program with propensity score matching: a caliper of 0.01 drops 40% of treated borrowers but gives near-perfect balance; a caliper of 0.2 standard deviations of the logit propensity score drops 4% of treated borrowers and keeps all standardized mean differences below 0.1; no caliper keeps everyone but leaves age imbalanced (SMD = 0.35). Which is the best decision?",
+      "options": [
+        "A) Use no caliper, because dropping any borrower biases the ATT",
+        "B) Use the 0.01 caliper, because the tightest matches are always best",
+        "C) Use no caliper and skip the balance table, since propensity scores guarantee balance",
+        "D) Use the 0.2-SD caliper: balance is acceptable (SMD < 0.1), 96% of treated borrowers are kept, and the report should note the 4% dropped and that the ATT applies to the matched borrowers"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The 0.2-SD caliper gives acceptable balance with minimal sample loss, which is a sensible point on the bias-variance curve. Being transparent about the dropped units clarifies which population the estimate describes. Part 2: A accepts clear imbalance (SMD 0.35), so bias remains; B pays a big variance and generalizability cost for a small gain in bias; C is wrong because scores only balance covariates if the score model is correct, which must be checked. Part 3: Choosing a caliper is a core practical decision in performing PSM.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "IPW and Propensity Score Matching",
+      "question_text": "A health insurer estimates the effect of a diabetes-coaching program. The team is unsure whether its logistic propensity model is correctly specified, but it has a well-validated outcome model of HbA1c based on clinical covariates. Which estimation strategy best protects the result?",
+      "options": [
+        "A) Plain IPW with the current logistic propensity model",
+        "B) An augmented inverse probability weighted (AIPW) doubly robust estimator, with bootstrap standard errors",
+        "C) A raw difference in mean HbA1c between enrolled and non-enrolled members",
+        "D) Propensity score matching without checking balance, since matching does not need a correct model"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: AIPW combines a propensity model and an outcome model, and it stays consistent if EITHER one is correctly specified, which fits a case where the outcome model is trusted but the propensity model is not. Bootstrapping captures the uncertainty from both estimation steps. Part 2: A relies entirely on the doubtful propensity model; C leaves every back door open; D still depends on the propensity model and skips the diagnostic that would reveal problems. Part 3: Doubly robust estimation extends IPW and matching by combining them with regression.",
+      "learning_objective": "Perform inverse probability weighting and propensity score matching",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "What does Mahalanobis distance account for that plain Euclidean distance on raw covariates does not?",
+      "options": [
+        "A) The outcome variable's variance across groups",
+        "B) The treatment probability of each unit",
+        "C) The different scales of the covariates and the correlations among them, by using the inverse covariance matrix",
+        "D) Only the number of covariates, by dividing the distance by k"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Mahalanobis distance is d = sqrt((x_i - x_j)' S^-1 (x_i - x_j)). Multiplying by S^-1 standardizes each covariate and down-weights redundant, correlated directions. Part 2: A uses outcomes, which matching should never look at; B describes the propensity score, not a distance metric; D is not a property of Mahalanobis distance. Part 3: This is the defining feature of the Mahalanobis matching variant.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "True or False: The Epanechnikov kernel, K(u) = 3/4 (1 - u^2) for |u| <= 1, gives the most weight to controls at zero distance, less weight as distance grows, and zero weight to controls beyond the bandwidth.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: K(0) = 0.75 is the maximum, K falls as a parabola as |u| grows, and K = 0 when |u| > 1 (distance larger than the bandwidth). Part 2: Calling this False would confuse it with a Gaussian kernel, which never reaches zero, or with a uniform kernel, which gives equal weight inside the bandwidth. Part 3: This weighting pattern is what defines Epanechnikov kernel matching.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "Which procedure describes coarsened exact matching (CEM)?",
+      "options": [
+        "A) Bin each covariate (for example, age into 10-year bands and income into quartiles), then match treated and untreated units exactly within the same combination of bins",
+        "B) Estimate a propensity score and match on its rounded value only",
+        "C) Reweight controls so the treated and control covariate means match exactly",
+        "D) Match on Mahalanobis distance and discard any pair beyond a caliper"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: CEM coarsens continuous covariates into meaningful bins and requires an exact match on the bin combination, which makes exact matching possible with continuous variables. Part 2: B is propensity binning, not CEM; C describes entropy balancing; D is Mahalanobis matching with a caliper. Part 3: CEM is one of the matching variants covered alongside Mahalanobis and kernel methods.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "True or False: Entropy balancing reweights the control group so that specified moments of the covariates (for example, means and variances) exactly match those of the treated group.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Entropy balancing solves for control weights that satisfy exact moment-balance constraints while staying as close to uniform weights as possible. Part 2: Calling this False would confuse it with propensity matching, where balance is only approximate and has to be checked afterwards. Part 3: It is a reweighting variant that targets balance directly instead of through a distance or a score.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "In Epanechnikov kernel matching with bandwidth h = 1, a control is at distance 0.5 from a treated unit (u = 0.5). Using K(u) = 3/4 (1 - u^2), what kernel weight does it receive?",
+      "options": [
+        "A) 0.75",
+        "B) 0.25",
+        "C) 0.375",
+        "D) 0.5625"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: K(0.5) = 0.75 * (1 - 0.25) = 0.75 * 0.75 = 0.5625. Part 2: A is the weight at u = 0; B is just u^2 = 0.25, which forgets both the (1 - u^2) term and the 3/4 constant; C uses 0.75 * 0.5, which treats the kernel as linear instead of quadratic. Part 3: Computing kernel weights shows concretely how the Epanechnikov kernel favors closer matches.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "A retailer matches loyalty members to non-members on age (years) and annual spend (dollars) using raw Euclidean distance. Which problem arises, and what fixes it?",
+      "options": [
+        "A) Age dominates the distance because it varies more; drop age",
+        "B) Spend dominates because a $1,000 gap dwarfs a 10-year age gap, so matches ignore age; use Mahalanobis distance (or standardize the covariates)",
+        "C) There is no problem, because Euclidean distance is scale-invariant",
+        "D) Spend dominates; fix it by matching on spend alone"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Raw Euclidean distance adds squared unit differences, so the dollar-scale variable swamps age. Mahalanobis distance rescales each covariate by its variance (and handles correlation), so both variables matter. Part 2: A gets the direction wrong; C is false, because Euclidean distance depends on units; D gives up on balancing age, which leaves an age back door open. Part 3: This is the practical reason the Mahalanobis variant exists.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "Covariates are uncorrelated, with SD(age) = 10 years and SD(income) = $20k. Treated unit: (age 40, income $60k). Control: (age 45, income $50k). What is the Mahalanobis distance between them?",
+      "options": [
+        "A) About 0.707",
+        "B) About 10,000",
+        "C) 0.5",
+        "D) 1.0"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: With uncorrelated covariates, Mahalanobis distance is Euclidean distance on standardized values: sqrt((5/10)^2 + (10/20)^2) = sqrt(0.25 + 0.25) = sqrt(0.5), which is about 0.707. Part 2: B is the raw Euclidean distance, which is dominated by dollars; C uses only one standardized gap; D adds the standardized gaps without squaring and taking the root. Part 3: This turns the Mahalanobis formula into a concrete match-quality number.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "True or False: Because of the curse of dimensionality, as you add more covariates to a distance-based (e.g., Mahalanobis) match, the nearest control becomes almost as far away as a typical control, so close matches become hard to find.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: In high dimensions, data become sparse and pairwise distances concentrate, so 'nearest' neighbors are no longer meaningfully near. Part 2: Calling this False assumes that more covariates always improve matches, but each added dimension makes exact or close matches less likely. Part 3: This limitation is why propensity scores, CEM, or entropy balancing are often preferred over raw distance matching with many covariates.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "An online university studies whether a tutoring service improves course completion. There are 25 confounders (demographics, prior grades, login activity) and only 1,200 untreated students. Which matching design best balances match quality and feasibility?",
+      "options": [
+        "A) Exact matching on all 25 covariates",
+        "B) Mahalanobis nearest-neighbor matching on all 25 raw covariates with a tight caliper",
+        "C) Exact (or coarsened exact) match on 2-3 key variables such as program and prior-GPA band, then propensity score or Mahalanobis matching on the rest within those cells, and check a balance table",
+        "D) Match on login activity alone because it is the strongest predictor of completion"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A hybrid design guarantees exact balance on the most important confounders and uses a one-dimensional propensity score or a low-dimensional distance to handle the rest, which avoids the curse of dimensionality. Part 2: A leaves almost no matches in 25 dimensions; B suffers from distance concentration, so the tight caliper drops most treated students; D leaves the other 24 back doors open and chooses a matching variable based on the outcome. Part 3: This applies what you know about the strengths and limits of the matching variants to a real design decision.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Mahalanobis and Kernel Matching",
+      "question_text": "Design a kernel-weighted matching analysis to estimate the ATT of a bank's financial-literacy webinar on customers' 12-month savings balance. Covariates: age, income, credit score, and existing balance (income and balance are strongly correlated). Specify the distance metric, the kernel and bandwidth choice, how you will check the result, and how you will get standard errors.",
+      "options": null,
+      "correct_answer": "(1) Distance: Mahalanobis distance on age, income, credit score, and existing balance, so scale differences and the income-balance correlation are handled (or, alternatively, the distance on an estimated propensity score). (2) Kernel: give each control an Epanechnikov weight K(d/h) = 3/4 (1 - (d/h)^2) for d < h and 0 otherwise. Choose the bandwidth h by comparing balance and sample retention at several values: a smaller h means lower bias but higher variance, a larger h the reverse. (3) Check common support and drop treated customers with no controls within h; produce a balance table of weighted means and SMDs (target below 0.1). (4) Estimate ATT = mean(treated Y) - kernel-weighted control Y, optionally with regression adjustment on credit score. (5) Use bootstrap standard errors that redo the matching and weighting in each resample.",
+      "explanation": "Part 1: Mahalanobis distance handles the correlated, differently scaled covariates; the Epanechnikov kernel lets closer controls count more; the bandwidth sets the bias-variance tradeoff; balance and common-support checks validate the design; and bootstrapping captures the variability of the matching step. Part 2: Raw Euclidean distance would let income and balance dominate; a uniform or 1-NN approach throws away information from good nearby controls; analytic regression SEs ignore the uncertainty from the matching step. Part 3: This brings together the Mahalanobis and Epanechnikov variants with the balance, bandwidth, and inference practices from this week.",
+      "learning_objective": "Explain matching variants such as the Mahalanobis distance and the Epanechnikov kernel",
+      "keywords": ["Mahalanobis", "Epanechnikov", "bandwidth", "balance table", "bootstrap", "bias-variance"]
+    }
+  ]
+}

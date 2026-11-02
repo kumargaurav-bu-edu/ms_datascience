@@ -1,0 +1,411 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 8 - Information Privacy, Data Monetization & Privacy-Security Tradeoffs",
+    "description": "Tests the definition of information privacy (Tavani Ch. 5), how personal data is converted into value in mobile apps and consumer genomics (Jean & Lefrere; 23andMe, GSK, Nebula Genomics), the tradeoffs between privacy and security (NSA, ICO security practices), and how data-gathering techniques such as cookies, RFID, data mining, and record matching threaten privacy.",
+    "version": "1.0",
+    "total_questions": 28
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Information Privacy",
+      "question_text": "Tavani distinguishes three traditional views of privacy: accessibility privacy (freedom from physical intrusion), decisional privacy (freedom from interference in personal choices), and ___ privacy, defined as having control over the flow of one's personal information, including its collection, exchange, and transfer.",
+      "options": null,
+      "correct_answer": "Informational privacy",
+      "explanation": "Part 1: Informational privacy is privacy as control over who can collect, store, exchange, and transfer information about you; it is the view most directly threatened by cybertechnology because databases, cookies, and data brokers move personal data without the person's involvement. Part 2: Accessibility privacy concerns physical access to a person (e.g., a stranger entering your home), and decisional privacy concerns freedom to make choices such as medical or family decisions without government interference (e.g., the Roe v. Wade line of reasoning); neither is primarily about the flow of data. Part 3: Defining information privacy precisely is the first learning objective of the week, and the 'control over the flow' wording is what lets you later judge whether a data practice such as 23andMe sharing data with GSK respects or erodes it.",
+      "learning_objective": "Define information privacy",
+      "keywords": ["informational", "information privacy", "control over personal information", "control over information flow"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Information Privacy",
+      "question_text": "True or False: Under James Moor's Restricted Access/Limited Control (RALC) theory, every loss of privacy is also a violation of privacy.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: Moor distinguishes a naturally private situation, where privacy can be lost but not violated (e.g., a hiker is seen by another hiker in a remote forest), from a normatively private situation, where laws, policies, or norms protect a zone of privacy, so an intrusion is a violation (e.g., a hospital employee reading a patient's chart without a treatment reason). Part 2: The statement wrongly merges the descriptive notion (loss) with the normative notion (violation); a loss only becomes a violation when an established norm protecting that situation is breached. Part 3: This distinction is central to defining information privacy, because it explains why privacy is hard to define and why legal and policy protections, not just secrecy, determine whether a data practice is wrong.",
+      "learning_objective": "Define information privacy",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Information Privacy",
+      "question_text": "Helen Nissenbaum's framework, which judges a flow of personal information by whether it respects two kinds of context-specific norms (norms of appropriateness and norms of distribution), is called ___.",
+      "options": null,
+      "correct_answer": "Contextual integrity",
+      "explanation": "Part 1: Contextual integrity holds that every information flow happens within a context (medical, financial, friendship) with norms about what information is appropriate to share and how it may be further distributed; privacy is violated when either norm is breached, even if the information was never secret. Part 2: It differs from a simple public/private split (which would say published information has no privacy protection) and from pure control theories (which focus only on the individual's consent). Part 3: This framework is a key part of defining information privacy because it explains 'privacy in public' problems, such as scraping public social media posts into a facial recognition database.",
+      "learning_objective": "Define information privacy",
+      "keywords": ["contextual integrity", "contextual", "Nissenbaum", "context-relative norms"]
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Information Privacy",
+      "question_text": "A U.S. state passes a law requiring women seeking reproductive health care to register with a state database before a clinic may treat them. Critics say the law harms privacy in two distinct ways. Which pairing of Tavani's privacy views is MOST accurate?",
+      "options": [
+        "A) Accessibility privacy (physical intrusion into the clinic) and informational privacy (the state database)",
+        "B) Accessibility privacy only, because the patient must physically visit the clinic",
+        "C) Decisional privacy (state interference in a personal medical choice) and informational privacy (loss of control over who records and accesses the patient's health data)",
+        "D) Informational privacy only, because the only harm is that a database exists"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The registration requirement interferes with a personal medical decision (decisional privacy) and also forces the patient's sensitive health information into a government database she does not control (informational privacy). Part 2: Option A mislabels the harm as physical intrusion, but nobody is entering the patient's space; Option B ignores the database entirely; Option D ignores that the state is conditioning the medical choice itself, which is the decisional harm. Part 3: Correctly separating the three views of privacy is what makes the definition of information privacy usable, because policy responses differ: decisional harms are addressed by limits on state power, informational harms by data access and retention rules.",
+      "learning_objective": "Define information privacy",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Information Privacy",
+      "question_text": "Which scenario is the clearest example of a privacy VIOLATION (not just a loss of privacy) under Moor's RALC theory?",
+      "options": [
+        "A) A pharmacy technician looks up a celebrity's prescription history in the pharmacy system out of curiosity, even though HIPAA and company policy limit access to filling prescriptions",
+        "B) A jogger in a public park is seen by other joggers while running",
+        "C) A person posts vacation photos publicly on Instagram and strangers view them",
+        "D) A neighbor notices which car you drive when you park on the street"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The prescription record sits in a normatively private situation protected by HIPAA and access-control policy, so the technician's curiosity lookup breaches an explicit norm and is a violation. Part 2: Options B and D are naturally private or public situations with no protecting norm, so at most privacy is lost; Option C involves voluntary public disclosure, so viewers are not breaching any access norm. Part 3: This reinforces the definition of information privacy as protection within normatively defined zones, and it shows why access logs and role-based access are needed in health systems.",
+      "learning_objective": "Define information privacy",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Information Privacy",
+      "question_text": "Tavani discusses privacy both as a personal value (intrinsic vs. instrumental) and, following Priscilla Regan, as a social value. In 2-3 sentences, explain the difference between privacy as an intrinsic value and as an instrumental value, and state why Regan argues privacy is also a social (common) good.",
+      "options": null,
+      "correct_answer": "An intrinsic value is valued for its own sake, while an instrumental value is valued because it leads to other goods; most philosophers treat privacy as instrumental, because it enables autonomy, trust, intimate relationships, and freedom of expression. Regan argues privacy is also a social value because a society with privacy protections supports democracy and free association for everyone, so weakening it harms the public interest, not just the individual.",
+      "explanation": "Part 1: Intrinsic values (like happiness) are ends in themselves, whereas instrumental values (like money) are means to other ends; privacy is usually defended instrumentally because it protects autonomy, relationships (Rachels, Fried), and the ability to dissent. Regan adds that privacy is a common, public, and collective good, similar to clean air, so it should not be traded away individual by individual. Part 2: A common mistake is to treat privacy only as a personal preference that each consumer can sell (e.g., trading DNA for a $99 ancestry report), which ignores that genetic data also exposes relatives who never consented. Part 3: Seeing privacy as a social value strengthens the definition of information privacy and explains why regulation, not only individual consent, is justified.",
+      "learning_objective": "Define information privacy",
+      "keywords": ["intrinsic", "instrumental", "social value", "autonomy", "democracy", "common good"]
+    },
+    {
+      "number": 7,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Information Privacy",
+      "question_text": "23andMe customers agreed to research consent when they bought a $99 ancestry kit. In 2018, 23andMe gave GlaxoSmithKline (GSK) access to its database of about 5 million customers for drug development as part of a $300 million deal. Applying Nissenbaum's contextual integrity, which analysis is STRONGEST?",
+      "options": [
+        "A) No privacy issue exists, because the data was already stored by 23andMe and customers checked a consent box",
+        "B) The only issue is security; as long as GSK encrypts the data, contextual integrity is satisfied",
+        "C) The issue is decisional privacy, because GSK will decide which drugs to develop",
+        "D) The flow moved data from a consumer ancestry and health context into a for-profit pharmaceutical context; even with a consent checkbox, if customers did not reasonably expect commercial drug development and were not compensated, the norms of distribution may be breached"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Contextual integrity asks whether the new flow matches the norms of the context where data was originally shared; critics in the Scientific American article argue many customers did not understand that their DNA would fuel for-profit drug development, so the norm of distribution may be breached despite formal consent. Part 2: Option A treats a checkbox as automatically sufficient, which contextual integrity rejects; Option B confuses security (protecting data from unauthorized access) with privacy (appropriateness of authorized flows); Option C misapplies decisional privacy, which concerns the individual's own choices, not a company's R&D choices. Part 3: This shows how a precise definition of information privacy lets a data scientist evaluate a real monetization deal, not just check legal compliance.",
+      "learning_objective": "Define information privacy",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Value and Monetization",
+      "question_text": "Companies such as Acxiom and Experian that buy personal data from apps, retailers, and public records, combine it into consumer profiles, and resell those profiles to advertisers and insurers without having a direct relationship with the consumer are called ___.",
+      "options": null,
+      "correct_answer": "Data brokers",
+      "explanation": "Part 1: Data brokers are intermediaries that aggregate personal data from many sources and sell profiles or segments (e.g., 'expecting parents', 'diabetic interest') to third parties; they turn raw data into a tradable asset. Part 2: They are not data controllers in the GDPR sense of the original app, and they are not advertisers themselves; the consumer usually never interacts with them, which is why they are hard to opt out of. Part 3: Brokers are a core mechanism connecting data to monetization, because data collected by a free mobile app gains resale value once it is matched with other sources.",
+      "learning_objective": "Explain how data is connected to value and monetization",
+      "keywords": ["data broker", "broker", "data aggregator", "information reseller"]
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data Value and Monetization",
+      "question_text": "True or False: If a 23andMe customer who had consented to research later closes her account, her genetic data is removed from research studies that have already been performed.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: As the Scientific American article notes, closing an account or withdrawing consent stops future use, but data already used in completed research (for example, analyses shared with GSK) cannot be pulled back out of those results. Part 2: Believing that deletion is retroactive is a common misconception; once data is copied into a partner's analysis or a trained model, the original company no longer controls it. Part 3: This illustrates how data becomes durable economic value: once monetized, its value persists for the buyer even if the customer leaves, which is why up-front consent matters so much.",
+      "learning_objective": "Explain how data is connected to value and monetization",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Data Value and Monetization",
+      "question_text": "In 2018, GSK made a $300 million investment in 23andMe in exchange for access to genetic data from about 5 million customers. Assuming the whole deal value is attributed to the database, what is the implied value per customer in U.S. dollars? Enter a number only.",
+      "options": null,
+      "correct_answer": "60",
+      "explanation": "Part 1: Implied value per customer = deal value / number of customers = $300,000,000 / 5,000,000 = $60 per customer. Part 2: A common error is comparing this to the $99 kit price and concluding the customer 'came out ahead'; the customer paid 23andMe, and the same data can be licensed again to other partners (Genentech, Pfizer), so the cumulative value of each genome to the company can far exceed $60 while the customer receives no share. Part 3: This calculation makes the link between data and monetization concrete: the customer is both a paying buyer and the supplier of a resellable asset, which is exactly the critique raised by privacy experts and the motivation for Nebula Genomics.",
+      "learning_objective": "Explain how data is connected to value and monetization",
+      "keywords": ["60", "300 million", "5 million", "per customer", "divide"]
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Value and Monetization",
+      "question_text": "Which statement BEST describes how Nebula Genomics' model (George Church, 2018) differs from 23andMe's model in who captures the value of genetic data?",
+      "options": [
+        "A) Nebula sells DNA data to pharmaceutical companies at a higher price than 23andMe does",
+        "B) Nebula lets individuals store their own genomic data, decide which researchers can access it, and be paid directly in Nebula tokens on a blockchain, whereas 23andMe controls the database and keeps the revenue from partners like GSK",
+        "C) Nebula refuses to share any genetic data with researchers, so it has no monetization",
+        "D) Nebula is identical to 23andMe except that it uses whole-genome sequencing instead of genotyping"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Nebula's pitch is data ownership: users control access and receive Nebula tokens when researchers use their data, shifting value capture from the platform to the individual. Part 2: Option A still describes a company-centered resale model; Option C is wrong because Nebula's whole point is facilitating paid sharing with researchers; Option D picks a technical difference (sequencing depth) and misses the change in ownership and compensation. Part 3: Comparing the two models clarifies that monetization depends on who controls access rights, not only on the data itself.",
+      "learning_objective": "Explain how data is connected to value and monetization",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Value and Monetization",
+      "question_text": "A free flashlight app on Android requests precise location and the advertising ID. It earns almost nothing from the app store, yet it is profitable. Based on Jean & Lefrere's analysis of mobile app monetization, what is the MOST likely source of revenue?",
+      "options": [
+        "A) In-app purchases of brighter flashlight modes",
+        "B) A monthly subscription fee charged after a free trial",
+        "C) A third-party advertising/analytics SDK embedded in the app collects location and device IDs, which are used for targeted ads and shared with ad networks or data brokers",
+        "D) Licensing the app's source code to phone manufacturers"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A flashlight needs neither location nor an advertising ID; requesting them signals that the business model is data-driven, with embedded third-party SDKs turning location trails and device identifiers into ad targeting revenue or broker sales. Part 2: Options A and B are direct-payment models that do not explain why the app requests location; Option D is not a realistic revenue stream for a commodity app. Part 3: This captures the 'free service paid for with personal data' pattern that Jean & Lefrere describe, where the user's data, not the app function, is the product being sold.",
+      "learning_objective": "Explain how data is connected to value and monetization",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Data Value and Monetization",
+      "question_text": "You are the lead data scientist at a period-tracking app with 3 million users. The CFO proposes selling de-identified cycle and location data to a data broker for $2 per user per year. Recommend an alternative monetization plan that still generates revenue but reduces privacy risk. Give at least 3 specific actions.",
+      "options": null,
+      "correct_answer": "(1) Do not sell raw records to a data broker; instead offer a paid premium subscription (e.g., $4.99/month for cycle predictions and symptom reports) so users, not third parties, are the revenue source. (2) For research revenue, use explicit opt-in consent per study (not a bundled checkbox) and share only aggregated statistics with a minimum group size, or apply differential privacy, with participants compensated. (3) Apply data minimization: drop precise GPS, keep only country-level region, and set a 12-month retention limit. (4) Remove third-party ad SDKs and publish a transparency report.",
+      "explanation": "Part 1: Reproductive health and location data are highly sensitive and easily re-identified (the Sweeney finding that ZIP + birth date + sex identifies most Americans), so a subscription model plus opt-in, aggregated, compensated research sharing keeps revenue while respecting contextual integrity. Part 2: Simply 'de-identifying' and selling is weak because brokers can re-link records; relying only on a privacy policy update is not meaningful consent; and banning all data use gives up legitimate research value. Part 3: This applies the learning objective by showing that data's value can be captured through models that align users' interests with the company's (Nebula-style compensation, subscriptions) instead of opaque resale.",
+      "learning_objective": "Explain how data is connected to value and monetization",
+      "keywords": ["subscription", "opt-in", "aggregate", "data minimization", "differential privacy", "retention"]
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Data Value and Monetization",
+      "question_text": "Investors value a free social app with 50 million users at $2 billion even though it has little revenue. Which explanation BEST connects the valuation to the app's data?",
+      "options": [
+        "A) The data creates a feedback loop: more users generate more behavioral data, which improves ad targeting and recommendations, which attracts more users and advertisers, a data network effect that is hard for competitors to copy",
+        "B) Each user record has a fixed resale price that, when multiplied by 50 million, exactly equals the valuation",
+        "C) Data value comes only from storage volume, so the company with the largest data center always has the highest valuation",
+        "D) Valuation is unrelated to data; it depends only on the quality of the app's user interface"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Data's value is largely in its use: behavioral data improves targeting and product quality, which attracts more users and advertisers, creating increasing returns and a competitive moat, which is the strategic role of data described by Jean & Lefrere. Part 2: Option B treats data as a commodity with a fixed price, ignoring that value depends on combination and use; Option C confuses data volume with usable insight; Option D ignores that the app's monetization strategy is data-driven advertising. Part 3: Understanding data network effects explains why firms aggressively collect personal data, which directly links monetization to privacy pressure.",
+      "learning_objective": "Explain how data is connected to value and monetization",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Privacy-Security Tradeoffs",
+      "question_text": "The claim that \"if you have done nothing wrong, you have nothing to worry about from government surveillance programs like the NSA's\" is known as the ___ argument.",
+      "options": null,
+      "correct_answer": "Nothing to hide argument",
+      "explanation": "Part 1: The nothing-to-hide argument justifies giving up privacy for security by assuming only wrongdoers benefit from privacy. Part 2: It fails because privacy protects lawful activity too (medical conditions, political dissent, sexual orientation), because the person watched does not control how data is later interpreted or combined, and because mass collection chills free expression; treating privacy only as 'hiding wrongdoing' ignores its social value. Part 3: Recognizing this argument is essential to identifying the real tradeoffs between privacy and security instead of assuming security always wins.",
+      "learning_objective": "Identify tradeoffs between privacy and security",
+      "keywords": ["nothing to hide", "nothing-to-hide", "nothing to fear", "done nothing wrong"]
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Privacy-Security Tradeoffs",
+      "question_text": "True or False: Encrypting the hard drives of employee laptops that store customer records is a security control that also protects customers' information privacy, so in this case security and privacy are complementary rather than in conflict.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Full-disk encryption, one of the ICO's practical recommendations, keeps a stolen laptop's customer data unreadable, which protects both the organization (security) and the customers (privacy). Part 2: It is a misconception that every security measure reduces privacy; tradeoffs arise mainly with surveillance-style controls (monitoring, bulk collection, backdoors), not with protective controls such as encryption, patching, and access restriction. Part 3: Being able to tell complementary controls apart from conflicting ones is the core skill in identifying privacy-security tradeoffs.",
+      "learning_objective": "Identify tradeoffs between privacy and security",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Privacy-Security Tradeoffs",
+      "question_text": "Tavani opens Chapter 5 with the NSA's Utah Data Center (opened in 2014), designed to store huge volumes of phone metadata, emails, and internet traffic. Which statement MOST accurately frames the privacy-security tradeoff it raises?",
+      "options": [
+        "A) There is no tradeoff, because metadata (who called whom, when, and for how long) contains no personal information",
+        "B) The tradeoff only affects foreign nationals, so U.S. citizens' privacy is unaffected",
+        "C) Storing more data always makes the nation proportionally safer, so privacy costs are justified at any scale",
+        "D) Bulk collection may help detect terrorist networks (national security), but it gathers data on millions of innocent people without individual suspicion, enabling profiling and function creep, so the question is whether that collection is necessary and proportionate"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The data center illustrates the classic tradeoff: potential security gains from pattern analysis versus mass, suspicionless collection that removes individuals' control over their information. Necessity and proportionality are the standard tests. Part 2: Option A is wrong because metadata reveals relationships, location, and routines (calling an oncologist or a hotline is revealing); Option B is wrong because the Snowden disclosures showed bulk collection of domestic call records; Option C assumes more data always means more security, which ignores false positives and analyst overload. Part 3: This is the chapter's anchor scenario for identifying tradeoffs between privacy and security at the government level.",
+      "learning_objective": "Identify tradeoffs between privacy and security",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Privacy-Security Tradeoffs",
+      "question_text": "In 2016, the FBI asked Apple to build modified iOS software to bypass the passcode protections on the San Bernardino shooter's iPhone. Apple refused. Which argument BEST captures why a mandated 'backdoor' is a privacy-security tradeoff rather than a simple win for security?",
+      "options": [
+        "A) The phone belonged to a criminal, so no privacy interest existed for anyone",
+        "B) A backdoor weakens encryption for all users: once a bypass exists, criminals or hostile governments can exploit it, so gaining access to one device can reduce the privacy and security of millions of devices",
+        "C) Encryption only protects privacy; it has no security value, so removing it costs nothing",
+        "D) Apple refused only for marketing reasons, so the case has no ethical dimension"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A backdoor cannot be limited to 'good guys'; it creates a systemic vulnerability, so law enforcement security for one investigation is traded against cybersecurity and privacy for every iPhone user. Part 2: Option A ignores that the tool would work on everyone's phone; Option C is false because encryption protects banking, health records, and critical infrastructure (it is a security control); Option D sidesteps the real technical and ethical tradeoff. Part 3: The case shows that privacy and security are not always opposites; weakening privacy-protecting technology can itself reduce security.",
+      "learning_objective": "Identify tradeoffs between privacy and security",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Privacy-Security Tradeoffs",
+      "question_text": "A 200-person accounting firm wants to reduce the risk of client tax records leaking, using practices like those on the ICO's '11 practical ways' list. Which plan improves security with the LEAST cost to employee and client privacy?",
+      "options": [
+        "A) Enforce multi-factor authentication, give staff access only to the client folders they work on (least privilege), encrypt laptops, patch software monthly, and run phishing-awareness training",
+        "B) Install keystroke loggers and continuous webcam monitoring on every employee's computer",
+        "C) Copy all client records to every employee's personal phone so backups are always available",
+        "D) Publish all client records on an internal wiki so that any mistake can be spotted by everyone"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: MFA, least-privilege access, encryption, patching, and staff training reduce breach risk without collecting new personal data about employees or widening access to client data, so they serve security and privacy together. Part 2: Option B buys security through invasive surveillance of staff, a high privacy cost and disproportionate to the risk; Option C multiplies copies of sensitive data on unmanaged devices, increasing breach risk; Option D violates least privilege and exposes client data internally. Part 3: Choosing proportionate controls is how practitioners manage the privacy-security tradeoff in everyday IT work.",
+      "learning_objective": "Identify tradeoffs between privacy and security",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Privacy-Security Tradeoffs",
+      "question_text": "A hospital had a ransomware attack and a case of staff snooping on a celebrity patient's record. The CISO proposes recording all staff screens 24/7. Design an alternative security program that addresses both incidents while respecting staff and patient privacy. Give at least 3 specific controls and say which incident each addresses.",
+      "options": null,
+      "correct_answer": "(1) Ransomware: keep offline, immutable backups tested quarterly, patch systems on a fixed schedule, and segment the network so clinical devices are isolated. (2) Ransomware: require multi-factor authentication for remote access and email, plus phishing simulations for staff. (3) Snooping: role-based access control so staff see only records of patients under their care, with break-the-glass emergency access that is logged. (4) Snooping: automated audit-log alerts for access to VIP or same-surname records, reviewed by the privacy officer, instead of screen recording. Disclose the monitoring policy to staff.",
+      "explanation": "Part 1: Targeted controls (backups, patching, segmentation, MFA for ransomware; role-based access, logging, and audit alerts for snooping) address each threat directly while collecting only the data needed (access events), which is proportionate monitoring. Part 2: Recording all screens 24/7 captures large amounts of patient and staff information, creating a new sensitive dataset that could itself be breached, and does not stop ransomware; doing nothing ignores HIPAA's access-control and audit requirements. Part 3: This reinforces the learning objective by showing that the right answer to a privacy-security tradeoff is usually a narrower, targeted control rather than maximal surveillance.",
+      "learning_objective": "Identify tradeoffs between privacy and security",
+      "keywords": ["backup", "multi-factor", "role-based access", "audit log", "least privilege", "patch"]
+    },
+    {
+      "number": 21,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Privacy-Security Tradeoffs",
+      "question_text": "During a pandemic, a national health ministry must choose a digital contact-tracing design. Which option BEST balances public health security against privacy?",
+      "options": [
+        "A) Centralized GPS tracking of every citizen's phone, stored indefinitely by the ministry and shared with police for quarantine enforcement",
+        "B) No digital tracing at all, relying only on manual interviews, because any data collection is a privacy violation",
+        "C) A decentralized Bluetooth exposure-notification design (like the Apple/Google framework): phones exchange rotating random identifiers, matching happens on the device, no location is collected, participation is opt-in, and data is deleted after 14 days",
+        "D) Require users to post their test results publicly on social media so contacts can check for themselves"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The decentralized design achieves the security goal (notifying exposed contacts) through data minimization (no location, rotating identifiers), on-device matching, opt-in consent, and short retention, which protects both public health and privacy. Part 2: Option A maximizes surveillance and function creep (police use) far beyond what tracing needs; Option B rejects a proportionate tool and leaves public health benefits unused; Option D exposes sensitive health data publicly. Part 3: This shows how system design choices, not a single yes/no decision, determine where a solution falls on the privacy-security tradeoff.",
+      "learning_objective": "Identify tradeoffs between privacy and security",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Gathering and Privacy Threats",
+      "question_text": "Small text files that a website stores on a user's browser to identify the user across visits, and that advertising networks place from embedded ads to track the user across many unrelated websites, are called ___ (the cross-site kind are called third-party ___).",
+      "options": null,
+      "correct_answer": "Cookies",
+      "explanation": "Part 1: Cookies are identifiers stored on the user's device; first-party cookies remember logins and carts, while third-party cookies, set by ad networks such as DoubleClick, let one company follow the user across every site that runs its ads and build a browsing profile. Part 2: Cookies are not malware and are not RFID tags; Tavani's point is that they collect data without the user's meaningful awareness, often with consent buried in default settings. Part 3: Cookies are a textbook example of how routine data-gathering processes threaten informational privacy by enabling invisible, cumulative tracking.",
+      "learning_objective": "Explain the connection between data-gathering processes and threats to privacy",
+      "keywords": ["cookie", "cookies", "third-party cookies", "tracking cookies", "HTTP cookie"]
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data Gathering and Privacy Threats",
+      "question_text": "True or False: Data mining can threaten privacy even when every individual data point used in the analysis was collected legally and with consent, because the mining can generate new, non-obvious information (such as a predicted health condition) that the person never disclosed.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Tavani explains that data mining creates new categories and profiles (e.g., 'likely pregnant', 'high credit risk') from patterns across data; these inferences are not covered by the consent given for the original data and are usually not protected by privacy law. Part 2: The belief that 'legal inputs mean no privacy issue' ignores that the harm comes from the inferred output and its use in decisions about the person. Part 3: This is a key link between data-gathering and analysis processes and privacy threats in the Big Data era.",
+      "learning_objective": "Explain the connection between data-gathering processes and threats to privacy",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Data Gathering and Privacy Threats",
+      "question_text": "Latanya Sweeney found that about 87% of Americans can be uniquely identified using only 5-digit ZIP code, birth date, and sex. A health insurer releases 20,000 'anonymized' claim records with names removed but those three fields kept. Using Sweeney's rate, how many records could be uniquely re-identified by matching against a public voter roll? Enter a number only.",
+      "options": null,
+      "correct_answer": "17400",
+      "explanation": "Part 1: Expected re-identifiable records = 20,000 x 0.87 = 17,400. Sweeney showed this by matching Massachusetts Group Insurance Commission hospital data with the Cambridge voter roll and identifying Governor William Weld's medical records. Part 2: A common mistake is assuming that removing names and Social Security numbers is enough; quasi-identifiers (ZIP, birth date, sex) combined across datasets work like a name. Part 3: This shows how gathering and combining datasets (record matching) creates privacy threats, and why techniques such as k-anonymity, generalizing ZIP to 3 digits, and birth year only are needed before release.",
+      "learning_objective": "Explain the connection between data-gathering processes and threats to privacy",
+      "keywords": ["17400", "17,400", "0.87", "re-identification", "quasi-identifier"]
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Gathering and Privacy Threats",
+      "question_text": "A retailer analyzes loyalty-card purchases (unscented lotion, calcium and zinc supplements, cotton balls) and assigns a 'pregnancy prediction score', then mails baby-product coupons. A father learns his teenage daughter is pregnant from the coupons. Which data-gathering process caused the privacy harm, and why?",
+      "options": [
+        "A) Cookies, because the store tracked her web browsing across third-party sites",
+        "B) Data mining of transaction records, because it inferred sensitive health information she never disclosed and the store acted on that inference",
+        "C) RFID, because tags on the lotion bottles tracked her movements around town",
+        "D) No privacy harm occurred, because she voluntarily used the loyalty card"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The harm came from data mining: patterns in ordinary purchases were combined into a new, sensitive inference (pregnancy) and used to target her, revealing it to family members. Part 2: Option A names the wrong technology because the data came from in-store loyalty transactions; Option C invents RFID tracking not present in the scenario; Option D assumes consent to a loyalty card covers inferences about health status, which contextual integrity rejects. Part 3: This classic Target case connects a routine data-gathering process (loyalty programs and analytics) to a concrete privacy threat.",
+      "learning_objective": "Explain the connection between data-gathering processes and threats to privacy",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Gathering and Privacy Threats",
+      "question_text": "A clothing chain sews passive RFID tags into garments for inventory control. Which risk is the MOST serious privacy concern Tavani associates with this practice?",
+      "options": [
+        "A) The tags slow down checkout because each must be scanned by hand",
+        "B) The tags contain a battery that can overheat while the customer wears the garment",
+        "C) The tags reduce inventory accuracy compared with barcodes",
+        "D) If tags are not deactivated at checkout, their unique serial numbers can be read by any compatible reader after purchase, letting the store or third parties link the item to the buyer's payment record and track the person's location over time"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: RFID tags broadcast unique identifiers that can be read without line of sight or the wearer's knowledge; when linked to a purchase record, the garment becomes a tracking beacon, which is the post-purchase tracking concern Tavani highlights. Part 2: Option A is wrong because RFID removes manual scanning; Option B is wrong because passive tags have no battery; Option C is an inventory claim, not a privacy concern, and is also factually backwards. Part 3: RFID shows how a data-gathering technology adopted for an operational reason can create surveillance capabilities, which is why kill-at-checkout and clear notice policies matter.",
+      "learning_objective": "Explain the connection between data-gathering processes and threats to privacy",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "Data Gathering and Privacy Threats",
+      "question_text": "Tavani distinguishes 'merging' from 'matching' of computerized records. In 2-3 sentences, explain the difference and give one concrete example of each that threatens privacy.",
+      "options": null,
+      "correct_answer": "Merging combines two or more databases into a single, more complete profile of a person; for example, a data broker merges a person's credit card purchases, magazine subscriptions, and DMV records into one dossier sold to insurers. Matching cross-checks records in two or more databases to find people who meet a condition, using a common identifier; for example, the government matches federal employee payroll records against welfare rolls to flag people who are getting benefits they should not.",
+      "explanation": "Part 1: Merging builds richer profiles by joining sources, while matching compares databases to single out individuals, typically to make a decision about them (fraud, eligibility). Both move data out of the context where it was collected. Part 2: Treating them as the same misses that matching treats everyone in both databases as a suspect without individual suspicion, and that merging's harm is the aggregated profile, even when each source is harmless alone. Part 3: These two techniques are concrete links between data-gathering processes and privacy threats, because the privacy harm appears only after data from separate contexts is combined.",
+      "learning_objective": "Explain the connection between data-gathering processes and threats to privacy",
+      "keywords": ["merging", "matching", "combine", "cross-check", "profile", "databases"]
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Data Gathering and Privacy Threats",
+      "question_text": "A startup scrapes 3 billion publicly posted photos from Facebook, Instagram, and LinkedIn to build a facial recognition search engine sold to police and private security firms (similar to Clearview AI). The founder argues: 'Everything we collected was public, so there is no privacy issue.' Which response is STRONGEST?",
+      "options": [
+        "A) The founder is correct: once information is posted publicly, privacy no longer applies",
+        "B) The only problem is copyright infringement on the photos, not privacy",
+        "C) This is a 'privacy in public' problem: aggregating scattered public photos into one searchable biometric database creates a new capability (identifying strangers from a single photo) that breaches the norms under which users shared those photos, so it violates contextual integrity even though each photo was public",
+        "D) The issue would be fixed if the company only sold the tool to police, because law enforcement use is always justified"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Tavani's 'privacy in public' discussion and Nissenbaum's contextual integrity both explain that aggregation changes the nature of information: photos shared with friends become biometric identifiers usable by anyone who pays, which breaches the original norms of distribution. Part 2: Option A uses the public/private dichotomy that contextual integrity rejects; Option B names a real but separate legal issue and ignores privacy harms; Option D swaps one buyer for another without addressing suspicionless mass identification and its chilling effects. Part 3: This scenario connects a large-scale data-gathering process (web scraping and aggregation) directly to a serious privacy threat and supports the case for privacy laws, such as Illinois' BIPA, over industry self-regulation.",
+      "learning_objective": "Explain the connection between data-gathering processes and threats to privacy",
+      "keywords": []
+    }
+  ]
+}
