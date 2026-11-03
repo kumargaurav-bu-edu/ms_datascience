@@ -173,7 +173,7 @@ Select the format based on the **learning objective and difficulty level**.
 ### **A. Format Rules by Difficulty Tier**
 
 **Level 1 (Basic – Definitions & Formulas)**
-Use **fill-in-the-blank or short answer only** (no options):
+Use **fill-in-the-blank or short answer only** (no options) — *subject to the Written-Answer Cap in 12-E; once the cap is used up, use MCQ or True/False instead*:
 
 * Metric definitions (AUC, precision, recall, lift, ROC)
 * Formula recall and application
@@ -274,6 +274,25 @@ Across the full quiz:
 Purpose:
 ➡ Prevents learners from gaming the test instead of learning.
 
+---
+
+### **E. Written-Answer Cap (HARD LIMIT — overrides A, B, C above)**
+
+"Written-answer" questions are those where the learner must type an answer rather than pick one:
+`fill_in`, `short_answer`, `calculation`, `scenario`, `interpretation`, `analysis`.
+
+* **Maximum 5 written-answer questions per 30-question quiz.** Scale proportionally: max = floor(total_questions / 6) (25–29 → 4, 30–35 → 5).
+* All remaining questions must be `multiple_choice` (4 options) or `true_false`.
+* Where rules A–C call for fill-in / open-ended formats, convert them to MCQ instead:
+  * Definitions / formula recall (Level 1) → MCQ with plausible distractors or True/False.
+  * Numeric calculations → MCQ with numeric options whose distractors come from common mistakes (wrong formula, skipped step, raw/unadjusted value).
+* Spend the written-answer budget wisely, ideally spread as:
+  * 1 Level 1 `fill_in` (key term),
+  * 1 Level 2 `calculation` (single number answer),
+  * 2–3 Level 3 `scenario` / `analysis` (design or decision questions).
+* Spread written-answer questions across sections (≥1 in at least 2 different sections where possible).
+
+**Pre-finalization check:** count questions whose `question_type` is not `multiple_choice` or `true_false`; the count must be ≤ the cap above.
 
 ---
 
@@ -442,12 +461,14 @@ For N learning objectives:
 - [ ] All learning objectives represented with 2-3+ questions minimum
 - [ ] Each section has at least 1 Level 1, 1 Level 2, and 1 Level 3 question (when possible)
 - [ ] Each section includes ≥1 real-world scenario
+- [ ] Written-answer questions (fill_in, short_answer, calculation, scenario, interpretation, analysis) ≤ 5 per 30 questions (see Section 12-E)
 
 ---
 
 ### **Question Type Decision Tree**
 
-Use this tree to select appropriate question type based on difficulty level and learning objective:
+Use this tree to select appropriate question type based on difficulty level and learning objective.
+**Reminder:** any branch that leads to a written-answer type (fill_in, short_answer, calculation, scenario, interpretation, analysis) counts toward the cap of 5 per 30 questions (Section 12-E). When the cap is reached, use multiple_choice or true_false instead.
 
 ```
 START: What is the difficulty level and what are we testing?
