@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 10 - Social Credit Systems and Surveillance",
+    "description": "Covers what social credit systems (SCSs) are, focusing on China's SCS and commercial scores like Sesame Credit, the trust and enforcement problems they are meant to solve, and how they connect to social surveillance and surveillance capitalism, including the debate over government-platform coordination in the U.S.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Defining Social Credit Systems",
+      "question_text": "Which statement best defines a social credit system (SCS) as described in this week's readings (Cho, Kobie, Brussee)?",
+      "options": [
+        "A) A credit bureau score, like FICO, that measures only whether an individual repays consumer loans on time",
+        "B) A single AI algorithm that watches every Chinese citizen on camera and assigns them one live score from 0 to 1,000",
+        "C) A data-driven framework that collects records on how individuals and businesses behave (legal, regulatory, and financial compliance), rates their trustworthiness, and uses rewards (redlists) and punishments (blacklists) to shape future behavior",
+        "D) A voluntary social media rating app where users rate each other's posts with stars"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Cho describes the SCS as a data-driven project to monitor, assess, and influence the behavior of citizens and enterprises; its key parts are data collection, a trustworthiness judgment, and consequences (redlist rewards, blacklist sanctions). Part 2: A describes FICO, which covers only debt repayment, while the SCS also covers court orders, tax, and regulatory compliance. B is the Western 'Black Mirror' myth that Kobie and Matsakis reject, because there is no single national score. D describes peer-rating apps like the fictional 'Nosedive' episode, not a state and commercial compliance system. Part 3: A precise definition is the base for the rest of the week: you can't judge what problem an SCS solves, or how it relies on surveillance, until you know its parts.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Defining Social Credit Systems",
+      "question_text": "Kobie explains that China's SCS mixes government programs with private efforts. The best-known private score, run by Alibaba-affiliated Ant Financial, ranges from 350 to 950 and rewards high scorers with perks such as deposit-free bike and hotel bookings. It is called ___ Credit.",
+      "options": null,
+      "correct_answer": "Sesame Credit (Zhima Credit)",
+      "explanation": "Part 1: Sesame (Zhima) Credit is an opt-in commercial score that Ant Financial builds from Alipay payment history, shopping behavior, and identity data. High scores unlock perks such as waived deposits. Part 2: It is not the People's Bank of China credit reference system and not a court blacklist; Kobie stresses that Western coverage often mixes up these commercial scores with government sanctions. Part 3: Knowing that the SCS includes both private scores and state lists is part of defining the SCS as a fragmented ecosystem rather than one system.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": ["sesame", "zhima", "sesame credit", "zhima credit"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Defining Social Credit Systems",
+      "question_text": "True or False: China's SCS gives every one of its roughly 1.4 billion citizens a single nationwide numeric score, calculated by one central government algorithm.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: Kobie, Matsakis, and Brussee all reject the idea of a single national score. The SCS is a decentralized set of local pilots, sector-specific blacklists and redlists, and separate commercial scores, and many of its records are kept and shared by ordinary bureaucratic means. Part 2: Calling the statement True accepts the sensational Western story that Matsakis criticizes; some city pilots (e.g., Rongcheng) do use points, but they are local and not national. Part 3: Rejecting the 'one score' myth is a required part of accurately defining the SCS.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Defining Social Credit Systems",
+      "question_text": "Brussee argues that China's social credit system is 'actually quite boring.' According to her, who is the PRIMARY target of the SCS, and which identifier links their records across agencies?",
+      "options": [
+        "A) Political dissidents, tracked through their WeChat account IDs",
+        "B) Foreign tourists, tracked through their passport numbers",
+        "C) University students, tracked through their national exam (gaokao) registration numbers",
+        "D) Businesses, tracked through the 18-character Unified Social Credit Code assigned to every registered company"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Brussee shows that most SCS activity concerns corporate compliance (tax, licensing, food and environmental safety, contract performance). Records are tied to each company's Unified Social Credit Code, so regulators in different agencies and regions can share violation histories. Part 2: A reflects the dystopian Western story the article argues against; B and C name groups and IDs that are not the system's main focus. Part 3: Knowing that the SCS is mainly a regulatory tool for businesses sharpens the definition beyond the popular focus on individuals.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Defining Social Credit Systems",
+      "question_text": "The Chinese term behind 'social credit' is shehui xinyong. 'Xinyong' means both financial creditworthiness and moral honesty or trustworthiness. What does this double meaning imply for how the SCS should be defined?",
+      "options": [
+        "A) The SCS judges both whether someone can repay (financial credit) and whether they keep legal and social commitments (honesty), so it reaches beyond lending into court orders, regulatory compliance, and contract keeping",
+        "B) The SCS is only a translation of Western credit scoring, so it should be judged with exactly the same FICO standards",
+        "C) The term is purely moral, so the SCS has nothing to do with banks, loans, or financial data",
+        "D) The double meaning is a mistranslation, and Chinese officials use the term only for sanctions on dissidents"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Because xinyong combines 'can pay' with 'can be trusted,' the SCS treats unpaid court judgments, tax evasion, food-safety violations, and loan default as the same kind of problem: a lack of trustworthiness. Part 2: B ignores the non-financial scope; C ignores that financial data and private credit firms such as Sesame Credit are central; D is not supported by the readings, which describe mostly economic and regulatory uses. Part 3: This language point explains why defining the SCS as 'just a credit score' or 'just political control' is too narrow.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Defining Social Credit Systems",
+      "question_text": "In Rongcheng (Shandong), a well-known SCS pilot, each resident starts with 1,000 points. Points are deducted for things like traffic violations and added for things like volunteering, and residents are graded from AAA down to D. How does this pilot fit an accurate definition of China's SCS?",
+      "options": [
+        "A) It proves China has a single national score, since Rongcheng's points are copied directly into a Beijing database used for every citizen",
+        "B) It is one LOCAL experiment inside a fragmented SCS; most other cities do not use citizen points at all and rely on sector-specific blacklists and redlists instead",
+        "C) It is not part of the SCS at all, because the SCS applies only to private companies like Alibaba",
+        "D) It shows the SCS is purely a financial credit score, because points are based only on loan repayment"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Kobie and Matsakis describe Rongcheng as a striking but local pilot. The national SCS planning documents left cities to experiment, so point systems differ by city or don't exist, while national-level mechanisms mostly consist of court and regulatory blacklists. Part 2: A turns a local case into the 'one national score' myth; C ignores that government pilots are a core part of the SCS; D is wrong because Rongcheng's points cover civic behavior (traffic, volunteering), not only finances. Part 3: Placing pilots correctly within a decentralized structure is key to defining the SCS accurately.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Defining Social Credit Systems",
+      "question_text": "The NBC News video describes a person who cannot buy a plane or high-speed rail ticket after ignoring a court order to repay a debt. Which SCS mechanism is responsible?",
+      "options": [
+        "A) The Supreme People's Court list of 'dishonest judgment debtors' (laolai blacklist), which triggers joint punishments such as bans on flights, high-speed rail, and luxury spending",
+        "B) A low Sesame Credit score, which airlines are legally required to check",
+        "C) A facial-recognition algorithm that automatically denies tickets to anyone who jaywalks",
+        "D) A credit card company's internal fraud-detection model"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The court-run dishonest-debtor blacklist (in place since 2013) is shared with other agencies and companies under 'joint punishment' agreements. That is why a court judgment can block a train ticket; reports from 2018 cited millions of blocked flight and rail purchases. Part 2: B confuses an opt-in commercial score with a binding state sanction; C exaggerates camera use, since jaywalking cameras shame people publicly but do not automatically ban travel; D is a private fraud tool with no power to enforce travel bans. Part 3: Identifying blacklists and joint punishment as the real 'teeth' of the SCS is central to defining how it works.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Defining Social Credit Systems",
+      "question_text": "True or False: A student argues, 'Sesame Credit and the court blacklist are the same thing, because both are part of the social credit system.' According to Kobie's article, this is an accurate description.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: Kobie separates commercial scores like Sesame Credit (opt-in, run by a company, mostly offering perks) from government lists (mandatory, backed by law, carrying sanctions). Sesame Credit may use blacklist data as one input, but the two differ in who runs them, whether people can opt out, and what consequences follow. Part 2: Answering True merges the two, which is exactly the oversimplification Kobie says fuels misleading media coverage. Part 3: Telling commercial scores apart from state mechanisms is necessary for a precise definition of the SCS.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Defining Social Credit Systems",
+      "question_text": "Cho argues the SCS is 'not just another Chinese idiosyncrasy.' Which U.S. comparison BEST supports this claim while still respecting the real differences?",
+      "options": [
+        "A) The U.S. already has an identical government SCS, because the IRS assigns every citizen a trust score",
+        "B) There is no meaningful comparison, because U.S. companies never score people's behavior",
+        "C) U.S. FICO scores, data-broker profiles, and platform ratings (Uber passenger ratings, Airbnb reviews) also score behavior to decide who gets access; the main difference is that China's state ties blacklists across agencies into binding joint punishments, while U.S. scoring is mostly private and fragmented",
+        "D) The U.S. system is stricter, since a low FICO score bans people from domestic flights"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Cho's point is that rating trustworthiness from data is a general trend in data-driven societies. U.S. credit bureaus, data brokers, and platforms all score behavior and restrict access, so the U.S. needs its own data-protection framework. The real difference is who coordinates the scores (the state vs. private firms) and how sanctions are enforced. Part 2: A invents an IRS trust score; B ignores widespread U.S. commercial scoring; D is false, since a FICO score affects loans and rents but not flight eligibility. Part 3: This comparison sharpens the definition by showing which features are unique to China's SCS and which are shared with Western data practices.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Defining Social Credit Systems",
+      "question_text": "You are a data scientist writing a briefing on China's SCS for a U.S. policy think tank. A colleague's draft opens: 'China's AI-powered social credit score tracks every citizen's purchases and friendships in real time.' Following Matsakis and Brussee, which revision is MOST accurate?",
+      "options": [
+        "A) Keep the sentence, because a dramatic framing helps policymakers pay attention",
+        "B) Replace it with: 'China's SCS is a decentralized set of court and regulatory blacklists and redlists, mostly aimed at company compliance, plus local pilots and separate opt-in commercial scores. Its main tools are shared records and joint punishments, not a single real-time AI score.'",
+        "C) Replace it with: 'China's SCS is harmless and raises no privacy concerns at all.'",
+        "D) Replace it with: 'China's SCS is identical to the U.S. FICO score.'"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Option B states the actual structure: decentralized, mostly aimed at businesses, made of blacklists and redlists plus pilots and commercial scores, and enforced through record-sharing and joint punishment rather than a real-time AI. Part 2: A keeps the myth Matsakis criticizes; C swings too far, since the readings still raise privacy, due-process, and misuse concerns; D erases real differences in scope and state enforcement. Part 3: Writing an accurate definition for decision-makers is how a data scientist applies this learning objective in practice.",
+      "learning_objective": "Define social credit systems.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "Official Chinese planning documents and the readings (Wang, Matsakis) point to one main societal problem that the SCS is meant to solve. What is it?",
+      "options": [
+        "A) Not enough national security cameras in rural areas",
+        "B) Too much demand for domestic air travel",
+        "C) Low social media use among older citizens",
+        "D) A shortage of trust (chengxin, 'honesty') in markets and society, caused by widespread fraud, counterfeit goods, broken contracts, and court judgments that went unenforced"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The SCS is officially presented as a way to rebuild 'sincerity and trust' (chengxin) after decades of fast market growth in which fraud, fake products, and unpaid debts were common and hard to punish. Part 2: A confuses a surveillance tool with the problem itself; B and C are unrelated to the stated goals. Part 3: Naming the trust deficit is the core of identifying the underlying problem the SCS tries to solve.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "True or False: In Xu Wang's 16-month ethnographic study in Shanghai (2018-2019), many ordinary residents viewed the SCS favorably, seeing it as a tool against fraud and for promoting trustworthiness.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: Wang found that many residents see the SCS as fixing real everyday problems (scams, dishonest businesses, people who don't repay debts) rather than mainly as a tool of oppression. Part 2: Answering False would assume local views match Western media critiques; Wang's key finding is that they differ sharply. Part 3: Local perceptions are direct evidence of which underlying problem citizens believe the SCS addresses.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "Which real event is often cited as an example of the corporate trust failures that China's business-focused social credit rules were meant to prevent?",
+      "options": [
+        "A) The 2010 Deepwater Horizon oil spill in the Gulf of Mexico",
+        "B) The 2017 Equifax data breach",
+        "C) The 2008 melamine-tainted infant formula scandal (Sanlu Group), which sickened about 300,000 children",
+        "D) The 2001 Enron accounting collapse"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The melamine scandal is a well-known Chinese case where a company broke food-safety rules and regulators failed to stop it. This is the kind of problem the corporate SCS tries to address by putting violation records on a company's Unified Social Credit Code profile so all regulators can see them. Part 2: A and D are U.S. corporate failures outside China's regulatory context; B is a cybersecurity breach (Week 9 material), not a trust failure in product safety. Part 3: Linking the SCS to concrete trust failures shows the real problem the system targets.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "A provincial court has 50,000 unenforced civil judgments, where debtors are able to pay but have not. Before the dishonest-debtor blacklist (with its travel and luxury-spending bans), 8% of these debtors paid each year. After the blacklist, 20% pay each year. How many ADDITIONAL judgments are paid per year because of the change? Give a single number.",
+      "options": null,
+      "correct_answer": "6000",
+      "explanation": "Part 1: Before: 50,000 x 0.08 = 4,000 paid. After: 50,000 x 0.20 = 10,000 paid. The extra amount is 10,000 - 4,000 = 6,000 judgments per year. Part 2: 10,000 is the total paid after the change, not the extra; 12% is the change in percentage points, not a count; 4,000 is the baseline. Part 3: Measuring compliance before and after is how a data scientist would test whether the SCS actually solves its target problem (unenforced judgments) instead of just counting how many people were blacklisted.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": ["6000", "6,000", "10,000 minus 4,000", "additional judgments", "per year"]
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "Matsakis notes that the SCS also aims to improve FINANCIAL INCLUSION. Which problem does this refer to, and how did commercial scores such as Sesame Credit try to solve it?",
+      "options": [
+        "A) Hundreds of millions of Chinese adults had no record in the central bank's credit reference system, so lenders could not judge them; commercial scores used alternative data such as Alipay payment history, utility bills, and online shopping to build a creditworthiness record",
+        "B) Banks were lending too freely, so Sesame Credit was designed to block all consumer loans",
+        "C) Rural citizens had too many credit cards, so the SCS cancelled them",
+        "D) Foreign banks dominated China, so the SCS scored only foreign companies"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A large 'credit-invisible' population, especially young, rural, and informal-sector workers without bank loan histories, could not get credit. Mobile-payment data gave lenders a different signal to assess them. Part 2: B reverses the goal, which was to widen access to credit, not block it; C and D describe problems that the readings do not mention. Part 3: Financial inclusion is the second underlying problem, next to market trust, that the SCS claims to solve, though alternative-data scoring brings its own privacy and bias risks.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "A food company is fined for safety violations in Province X. It then wins a government contract in Province Y, whose regulators had no record of the fine. According to Brussee, which underlying problem does this show, and what is the SCS's response?",
+      "options": [
+        "A) Too few food inspectors; the SCS responds by hiring more inspectors",
+        "B) Consumers dislike the brand; the SCS responds with an advertising campaign",
+        "C) The company's executives are political dissidents; the SCS responds with facial recognition",
+        "D) Regulatory information is scattered across agencies and regions; the SCS responds by tying violation records to the company's Unified Social Credit Code and sharing them through a national public credit information platform, so other agencies can apply joint punishment (e.g., exclusion from public bidding)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Brussee describes the corporate SCS mainly as a fix for scattered information: a violation in one place used to be invisible elsewhere. A shared company ID plus cross-agency data sharing closes that gap and makes punishment consistent. Part 2: A may help but is not the SCS mechanism; B is unrelated marketing; C repeats the dissident-surveillance story that Brussee argues does not describe the corporate system. Part 3: This shows that weak regulatory enforcement is a specific problem the SCS is designed to fix.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "True or False: Wang's Shanghai research shows that Western media critiques and local Chinese views of the SCS largely agree about what problem the system solves and whether it is harmful.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: Wang's main finding is a big gap. Western coverage frames the SCS as an Orwellian control tool, while many Shanghai residents frame it as a practical fix for fraud and lack of trust. Part 2: Answering True ignores this gap, which is the study's central point. Part 3: To identify the underlying problem accurately, you need local perspectives as well as outside critiques; otherwise analysts may judge the system against goals it was never designed for.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "A government asks your analytics team to show whether its SCS pilot is 'working.' Which evaluation design BEST measures whether the system solves its stated underlying problem?",
+      "options": [
+        "A) Report the total number of people and companies added to the blacklist each year; more names means more success",
+        "B) Survey residents once about whether they like the system",
+        "C) Compare outcome metrics tied to the problem (court-judgment repayment rate, repeat food-safety violations per 1,000 firms, contract-fraud complaints) between pilot and similar non-pilot cities, before and after rollout (difference-in-differences), and also track wrongful listings and successful appeals",
+        "D) Count how many cameras were installed in the pilot city"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Since the stated problem is trust failure (fraud, non-compliance, unpaid judgments), success should be measured by changes in those outcomes against a comparison group, while also tracking harms such as wrongful listings. Part 2: A measures activity rather than impact, and a growing blacklist could even mean the problem is getting worse; B measures opinion at one point in time, not outcomes; D counts surveillance inputs, which confuses the tool with the problem. Part 3: Matching metrics to the underlying problem is how a data scientist tests whether the SCS actually solves it.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "A U.S. city is losing millions of dollars a year to home-repair contractors who take deposits and disappear, then re-register under new business names. The city council proposes a public 'Contractor Trust Score,' inspired by China's corporate SCS. (1) Name the specific underlying problem in this case. (2) Recommend three concrete design rules so the score solves that problem without repeating the SCS's known risks.",
+      "options": null,
+      "correct_answer": "(1) The problem is information asymmetry plus weak enforcement: homeowners cannot see a contractor's past fraud, and bad actors avoid sanctions by re-registering, the same trust and scattered-records problem the corporate SCS targets. (2) Design rules: (a) Limit inputs to verified legal records only (court judgments, license revocations, substantiated consumer-protection complaints), tied to the owner's contractor license number so re-registering does not erase the history; no social media or unrelated personal data. (b) Give due process: notify the contractor before listing, give 30 days to dispute, and provide an independent appeal. (c) Make records expire automatically (e.g., after 3 years once restitution is paid) and publish the scoring criteria and yearly error and appeal rates.",
+      "explanation": "Part 1: The answer names the specific failure (contractors hiding fraud by re-registering) and links it to the SCS's trust-deficit and scattered-records problem. Its three safeguards limit the score to that problem. Part 2: Answers that only say 'make it fair' or 'protect privacy' fail because they are abstract; answers that add unrelated behavior (e.g., personal social media) repeat the SCS scope-creep problem. Part 3: This applies the LO by making you identify the underlying problem before designing a scoring system, which keeps the solution proportionate to the problem.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": ["information asymmetry", "re-register", "license number", "court judgments", "appeal", "expire"]
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Problems SCS Aims to Solve",
+      "question_text": "Some local SCS pilots expanded their blacklists from unpaid court judgments to 'uncivilized behavior' such as jaywalking, playing loud music on trains, or not visiting elderly parents. Which critique BEST explains why this expansion is a problem, even for someone who accepts that the SCS addresses a real trust deficit?",
+      "options": [
+        "A) The expansion is fine, because any behavior can be linked to trust in some way",
+        "B) This is scope creep: the system moves beyond the defined problem (legally binding obligations like debts and safety rules) to vague moral judgments with no clear legal basis or due process, which raises the risk of arbitrary punishment and over-surveillance without improving market trust",
+        "C) The only issue is that the blacklist database will need more storage space",
+        "D) The expansion is a problem only because foreign media will criticize it"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A tool justified by one problem (unenforced legal obligations) loses its legitimacy when it is applied to vaguely defined moral behavior. Scope creep weakens proportionality and due process and requires more monitoring of daily life. Part 2: A erases any limit on what the system can cover; C reduces an ethical concern to a technical one; D treats outside opinion, not harm to citizens, as the main concern. Part 3: Being clear about the underlying problem lets you judge when an SCS has gone beyond its justification, which is the critical-thinking skill this LO builds.",
+      "learning_objective": "Identify the underlying problem that social credit systems try to solve.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "SCS and Social Surveillance",
+      "question_text": "The TechTarget reading defines 'surveillance capitalism.' Who coined the term, and what is the business model it describes?",
+      "options": [
+        "A) George Orwell; governments selling citizens' tax records to foreign states",
+        "B) Jeremy Bentham; prisons renting out inmates' labor to factories",
+        "C) Edward Snowden; telecom companies charging higher fees for encrypted calls",
+        "D) Shoshana Zuboff; companies such as Google and Facebook collect behavioral data (searches, likes, location) and turn it into prediction products sold to advertisers to influence what people buy and do"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Zuboff (The Age of Surveillance Capitalism, 2019) describes how companies take the 'behavioral surplus' left over from users' activity, use it to predict behavior, and sell those predictions for targeted advertising and nudging. Part 2: A borrows Orwell's 1984 imagery but he did not coin the term; B is Bentham, known for the Panopticon prison design, not this economic theory; C names a whistleblower on government surveillance, not the author of this concept. Part 3: Surveillance capitalism is the commercial counterpart that helps explain how SCSs, which also rely on behavioral data, connect to wider social surveillance.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "SCS and Social Surveillance",
+      "question_text": "True or False: According to the TechTarget article, the main goal of collecting personal data under surveillance capitalism is to build predictive products that are sold to businesses for targeted advertising and marketing.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: The article states that personal data such as search histories, social media activity, and physical locations is gathered to build predictive products that are sold to businesses to influence consumer behavior. Part 2: Answering False would imply the data mainly serves to improve services for users, which the article says is secondary to making money from predictions. Part 3: Both SCSs and surveillance capitalism turn observed behavior into scores or predictions that shape future behavior, which is the core link to social surveillance.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "SCS and Social Surveillance",
+      "question_text": "In 2019, a Hebei court launched a WeChat mini-program that showed users a map of blacklisted debtors within 500 meters and encouraged them to report debtors who could pay. What kind of surveillance does this show best?",
+      "options": [
+        "A) Social (peer-to-peer, or lateral) surveillance: the state publishes blacklist data so ordinary citizens watch, shame, and report each other, turning the community into part of the enforcement system",
+        "B) Purely commercial surveillance capitalism, because WeChat sells the map to advertisers",
+        "C) Satellite surveillance of military bases",
+        "D) Encrypted end-to-end messaging that prevents anyone from being monitored"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Social surveillance means monitoring that is spread through society, where neighbors, coworkers, and the public become watchers. The 'deadbeat map,' public screens showing blacklisted faces, and special ringtones on debtors' phones all use social pressure to enforce SCS sanctions. Part 2: B misidentifies who is behind it (a court, not an ad business); C is unrelated; D describes privacy protection, the opposite of monitoring. Part 3: This is a direct example of how SCS enforcement depends on social surveillance.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "SCS and Social Surveillance",
+      "question_text": "Which chain BEST explains why any social credit system DEPENDS on surveillance in order to work?",
+      "options": [
+        "A) Surveillance is optional; an SCS can score people without any data",
+        "B) The SCS first punishes people and then collects data to justify it",
+        "C) Collect behavioral and compliance records (court, tax, regulatory, payment data) -> link them to a unique ID (national ID number or Unified Social Credit Code) -> judge trustworthiness (blacklist, redlist, or score) -> share the judgment across agencies and the public to trigger rewards or sanctions -> people change their behavior because they know they are watched",
+        "D) Surveillance matters only for the commercial Sesame Credit score, never for government lists"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: An SCS cannot judge or sanction people without ongoing data collection, identity linking, and data sharing. Its deterrent effect comes from people knowing their records follow them, which is what makes it a form of surveillance. Part 2: A is impossible, since a score requires data; B reverses the order of the process; D ignores that government blacklists depend on shared court and regulatory data even more than commercial scores do. Part 3: This collect-link-judge-share-change chain is the clearest statement of how SCSs connect to surveillance.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "SCS and Social Surveillance",
+      "question_text": "In Murthy v. Missouri (June 26, 2024), covered by NPR, which statement accurately describes the Supreme Court's decision on government communication with social media platforms about content moderation?",
+      "options": [
+        "A) The Court ruled 9-0 that the government must never contact social media companies",
+        "B) The Court ruled 6-3 that the plaintiffs lacked standing, because they could not show the government's pressure caused the platforms' moderation decisions; the platforms had often acted on their own judgment",
+        "C) The Court ordered Twitter to restore every account suspended since 2020",
+        "D) The Court created a federal social credit score for misinformation"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Six justices held that the challengers had no standing because they could not link specific government communications to the moderation actions they suffered, so the government's contacts with platforms were not blocked. Experts then called for clearer rules on 'jawboning,' meaning informal government pressure on platforms. Part 2: A misstates both the vote and the result; C and D describe remedies the Court never ordered. Part 3: The case shows that in the U.S. as well, government interest and platform data and moderation can overlap, which is relevant to how social surveillance and influence over behavior can happen without a formal SCS.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "SCS and Social Surveillance",
+      "question_text": "True or False: Because Brussee shows that most SCS records concern businesses rather than individuals, the SCS has no meaningful social surveillance implications for individual people.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: Even a business-focused SCS affects individuals. Company records are linked to their legal representatives and executives, the court dishonest-debtor list targets individuals directly, and publicly shaming blacklisted people relies on peer surveillance. The knowledge of being watched can also produce a 'chilling effect,' the Panopticon-style self-censorship described by Bentham and Foucault. Part 2: Answering True overextends Brussee's correct point that the SCS is 'boring' into a claim that it is harmless. Part 3: Explaining the SCS-surveillance link requires seeing both its corporate focus and the ways it still reaches individuals.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "SCS and Social Surveillance",
+      "question_text": "Which comparison between China's SCS and Western surveillance capitalism is MOST accurate?",
+      "options": [
+        "A) They have nothing in common, because only China collects personal data",
+        "B) They are the same thing, because both are run by the Chinese Communist Party",
+        "C) Surveillance capitalism is more transparent, because users can always see their own prediction scores",
+        "D) Both turn observed behavior into ratings or predictions used to shape future behavior. They differ in who is behind them and why: the SCS is mainly state-led and aims at legal and regulatory compliance with official sanctions, while surveillance capitalism is led by companies and aims at profit through targeted advertising and nudges to buy"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The two share the same basic method (collect behavioral data, then score or predict, then nudge or sanction) but differ in who runs them (the state vs. companies), their goals (compliance vs. profit), and the type of consequences (legal sanctions vs. market manipulation). Part 2: A ignores Western data collection, which Cho highlights; B wrongly puts Western tech firms under Chinese state control; C is false, since users rarely see the predictions made about them. Part 3: This comparison shows that social surveillance is not unique to China, which is why Cho argues the U.S. needs a comprehensive data-protection framework.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "interpretation",
+      "section": "SCS and Social Surveillance",
+      "question_text": "The NBC News video shows public LED screens in some Chinese cities displaying the faces, names, and ID numbers of blacklisted debtors and of jaywalkers caught by facial-recognition cameras. In 2-3 sentences, explain how this practice turns an SCS record into social surveillance, and name one specific effect it has on people who have NOT been blacklisted.",
+      "options": null,
+      "correct_answer": "Showing blacklisted people's faces and ID numbers in public turns a private government record into a public shaming tool, so neighbors, coworkers, and strangers become watchers who enforce the sanction through social pressure (peer surveillance). For people who are not blacklisted, it creates a chilling, Panopticon-like effect: knowing that cameras and public screens could expose them, they police their own behavior (e.g., not jaywalking, paying debts quickly) even with no direct sanction.",
+      "explanation": "Part 1: Public display makes enforcement social, because the punishment is the loss of reputation in front of the community, and it deters everyone who sees it. Part 2: Answers that describe only the camera technology, or only the individual's punishment, miss the community-wide surveillance effect the question asks about. Part 3: This interpretation shows the core link between SCSs and social surveillance: visibility plus social pressure leads people to discipline themselves.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": ["public shaming", "peer surveillance", "facial recognition", "chilling effect", "self-censorship", "panopticon"]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "SCS and Social Surveillance",
+      "question_text": "You are the data science lead for a social media platform's trust and safety team. After the February 2023 House Oversight hearing on Twitter's contacts with the FBI (testimony from Vijaya Gadde, James Baker, and Yoel Roth) and the Murthy v. Missouri decision, leadership asks how to keep government requests from turning your moderation system into a hidden state surveillance and speech-control channel. What is the BEST policy?",
+      "options": [
+        "A) Log every government takedown or flag request in an auditable system; publish a quarterly transparency report listing the requesting agency, the policy cited, and the action taken; require moderation decisions to be made under the platform's published rules by staff with no government contact; and give affected users a notice-and-appeal process",
+        "B) Automatically follow every government request within 24 hours to avoid legal risk",
+        "C) Secretly share full user activity data with any agency that asks, so it can build its own risk scores",
+        "D) Turn off all content moderation permanently so no one can accuse the platform of bias"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Option A keeps the platform's moderation independent of government, makes government influence visible through logs and public reporting, and protects users with notice and appeal. These are the clearer rules experts called for after Murthy. Part 2: B makes the platform a tool of the state, the exact concern raised at the hearing; C builds a hidden data pipeline to the government, the same data sharing that powers SCS-style monitoring; D removes protection against real harms such as fraud and threats and does not solve the governance problem. Part 3: This connects the LO to practice: the link between SCSs and surveillance is not only a Chinese issue but a design choice data scientists face in democracies too.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "SCS and Social Surveillance",
+      "question_text": "A U.S. ride-hailing company asks you to build a 'Rider Reliability Score' from trip history, cancellations, payment failures, GPS traces, and in-app chat sentiment. A city transit agency wants to use the score to decide who gets discounted transit passes. Analyze (1) how this arrangement starts to look like a social credit system and creates social surveillance, and (2) propose three concrete safeguards you would require before launch.",
+      "options": null,
+      "correct_answer": "(1) It matches the SCS pattern: continuous behavioral data (GPS, chats, payments) is turned into a trustworthiness score, and once a government agency uses that score to allocate a public benefit, a private surveillance-capitalism product becomes a quasi-state sanction. That is the same company-to-state data link seen with Sesame Credit and government blacklists, and it encourages riders to self-censor in chats and change their routes (chilling effect). Function creep is likely once the agency has access. (2) Safeguards: (a) Data minimization and purpose limitation: use only payment failures and verified no-shows, exclude GPS traces and chat sentiment, and contractually ban the transit agency from reusing the score for any other purpose. (b) Transparency and due process: show each rider their score and its top factors, and offer a 30-day dispute and appeal process reviewed by a person. (c) Fairness audit and expiration: test the score for disparate impact across ZIP codes, race, and income before launch and every quarter, and delete behavioral records after 12 months.",
+      "explanation": "Part 1: A strong answer explains why the arrangement resembles an SCS (behavior is scored, then the state uses the score to give or withhold access) and why it creates surveillance (constant tracking, chilling effect, function creep). It then gives safeguards that limit data, purpose, and duration and add accountability. Part 2: Answers that only say 'protect privacy' or 'be ethical' fail the concreteness test; answers that defend sharing GPS and chat data ignore the surveillance risk. Part 3: This synthesizes all three LOs, applying the SCS definition, its stated trust goal, and its dependence on surveillance to a design decision a U.S. data scientist could actually face.",
+      "learning_objective": "Explain the connection between social credit systems and social surveillance.",
+      "keywords": ["data minimization", "purpose limitation", "function creep", "chilling effect", "appeal", "disparate impact"]
+    }
+  ]
+}

@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 10 - K-Means Clustering, Elbow Method & Silhouette Score",
+    "description": "Tests understanding of the k-means algorithm, applying the elbow method to choose k, the WCSS and Silhouette calculations used to evaluate clusters, and why distance metrics and feature scaling matter in k-means, as covered in the Week 10 learning objectives.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "K-Means Algorithm",
+      "question_text": "In k-means, each cluster is represented by a single point called its ___, which is recomputed at every iteration as the arithmetic mean of all points currently assigned to that cluster.",
+      "options": null,
+      "correct_answer": "Centroid",
+      "explanation": "The centroid is the cluster center used by k-means; in the update step it is set to the coordinate-wise mean of the cluster's members, and in the assignment step every point joins its nearest centroid. Terms like 'medoid' (an actual data point, used by k-medoids) or 'core point' (DBSCAN) describe other algorithms, not k-means. Knowing what a centroid is and how it is computed is the foundation for explaining how k-means works.",
+      "learning_objective": "Explain the k-means clustering algorithm",
+      "keywords": ["centroid", "centroids", "cluster center", "cluster mean"]
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "K-Means Algorithm",
+      "question_text": "True or False: Standard k-means (Lloyd's algorithm) always converges to the global minimum of the within-cluster sum of squares (WCSS), no matter which initial centroids are chosen.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Lloyd's algorithm is guaranteed to converge (WCSS never increases and there are finitely many partitions), but only to a local minimum that depends on the starting centroids. The belief that it always finds the global optimum is wrong; finding the true WCSS minimum is NP-hard, which is why practitioners use k-means++ initialization and several restarts (n_init) and keep the run with the lowest inertia. This matters for explaining k-means because two runs on the same data can produce different clusters.",
+      "learning_objective": "Explain the k-means clustering algorithm",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "K-Means Algorithm",
+      "question_text": "Which sequence correctly describes the standard k-means (Lloyd's) algorithm?",
+      "options": [
+        "A) Treat every point as its own cluster, repeatedly merge the two closest clusters, and stop when k clusters remain",
+        "B) Pick k actual data points as medoids, then repeatedly swap a medoid with a non-medoid whenever the swap lowers total dissimilarity",
+        "C) Initialize k centroids, assign each point to its nearest centroid by squared Euclidean distance, recompute each centroid as the mean of its assigned points, and repeat until assignments stop changing",
+        "D) Count neighbors within radius eps for every point, mark points with at least min_samples neighbors as core points, and grow clusters from connected core points"
+      ],
+      "correct_answer": "C",
+      "explanation": "K-means alternates two steps, assignment (nearest centroid) and update (centroid = mean), until assignments are stable or WCSS stops improving. Option A is agglomerative hierarchical clustering, Option B is k-medoids (PAM), and Option D is DBSCAN; each is a real clustering method but a different one. Telling these apart is central to explaining what makes k-means distinct: it is centroid-based, needs k in advance, and minimizes squared distances.",
+      "learning_objective": "Explain the k-means clustering algorithm",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "K-Means Algorithm",
+      "question_text": "One-dimensional data: {1, 2, 3, 10, 11, 12}. You run k-means with k = 2 and initial centroids c1 = 2 and c2 = 3. After ONE assignment step and ONE update step, what are the new centroids?",
+      "options": [
+        "A) c1 = 2.0 and c2 = 11.0",
+        "B) c1 = 1.5 and c2 = 9.0",
+        "C) c1 = 6.5 and c2 = 6.5",
+        "D) c1 = 1.5 and c2 = 11.0"
+      ],
+      "correct_answer": "B",
+      "explanation": "Assignment: 1 and 2 are closer to c1 = 2; 3 sits exactly on c2 = 3, and 10, 11, 12 are also closer to 3 than to 2. So cluster 1 = {1, 2} with mean 1.5, and cluster 2 = {3, 10, 11, 12} with mean 36/4 = 9.0. Option A puts 3 in the first cluster (the 'natural' answer, but not what this initialization produces), Option C is the global mean 39/6 = 6.5, and Option D drops point 3 from the calculation. Working through an iteration by hand shows how k-means really behaves: the result depends on the starting centroids, and a later iteration would move point 3 into cluster 1.",
+      "learning_objective": "Explain the k-means clustering algorithm",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "K-Means Algorithm",
+      "question_text": "For which of these datasets is k-means (with the true number of groups as k) MOST likely to give clusters that do NOT match the real groups?",
+      "options": [
+        "A) Three well-separated, roughly spherical blobs of similar size",
+        "B) Four Gaussian clusters with equal variance and similar point counts",
+        "C) Two compact groups separated by a large gap along a single feature",
+        "D) Two concentric rings: a small inner circle of points surrounded by an outer annulus"
+      ],
+      "correct_answer": "D",
+      "explanation": "K-means splits space into Voronoi cells, so boundaries between clusters are straight lines (hyperplanes) halfway between centroids; it cannot represent a ring around a circle and will cut both rings in half. Options A, B and C are the convex, similar-size, spherical clusters k-means is designed for. Knowing this assumption explains when to use k-means and when to switch to DBSCAN or spectral clustering for non-convex shapes.",
+      "learning_objective": "Explain the k-means clustering algorithm",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "K-Means Algorithm",
+      "question_text": "True or False: In k-means, neither the assignment step nor the centroid-update step can increase the within-cluster sum of squares (WCSS).",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Moving each point to its nearest centroid can only lower or keep its squared distance, and replacing a centroid with its cluster's mean minimizes that cluster's sum of squared distances. So WCSS is non-increasing at every step, which is why the algorithm is guaranteed to converge. That convergence is to a local minimum, though (see Q2). This monotone decrease is the core reason the k-means iteration terminates.",
+      "learning_objective": "Explain the k-means clustering algorithm",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "K-Means Algorithm",
+      "question_text": "You run KMeans(n_clusters=5) with random initialization on the same customer dataset three times and get inertia values of 4,210, 3,880 and 4,505 with different segment memberships. What is the BEST fix?",
+      "options": [
+        "A) Use init='k-means++' with n_init=10 (or more) and keep the run with the lowest inertia, fixing random_state for reproducibility",
+        "B) Raise max_iter from 300 to 10,000 so every run reaches the same global optimum",
+        "C) Report the average of the three inertia values as the model's final quality",
+        "D) Switch the distance to Manhattan so the starting centroids no longer matter"
+      ],
+      "correct_answer": "A",
+      "explanation": "The differing results come from different local minima caused by initialization. k-means++ spreads the starting centroids out, and multiple restarts (n_init) keep the best (lowest-WCSS) solution. Option B doesn't help because each run already converged, just to a different local minimum. Option C averages incompatible solutions and doesn't produce a usable segmentation. Option D isn't supported by standard k-means and doesn't remove sensitivity to initialization. This links initialization behavior directly to how the algorithm works.",
+      "learning_objective": "Explain the k-means clustering algorithm",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "K-Means Algorithm",
+      "question_text": "A ride-sharing company has pickup latitude/longitude for 500,000 trips in one city and wants to place exactly 8 driver staging hubs so that drivers wait close to where riders request trips. Explain (1) why k-means is a reasonable choice here, (2) what k and the final centroids mean in business terms, and (3) one concrete limitation and how you would handle it.",
+      "options": null,
+      "correct_answer": "(1) K-means fits because the business fixes k = 8 in advance, the features are two continuous coordinates on comparable scales, and minimizing squared Euclidean distance to the nearest center matches the goal of keeping pickups close to a hub; it also scales to 500k points. (2) Each of the 8 centroids is a candidate hub location (the mean pickup point of its zone), and cluster membership defines each hub's service area. (3) Limitations: outliers such as airport trips pull centroids away from dense areas, so cap or separately model them (or use k-medoids so hubs are real locations); lat/long degrees are not equal distances, so project to meters (UTM) or account for haversine distance; and centroids can land on non-drivable spots, so snap each centroid to the nearest legal parking location.",
+      "explanation": "This scenario answers the 'when would we use k-means?' question: k is known, the data is numeric, low-dimensional and naturally Euclidean, and the centroid itself is the decision output. A weak answer just says 'cluster the trips' without explaining what the centroid represents or naming a specific failure mode (outliers pulling the mean, the degree-distance distortion, non-feasible centroid locations). Being able to map algorithm mechanics to business outputs is the deepest level of explaining k-means.",
+      "learning_objective": "Explain the k-means clustering algorithm",
+      "keywords": ["centroid", "euclidean", "outlier", "nearest", "mean", "medoid"]
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Elbow Method",
+      "question_text": "When applying the elbow method for k-means, what is plotted?",
+      "options": [
+        "A) Mean silhouette score on the y-axis against k on the x-axis",
+        "B) Classification accuracy on the y-axis against k on the x-axis",
+        "C) Within-cluster sum of squares (WCSS, sklearn 'inertia_') on the y-axis against k on the x-axis",
+        "D) Dendrogram merge height on the y-axis against merge step on the x-axis"
+      ],
+      "correct_answer": "C",
+      "explanation": "The elbow method fits k-means for k = 1, 2, ..., K and plots WCSS (inertia) against k, looking for the point where adding another cluster stops producing a big drop. Option A is silhouette analysis, a separate evaluation method. Option B requires labels, which unsupervised clustering doesn't have. Option D is how you read a hierarchical-clustering dendrogram. Knowing exactly what goes on each axis is the first step in applying the elbow method.",
+      "learning_objective": "Apply the elbow method to determine the optimal number of clusters",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Elbow Method",
+      "question_text": "True or False: When using the elbow method, the optimal k is the one with the lowest WCSS.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "WCSS always goes down as k goes up and hits 0 when k equals the number of points (each point is its own centroid), so 'lowest WCSS' would always pick the largest k tested. The elbow method instead looks for the bend where the marginal drop in WCSS flattens out, which balances compactness against complexity. Avoiding this misreading is essential to applying the elbow method correctly.",
+      "learning_objective": "Apply the elbow method to determine the optimal number of clusters",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Elbow Method",
+      "question_text": "A subscription-box company clusters customers and gets these WCSS values for k = 1 to 8: 1000, 520, 300, 270, 250, 235, 225, 218. Using the elbow method, which k should be chosen?",
+      "options": [
+        "A) k = 2, because the largest single drop (480) happens going from 1 to 2",
+        "B) k = 3, because the drops are 480 and 220 and then shrink to 30 or less, so the curve bends at k = 3",
+        "C) k = 5, because WCSS at k = 5 (250) is one quarter of WCSS at k = 1",
+        "D) k = 8, because it has the lowest WCSS (218)"
+      ],
+      "correct_answer": "B",
+      "explanation": "The successive drops are 480, 220, 30, 20, 15, 10, 7: big improvements up to k = 3 and diminishing returns after, so the elbow is at k = 3. Option A confuses 'largest drop' with 'where the drops level off'; the 220 drop to k = 3 is still large. Option C uses an arbitrary ratio rule that isn't part of the method. Option D falls into the lowest-WCSS trap. Reading marginal decreases is the practical skill behind applying the elbow method.",
+      "learning_objective": "Apply the elbow method to determine the optimal number of clusters",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Elbow Method",
+      "question_text": "Your elbow plot for k = 1 to 12 decreases smoothly with no visible bend. What is the BEST next step?",
+      "options": [
+        "A) Choose k = 12, since the curve is still falling",
+        "B) Conclude the data contains exactly one cluster and stop the analysis",
+        "C) Choose the k at which WCSS is exactly half of WCSS at k = 1",
+        "D) Add a second criterion: compute the mean silhouette score (or gap statistic) for each k, and weigh the top candidates against business constraints such as how many segments the team can act on"
+      ],
+      "correct_answer": "D",
+      "explanation": "A smooth curve with no elbow is a known weakness of the method, because the bend is a subjective visual judgment. Silhouette and gap statistics measure separation directly, and domain constraints decide between candidates that score similarly. Option A is the lowest-WCSS trap. Option B overreaches, since no elbow doesn't prove there's no structure. Option C is an arbitrary rule with no theoretical basis. Knowing when the elbow method is inconclusive is part of applying it responsibly.",
+      "learning_objective": "Apply the elbow method to determine the optimal number of clusters",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Elbow Method",
+      "question_text": "True or False: To build an elbow plot, you can run k-means once with the largest candidate k (for example k = 10) and read the WCSS for every smaller k from that single fit.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Each point on the elbow curve needs its own k-means fit, because the k = 4 solution is not a subset of the k = 10 solution and its centroids and assignments are completely different. In practice you loop over k = 1 to K, fit KMeans(n_clusters=k, n_init=10, random_state=42) each time, and record inertia_. This is how you actually carry out the elbow procedure.",
+      "learning_objective": "Apply the elbow method to determine the optimal number of clusters",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Elbow Method",
+      "question_text": "A retail bank clusters credit-card customers on standardized spend, balance, and payment-ratio features. The elbow plot clearly bends at k = 4, but marketing can only fund 3 distinct campaigns. What should the analyst recommend?",
+      "options": [
+        "A) Report that k = 4 is the data-supported solution, then compare k = 3 vs k = 4 by mean silhouette and centroid profiles; if two of the four segments have similar centroids (e.g., both low-balance transactors), target them with one campaign and keep the 4-cluster model for monitoring",
+        "B) Refit with k = 3 and present it as the elbow-optimal result without mentioning the k = 4 elbow",
+        "C) Increase k to 8 so that each campaign can target two finer segments",
+        "D) Remove features one at a time until the elbow moves to k = 3"
+      ],
+      "correct_answer": "A",
+      "explanation": "The elbow gives statistical evidence for k = 4. The best recommendation is honest about that, uses a second metric and centroid interpretation to see whether two segments can share a campaign, and turns that into a concrete targeting decision. Option B hides evidence and calls a business-forced k 'optimal'. Option C moves away from both the data and the budget. Option D manipulates features to produce a desired answer (p-hacking for clusters). Applying the elbow method in practice means combining the statistical k with real constraints transparently.",
+      "learning_objective": "Apply the elbow method to determine the optimal number of clusters",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Elbow Method",
+      "question_text": "A hospital wants to segment 20,000 diabetic patients using HbA1c, BMI, systolic blood pressure, age, and number of ER visits last year to design care programs. Lay out a step-by-step elbow-method procedure you would use to pick k, including preprocessing, the k-means settings, what you compute and plot, and how you would confirm the chosen k.",
+      "options": null,
+      "correct_answer": "(1) Clean the data: impute or drop missing lab values and cap extreme ER-visit counts. (2) Standardize all five features with StandardScaler (z-scores) so that systolic BP (around 120) and age (around 60) don't outweigh HbA1c (around 7). (3) For k = 1 to 10, fit KMeans(n_clusters=k, init='k-means++', n_init=10, random_state=42) and record inertia_ (WCSS). (4) Plot WCSS against k, compute the successive drops, and pick the k where the drops flatten out. (5) Confirm with the mean silhouette score for k = 2 to 10 (sampled if needed) and check the silhouette plot for clusters with many negative values. (6) Inverse-transform the centroids back to clinical units and check with clinicians that each cluster (e.g., 'high HbA1c + frequent ER') maps to an actionable care program.",
+      "explanation": "A complete answer covers preprocessing (scaling), reproducible and robust k-means settings (k-means++, n_init, random_state), the actual elbow computation (inertia for each k and the marginal drops), a second validation metric (silhouette), and a domain interpretability check on centroids in original units. Answers that just say 'run the elbow method and pick the bend' miss scaling and validation, both of which can change the chosen k. This tests applying the elbow method end to end in a real healthcare setting.",
+      "learning_objective": "Apply the elbow method to determine the optimal number of clusters",
+      "keywords": ["standard", "inertia", "k-means++", "n_init", "silhouette", "centroid"]
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Elbow and Silhouette Calculations",
+      "question_text": "Which formula gives the within-cluster sum of squares (WCSS / inertia) plotted in the elbow method, where C_j is cluster j, mu_j is its centroid, and mu is the overall data mean?",
+      "options": [
+        "A) WCSS = sum over j of sum over x in C_j of ||x - mu_j|| (unsquared Euclidean distance)",
+        "B) WCSS = sum over j of n_j * ||mu_j - mu||^2",
+        "C) WCSS = sum over j of sum over x in C_j of ||x - mu_j||^2",
+        "D) WCSS = maximum over j of the largest pairwise distance inside C_j"
+      ],
+      "correct_answer": "C",
+      "explanation": "WCSS adds up the squared Euclidean distance from every point to its own cluster's centroid, which is exactly the objective k-means minimizes and what sklearn reports as inertia_. Option A drops the square, giving a different objective whose minimizer is the geometric median, not the mean. Option B is the between-cluster sum of squares, which measures separation, not compactness. Option D is the cluster diameter used in some linkage criteria. Knowing the exact formula is required to describe the elbow calculation.",
+      "learning_objective": "Describe the calculations for the elbow method and the Silhouette score for cluster evaluation",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Elbow and Silhouette Calculations",
+      "question_text": "Which is the correct definition of the silhouette value s(i) for a single point i?",
+      "options": [
+        "A) s(i) = (b(i) - a(i)) / max(a(i), b(i)), where a(i) is the mean distance from i to the other points in its own cluster and b(i) is the lowest mean distance from i to the points of any other cluster",
+        "B) s(i) = (a(i) - b(i)) / max(a(i), b(i)), with a(i) and b(i) defined as in option A",
+        "C) s(i) = (b(i) - a(i)) / min(a(i), b(i)), with a(i) and b(i) defined as in option A",
+        "D) s(i) = (b(i) - a(i)) / max(a(i), b(i)), where a(i) is the distance to its own centroid and b(i) is the distance to the farthest other centroid"
+      ],
+      "correct_answer": "A",
+      "explanation": "Silhouette compares cohesion a(i) with separation from the nearest neighboring cluster b(i), and dividing by max(a, b) keeps s(i) between -1 and 1. Option B flips the sign, so good points would get negative scores. Option C divides by the minimum, which can push values outside [-1, 1]. Option D uses the farthest cluster, which inflates separation; the definition uses the nearest other cluster. Writing out the formula precisely is the core of describing the silhouette calculation.",
+      "learning_objective": "Describe the calculations for the elbow method and the Silhouette score for cluster evaluation",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Elbow and Silhouette Calculations",
+      "question_text": "True or False: Silhouette values range from -1 to +1. A value near +1 means a point is well matched to its own cluster, near 0 means it lies on the boundary between two clusters, and a negative value means it is, on average, closer to a neighboring cluster than to its own.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Because s = (b - a) / max(a, b), s approaches 1 when a is much smaller than b (tight and well separated), is 0 when a = b (on the boundary), and is negative when a > b (probably misassigned). The mean silhouette over all points summarizes how good the whole clustering is. Interpreting this range correctly is part of describing how the silhouette score evaluates clusters.",
+      "learning_objective": "Describe the calculations for the elbow method and the Silhouette score for cluster evaluation",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Elbow and Silhouette Calculations",
+      "question_text": "A point's mean distance to the other members of its own cluster is a = 2.0, and its mean distance to the members of the nearest other cluster is b = 5.0. Calculate its silhouette value s. (Enter a single number.)",
+      "options": null,
+      "correct_answer": "0.6",
+      "explanation": "s = (b - a) / max(a, b) = (5.0 - 2.0) / 5.0 = 3 / 5 = 0.6, which indicates the point is reasonably well clustered. Common mistakes: dividing by min(a, b) gives 1.5, which is impossible since s must be in [-1, 1]; computing (a - b) / max gives -0.6 (wrong sign); and using b / a gives 2.5. Calculating this by hand reinforces the silhouette calculation.",
+      "learning_objective": "Describe the calculations for the elbow method and the Silhouette score for cluster evaluation",
+      "keywords": ["0.6", "3/5", "max", "b - a"]
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Elbow and Silhouette Calculations",
+      "question_text": "A cluster contains three points: (1, 2), (3, 2), and (2, 5). What is this cluster's contribution to WCSS?",
+      "options": [
+        "A) 4.83",
+        "B) 2.67",
+        "C) 11.00",
+        "D) 8.00"
+      ],
+      "correct_answer": "D",
+      "explanation": "Centroid = ((1+3+2)/3, (2+2+5)/3) = (2, 3). Squared distances: (1,2) gives 1 + 1 = 2, (3,2) gives 1 + 1 = 2, (2,5) gives 0 + 4 = 4, for a total of 8. Option A (4.83) adds unsquared Euclidean distances (1.414 + 1.414 + 2). Option B (2.67) is the mean squared distance (8/3) instead of the sum. Option C (11) comes from wrongly using (2, 2) as the centroid (1 + 1 + 9). Calculating WCSS by hand is the arithmetic behind every point on the elbow curve.",
+      "learning_objective": "Describe the calculations for the elbow method and the Silhouette score for cluster evaluation",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Elbow and Silhouette Calculations",
+      "question_text": "An e-commerce analyst computes the mean silhouette score for several k values: k = 2: 0.58, k = 3: 0.71, k = 4: 0.49, k = 5: 0.44. Which k does silhouette analysis support, and why?",
+      "options": [
+        "A) k = 2, because silhouette analysis always prefers the fewest clusters",
+        "B) k = 3, because it has the highest mean silhouette (0.71), meaning points are closest to their own cluster relative to the nearest other cluster",
+        "C) k = 4, because the sharp drop after k = 3 marks the 'elbow' of the silhouette curve",
+        "D) k = 5, because the lowest silhouette means the smallest intra-cluster distance"
+      ],
+      "correct_answer": "B",
+      "explanation": "Unlike WCSS, the mean silhouette is maximized, not minimized, and you don't look for an elbow: you pick the k with the highest value, which here is k = 3 at 0.71. Option A is a false generalization (silhouette often favors k = 2 but not always). Option C wrongly applies elbow logic to a silhouette curve. Option D reverses the direction of the metric. Knowing that the two methods are read differently is key to describing cluster-evaluation calculations.",
+      "learning_objective": "Describe the calculations for the elbow method and the Silhouette score for cluster evaluation",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Elbow and Silhouette Calculations",
+      "question_text": "A customer record has a = 4.0 (mean distance to its own cluster) and b = 3.0 (mean distance to the nearest other cluster). What is its silhouette value, and what does it mean?",
+      "options": [
+        "A) 0.25: the point is well clustered",
+        "B) 0.75: the point is strongly matched to its own cluster",
+        "C) -0.25: the point is closer to the neighboring cluster than to its own and is probably misassigned",
+        "D) -0.33: the point sits exactly on the boundary between the two clusters"
+      ],
+      "correct_answer": "C",
+      "explanation": "s = (3.0 - 4.0) / max(4.0, 3.0) = -1 / 4 = -0.25. A negative silhouette means a > b, so the point fits the neighboring cluster better. Option A drops the negative sign. Option B computes b / a. Option D divides by min(a, b) = 3 and also misreads a negative value as 'on the boundary' (a boundary point has s close to 0). Interpreting negative silhouettes is how analysts find misassigned points.",
+      "learning_objective": "Describe the calculations for the elbow method and the Silhouette score for cluster evaluation",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Elbow and Silhouette Calculations",
+      "question_text": "A fraud-analytics team clusters 400,000 card transactions to find behavior patterns. Their elbow plot is ambiguous between k = 3 and k = 5. Computing the full silhouette score takes all pairwise distances (O(n^2)). Which evaluation plan is BEST?",
+      "options": [
+        "A) For k = 2 to 8, compute silhouette_score on a stratified random sample of about 10,000 transactions (sample_size argument), pick the k with the highest mean silhouette, then check per-cluster silhouette plots for clusters dominated by negative values",
+        "B) Skip silhouette entirely because it cannot be computed when there are more than two clusters",
+        "C) Compute the silhouette score for k = 1 to get a baseline, then choose the k whose score is closest to it",
+        "D) Pick whichever of k = 3 or k = 5 has the lower WCSS, since lower WCSS always means better separation"
+      ],
+      "correct_answer": "A",
+      "explanation": "This is the 'silhouette vs. elbow' question in practice: when the elbow is ambiguous, silhouette directly measures cohesion against separation, and sampling keeps the O(n^2) pairwise cost manageable while still giving a reliable mean. Per-cluster plots then show weak clusters. Option B is false, since silhouette works for any k of 2 or more. Option C is impossible, because silhouette is undefined for k = 1 (there's no b(i)). Option D repeats the lowest-WCSS mistake, since WCSS always favors the larger k. Choosing the right evaluation calculation for the situation is the advanced form of this learning objective.",
+      "learning_objective": "Describe the calculations for the elbow method and the Silhouette score for cluster evaluation",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Distance Metrics and Feature Scaling",
+      "question_text": "True or False: K-means is tied to (squared) Euclidean distance because the arithmetic mean is exactly the point that minimizes the sum of squared Euclidean distances to a set of points, so the mean-based update step is only guaranteed to lower the objective under that metric.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "The update step sets each centroid to its cluster's mean, and the mean is the minimizer of squared Euclidean distance. Under Manhattan (L1) distance the minimizer is the coordinate-wise median (k-medians), and for arbitrary dissimilarities you need an actual data point (k-medoids). Swapping in another metric while keeping the mean update breaks the convergence guarantee. This answers the week's question 'Why do we use k-means only with the Euclidean metric?'",
+      "learning_objective": "Explain the importance of distance metrics and feature scaling in k-means",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Distance Metrics and Feature Scaling",
+      "question_text": "A credit-scoring team runs k-means on two raw features: annual income (from $20,000 to $200,000) and age (from 18 to 80), with no scaling. What will happen?",
+      "options": [
+        "A) Age will dominate because it has more distinct integer values",
+        "B) Both features will contribute equally because Euclidean distance treats every axis symmetrically",
+        "C) K-means will normalize the features internally, so the result matches scaled data",
+        "D) Income will dominate the distance because its differences are in tens of thousands while age differences are in tens, so the clusters will split almost entirely by income"
+      ],
+      "correct_answer": "D",
+      "explanation": "Euclidean distance adds raw squared differences, so a feature with a range of about 180,000 swamps one with a range of about 62, and age has almost no effect on cluster assignment. Option A misidentifies which feature dominates. Option B confuses equal treatment of axes with equal influence (the axes are treated the same, but their units aren't comparable). Option C is false, because sklearn's KMeans does not scale features. This is the main reason feature scaling matters in k-means.",
+      "learning_objective": "Explain the importance of distance metrics and feature scaling in k-means",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Distance Metrics and Feature Scaling",
+      "question_text": "Customer A: income $50,000, age 25. Customer B: income $52,000, age 60. Income has standard deviation $20,000 and age has standard deviation 10 years. What is the Euclidean distance between A and B on raw features and after z-score standardization, and which feature drives each?",
+      "options": [
+        "A) Raw ~ 2035 (driven by both); scaled ~ 3.60 (driven by both equally)",
+        "B) Raw ~ 35.0 (driven by age); scaled ~ 0.10 (driven by income)",
+        "C) Raw ~ 2000.3 (driven almost entirely by income); scaled ~ 3.50 (driven almost entirely by age)",
+        "D) Raw ~ 2000.3 (driven by income); scaled ~ 2000.3, since standardization doesn't change distances"
+      ],
+      "correct_answer": "C",
+      "explanation": "Raw: sqrt(2000^2 + 35^2) = sqrt(4,001,225) ~ 2000.3, so income dominates. Scaled: income difference = 2000 / 20000 = 0.1 and age difference = 35 / 10 = 3.5, giving sqrt(0.01 + 12.25) ~ 3.50, so now the large age gap dominates. Option A uses Manhattan sums (2000 + 35 and 0.1 + 3.5). Option B ignores income in the raw calculation. Option D wrongly claims scaling leaves distances unchanged. The calculation shows concretely how scaling changes which customers k-means treats as similar.",
+      "learning_objective": "Explain the importance of distance metrics and feature scaling in k-means",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Distance Metrics and Feature Scaling",
+      "question_text": "A logistics analyst believes city-block (Manhattan) distance better reflects travel between warehouses on a street grid and wants to cluster with it. What is the correct approach?",
+      "options": [
+        "A) Pass metric='manhattan' to sklearn's KMeans; centroids stay as means",
+        "B) Use k-medians (median update, which minimizes L1 distance) or k-medoids/PAM with a precomputed Manhattan distance matrix, since those keep the update step consistent with the metric",
+        "C) Keep standard k-means with Euclidean distance, because the clustering is identical for every metric",
+        "D) Square the Manhattan distances inside k-means so the mean update becomes valid"
+      ],
+      "correct_answer": "B",
+      "explanation": "Each metric needs a matching center: the median for L1 (k-medians), or an actual data point for any dissimilarity (k-medoids). Option A is not supported, because sklearn's KMeans has no metric parameter, and a mean update with L1 assignment isn't guaranteed to lower the objective. Option C is false, since different metrics produce different neighborhoods and clusters. Option D doesn't turn L1 into squared Euclidean, so the mean still isn't the right minimizer. This shows why the choice of distance metric limits which algorithm you can use.",
+      "learning_objective": "Explain the importance of distance metrics and feature scaling in k-means",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Distance Metrics and Feature Scaling",
+      "question_text": "A support team wants to cluster 50,000 customer complaint emails represented as TF-IDF vectors. Emails range from 20 to 2,000 words, and topic similarity is best measured by cosine similarity. What is the BEST preparation before running k-means?",
+      "options": [
+        "A) Run k-means on the raw TF-IDF vectors so that long emails, which have larger norms, form their own cluster",
+        "B) Apply MinMaxScaler to each term column so every word is in [0, 1]",
+        "C) Switch k-means to Manhattan distance, which ignores document length",
+        "D) L2-normalize each email vector to unit length and then run k-means; for unit vectors ||u - v||^2 = 2(1 - cos(u, v)), so Euclidean k-means ranks similarity the same way as cosine"
+      ],
+      "correct_answer": "D",
+      "explanation": "After unit-length normalization, squared Euclidean distance is a monotone function of cosine similarity, so standard k-means groups emails by topic rather than by length (this is spherical k-means). Option A clusters by length, not content. Option B scales term columns but leaves document length differences in place. Option C isn't supported by k-means and doesn't remove the length effect. This shows how to match a distance metric to the problem without breaking the k-means mean update.",
+      "learning_objective": "Explain the importance of distance metrics and feature scaling in k-means",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Distance Metrics and Feature Scaling",
+      "question_text": "A payments company clusters merchants on monthly transaction amount, chargeback rate, and transaction count. Transaction amount is heavily right-skewed: most merchants are under $50,000, but a few process over $5,000,000. Which preprocessing plan is BEST for k-means?",
+      "options": [
+        "A) Apply MinMaxScaler to all features so everything is in [0, 1]",
+        "B) Apply log1p to transaction amount and count, then StandardScaler (or RobustScaler, which uses median and IQR) on all features; review the extreme merchants separately as potential risk cases instead of letting them pull centroids",
+        "C) Skip scaling, since k-means is robust to outliers because it averages many points",
+        "D) Apply StandardScaler only, since z-scores fully remove the effect of skew"
+      ],
+      "correct_answer": "B",
+      "explanation": "The log transform compresses the long tail, and median/IQR-based scaling keeps the few huge merchants from inflating the scale. Handling those merchants separately keeps them from dragging centroids, which is a real risk because centroids are means. Option A squeezes about 99% of merchants into a tiny slice near 0, since the min and max are set by outliers. Option C is false, because means are very sensitive to outliers. Option D still uses a mean and standard deviation inflated by the outliers and does nothing about skew. Scaling choices directly decide which merchants k-means groups together, which matters for fraud and risk segmentation.",
+      "learning_objective": "Explain the importance of distance metrics and feature scaling in k-means",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Distance Metrics and Feature Scaling",
+      "question_text": "A colleague ran k-means (k = 4) on raw e-commerce customer data with these features: monthly spend ($0 to $15,000), sessions per month (0 to 60), discount-usage rate (0 to 1), and region (5 categories coded 1 to 5). All four clusters differ only by spend. Diagnose the problem and give at least three specific fixes, and say how you would verify them.",
+      "options": null,
+      "correct_answer": "Diagnosis: with no scaling, monthly spend (range about 15,000) dominates the Euclidean distance over sessions (range about 60) and discount rate (range 1), so k-means just slices customers by spend. Coding region as 1 to 5 also invents a false order and false distances between regions. Fixes: (1) Log-transform spend (log1p) to reduce skew, then standardize all numeric features with StandardScaler (z-scores) so each contributes comparably. (2) One-hot encode region (optionally down-weighted), or use k-prototypes, which combines Euclidean distance for numeric features with a matching dissimilarity for categorical ones. (3) Refit with init='k-means++' and n_init=10, then re-check k using the elbow (inertia) and mean silhouette. Verification: compare centroid profiles in original units and confirm that sessions and discount rate now differ meaningfully across clusters, and that silhouette doesn't drop.",
+      "explanation": "A strong answer diagnoses both scaling dominance and the problem with numerically coded categories, gives concrete transformations (log1p, StandardScaler, one-hot, or k-prototypes), and validates the change with a measurable check (silhouette, centroid profiles). Answers that just say 'normalize the data' are too vague because they don't name the dominating feature, the categorical issue, or how to verify. This brings together the whole learning objective: distance metrics and feature scaling determine what similarity means to k-means.",
+      "learning_objective": "Explain the importance of distance metrics and feature scaling in k-means",
+      "keywords": ["standard", "dominate", "one-hot", "spend", "silhouette", "k-prototypes"]
+    }
+  ]
+}
