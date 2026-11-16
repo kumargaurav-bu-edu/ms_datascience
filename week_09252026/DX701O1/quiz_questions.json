@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 5 - Professional Codes of Ethics in Computing, Data Science & AI",
+    "description": "A master's-level quiz on the role of professional codes of ethics in professional responsibility (Tavani Ch. 4: functions and criticisms of codes, moral responsibility, accountability, the problem of many hands, virtue ethics, the Pledge of the Computing Professional), the goals of specific codes (ACM 2018, IEEE 2020, ASA 2022, Data Science Association), and the scope and applicability of AI frameworks (Blueprint for an AI Bill of Rights, EU Ethics Guidelines for Trustworthy AI) in real data-science and AI scenarios.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Role of Codes in Professional Responsibility",
+      "question_text": "According to Tavani (Ch. 4), what is the main role of a professional code of ethics?",
+      "options": [
+        "A) To replace national law for members of a profession",
+        "B) To guarantee that no member will ever behave unethically",
+        "C) To set out shared standards that guide, inspire, and educate members about their responsibilities to the public, clients, employers, and colleagues, and to support accountability, sometimes including discipline, within the profession",
+        "D) To protect members of the profession from lawsuits"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Codes put a profession's values into words and give members a framework for decisions in situations where special expertise gives them power over others (e.g., data scientists building credit or health models). They inspire, educate, guide, and, in some professions, provide grounds for discipline. Part 2: A is wrong; codes add to the law but do not replace it. B overstates what codes can do, since they cannot guarantee behavior. D describes a self-serving use that critics warn against, not the purpose. Part 3: This is the core of the first learning objective.",
+      "learning_objective": "Describe the role of codes of ethics in professional responsibility.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Role of Codes in Professional Responsibility",
+      "question_text": "True or False: Following a professional code of ethics is the same as following the law, so anything legal is automatically ethical under the code.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Codes often ask for MORE than the law. For example, ACM 1.2 asks professionals to avoid harm and 1.6 to respect privacy, even where no regulation forbids selling location data. Something can be legal yet still violate a code; the Kochava location-data case is an example of practices that were lawful at first but drew ethical criticism. Part 2: Answering True confuses legal compliance with ethical responsibility. Part 3: Separating law from ethics is central to understanding why codes exist.",
+      "learning_objective": "Describe the role of codes of ethics in professional responsibility.",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Role of Codes in Professional Responsibility",
+      "question_text": "Tavani discusses criticisms of professional codes. Which of these is a well-known criticism?",
+      "options": [
+        "A) Codes are often vague, can contain directives that conflict with each other (e.g., loyalty to the employer vs. duty to the public), are hard to enforce, and can be self-serving by protecting the profession's image more than the public",
+        "B) Codes are too short to be useful",
+        "C) Codes are always legally binding, which makes them too strict",
+        "D) Codes focus only on technical skills"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: These criticisms explain why codes support, but cannot replace, ethical reasoning. When directives conflict, professionals still have to weigh them using ethical theories. Part 2: B is not a recognized criticism. C is false, since most computing codes are not legally binding. D misdescribes codes, which address conduct and not just technical skills. Part 3: Understanding the limits of codes is part of describing their role realistically.",
+      "learning_objective": "Describe the role of codes of ethics in professional responsibility.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Role of Codes in Professional Responsibility",
+      "question_text": "A loan-approval model that denied qualified applicants was built by 12 engineers, reviewed by 3 managers, and deployed by an outside vendor. Each person says, 'I only did my small part.' Which concept from Tavani's discussion of moral responsibility does this illustrate?",
+      "options": [
+        "A) Strict liability",
+        "B) Virtue ethics",
+        "C) Whistle-blowing",
+        "D) The 'problem of many hands' (Nissenbaum): when many people contribute to a system, responsibility is spread out so thinly that no one feels accountable. Codes respond by asking each professional to take responsibility for the foreseeable effects of their own work"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Shared development spreads accountability across many people. Codes such as ACM 2.5 (give comprehensive evaluations, including of possible risks) and the AI frameworks' accountability requirements push back by placing responsibility on each contributor and on the organization. Part 2: A is a legal idea (liability without fault). B is an ethical theory. C is a response to wrongdoing, not the name of the problem. Part 3: The distribution of responsibility is a key reason professional codes matter in team-built AI.",
+      "learning_objective": "Describe the role of codes of ethics in professional responsibility.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Role of Codes in Professional Responsibility",
+      "question_text": "The ethical theory that focuses on the CHARACTER of the agent, asking 'What would an honest, fair, and responsible professional do?' rather than only on rules or consequences, is called ___ ethics.",
+      "options": null,
+      "correct_answer": "Virtue",
+      "explanation": "Part 1: Virtue ethics (Aristotle) emphasizes character traits such as honesty, courage, fairness, and practical wisdom. The topic overview asks what qualities make a virtuous professional, and codes and the computing-professional pledge can be read as descriptions of those virtues. Part 2: Deontology centers on duties and rules, and utilitarianism on consequences. Both are relevant to codes but are not character-based. Part 3: Linking codes to virtue ethics explains how they shape professional identity, not just compliance.",
+      "learning_objective": "Describe the role of codes of ethics in professional responsibility.",
+      "keywords": ["virtue", "character", "Aristotle"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Role of Codes in Professional Responsibility",
+      "question_text": "The Pledge of the Computing Professional is an oath taken at a graduation ceremony. What role does it play compared with a detailed code like ACM's?",
+      "options": [
+        "A) It is a legal contract with employers",
+        "B) It is a public, aspirational commitment that marks entry into the profession and builds a sense of responsibility and identity (much like a medical oath), while detailed codes give the specific guidance for applying that commitment",
+        "C) It replaces the need to read any other code",
+        "D) It lists penalties for misconduct"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Oaths work at the level of character and commitment, which is the virtue-ethics side of professionalism. Codes like ACM's turn that commitment into specific principles (avoid harm, respect privacy, be honest). Part 2: A, C, and D give the pledge legal, comprehensive, or disciplinary roles that it does not have. Part 3: Seeing the different roles of oaths and codes clarifies how professional responsibility develops.",
+      "learning_objective": "Describe the role of codes of ethics in professional responsibility.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Role of Codes in Professional Responsibility",
+      "question_text": "True or False: Professional codes in computing usually rank the public's welfare ABOVE loyalty to an employer when the two truly conflict.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. IEEE commits members to 'hold paramount the safety, health, and welfare of the public'. ACM 3.1 says the public good should be the central concern, and the ACM/IEEE-CS Software Engineering Code makes 'Public' its first principle. When following an employer would cause serious public harm, the codes favor the public, which may justify internal escalation or, as a last resort, whistle-blowing. Part 2: Answering False assumes employer loyalty is absolute, which the codes explicitly reject. Part 3: Knowing this priority is essential to understanding professional responsibility.",
+      "learning_objective": "Describe the role of codes of ethics in professional responsibility.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Role of Codes in Professional Responsibility",
+      "question_text": "A data scientist discovers that her company's hospital-triage model under-predicts risk for Black patients because it uses past healthcare spending as a proxy for need. Her manager says to ship it on time. Which response best reflects professional responsibility under the codes?",
+      "options": [
+        "A) Ship it, because the manager is responsible",
+        "B) Post the model details publicly on social media immediately",
+        "C) Document the disparity with evidence (e.g., calibration by race), propose fixes such as replacing the spending proxy with clinical need measures, escalate through internal channels (ethics board, compliance), and consider external reporting only if internal routes fail and serious harm is likely. This follows ACM 1.2/1.4/2.5 and IEEE's priority on public welfare",
+        "D) Quietly change the model without telling anyone"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Codes ask professionals to avoid harm and discrimination, give honest assessments of risk, and escalate responsibly. Escalating step by step respects legitimate obligations to the employer while putting patient safety first. Part 2: A gives away moral responsibility, which is the many-hands problem again. B skips proportionate internal steps and may breach confidentiality. D is not transparent and bypasses accountability. Part 3: Applying the codes to a realistic dilemma is the advanced use of this objective.",
+      "learning_objective": "Describe the role of codes of ethics in professional responsibility.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Role of Codes in Professional Responsibility",
+      "question_text": "In 3-4 sentences, explain what qualities make someone a virtuous and responsible data-science professional, and how professional codes help define and reinforce those qualities.",
+      "options": null,
+      "correct_answer": "A virtuous data scientist shows honesty (reporting results and limitations truthfully, with no p-hacking), fairness (checking models for bias across groups), respect for privacy (collecting only the data needed and protecting it), competence (knowing the limits of their skills), and the courage to speak up about harm. Codes turn these virtues into concrete standards: ACM 1.3 (be honest and trustworthy), 1.4 (be fair and take action not to discriminate), 1.6 (respect privacy), 2.2 (maintain high standards of competence), and the ASA guidelines on the integrity of data and methods. They also reinforce these qualities through education, shared expectations, and accountability, so that good character becomes everyday professional practice.",
+      "explanation": "Part 1: A strong answer names specific virtues, links each to code provisions, and explains how codes reinforce character through guidance and accountability. Part 2: Answers that list virtues without linking them to codes, or describe codes only as rules without mentioning character, are incomplete. Part 3: This answers the week's guiding questions directly and ties virtue ethics to the role of codes.",
+      "learning_objective": "Describe the role of codes of ethics in professional responsibility.",
+      "keywords": ["honesty", "fairness", "privacy", "competence", "ACM", "accountability"]
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Goals of Different Codes",
+      "question_text": "The ACM Code of Ethics and Professional Conduct (2018) is organized into which four parts?",
+      "options": [
+        "A) Safety, Privacy, Notice, Fallback",
+        "B) Lawful, Ethical, Robust, Fair",
+        "C) Data, Methods, Results, Publication",
+        "D) General Ethical Principles, Professional Responsibilities, Professional Leadership Principles, and Compliance with the Code"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Section 1 covers general principles (1.1 contribute to society and human well-being, 1.2 avoid harm, 1.3 be honest, 1.4 be fair, 1.6 respect privacy, 1.7 honor confidentiality). Section 2 covers professional responsibilities (quality, competence, reviews). Section 3 covers leadership (3.1 the public good as the central concern). Section 4 covers compliance. Part 2: A mixes up AI Bill of Rights principles. B mixes EU Trustworthy AI components with a fairness value. C is not a code structure. Part 3: Knowing ACM's structure helps you understand what the code is trying to achieve.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Goals of Different Codes",
+      "question_text": "The IEEE Code of Ethics (2020) begins with a commitment that states its main goal. What is it?",
+      "options": [
+        "A) To hold paramount the safety, health, and welfare of the public, strive to comply with ethical design and sustainable development practices, protect the privacy of others, and promptly disclose factors that might endanger the public or the environment",
+        "B) To maximize the profitability of IEEE members' employers",
+        "C) To promote only technical excellence, regardless of social impact",
+        "D) To defend members against allegations of misconduct"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: IEEE's first commitment puts public safety, health, and welfare first and adds privacy and sustainability. Its other commitments cover avoiding conflicts of interest, honesty about claims and data, rejecting bribery, treating people fairly, and supporting colleagues in following the code. Part 2: B and D are self-serving aims the code rejects. C ignores the code's explicit social focus. Part 3: Knowing IEEE's main goal lets you compare it with other codes.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Goals of Different Codes",
+      "question_text": "True or False: The American Statistical Association's Ethical Guidelines for Statistical Practice (2022) are meant for anyone who does statistical practice, including data scientists, not only for ASA members or people with the job title 'statistician'.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The 2022 ASA guidelines state that they apply to all who engage in statistical practice, whatever their job title, field, or membership. That explicitly includes data scientists and analysts who collect, analyze, or interpret data. Part 2: Answering False narrows the scope too much and overlooks the guidelines' relevance to data science. Part 3: Knowing who a code is written for is part of interpreting its goals.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Goals of Different Codes",
+      "question_text": "An analyst tries 40 model specifications and reports only the one with p < 0.05, without mentioning the others. Which code is most directly aimed at this behavior, and what is its goal?",
+      "options": [
+        "A) The AI Bill of Rights, whose goal is human fallback options",
+        "B) The ASA Ethical Guidelines, whose goal is the integrity of data and methods: being transparent about the analyses performed, avoiding selective reporting, p-hacking, and cherry-picking, and stating limitations, so that statistical results can be trusted",
+        "C) The IEEE code, whose goal is bribery prevention",
+        "D) No code addresses analysis choices"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The ASA guidelines focus on how statistical work is DONE and REPORTED: professional integrity, honest communication of uncertainty, and full disclosure of methods. Reporting only the significant result of many tries misleads readers about the strength of the evidence. Part 2: A and C point to principles that exist but do not fit this problem. D is false. Part 3: Matching a behavior to the code whose goals address it shows you can interpret code goals.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Goals of Different Codes",
+      "question_text": "The Data Science Association (DSA) Code of Professional Conduct is modeled on lawyers' professional rules. What is its distinctive goal?",
+      "options": [
+        "A) Setting national AI law",
+        "B) Ranking AI systems by risk level",
+        "C) Governing the data scientist-CLIENT relationship: competence, communication, protecting the client's confidential information, avoiding conflicts of interest, and not misleading clients about data quality or results",
+        "D) Certifying hardware safety"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The DSA code reads like rules of professional conduct. It centers on duties owed to clients, especially confidentiality and honest representation of evidence, which suits data scientists working as consultants. Part 2: A is beyond the reach of any professional code. B describes a regulatory approach (e.g., the EU AI Act). D is unrelated. Part 3: Seeing that different codes aim at different relationships (public, client, data subjects) is the heart of interpreting their goals.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Goals of Different Codes",
+      "question_text": "A product team wants to log users' precise GPS location every 30 seconds 'in case it's useful later'. Which ACM principle most directly applies, and what is its goal?",
+      "options": [
+        "A) ACM 1.6, Respect privacy: collect only the minimum personal data needed for a legitimate purpose, be transparent about its use, obtain informed consent, and protect it from unauthorized use",
+        "B) ACM 2.9, Design and implement systems that are robustly and usably secure, which concerns encryption only",
+        "C) ACM 3.6, Use care when modifying or retiring systems",
+        "D) ACM 1.5, Respect the work required to produce new ideas, inventions, creative works, and computing artifacts"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: ACM 1.6 calls for data minimization and purpose limitation. Collecting data 'in case' it is useful later goes against both, and fine-grained location data can reveal visits to clinics or places of worship, as in the Kochava case. Part 2: B is relevant to protecting the data but does not address whether it should be collected at all. C and D cover other topics (retiring systems, respecting the work behind ideas and creations). Part 3: Applying a principle's goal to a design decision is the practical skill of interpreting codes.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Goals of Different Codes",
+      "question_text": "True or False: Because the ACM, IEEE, ASA, and DSA codes all promote ethics, their goals and audiences are essentially identical, so knowing one is enough.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. They share core values (honesty, avoiding harm, privacy) but differ in focus. ACM covers computing professionals broadly and the public good. IEEE covers engineers and public safety, plus sustainability. ASA covers the integrity of statistical practice and duties to research subjects and stakeholders. DSA covers obligations to clients. A data scientist may need several of them. Part 2: Answering True ignores these differences, which decide which guidance applies in a given situation. Part 3: Comparing goals across codes is exactly what this objective asks for.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Goals of Different Codes",
+      "question_text": "An engineer evaluating vendors for a city's facial-recognition contract owns stock in one of the bidders. What does the IEEE Code require?",
+      "options": [
+        "A) Nothing, as long as the engineer believes they can be objective",
+        "B) Avoid real or perceived conflicts of interest whenever possible, and disclose them to affected parties when they exist, e.g., disclose the stock holding and step back from the evaluation",
+        "C) Sell the stock after the contract is awarded",
+        "D) Only report it if the vendor wins"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The IEEE code explicitly commits members to avoid conflicts of interest and to disclose them. Its goal is protecting trust in professional judgment, which matters especially in public-sector AI procurement. Part 2: A relies on self-assessment, which the code does not accept as enough. C and D act after the harm is done and do not involve disclosure. Part 3: Reading a specific commitment and its purpose correctly is part of interpreting code goals.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Goals of Different Codes",
+      "question_text": "A data-science consultant (a DSA member) builds a churn model for a telecom client. The client asks her to keep the methodology confidential and to present a 92% accuracy figure to investors without mentioning that the churn rate is only 8% (so 'predict no churn' also scores 92%). How do the codes' goals guide her?",
+      "options": [
+        "A) The DSA confidentiality rule means she must present the figure exactly as requested",
+        "B) Confidentiality outweighs every other duty, so she should comply",
+        "C) She should resign immediately without any discussion",
+        "D) She can keep the methodology confidential (a DSA duty to the client), but she must not misrepresent results: the DSA and ASA codes forbid knowingly misleading statements about data quality and evidence, and ACM 1.3 requires honesty. She should explain the baseline problem to the client, recommend honest metrics (recall, PR-AUC, lift over the 92% baseline), and decline to present a misleading claim"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Confidentiality and honesty are separate obligations. Keeping methods private is allowed, but presenting a figure designed to mislead investors violates the integrity goals of several codes. The right path is to counsel the client and offer honest metrics. Part 2: A and B misread confidentiality as permission to deceive. C skips the professional duty to advise the client and correct the problem. Part 3: Reconciling the goals of overlapping codes in one dilemma is the advanced use of this objective.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Goals of Different Codes",
+      "question_text": "You lead analytics at a health-insurance startup building a model to flag 'high-cost' members for outreach. Identify which codes of ethics apply to your team (name at least three), state the main goal of each as it relates to this project, and give one concrete action your team should take because of each.",
+      "options": null,
+      "correct_answer": "(1) ACM Code. Goal: avoid harm, be fair and avoid discrimination (1.2, 1.4), and respect privacy (1.6). Action: audit the model for disparate impact by race, age, and disability, and avoid proxies like ZIP code that encode protected traits. (2) ASA Ethical Guidelines. Goal: integrity of data and methods, and responsibility to stakeholders and data subjects. Action: document the data sources, missing data, and all model specifications tried; report uncertainty and limitations honestly, with no cherry-picked metrics. (3) IEEE Code. Goal: hold public welfare paramount, protect privacy, and disclose risks. Action: disclose to leadership any risk that outreach flags could be misused to deny coverage, and recommend safeguards. (4) DSA Code (if consultants are involved). Goal: client confidentiality and honest communication. Action: protect member health data under contract, and do not overstate the model's accuracy to the client. (5) The AI Bill of Rights as a framework: provide notice and explanation to members and a human alternative for appeals.",
+      "explanation": "Part 1: A strong answer names at least three relevant codes, states each code's specific goal accurately, and turns each into a concrete project action (bias audit, documentation, risk disclosure, confidentiality). Part 2: Answers that list codes without linking their goals to actions, or that treat all codes as interchangeable, are incomplete. Part 3: This applies the interpretation of code goals to an AI product with real stakes.",
+      "learning_objective": "Interpret the goals of different codes of ethics.",
+      "keywords": ["ACM", "ASA", "IEEE", "privacy", "bias audit", "transparency"]
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "Which list correctly states the five principles of the White House Blueprint for an AI Bill of Rights (2022)?",
+      "options": [
+        "A) Lawful, Ethical, Robust, Transparent, Accountable",
+        "B) Safe and Effective Systems; Algorithmic Discrimination Protections; Data Privacy; Notice and Explanation; Human Alternatives, Consideration, and Fallback",
+        "C) Beneficence, Non-maleficence, Autonomy, Justice, Explicability",
+        "D) Contribute to society, Avoid harm, Be honest, Be fair, Respect privacy"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: These five principles protect the public from harmful automated systems in areas such as hiring, credit, healthcare, and policing. They cover safety testing, protection against discrimination, control over one's data, the right to know and understand automated decisions, and access to a human. Part 2: A mixes EU components and requirements. C is a bioethics-based list of AI principles. D lists ACM general principles. Part 3: Knowing the five principles is needed to judge where the AI Bill of Rights applies.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "The European Commission's Ethics Guidelines for Trustworthy AI (2019) say trustworthy AI has three components throughout the system's life cycle. What are they?",
+      "options": [
+        "A) Fast, cheap, and accurate",
+        "B) Open-source, explainable, and auditable",
+        "C) Lawful (complying with laws and regulations), Ethical (adhering to ethical principles and values), and Robust (technically and socially, so that it does not cause unintended harm)",
+        "D) Private, secure, and profitable"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The High-Level Expert Group defines trustworthy AI as lawful, ethical, and robust. The guidelines focus on the ethical and robust components, built on four principles (respect for human autonomy, prevention of harm, fairness, explicability) and seven requirements. Part 2: A and D are business goals. B lists desirable properties, but they are not the three components. Part 3: Knowing the EU framework's structure is the basis for comparing its scope with the professional codes.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "True or False: The Blueprint for an AI Bill of Rights is a non-binding framework. It does not create new legal requirements, but it guides the design, use, and deployment of automated systems that can significantly affect people's rights, opportunities, or access to critical services.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The Blueprint states that it is non-binding and does not create enforceable rights. It applies to automated systems that meaningfully affect civil rights, equal opportunity, or access to services such as housing, credit, healthcare, and employment. Part 2: Answering False confuses it with binding regulation like the EU AI Act. Part 3: Whether a framework is binding is a key part of its scope and applicability.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "Which of the following is NOT one of the seven requirements for trustworthy AI in the EU guidelines?",
+      "options": [
+        "A) Maximizing commercial competitiveness of European AI firms",
+        "B) Human agency and oversight",
+        "C) Diversity, non-discrimination, and fairness",
+        "D) Accountability"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The seven requirements are: human agency and oversight; technical robustness and safety; privacy and data governance; transparency; diversity, non-discrimination and fairness; societal and environmental well-being; and accountability. Commercial competitiveness is not one of them. Part 2: B, C, and D are all on the list. Part 3: Knowing the requirements precisely lets you check which ones an AI project meets or misses.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "What is the key difference in SCOPE between professional codes (ACM, IEEE, ASA, DSA) and AI frameworks (the AI Bill of Rights, the EU Trustworthy AI guidelines)?",
+      "options": [
+        "A) There is no difference",
+        "B) Professional codes apply mainly to INDIVIDUAL professionals' conduct, across all kinds of work. The AI frameworks focus on AI and automated SYSTEMS and their impact on people across the whole life cycle, and they address organizations, developers, deployers, and policymakers",
+        "C) Professional codes apply only to AI, and AI frameworks apply to all computing",
+        "D) AI frameworks apply only to researchers"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: ACM, for instance, tells a person how to behave in any computing role, while the EU guidelines ask whether an AI system has human oversight, robustness, and accountability mechanisms. The two complement each other: individual virtue plus system-level safeguards. Part 2: A ignores the difference in focus. C reverses the scope. D is too narrow. Part 3: Comparing who and what each framework governs is the core of this objective.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "A state unemployment agency uses an automated fraud detector that freezes benefits with no way to reach a person, and thousands of eligible claimants lose income for weeks. Which AI Bill of Rights principle is most directly violated?",
+      "options": [
+        "A) Data Privacy",
+        "B) Safe and Effective Systems only",
+        "C) Human Alternatives, Consideration, and Fallback: people should be able to opt out where appropriate and have timely access to a person who can consider and fix problems, especially in high-stakes areas like public benefits",
+        "D) None, because fraud detection is always allowed"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The core harm is having no human review or appeal for an error-prone automated decision. The fallback principle exists for exactly this situation, and the Blueprint cites failures of automated benefits systems among its examples. Part 2: A is not the main issue. B is relevant (the system was not effective), but it misses the missing recourse. D ignores the duty to protect rights. Part 3: Applying the right principle to a real failure shows you can judge where a framework applies.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "True or False: Under the EU Trustworthy AI guidelines, an AI system that fully complies with the law is automatically trustworthy.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Lawfulness is only ONE of the three components. A system must also be ethical, respecting autonomy, preventing harm, being fair, and being explicable, and robust both technically and socially. A legal credit-scoring model can still be opaque, biased, or fragile. Part 2: Answering True reduces trustworthiness to compliance, which the guidelines explicitly reject. Part 3: This shows how the EU framework goes beyond the law, a key point in comparing frameworks.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "A bank's AI denies a small-business loan, and the applicant receives only 'Application declined.' Which principles across the frameworks most directly apply?",
+      "options": [
+        "A) The AI Bill of Rights' Notice and Explanation (people should know an automated system was used and get a clear, timely, meaningful explanation), the EU requirement of Transparency (explicability), and ACM 1.3 (be honest and trustworthy about system capabilities and limits)",
+        "B) Only IEEE's anti-bribery commitment",
+        "C) Only the DSA's client confidentiality rule",
+        "D) None, because loan decisions are private business"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: All three frameworks point the same way: affected people deserve to know that AI was involved and why the decision was made, for example the main factors such as debt-to-income ratio. In the U.S., adverse-action notice rules for credit reinforce this. Part 2: B and C do not apply here. D ignores the framework scope, since credit is a high-impact area. Part 3: Recognizing where frameworks overlap for one scenario is the comparative analysis this objective calls for.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "A U.S. startup builds a hiring-screening AI and sells it to employers in both the U.S. and the EU. Its engineers belong to ACM. Which statement best analyzes how the frameworks apply?",
+      "options": [
+        "A) Only U.S. frameworks apply, because the company is American",
+        "B) Only ACM applies, because it is the engineers' professional body",
+        "C) No framework applies, because the employers make the hiring decisions",
+        "D) They apply in layers. ACM governs the engineers' individual conduct (avoid harm, be fair, be honest about limitations). The AI Bill of Rights guides U.S. design and deployment (discrimination protections, notice, human fallback) but is not binding. The EU Trustworthy AI guidelines shape EU-facing design (human oversight, transparency, fairness, accountability), and EU deployment also has to satisfy binding EU law, since hiring AI is treated as high-risk under the EU AI Act. Responsibility is shared between the developer and the deploying employers"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Scope depends on WHO acts (individual professionals vs. organizations), WHERE the system is used (jurisdiction), and WHAT it affects (high-stakes decisions). Hiring touches all three, so several frameworks apply together, and the developer cannot hand its responsibility to the employers. Part 2: A ignores where the system is used. B ignores system-level frameworks. C is the many-hands problem again. Part 3: Combining scope, applicability, and binding force across frameworks is the advanced analysis this objective requires.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "Compare the ACM Code (2018), the Blueprint for an AI Bill of Rights (2022), and the EU Ethics Guidelines for Trustworthy AI (2019) on four dimensions: (1) who they address, (2) whether they are binding, (3) their core content, and (4) one strength and one gap for governing a generative-AI chatbot used in mental-health support.",
+      "options": null,
+      "correct_answer": "ACM. (1) Addresses individual computing professionals. (2) Binding only as a condition of membership; enforcement is limited to membership actions. (3) General principles (avoid harm, honesty, fairness, privacy), professional responsibilities, leadership (public good), and compliance. (4) Strength: personal duties such as 1.2 avoid harm and 2.5 risk evaluation apply directly to the engineers building the chatbot. Gap: no system-level requirements such as audits or human oversight, and no reach over non-members or company decisions. AI Bill of Rights. (1) Addresses designers, developers, and deployers of automated systems that affect the public. (2) Non-binding guidance. (3) Five principles: safe and effective systems, algorithmic discrimination protections, data privacy, notice and explanation, human alternatives. (4) Strength: the human fallback and safety testing principles fit mental-health risks, such as crisis escalation to a clinician. Gap: no enforcement, and it relies on agencies and existing law. EU Trustworthy AI guidelines. (1) Address all stakeholders across the AI life cycle (developers, deployers, users). (2) Non-binding ethics guidance (later reflected in the binding EU AI Act). (3) Lawful, ethical, and robust; four principles; seven requirements including human oversight, robustness, privacy, transparency, fairness, well-being, and accountability; and an assessment list (ALTAI). (4) Strength: the most operational of the three, with a checklist that can audit the chatbot for robustness and safety, human oversight, and transparency (users told they are talking to an AI). Gap: high-level, so it needs translating into clinical standards, and it is voluntary. Overall: use ACM for individual conduct, the AI Bill of Rights for the user-rights perspective, and the EU guidelines with ALTAI for system audits, and add clinical safety regulation.",
+      "explanation": "Part 1: A strong answer compares all three frameworks on every dimension with accurate content, recognizes that none of them is binding law in itself (with ACM membership as the only enforcement), and judges strengths and gaps specifically for the mental-health chatbot (crisis escalation, transparency, safety testing). Part 2: Answers that list principles without comparing scope or binding force, or that call the AI Bill of Rights law, are inaccurate or incomplete. Part 3: This is the full comparative analysis that the third learning objective requires.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": ["individual", "non-binding", "human oversight", "five principles", "seven requirements", "gap"]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "interpretation",
+      "section": "Scope & Applicability in Data Science and AI",
+      "question_text": "A data broker (similar to Kochava) sells precise phone-location data that can reveal visits to reproductive-health clinics and shelters. The data were 'de-identified' and lawfully purchased from apps. Interpret this case through at least three frameworks from this week, explaining which provisions are violated and what responsible practice would look like.",
+      "options": null,
+      "correct_answer": "ACM 1.6 (respect privacy) and 1.2 (avoid harm): fine-grained location data can easily be re-identified (home and work locations reveal identity), and exposing sensitive visits risks stalking, discrimination, or legal jeopardy. 'De-identified' claims do not meet the duty to anticipate foreseeable harm. ACM 1.3 (honesty): presenting such data as anonymous is misleading. The AI Bill of Rights' Data Privacy principle: people should be protected from abusive data practices through built-in protections, collection limited to what is strictly necessary, and meaningful consent, with extra protection for sensitive areas like health. Selling location data from health clinics goes against this. Notice and Explanation: users of the source apps were not meaningfully told their data would be resold. EU Trustworthy AI, Privacy and Data Governance and Prevention of Harm: data quality, integrity, and access protocols, plus respect for autonomy. Selling sensitive location data to any buyer fails these. IEEE: protect the privacy of others and hold public welfare paramount. Responsible practice: do not collect or sell sensitive-location data; exclude sensitive places such as clinics and shelters with geofences; aggregate and add noise (k-anonymity or differential privacy); obtain explicit, specific consent; vet and limit buyers by contract; and run privacy impact assessments. This matches the remedies regulators like the FTC have sought in location-data cases.",
+      "explanation": "Part 1: A strong answer cites specific provisions from at least three frameworks, explains why 'lawful' and 'de-identified' are not enough (re-identification risk, sensitive inferences, foreseeable harm), and proposes concrete safeguards. Part 2: Answers that stop at 'it is legal' or 'privacy was violated', without naming provisions or remedies, are too shallow. Part 3: This interprets a real-world case across frameworks and links to the student's Kochava case study.",
+      "learning_objective": "Analyze and compare the scope and applicability of codes of ethics in data science and AI development.",
+      "keywords": ["privacy", "re-identification", "ACM 1.6", "Data Privacy", "consent", "sensitive"]
+    }
+  ]
+}

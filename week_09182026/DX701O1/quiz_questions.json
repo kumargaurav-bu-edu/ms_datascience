@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 4 - Critical Reasoning: Argument Structure, Validity & Fallacies",
+    "description": "A master's-level quiz on Tavani Ch. 3: identifying premises and conclusions and putting arguments in standard form; judging whether arguments are valid, sound, inductive, or fallacious (the counterexample strategy, informal fallacies such as ad hominem, slippery slope, false cause, begging the question, composition/division, false dichotomy, appeal to authority, and the virtuality fallacy); and building and defending persuasive arguments on ethical technology issues with utilitarian, deontological, virtue, and rights-based frameworks.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Argument Structure: Premises & Conclusion",
+      "question_text": "According to Tavani (Ch. 3), what is an ARGUMENT in the logical sense?",
+      "options": [
+        "A) A heated disagreement between two people",
+        "B) Any statement of opinion about technology",
+        "C) A list of facts with no claim drawn from them",
+        "D) A set of statements (premises) offered as reasons or evidence in support of another statement (the conclusion)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: In logic, an argument is a structured set of claims: at least one premise and exactly one conclusion that the premises are meant to support. This lets us evaluate cyberethics disputes on their reasoning rather than on rhetoric. Part 2: A is the everyday meaning, a quarrel. B is a single claim with no support. C lacks a conclusion. Part 3: Knowing what counts as an argument is the first step in identifying its structure.",
+      "learning_objective": "Identify the structure of an argument, including premise and conclusion.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Argument Structure: Premises & Conclusion",
+      "question_text": "Identify the CONCLUSION: 'Facial-recognition systems misidentify darker-skinned women at much higher rates. Police use these systems to make arrests. Therefore, police use of facial recognition can lead to wrongful arrests of darker-skinned women.'",
+      "options": [
+        "A) Police use of facial recognition can lead to wrongful arrests of darker-skinned women",
+        "B) Facial-recognition systems misidentify darker-skinned women at higher rates",
+        "C) Police use these systems to make arrests",
+        "D) Facial recognition is a technology"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The indicator word 'Therefore' introduces the conclusion, which is the claim the other statements support. Other conclusion indicators include 'thus', 'hence', 'so', and 'it follows that'. Part 2: B and C are the premises that give the reasons. D is not stated in the argument. Part 3: Using indicator words to separate premises from the conclusion is the core skill of this objective.",
+      "learning_objective": "Identify the structure of an argument, including premise and conclusion.",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Argument Structure: Premises & Conclusion",
+      "question_text": "True or False: Words such as 'because', 'since', and 'given that' usually signal a PREMISE, while words such as 'therefore', 'thus', and 'consequently' usually signal a CONCLUSION.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Premise indicators introduce reasons ('since the data are public...'), and conclusion indicators introduce the claim being supported ('...therefore scraping is acceptable'). In ordinary writing, the conclusion often comes FIRST, as in 'Scraping is acceptable because the data are public', so indicator words matter more than the order of sentences. Part 2: Answering False reverses the roles of the indicators. Part 3: Indicators are the main tool for identifying the structure of an argument in real texts.",
+      "learning_objective": "Identify the structure of an argument, including premise and conclusion.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Argument Structure: Premises & Conclusion",
+      "question_text": "A tech blogger writes: 'We should ban AI-generated political ads. Voters can't tell them from real footage, and deceptive ads undermine free elections.' What is the correct STANDARD FORM?",
+      "options": [
+        "A) P1: We should ban AI-generated political ads. P2: Voters can't tell them from real footage. C: Deceptive ads undermine free elections.",
+        "B) P1: Voters cannot distinguish AI-generated political ads from real footage (so they are deceptive). P2: Deceptive ads undermine free elections. P3 (implied): We should ban things that undermine free elections. C: We should ban AI-generated political ads.",
+        "C) C: Voters can't tell ads apart. P1: We should ban ads.",
+        "D) The passage is not an argument"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The first sentence is the conclusion even though it comes first. Standard form lists the premises, adds any IMPLIED (missing) premise needed to connect them to the conclusion, and puts the conclusion last. Making hidden premises explicit, such as 'we should ban things that undermine free elections', exposes what must be defended. Part 2: A and C mix up the premises and the conclusion. D ignores the clear reasons given. Part 3: Rebuilding arguments in standard form is the first step of Tavani's strategy for evaluating them.",
+      "learning_objective": "Identify the structure of an argument, including premise and conclusion.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Argument Structure: Premises & Conclusion",
+      "question_text": "Which of the following is NOT an argument?",
+      "options": [
+        "A) 'Since encryption protects journalists' sources, governments should not mandate backdoors.'",
+        "B) 'Because the model was trained on biased data, its predictions are likely biased.'",
+        "C) 'I strongly dislike targeted advertising, and many of my friends feel the same way.'",
+        "D) 'Open-source code can be audited by anyone; therefore, it can be more trustworthy than closed code.'"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: C reports feelings and facts about people's preferences, but it offers no reasons in support of a further claim, so there is no premise-conclusion relation. Part 2: A, B, and D each give a reason ('since', 'because', 'therefore') that supports a conclusion. Part 3: Telling arguments apart from statements of opinion or reports is basic to identifying argument structure.",
+      "learning_objective": "Identify the structure of an argument, including premise and conclusion.",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "fill_in",
+      "section": "Argument Structure: Premises & Conclusion",
+      "question_text": "A premise that the arguer does not state but that is needed for the conclusion to follow, e.g., 'All personal data deserve protection' in 'Location data are personal data, so they deserve protection', is called an implied, hidden, or ___ premise.",
+      "options": null,
+      "correct_answer": "Missing (unstated/implicit) premise",
+      "explanation": "Part 1: Real-world arguments often leave out a key premise, which logicians call an enthymeme. Writing it out makes the argument complete and often reveals the most controversial claim, here whether ALL personal data deserve protection. Part 2: 'False' premise describes truth, not whether the premise is stated. 'Conclusion' is the wrong part of the argument. Part 3: Supplying missing premises is part of identifying an argument's full structure.",
+      "learning_objective": "Identify the structure of an argument, including premise and conclusion.",
+      "keywords": ["missing", "unstated", "implicit", "hidden", "enthymeme"]
+    },
+    {
+      "number": 7,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Argument Structure: Premises & Conclusion",
+      "question_text": "Read this passage: 'Social media companies profit from engagement. Outrage drives engagement. So these companies have an incentive to amplify outrage. And since amplifying outrage harms democratic discourse, regulators should require algorithmic transparency.' What is its structure?",
+      "options": [
+        "A) A single premise with two conclusions that have nothing to do with each other",
+        "B) No premises, only conclusions",
+        "C) The final sentence is a premise for the first sentence",
+        "D) A CHAINED (extended) argument: P1 and P2 support an intermediate conclusion C1 ('companies have an incentive to amplify outrage'). C1 then serves as a premise, together with P3 ('amplifying outrage harms democratic discourse') and an implied premise ('regulators should address incentives that harm discourse'), to support the final conclusion C2 ('regulators should require algorithmic transparency')"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Complex arguments contain sub-arguments, where one conclusion becomes the premise of the next step. Mapping the chain shows where it is weakest, here the implied link from 'harms discourse' to 'transparency' specifically. Part 2: A, B, and C misread how the claims are connected. Part 3: Breaking extended arguments into steps is the advanced skill of identifying argument structure.",
+      "learning_objective": "Identify the structure of an argument, including premise and conclusion.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "In Tavani's framework, when is an argument VALID?",
+      "options": [
+        "A) When its conclusion is true",
+        "B) When all of its premises are true",
+        "C) When its form is such that IF all the premises were true, the conclusion could not be false. Validity is about the logical connection, not about whether the premises are actually true",
+        "D) When most experts agree with it"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Validity is a matter of FORM. 'All AI is dangerous; ChatGPT is AI; so ChatGPT is dangerous' is valid, because the conclusion follows necessarily, even though the first premise is false. Part 2: A and B concern truth, not logical connection. D is an appeal to authority or popularity. Part 3: Defining validity correctly is the basis for judging whether an argument is valid or fallacious.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "True or False: A SOUND argument is a valid argument whose premises are all actually true, so its conclusion must also be true.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Soundness = validity + true premises. Because a valid form guarantees the conclusion when the premises are true, a sound argument's conclusion cannot be false. A valid argument with even one false premise is valid but UNSOUND. Part 2: Answering False confuses soundness with validity alone. Part 3: Separating validity from soundness is required to evaluate arguments as Tavani does.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "Evaluate this argument: 'P1: If software is pirated, the developer loses revenue. P2: The developer lost revenue. C: Therefore, the software was pirated.'",
+      "options": [
+        "A) INVALID. It commits the formal fallacy of affirming the consequent (If P then Q; Q; therefore P). Revenue could be lost for other reasons, such as competition or a recession, so the premises can be true while the conclusion is false",
+        "B) Valid and sound",
+        "C) Valid but unsound",
+        "D) Valid, because the premises are relevant to the conclusion"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A counterexample shows the invalidity: the premises are true (if pirated, revenue is lost; revenue was lost because of a competitor) but the conclusion is false (the software was not pirated). The valid form is modus ponens: If P then Q; P; therefore Q. Part 2: B, C, and D call it valid, which is wrong, since relevance is not the same as logical necessity. Part 3: Spotting formal fallacies with counterexamples is a key way to determine whether an argument is valid.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "'We shouldn't take the senator's AI-safety bill seriously. She once said she doesn't even know how to code.' Which fallacy is this?",
+      "options": [
+        "A) Slippery slope",
+        "B) Ad hominem: it attacks the PERSON (her coding skills) instead of the merits of the bill. Whether she can code does not make the bill's provisions good or bad",
+        "C) Begging the question",
+        "D) False dichotomy"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Ad hominem shifts attention from the argument to the arguer. The bill should be judged on what it requires (audits, disclosure) and on its likely effects. Part 2: A predicts a chain of consequences. C assumes the conclusion. D offers only two options. None of these describe the passage. Part 3: Recognizing common informal fallacies is central to judging whether reasoning is fallacious.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "'If we allow schools to use any monitoring software, soon they'll read every student's private messages, then track them at home, and eventually we'll live in a total surveillance state.' Which fallacy is this, and what makes it fallacious?",
+      "options": [
+        "A) Ad hominem, because it attacks schools",
+        "B) Appeal to authority",
+        "C) Slippery slope: it claims that a small first step will inevitably lead to extreme outcomes without evidence that each step will follow. The argument would need to show the actual mechanisms and the likelihood of each step",
+        "D) Valid reasoning, because surveillance can grow"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Slippery-slope reasoning is fallacious when the steps in the chain are assumed rather than supported. A legitimate version would present evidence, such as documented 'function creep' in specific products, and policy safeguards, rather than inevitability. Part 2: A and B misclassify the argument. D confuses 'possible' with 'inevitable'. Part 3: Distinguishing an evidence-based chain from a fallacious slope is an important evaluation skill.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "True or False: 'Downloading copyrighted movies is wrong because it is unethical to download copyrighted movies' is a valid argument that is also persuasive, because its premise directly supports the conclusion.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. This is BEGGING THE QUESTION (circular reasoning): the premise simply restates the conclusion. Technically, the form cannot have a true premise and a false conclusion, but it gives NO independent reason to accept the conclusion, so it fails as persuasion. Anyone who doubts the conclusion also doubts the premise. Part 2: Answering True mistakes a restatement for support. Part 3: Spotting circular reasoning is part of determining whether an argument is fallacious.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "'Each line of code in this app is simple and secure, so the app as a whole must be simple and secure.' Which fallacy is this?",
+      "options": [
+        "A) Fallacy of composition: it wrongly infers that a whole has a property because its parts have it. Secure components can still interact insecurely, for example through authentication logic or race conditions",
+        "B) Fallacy of division",
+        "C) Ad hominem",
+        "D) Appeal to the people"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Composition moves from parts to the whole. System properties such as security, reliability, and fairness often EMERGE from how components interact, so they are not just the sum of the parts. Part 2: B is the reverse inference, from whole to parts (e.g., 'the company is ethical, so every employee is ethical'). C and D are about the person and popularity. Part 3: Composition and division fallacies are common in technology debates, and spotting them is part of evaluating reasoning.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "'Either we give law enforcement full access to all encrypted messages, or we let terrorists communicate freely.' What is wrong with this reasoning?",
+      "options": [
+        "A) It is a valid disjunctive syllogism",
+        "B) It is a slippery slope",
+        "C) It is an appeal to pity",
+        "D) False dichotomy (false dilemma): it presents only two extreme options when others exist, such as targeted warrants, metadata analysis, device-level forensics, or international cooperation, so the 'either/or' premise is false"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: A disjunctive syllogism ('A or B; not B; therefore A') is a valid form, but if the 'A or B' premise leaves out real alternatives, the argument is UNSOUND and misleading. That is the false dichotomy. Part 2: A ignores that the premise is false. B and C misclassify the argument. Part 3: Checking whether the options presented are exhaustive is key to judging this common fallacy.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "Tavani describes a strategy for showing that an argument is invalid. What is it?",
+      "options": [
+        "A) Find a COUNTEREXAMPLE: an argument with the same logical form whose premises are clearly true but whose conclusion is clearly false. If one exists, the form is invalid",
+        "B) Show that the arguer is biased",
+        "C) Count how many premises the argument has",
+        "D) Check whether the conclusion is popular"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Validity depends only on form, so one example with the same form, true premises, and a false conclusion proves the form invalid. For instance, 'If it is a cat, it is a mammal; it is a mammal; so it is a cat' fails for dogs. Part 2: B is ad hominem. C and D say nothing about logical form. Part 3: The counterexample strategy is Tavani's practical tool for deciding whether reasoning is valid.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "'After our company introduced remote work, quarterly profits fell. So remote work caused the profit decline.' Which fallacy is this?",
+      "options": [
+        "A) Appeal to authority",
+        "B) Fallacy of division",
+        "C) False cause (post hoc ergo propter hoc): it assumes that because B followed A, A caused B, ignoring other explanations such as a market downturn, seasonality, or pricing changes. Establishing causation needs controlled comparisons or a causal design",
+        "D) Begging the question"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Time order alone does not establish causation. Confounders such as a recession may explain both the shift to remote work and the falling profits. In data science terms, this is confusing correlation (or sequence) with causation. Part 2: A, B, and D describe other errors. Part 3: Spotting false-cause reasoning connects critical thinking to the causal-inference skills in DX702.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "Tavani discusses the 'virtuality fallacy'. Which argument commits it?",
+      "options": [
+        "A) 'Online harassment is harmful because research links it to anxiety and depression.'",
+        "B) 'Cyberbullying happens only in a virtual space, and what happens in virtual space is not real; therefore, cyberbullying causes no real harm and is not a serious ethical issue.' This wrongly infers that actions in cyberspace have no real-world consequences",
+        "C) 'Because VR headsets are expensive, few people use them.'",
+        "D) 'Most cyberattacks start with phishing, so phishing training reduces risk.'"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The virtuality fallacy reasons that because something occurs online or 'virtually', it is not real or harmful. Yet cyberbullying, doxxing, and deepfake abuse cause real psychological, financial, and physical harm to real people. Part 2: A is a reasonable evidence-based argument. C is a causal claim unrelated to virtuality. D is a plausible inductive argument. Part 3: Recognizing a fallacy specific to cyberethics shows advanced skill in evaluating arguments about technology.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "True or False: An INDUCTIVE argument, such as 'In 50 audits, this vendor's models showed gender bias; so its next model will likely show gender bias too', should be judged as strong or weak rather than as valid or invalid, because its conclusion is probable rather than guaranteed.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Inductive arguments aim for probable conclusions, so they are judged by STRENGTH, which depends on sample size, representativeness, and relevance. Deductive arguments aim for necessity and are judged as valid or invalid. Part 2: Answering False would treat every inductive argument as a failed deductive one, which misreads what the arguer is doing. Part 3: Choosing the right standard for each type of argument is essential when judging reasoning.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Validity, Soundness & Fallacies",
+      "question_text": "Evaluate this argument using Tavani's steps (put it in standard form, test validity, assess the truth of the premises, and identify any fallacies): 'Millions of people use free email services. If something is used by millions, it must be acceptable. Free email providers scan messages to target ads. Therefore, scanning private emails for ads is morally acceptable.'",
+      "options": null,
+      "correct_answer": "Standard form: P1: Millions of people use free email services that scan messages for ads. P2: If something is used by millions, it is morally acceptable. C: Scanning private emails for ads is morally acceptable. Validity: the form is valid as modus ponens on 'used by millions' (If M then A; M; so A), so the logic connects. Soundness: P2 is FALSE, and it is the fallacy of APPEAL TO THE PEOPLE (ad populum, popularity). Widespread use does not make a practice ethical; many people may not know about the scanning, have no meaningful choice, or accept terms they never read. Counterexample: millions once used unencrypted public Wi-Fi, but that did not make eavesdropping acceptable. P1 needs qualifying, since use is not informed consent. Verdict: valid but UNSOUND, so the conclusion is not established. A better argument would have to address informed consent, data minimization, and the harms of reading private communications.",
+      "explanation": "Part 1: A strong answer puts the argument in standard form, recognizes that the FORM is valid but that a premise is false (so the argument is unsound), names the ad populum fallacy, gives a counterexample, and questions whether use equals consent. Part 2: Answers that call it simply 'invalid', or that miss the popularity fallacy and the consent issue, are incomplete. Part 3: This applies Tavani's full evaluation process to a real privacy debate.",
+      "learning_objective": "Determine whether an argument is valid or fallacious in its reasoning.",
+      "keywords": ["standard form", "valid", "unsound", "ad populum", "counterexample", "consent"]
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "A city argues for installing AI traffic cameras because they reduce accidents for 1 million drivers, even though they impose a small privacy cost on each driver. Which ethical framework is this argument mainly using?",
+      "options": [
+        "A) Deontology (Kant), because it relies on duties regardless of outcomes",
+        "B) Utilitarianism (consequentialism): the policy is justified because it produces the greatest net balance of good (lives saved, fewer injuries) over harm (privacy costs) for the greatest number",
+        "C) Virtue ethics, because it is about the character of city officials",
+        "D) Ethical relativism"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The argument weighs total benefits against total harms across everyone affected, which is the core of utilitarian reasoning. Part 2: A would ask whether surveillance respects persons as ends, whatever the outcome. C would ask what a virtuous official would do. D claims morality depends on culture or individual belief and gives no basis for public policy. Part 3: Recognizing the framework behind an argument is necessary for building and defending your own.",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "Which premise would a DEONTOLOGICAL (Kantian) argument against secretly selling user location data most likely use?",
+      "options": [
+        "A) The company would earn more money by not selling the data",
+        "B) Most users wouldn't notice",
+        "C) Selling data is common in the industry",
+        "D) Secretly selling people's data treats them merely as a MEANS to profit, not as ends in themselves, and a maxim of deceiving users could not be willed as a universal law, so it violates a duty of respect regardless of its consequences"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Kantian ethics judges actions by duty, using the categorical imperative's universalizability test and its respect-for-persons formulation, rather than by outcomes. Deceiving users fails both tests. Part 2: A is a consequentialist (and self-interested) reason. B suggests that getting away with something makes it acceptable. C is an appeal to common practice. Part 3: Choosing premises that fit a framework makes an argument coherent and persuasive.",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "True or False: A persuasive ethical argument is strongest when it ignores opposing views, because raising counterarguments only weakens your position.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Strong arguments ANTICIPATE and REBUT the best objections (steel-manning). This shows the conclusion survives scrutiny and builds credibility with skeptical readers. Ignoring objections also risks a straw-man fallacy if the opposing view is misrepresented. Part 2: Answering True confuses one-sided rhetoric with sound reasoning. Part 3: Defending an argument means engaging with objections; this is the 'defend' part of the objective.",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "A data scientist argues: 'An honest, fair, and courageous professional would refuse to deploy a hiring model that she knows discriminates, even if her manager insists.' Which framework is this, and what is its main strength for this issue?",
+      "options": [
+        "A) Virtue ethics: it focuses on the CHARACTER and integrity of the professional, which suits workplace dilemmas where rules conflict and outcomes are uncertain. It links naturally to professional codes that describe the qualities of a good practitioner",
+        "B) Utilitarianism, because it counts the number of people hired",
+        "C) Social contract theory, because it is about government",
+        "D) Egoism, because it protects the data scientist's career"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The appeal to what an honest, fair, and courageous person would do is virtue ethics (Aristotle). Its strength is guiding action when duties conflict, as with loyalty vs. fairness. A critic would say it is less precise than rule-based theories, which is a weakness a good argument should acknowledge. Part 2: B, C, and D misidentify the framework. Part 3: Matching a framework to an issue, with its strengths and weaknesses, is key to building a defensible argument.",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "A simple utilitarian analysis of stadium facial recognition: it prevents incidents worth +40 units of well-being in total, and it reduces the privacy well-being of each of 2,000 fans by 0.03 units. What is the NET utility of adopting the system? Enter only the number (it may be negative).",
+      "options": null,
+      "correct_answer": "-20",
+      "explanation": "Part 1: Total harm = 2,000 * 0.03 = 60 units. Net = 40 - 60 = -20, so on these numbers the utilitarian argument OPPOSES adoption. Small harms per person add up across a large population. Part 2: A common mistake is to compare +40 with the harm to a single person (0.03) and conclude that the benefits dominate. A good argument should also note how sensitive the result is to these hard-to-measure values. Part 3: Doing the arithmetic makes the utilitarian argument concrete and open to challenge.",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": ["-20", "60", "2000 * 0.03", "net utility"]
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "Which outline is the strongest structure for a persuasive argument that hospitals should disclose when AI is used in diagnosis?",
+      "options": [
+        "A) State the conclusion three times with increasing emphasis",
+        "B) (1) A clear thesis. (2) Premises supported by evidence (e.g., documented AI error rates, patients' right to informed consent). (3) An explicit ethical framework (respect for autonomy, from deontology or a rights-based view, plus the utilitarian benefit of greater trust). (4) The strongest objection (disclosure may cause unnecessary anxiety or slow care) and a rebuttal (staged, plain-language disclosure; evidence that transparency increases trust). (5) A conclusion with concrete policy recommendations",
+        "C) List every ethical theory without choosing one",
+        "D) Attack the hospitals that oppose disclosure"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A defensible argument needs a thesis, evidence-backed premises, an explicit framework that justifies the moral claim, engagement with objections, and actionable conclusions. Part 2: A repeats the claim without support. C never commits to a framework. D is ad hominem. Part 3: This structure is the template for the persuasive argument this objective requires.",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "True or False: Citing an expert, such as 'A famous tech CEO says AI regulation is unnecessary', is enough on its own to make an ethical argument sound.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Testimony from an authority who is RELEVANT, credible, and not conflicted can support a premise, but it does not replace reasons. A CEO whose company would be regulated has a conflict of interest, and expertise in business is not expertise in ethics or law. Relying on such testimony alone is the fallacy of appeal to (inappropriate) authority. Part 2: Answering True treats who says something as proof of what is said. Part 3: Using sources properly is part of building and defending a credible argument.",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "Your case study concerns a data broker selling precise phone-location data (e.g., the Kochava case). Develop a persuasive argument in standard form that this practice should be restricted. State at least three premises (including one from an ethical framework), name the framework(s), and anticipate and rebut the strongest objection.",
+      "options": null,
+      "correct_answer": "P1 (empirical): Precise, time-stamped location data can be re-identified (home and work locations reveal identity) and can reveal visits to sensitive places such as reproductive-health clinics, places of worship, and shelters. P2 (empirical): Kochava sold such data to buyers with minimal vetting, and most app users never meaningfully consented to resale. P3 (deontological / rights-based): Treating people's movements as a commodity without informed consent uses them merely as means and violates their right to privacy. P4 (utilitarian): The harms of exposure (stalking, discrimination, legal jeopardy) to many people outweigh the commercial benefits to advertisers and brokers. C: The sale of precise location data, especially around sensitive locations, should be restricted, through opt-in consent, a ban on sensitive-location sales, and aggregation or anonymization standards. Objection: 'The data are de-identified and lawfully collected under app terms of service, and restrictions would hurt innovation and free apps.' Rebuttal: research shows that a few location points can uniquely identify most people, so 'de-identified' is misleading; agreeing to unread terms is not informed consent, since legal is not the same as ethical; and narrowly targeted rules (only sensitive locations, only precise data) preserve most benefits while preventing the most serious harms.",
+      "explanation": "Part 1: A strong answer gives a clear standard-form argument with both empirical and normative premises, explicitly applies at least one ethical framework, states a specific conclusion, and rebuts the best counterargument with evidence. Part 2: Answers that just say 'it's a privacy violation' without premises, a named framework, or engagement with objections do not meet the objective. Part 3: This directly practices the case-study argument for the policy analysis.",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": ["premise", "conclusion", "deontological", "utilitarian", "objection", "consent"]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "Two students argue about AI-generated art trained on artists' work without permission. Student 1 (utilitarian): 'It democratizes creativity for millions, so it is justified.' Student 2 (rights-based): 'It violates artists' rights to control their work.' What is the best way to build a stronger, defensible position?",
+      "options": [
+        "A) Pick whichever side has more supporters online",
+        "B) Declare that ethics is subjective, so neither side can be right",
+        "C) Recognize that the two frameworks emphasize different values. Then build an argument that engages both: weigh the aggregate benefits against concentrated harms to artists (lost income, style imitation), apply rights-based limits (consent, attribution, compensation), and propose a policy that satisfies both, such as opt-out or opt-in licensing with revenue sharing. Rebut the strongest version of each side",
+        "D) Avoid frameworks and argue from personal feelings"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Many technology disputes involve frameworks that point in different directions. A persuasive position uses more than one framework, makes the trade-offs explicit, and proposes a resolution that respects rights while capturing benefits. Tavani's approach supports this kind of pluralistic reasoning. Part 2: A is ad populum. B is relativism, which ends the discussion without evaluating the arguments. D gives up on rational justification. Part 3: Combining frameworks into a defensible position is the advanced form of this objective.",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Building Ethical Technology Arguments",
+      "question_text": "A school district plans to use AI proctoring software (webcam monitoring and eye-tracking) for all remote exams. Write an analysis that (1) states a thesis for or against, (2) presents your argument in standard form with at least three premises, (3) applies two ethical frameworks, (4) identifies one fallacy that opponents might commit and explains why it is a fallacy, and (5) rebuts the strongest counterargument.",
+      "options": null,
+      "correct_answer": "(1) Thesis: the district should NOT require AI proctoring for all remote exams; it should use less invasive alternatives. (2) P1: AI proctoring records students' homes and faces and flags 'suspicious' eye movements, and studies report higher false-flag rates for students with darker skin, disabilities, or unstable internet. P2: False flags can lead to accusations of cheating and harm to grades. P3: Less invasive alternatives exist: open-book or applied assessments, oral checks, and randomized question banks. P4 (framework): Policies should avoid unjust harms and respect students' privacy and dignity. C: Mandatory AI proctoring should be replaced with alternatives, or at most offered as an opt-in with human review of all flags. (3) Utilitarian: the small reduction in cheating is outweighed by widespread privacy intrusion, anxiety, and concentrated harm to falsely flagged students. Deontological / rights-based: forcing camera surveillance of homes treats students as suspects and as a means to administrative convenience, violating respect and privacy; virtue ethics also asks what a fair educator would do. (4) Possible fallacy from supporters: a false dichotomy ('either AI proctoring or rampant cheating') ignores the alternatives in P3. Or from opponents: a slippery slope ('proctoring today means total surveillance of students forever') without evidence of each step. (5) Counterargument: 'Academic integrity protects the value of degrees, and cheating harms honest students.' Rebuttal: integrity matters, but the goal can be met with assessment design and targeted human review, which cause less harm, while false flags themselves damage fairness to honest students.",
+      "explanation": "Part 1: A strong answer gives a clear thesis, a standard-form argument with empirical and normative premises, correct use of two frameworks, a correctly named and explained fallacy, and a rebuttal of the best counterargument. Part 2: Answers that state an opinion without structure, apply frameworks loosely, or name a fallacy that does not fit are incomplete. Part 3: This brings together all three learning objectives (structure, evaluating reasoning, and building a persuasive argument).",
+      "learning_objective": "Develop and defend a persuasive argument on an ethical technology issue using appropriate ethical frameworks.",
+      "keywords": ["thesis", "premise", "utilitarian", "deontological", "false dichotomy", "rebuttal"]
+    }
+  ]
+}

@@ -1,0 +1,470 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 11 - DBSCAN, Hierarchical Clustering, Linkage & Dendrograms",
+    "description": "Tests how DBSCAN labels core, border, and noise points from eps and MinPts, how DBSCAN defines clusters through core-point connectivity, how single, complete, average, and Ward's linkage change merging in hierarchical agglomerative clustering (HAC), and how to read dendrograms to choose the number of clusters, as covered in the Week 11 learning objectives.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Core, Border and Noise",
+      "question_text": "In DBSCAN, what do the two hyperparameters eps and MinPts (min_samples in scikit-learn) control?",
+      "options": [
+        "A) eps is the number of clusters to find; MinPts is the maximum number of iterations",
+        "B) eps is the radius of the neighborhood drawn around each point; MinPts is the minimum number of points (in scikit-learn, including the point itself) that must fall inside that radius for the point to be a core point",
+        "C) eps is the learning rate; MinPts is the minimum cluster size reported after training",
+        "D) eps sets the distance metric; MinPts sets how many centroids are initialized"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: DBSCAN defines density locally. A point's eps-neighborhood is every point within distance eps, and if that neighborhood contains at least MinPts points the point is dense enough to be a core point. Part 2: A describes k-means-style inputs; DBSCAN does not take the number of clusters as an input. C and D confuse DBSCAN with gradient-based or centroid-based methods. Part 3: These two values decide which points are core, border, or noise, the foundation of this week's first learning objective.",
+      "learning_objective": "Explain how DBSCAN applies to cluster datasets and how it identifies core, border, and noise points based on given eps and MinPts values.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "DBSCAN Core, Border and Noise",
+      "question_text": "A point that is NOT a core point itself (fewer than MinPts neighbors within eps) but lies within eps of at least one core point is called a ___ point.",
+      "options": null,
+      "correct_answer": "Border point",
+      "explanation": "Part 1: Border points sit on the edge of a dense region. They belong to a cluster because a core point reaches them, but they are not dense enough to extend the cluster further. Part 2: A 'core' point needs at least MinPts neighbors itself. A 'noise' point (label -1 in scikit-learn) is neither core nor within eps of any core point. Part 3: Telling core, border, and noise apart is exactly what the first learning objective asks for.",
+      "learning_objective": "Explain how DBSCAN applies to cluster datasets and how it identifies core, border, and noise points based on given eps and MinPts values.",
+      "keywords": ["border", "boundary", "edge point"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "DBSCAN Core, Border and Noise",
+      "question_text": "True or False: Unlike k-means, DBSCAN does not require you to specify the number of clusters in advance, and it can leave some points unassigned as noise (outliers).",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The number of clusters is an output of DBSCAN, determined by how many separate dense regions exist for the chosen eps and MinPts. Points in sparse regions get the label -1 (noise) instead of being forced into a cluster. Part 2: Answering False carries over k-means habits, where k must be chosen and every point is assigned to some centroid, outliers included. Part 3: Noise detection is a key reason to choose DBSCAN, for example to flag unusual transactions in fraud screening.",
+      "learning_objective": "Explain how DBSCAN applies to cluster datasets and how it identifies core, border, and noise points based on given eps and MinPts values.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Core, Border and Noise",
+      "question_text": "A common way to choose eps is to plot, for every point, the distance to its k-th nearest neighbor (k = MinPts - 1 or MinPts), sorted in ascending order. How should this k-distance plot be used?",
+      "options": [
+        "A) Choose eps as the largest k-distance, so that every point becomes a core point",
+        "B) Choose eps as the smallest k-distance, so that clusters are as tight as possible",
+        "C) Choose eps as the average of all pairwise distances in the dataset",
+        "D) Choose eps at the 'elbow' or 'knee' of the curve, where the k-distance starts rising sharply. Points to the left of the knee are in dense regions; points to the right are likely noise"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The sorted k-distance curve is flat for points inside dense clusters and turns sharply upward for outliers. Setting eps at the knee (the 'kneed' library can find it automatically) separates the two. Part 2: A makes eps so large that everything merges into one cluster. B makes eps so small that most points become noise. C ignores local density, so it usually gives far too large a value. Part 3: Choosing eps in a principled way directly controls which points end up as core, border, or noise.",
+      "learning_objective": "Explain how DBSCAN applies to cluster datasets and how it identifies core, border, and noise points based on given eps and MinPts values.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "DBSCAN Core, Border and Noise",
+      "question_text": "Run DBSCAN by hand on seven 1-D points: 1, 2, 3, 4, 10, 11, 20, with eps = 1.5 and MinPts = 3 (counting the point itself, as scikit-learn does). How many points are labeled NOISE? Give a whole number.",
+      "options": null,
+      "correct_answer": "3",
+      "explanation": "Part 1: Count each point's neighbors within 1.5, including itself: 1 -> {1, 2} = 2; 2 -> {1, 2, 3} = 3 (core); 3 -> {2, 3, 4} = 3 (core); 4 -> {3, 4} = 2; 10 -> {10, 11} = 2; 11 -> {10, 11} = 2; 20 -> {20} = 1. Points 1 and 4 are border points (within eps of cores 2 and 3). Points 10, 11, and 20 are not within eps of any core point, so they are noise: 3 noise points. Scikit-learn returns labels [0, 0, 0, 0, -1, -1, -1]. Part 2: A common mistake is to call 10 and 11 a cluster; they are close to each other, but neither has 3 neighbors, so neither is core and no cluster can form. With MinPts = 2 they would become a second cluster. Part 3: This applies the core/border/noise rules exactly as the learning objective describes.",
+      "learning_objective": "Explain how DBSCAN applies to cluster datasets and how it identifies core, border, and noise points based on given eps and MinPts values.",
+      "keywords": ["3", "three", "10, 11, 20", "noise", "not core"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Core, Border and Noise",
+      "question_text": "Using the same seven points (1, 2, 3, 4, 10, 11, 20) and MinPts = 3, you increase eps from 1.5 to 6.5. What happens?",
+      "options": [
+        "A) Points 1 to 11 merge into ONE cluster, because 4 and 10 are now within 6.5 of each other and enough points become core to chain the two groups together; only 20 remains noise",
+        "B) Every point becomes noise",
+        "C) The number of clusters increases to 4",
+        "D) Nothing changes, because eps only affects the border points"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A larger eps gives each point more neighbors, creates more core points, and lets dense regions connect. With eps = 6.5, the gap of 6 between 4 and 10 is bridged, and scikit-learn returns labels [0, 0, 0, 0, 0, 0, -1]. Part 2: B is what happens when eps is too SMALL. C is the opposite direction; a larger eps merges clusters rather than splitting them. D is wrong because eps determines which points are core. Part 3: This shows the main tuning risk with DBSCAN: an eps that is too large merges separate clusters, and one that is too small breaks clusters apart into noise.",
+      "learning_objective": "Explain how DBSCAN applies to cluster datasets and how it identifies core, border, and noise points based on given eps and MinPts values.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Core, Border and Noise",
+      "question_text": "A customer dataset has two features: annual income (dollars, ranging from 20,000 to 250,000) and number of store visits per month (1 to 30). You run DBSCAN with eps = 5 on the raw features. What is the most likely problem, and what is the fix?",
+      "options": [
+        "A) No problem; DBSCAN handles any units automatically",
+        "B) The visits feature will dominate the distance, so income will be ignored",
+        "C) Income dominates the Euclidean distance, so eps = 5 dollars is meaningless and almost every point becomes noise (or clusters reflect income alone). Standardize both features (e.g., StandardScaler) before choosing eps with a k-distance plot",
+        "D) DBSCAN cannot use more than one feature"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: DBSCAN is distance-based, so features with larger numeric ranges dominate the eps-neighborhood. A 5-unit radius is tiny in dollar terms, so very few points would have neighbors. Scaling puts both features on comparable units before eps is chosen. Part 2: A ignores the fact that eps is measured in the units of the data. B reverses which feature dominates. D is false, since DBSCAN works in any number of dimensions (with care in very high dimensions). Part 3: Correct preprocessing is required before core, border, and noise labels mean anything.",
+      "learning_objective": "Explain how DBSCAN applies to cluster datasets and how it identifies core, border, and noise points based on given eps and MinPts values.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Core, Border and Noise",
+      "question_text": "A bank's fraud team runs DBSCAN (eps = 0.4, MinPts = 10, standardized features) on 200,000 card transactions. The result is 1 giant cluster containing 99.6% of the transactions and 800 noise points. The team wants a short list of suspicious transactions for investigators. What is the best next step?",
+      "options": [
+        "A) Increase eps to 2.0 so the noise points join the main cluster",
+        "B) Treat the 800 noise points as candidate anomalies and rank them by their distance to the nearest core point. Validate on a labeled sample of past fraud (precision at the top 100), and tune MinPts and eps with a k-distance plot if too many legitimate transactions are flagged",
+        "C) Discard DBSCAN because it found only one cluster",
+        "D) Set MinPts = 1 so that every point becomes a core point"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: In anomaly detection the noise label is the useful output. Points that are not density-reachable from any core point are unusual compared with typical spending behavior. Ranking them and checking precision against known fraud turns clustering into a usable investigator list. Part 2: A hides exactly the points of interest. C misreads one large normal cluster as failure, when it is expected for transaction data. D makes every point core, so noise disappears and the method becomes useless for outliers. Part 3: This shows how core, border, and noise labels, set by eps and MinPts, support a real business decision.",
+      "learning_objective": "Explain how DBSCAN applies to cluster datasets and how it identifies core, border, and noise points based on given eps and MinPts values.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Cluster Definition",
+      "question_text": "How does DBSCAN define a single cluster?",
+      "options": [
+        "A) All points within distance eps of the dataset's centroid",
+        "B) A group of exactly MinPts points",
+        "C) A maximal set of density-connected points: all core points that can reach each other through chains of core points (each within eps of the next), plus every border point within eps of one of those core points",
+        "D) All points whose silhouette score is above 0.5"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A DBSCAN cluster is grown from a core point by repeatedly adding every point within eps of any core point already in the cluster. It stops when no new points can be reached. Core points form the connected 'backbone,' and border points join without extending it. Part 2: A describes a centroid-based ball, which DBSCAN does not use. B confuses the density threshold with cluster size, since clusters can contain far more than MinPts points. D uses an evaluation metric, not the definition. Part 3: This is the definition the second learning objective asks for.",
+      "learning_objective": "Define a cluster in DBSCAN based on the concept of core point connectivity.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "DBSCAN Cluster Definition",
+      "question_text": "True or False: In DBSCAN, a border point can extend a cluster. Any point within eps of a border point is added to the same cluster.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Only CORE points expand a cluster. A border point is reachable from a core point, but it does not have MinPts neighbors itself, so the expansion stops there. A point near a border point but not within eps of any core point stays noise. Part 2: Answering True would let clusters spread through sparse edges and chain unrelated regions together, which the core-point rule is designed to prevent. Part 3: Knowing that connectivity runs through core points is the center of DBSCAN's cluster definition.",
+      "learning_objective": "Define a cluster in DBSCAN based on the concept of core point connectivity.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Cluster Definition",
+      "question_text": "Which statement correctly distinguishes 'directly density-reachable,' 'density-reachable,' and 'density-connected'?",
+      "options": [
+        "A) q is directly density-reachable from core point p if q is within eps of p. q is density-reachable from p if a chain of core points p -> p1 -> ... -> q links them, each step directly reachable. p and q are density-connected if some core point o can density-reach both. A cluster is a maximal set of density-connected points",
+        "B) All three terms mean that the points are within eps of each other",
+        "C) Density-reachable is symmetric for every pair of points, including border points",
+        "D) Density-connected means two points share the same nearest neighbor"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: These three relations formalize the 'chain of core points' idea. Density-reachability is NOT symmetric: a core point can reach a border point, but not the other way around. Density-connectedness (through a shared core point o) is symmetric, which is why it is used to define clusters. Part 2: B removes the role of the chains and of core points. C is false, because border points cannot reach anything. D invents a nearest-neighbor definition that DBSCAN does not use. Part 3: These definitions are the formal basis of a DBSCAN cluster.",
+      "learning_objective": "Define a cluster in DBSCAN based on the concept of core point connectivity.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Cluster Definition",
+      "question_text": "A border point lies within eps of core points from TWO different clusters. How does standard DBSCAN (e.g., scikit-learn) assign it?",
+      "options": [
+        "A) It becomes a core point of both clusters",
+        "B) The two clusters are always merged into one",
+        "C) It is always labeled noise",
+        "D) It is assigned to whichever cluster reaches it first during expansion, which depends on the order of the data. Core-point membership is deterministic, but border-point labels can change if the data are shuffled"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Because border points do not connect clusters, the two clusters stay separate, and the border point simply joins whichever cluster's expansion reaches it first. This is a known source of slight non-determinism in DBSCAN. Part 2: A is wrong because a point's core status depends only on its own neighbor count. B would happen only if two CORE points were within eps of each other. C is wrong because a point within eps of a core point is, by definition, not noise. Part 3: This edge case shows exactly how core-point connectivity defines DBSCAN clusters.",
+      "learning_objective": "Define a cluster in DBSCAN based on the concept of core point connectivity.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Cluster Definition",
+      "question_text": "A city-planning team clusters GPS coordinates of ride-share pickups. The data contain two crescent-shaped (moon-shaped) dense regions that wrap around each other, plus scattered outliers. Which algorithm, and why?",
+      "options": [
+        "A) K-means with k = 2, because it finds any cluster shape",
+        "B) DBSCAN, because clusters are defined by chains of connected core points rather than distance to a centroid, so it can follow the curved shapes and leave the scattered outliers as noise",
+        "C) Ward's HAC, because it prefers non-convex shapes",
+        "D) No clustering method can find non-convex clusters"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Because DBSCAN defines a cluster as density-connected points, it can follow arbitrary shapes such as crescents, rings, or river-shaped pickup zones, and it labels sparse outliers as noise. Part 2: A is wrong because k-means assumes roughly spherical clusters and would cut each crescent in half. C is wrong because Ward's linkage minimizes within-cluster variance and also favors compact, convex clusters. D is false; density-based methods and single-linkage HAC can both find non-convex shapes. Part 3: Being able to find any shape follows directly from DBSCAN's connectivity-based definition of a cluster.",
+      "learning_objective": "Define a cluster in DBSCAN based on the concept of core point connectivity.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "DBSCAN Cluster Definition",
+      "question_text": "True or False: Because DBSCAN uses a single global eps, it can struggle when one dataset contains clusters of very different densities. An eps that suits a dense downtown cluster may break a sparse suburban cluster into noise, and an eps that suits the suburbs may merge downtown clusters together.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Core-point status depends on one fixed eps and MinPts for every point, so connectivity is defined at a single density level. Methods such as OPTICS and HDBSCAN handle varying densities by considering many density levels. Part 2: Answering False assumes DBSCAN adapts eps locally, which it does not. Part 3: This limitation comes directly from defining clusters through core-point connectivity at a fixed density.",
+      "learning_objective": "Define a cluster in DBSCAN based on the concept of core point connectivity.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "DBSCAN Cluster Definition",
+      "question_text": "A retailer runs DBSCAN on standardized store-sales features and finds that two visually distinct store groups are merged into one cluster because a thin 'bridge' of a few stores connects them. Which change most directly fixes this while keeping DBSCAN?",
+      "options": [
+        "A) Decrease MinPts to 2 so that more points become core points",
+        "B) Increase eps so the bridge becomes denser",
+        "C) Increase MinPts (e.g., from 5 to 12) or slightly decrease eps, so the sparse bridge stores no longer qualify as core points. Without core points on the bridge the chain of connectivity breaks and the two groups separate, with the bridge stores becoming border or noise points",
+        "D) Switch the distance metric to make all distances equal"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The groups merge only because a chain of core points runs across the bridge. Raising the density threshold removes core status from bridge points, which breaks the chain. Part 2: A and B both make it EASIER to become core, which strengthens the bridge. D is meaningless, since equal distances would destroy any structure. Part 3: Fixing this 'chaining' merge depends on understanding that DBSCAN clusters are defined by core-point connectivity.",
+      "learning_objective": "Define a cluster in DBSCAN based on the concept of core point connectivity.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "HAC Linkage Methods",
+      "question_text": "In hierarchical agglomerative clustering, which statement correctly defines the four linkage methods for the distance between clusters A and B?",
+      "options": [
+        "A) Single: the MINIMUM distance between any point in A and any point in B. Complete: the MAXIMUM such distance. Average: the MEAN of all pairwise distances between A and B. Ward's: the increase in total within-cluster sum of squares (SSE) caused by merging A and B",
+        "B) Single: the distance between centroids. Complete: the number of points. Average: the median distance. Ward's: the maximum distance",
+        "C) All four use the distance between the two cluster centroids",
+        "D) Single: the maximum distance. Complete: the minimum distance. Average: the centroid distance. Ward's: the minimum distance"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: HAC starts with every point as its own cluster and repeatedly merges the closest pair, and the linkage method defines 'closest.' Single uses the nearest pair of points, complete the farthest pair, average the mean over all pairs, and Ward's the smallest increase in within-cluster variance. Part 2: B and C confuse linkage with centroid distance (a separate, less common method) or with cluster size. D swaps single and complete. Part 3: These definitions are the basis for comparing how each linkage method drives merging.",
+      "learning_objective": "Compare and contrast linkage methods (single, complete, average, Ward's) in hierarchical agglomerative clustering and explain how each influences cluster merging.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "HAC Linkage Methods",
+      "question_text": "True or False: Ward's linkage works with any distance metric, such as Manhattan or cosine distance, and gives the same variance-minimizing result as with Euclidean distance.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Ward's criterion minimizes the increase in within-cluster sum of SQUARED Euclidean distances, so it is defined only for Euclidean distance. Scikit-learn's AgglomerativeClustering accepts only metric='euclidean' when linkage='ward'. Part 2: Answering True confuses Ward's with single, complete, or average linkage, which work with any precomputed distance matrix. Part 3: Knowing which metrics each linkage method allows is part of comparing them correctly.",
+      "learning_objective": "Compare and contrast linkage methods (single, complete, average, Ward's) in hierarchical agglomerative clustering and explain how each influences cluster merging.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "HAC Linkage Methods",
+      "question_text": "Cluster A = {0, 1} and cluster B = {4, 9} are 1-D points. The pairwise distances are |0-4| = 4, |0-9| = 9, |1-4| = 3, and |1-9| = 8. What are the single, complete, and average linkage distances between A and B?",
+      "options": [
+        "A) Single = 9, Complete = 3, Average = 6",
+        "B) Single = 3, Complete = 9, Average = 4.5",
+        "C) Single = 4, Complete = 8, Average = 6",
+        "D) Single = 3, Complete = 9, Average = (4 + 9 + 3 + 8) / 4 = 6"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Single = min(4, 9, 3, 8) = 3; complete = max = 9; average = 24 / 4 = 6. Part 2: A swaps min and max. B gets single and complete right but gets the average wrong; 4.5 is not the mean of the four distances, which is 24 / 4 = 6. C uses only the distances from point 0 for single and complete. Part 3: The same two clusters can be 3, 6, or 9 apart depending on the linkage, which is why different linkage methods merge clusters in different orders.",
+      "learning_objective": "Compare and contrast linkage methods (single, complete, average, Ward's) in hierarchical agglomerative clustering and explain how each influences cluster merging.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "HAC Linkage Methods",
+      "question_text": "Using the same clusters A = {0, 1} and B = {4, 9}, what is the Ward's merge cost, defined as the increase in total within-cluster sum of squared errors (SSE) when A and B are merged?",
+      "options": [
+        "A) 6, the distance between the centroids",
+        "B) 13, the total SSE before merging",
+        "C) 36: SSE(A) = 0.5 and SSE(B) = 12.5, and the merged cluster {0, 1, 4, 9} with mean 3.5 has SSE = 12.25 + 6.25 + 0.25 + 30.25 = 49, so the increase is 49 - 13 = 36",
+        "D) 49, the SSE of the merged cluster"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Ward's linkage merges the pair whose union increases SSE the least. Here the increase is 49 - (0.5 + 12.5) = 36, which equals (n_A * n_B / (n_A + n_B)) * (distance between centroids)^2 = (2 * 2 / 4) * 6^2 = 36. Part 2: A is the centroid distance before squaring and weighting. B and D are the SSE before and after the merge, not the change. Part 3: Ward's linkage penalizes merges that make clusters spread out, which is why it produces compact clusters of similar size.",
+      "learning_objective": "Compare and contrast linkage methods (single, complete, average, Ward's) in hierarchical agglomerative clustering and explain how each influences cluster merging.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "HAC Linkage Methods",
+      "question_text": "A data scientist runs single-linkage HAC on customer data and gets one huge cluster plus many single-point clusters, because the clusters grew by linking nearby points one after another into long chains. What is this effect called, and which linkage reduces it?",
+      "options": [
+        "A) Overfitting; fix it with average linkage on unscaled data",
+        "B) The chaining effect: single linkage merges clusters if ANY pair of points is close, so a series of intermediate points can link distant groups. Complete or Ward's linkage, which look at the farthest points or the overall spread, produce more compact, balanced clusters",
+        "C) The curse of dimensionality; fix it by switching to single linkage",
+        "D) The elbow effect; fix it by increasing the number of clusters"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Single linkage takes the minimum distance, so one close pair is enough to merge whole clusters. That leads to long, straggly chains (much like DBSCAN's bridge problem). Complete linkage requires ALL points to be relatively close, and Ward's linkage penalizes spread, so both resist chaining. Part 2: A misnames the issue, and leaving data unscaled does not help. C blames the wrong problem and suggests the method that causes it. D comes from k-means model selection, not linkage behavior. Part 3: Chaining is the main contrast between single linkage and the other methods.",
+      "learning_objective": "Compare and contrast linkage methods (single, complete, average, Ward's) in hierarchical agglomerative clustering and explain how each influences cluster merging.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "HAC Linkage Methods",
+      "question_text": "Which statement best compares how complete linkage and average linkage respond to outliers?",
+      "options": [
+        "A) Complete linkage is sensitive to outliers, because one far-away point sets the cluster distance (the maximum), which can delay or distort merges. Average linkage spreads each point's influence across all pairs, so it is more robust and falls between single and complete",
+        "B) Average linkage is more sensitive to outliers than any other method",
+        "C) Neither method is affected by outliers",
+        "D) Complete linkage removes outliers automatically, like DBSCAN"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Because complete linkage uses the farthest pair, a single extreme point can make a cluster look far from everything else. Average linkage takes the mean over all pairs, which reduces the effect of any one point. Average is the compromise between chaining (single) and outlier sensitivity (complete). Part 2: B gets the comparison backward. C ignores the fact that both use raw distances. D is wrong because HAC has no noise label and every point ends up in a cluster. Part 3: Comparing sensitivity to outliers is a core part of contrasting linkage methods.",
+      "learning_objective": "Compare and contrast linkage methods (single, complete, average, Ward's) in hierarchical agglomerative clustering and explain how each influences cluster merging.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "HAC Linkage Methods",
+      "question_text": "A marketing team wants 4 to 6 roughly equal-sized, compact customer segments from standardized spending features (Euclidean distance) so each segment can get its own email campaign. Which linkage should they use?",
+      "options": [
+        "A) Single linkage, because it finds the most natural shapes",
+        "B) Complete linkage on cosine distance, because it is the only method that guarantees equal sizes",
+        "C) Average linkage with Manhattan distance, because Ward's cannot be used with standardized data",
+        "D) Ward's linkage, because it merges clusters so as to minimize the increase in within-cluster variance, which gives compact, similar-sized segments similar to k-means. It also works directly with Euclidean distance on standardized features"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Ward's linkage suits the goal: compact and balanced segments that are easy to profile and target. It requires Euclidean distance, which the team is already using on standardized features. Part 2: A tends to produce one giant chained cluster plus tiny ones, which is a poor basis for campaigns. B overstates complete linkage, since no linkage guarantees equal sizes. C wrongly claims that Ward's linkage cannot use standardized data. Part 3: This applies the comparison of linkage methods to a business decision.",
+      "learning_objective": "Compare and contrast linkage methods (single, complete, average, Ward's) in hierarchical agglomerative clustering and explain how each influences cluster merging.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "HAC Linkage Methods",
+      "question_text": "A hospital groups 2,000 patients by standardized lab values (glucose, HbA1c, BMI, blood pressure) to design care programs. Running HAC with single, complete, average, and Ward's linkage gives very different results on the same data. Explain WHY the results differ, and recommend a concrete procedure for choosing among the four linkages.",
+      "options": null,
+      "correct_answer": "Why they differ: each linkage defines inter-cluster distance differently, so the order of merges differs. Single linkage uses the closest pair, so it chains patients with intermediate lab values into one giant group. Complete linkage uses the farthest pair, which produces compact groups but is distorted by extreme lab values. Average linkage uses the mean over all pairs, a compromise between the two. Ward's linkage minimizes the increase in SSE, which gives balanced, spherical groups. Procedure: (1) Fit all four on the same standardized matrix (Euclidean distance). (2) Compute the cophenetic correlation of each dendrogram with the original distances and the silhouette score at the candidate numbers of clusters (e.g., k = 3 to 6). (3) Check cluster-size balance, rejecting solutions with one cluster holding more than 80% of patients. (4) Check stability by bootstrapping patients and measuring the adjusted Rand index between runs. (5) Have clinicians review the cluster profiles (mean HbA1c and BMI per cluster) for meaning. Choose the linkage with good silhouette, stable clusters, and clinically interpretable groups; for program design this is often Ward's or average.",
+      "explanation": "Part 1: A strong answer ties each linkage's definition to its typical shape and failure mode (chaining, outlier sensitivity, compactness), then chooses using quantitative checks (cophenetic correlation, silhouette, stability) together with domain checks (size balance, clinical interpretability). Part 2: Answers that just say 'try them all and pick the best-looking one' without metrics, or that recommend single linkage for balanced care programs, are incomplete. Part 3: This fully meets the learning objective of comparing linkage methods and explaining how each affects merging.",
+      "learning_objective": "Compare and contrast linkage methods (single, complete, average, Ward's) in hierarchical agglomerative clustering and explain how each influences cluster merging.",
+      "keywords": ["chaining", "outlier", "Ward", "cophenetic", "silhouette", "stability"]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Interpreting Dendrograms",
+      "question_text": "In a dendrogram produced by HAC, what does the HEIGHT of a horizontal line (the point where two branches join) represent?",
+      "options": [
+        "A) The number of points in the merged cluster",
+        "B) The order in which the data were loaded",
+        "C) The silhouette score of the merged cluster",
+        "D) The linkage distance (dissimilarity) between the two clusters at the moment they merged. Low joins mean very similar clusters; high joins mean dissimilar clusters were forced together"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The vertical axis of a dendrogram is the merge distance under the chosen linkage (for Ward's, a value based on the SSE increase). Reading heights tells you how different the groups were when they were joined. Part 2: A is cluster size, which some plots show in labels but not as height. B is unrelated, since the leaf order is arranged to avoid crossing lines. C is an evaluation metric that is not plotted on a dendrogram. Part 3: Reading merge heights is the basic skill for interpreting a dendrogram.",
+      "learning_objective": "Interpret dendrograms to determine a suitable number of clusters in HAC.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Interpreting Dendrograms",
+      "question_text": "True or False: Drawing a horizontal cut line across a dendrogram at a chosen height and counting the vertical branches it crosses gives the number of clusters for that cut.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Each vertical line crossed by the cut is a separate cluster that has not yet merged at that height. Cutting higher gives fewer, broader clusters, and cutting lower gives more, finer ones. In SciPy this is `fcluster(Z, t=height, criterion='distance')`. Part 2: Answering False misses that one HAC run encodes every possible number of clusters, and the cut selects one of them. Part 3: The cut line is how you turn a dendrogram into a chosen number of clusters.",
+      "learning_objective": "Interpret dendrograms to determine a suitable number of clusters in HAC.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Interpreting Dendrograms",
+      "question_text": "A dendrogram of 8 stores (Ward's linkage) has 7 merges at heights 0.8, 1.0, 1.1, 1.4, 1.9, 7.5, and 8.2. Using the 'largest vertical gap' rule, how many clusters should you choose?",
+      "options": [
+        "A) 3, because the largest gap is between 1.9 and 7.5. A cut anywhere in that gap (e.g., at 4.0) falls after the first 5 merges, leaving 8 - 5 = 3 clusters",
+        "B) 2, because there are two large heights",
+        "C) 8, because there are 8 stores",
+        "D) 7, because there are 7 merges"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The big jump from 1.9 to 7.5 means that the next merge would force together groups that are much more dissimilar than anything merged before. Cutting in that gap keeps the natural groups apart. Each merge reduces the count by 1, so 8 - 5 = 3 clusters. Part 2: B cuts in the smaller gap (7.5 to 8.2), which leaves 2 clusters but ignores the much larger gap. C treats every store as its own cluster. D confuses the number of merges with the number of clusters. Part 3: The largest-gap rule is the standard way to read a suitable k from a dendrogram.",
+      "learning_objective": "Interpret dendrograms to determine a suitable number of clusters in HAC.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Interpreting Dendrograms",
+      "question_text": "What does the cophenetic correlation coefficient measure for a dendrogram?",
+      "options": [
+        "A) The number of clusters that the dendrogram recommends",
+        "B) The correlation between the features",
+        "C) How well the dendrogram's merge heights (the cophenetic distance between each pair of points) preserve the original pairwise distances. Values close to 1 mean the tree is a faithful summary; for example, compare average (0.85) with single (0.62) linkage on the same data",
+        "D) The silhouette score averaged over every cut"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: For each pair of points, the cophenetic distance is the height at which they first join the same cluster. Correlating these with the original distances (`scipy.cluster.hierarchy.cophenet`) shows how faithfully the tree represents the data, which makes it a way to compare linkages before cutting. Part 2: A is wrong because cophenetic correlation does not select k. B describes feature correlation, which is unrelated. D confuses it with silhouette analysis. Part 3: Checking whether a dendrogram is trustworthy should come before using it to choose the number of clusters.",
+      "learning_objective": "Interpret dendrograms to determine a suitable number of clusters in HAC.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Interpreting Dendrograms",
+      "question_text": "A single-linkage dendrogram on customer data shows a 'staircase' pattern: points join one at a time at steadily increasing heights, with no clear large gap. What does this suggest?",
+      "options": [
+        "A) The data have exactly one natural cluster per customer",
+        "B) Chaining is likely, and the dendrogram gives no clear cut. Try Ward's or average linkage and compare their dendrograms and cophenetic correlation, then confirm the choice with silhouette scores at the candidate numbers of clusters",
+        "C) The optimal number of clusters is the number of steps in the staircase",
+        "D) The data must be clustered with k-means only"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A staircase with no dominant gap is the typical dendrogram of single-linkage chaining: each point joins the growing cluster one at a time. Because there is no large jump in merge height, the largest-gap rule has nothing to work with. Comparing linkages and adding silhouette scores gives a more defensible choice. Part 2: A and C read noise as structure. D overcorrects, since HAC with another linkage may work well. Part 3: Recognizing when a dendrogram is uninformative is as important as reading one that has clear gaps.",
+      "learning_objective": "Interpret dendrograms to determine a suitable number of clusters in HAC.",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Interpreting Dendrograms",
+      "question_text": "On a Ward's dendrogram of 500 credit-card customers, cutting at height 25 gives 3 clusters and cutting at height 12 gives 5 clusters. The gaps above the 3-cluster and 5-cluster cuts are similar in size. In 2-4 sentences, explain how you would decide between k = 3 and k = 5 for a credit-limit strategy.",
+      "options": null,
+      "correct_answer": "Because the dendrogram gaps are similar, use more evidence: compute the average silhouette score for k = 3 and k = 5 on the same standardized features, and check cluster sizes so that no segment is too small to act on (e.g., under 5% of customers). Then profile each solution's clusters on average balance, utilization, and payment delinquency. Choose k = 5 only if the two extra clusters (e.g., splitting high-utilization customers into 'revolvers who pay' and 'at-risk delinquents') need different credit-limit actions; otherwise choose the simpler k = 3 for easier operations.",
+      "explanation": "Part 1: When the dendrogram does not clearly favor one cut, combine it with a quantitative measure (silhouette), practical constraints (cluster size), and business usefulness (whether the extra clusters lead to different actions). Part 2: Answers that pick the larger k simply because it is more detailed, or rely only on the dendrogram, ignore whether the segments can be acted on. Part 3: This applies dendrogram interpretation to choosing a suitable number of clusters for a real decision.",
+      "learning_objective": "Interpret dendrograms to determine a suitable number of clusters in HAC.",
+      "keywords": ["silhouette", "cluster size", "profile", "actionable", "gap", "credit limit"]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Interpreting Dendrograms",
+      "question_text": "A logistics company has 300 warehouse locations described by standardized features (daily order volume, average delivery distance, number of SKUs) and a separate set of 40,000 GPS delivery-drop points. It wants (a) a small number of warehouse tiers for staffing plans and (b) to detect irregular, densely clustered delivery hotspots and isolated drops. Recommend HAC or DBSCAN for each task, give concrete settings, and explain how you would choose the number of tiers or validate the hotspots.",
+      "options": null,
+      "correct_answer": "(a) Warehouse tiers: use HAC with Ward's linkage on the 300 standardized warehouses, since the sample is small enough for HAC's O(n^2) memory and Ward's gives compact, balanced tiers for staffing. Plot the dendrogram, cut at the largest gap in merge height (e.g., giving 4 tiers), confirm with the cophenetic correlation (above about 0.75) and silhouette scores for k = 3 to 6, and profile each tier's average order volume to set staffing ratios. (b) Delivery hotspots: use DBSCAN on the 40,000 GPS points with the haversine metric (coordinates in radians), eps around 150 meters (about 0.0000235 radians) and MinPts = 20. Choose eps from a k-distance plot. DBSCAN finds irregularly shaped dense areas (apartment blocks, business parks) without a preset k, and labels isolated drops as noise (-1) for review. Validate by mapping the clusters on a street map and checking that hotspot boundaries match known high-density zones, and that noise points are real one-off rural deliveries.",
+      "explanation": "Part 1: A strong answer matches each method to the data structure and goal: HAC with Ward's linkage and dendrogram cuts for a small, compact segmentation where a chosen k matters, and DBSCAN for large spatial data with arbitrary shapes and outliers where k is unknown. It also gives concrete parameters and a validation step for each. Part 2: Using DBSCAN for staffing tiers (no control over k, possible noise warehouses) or HAC on 40,000 GPS points (memory cost, no noise label, chaining) is a weaker choice. Part 3: This brings together all four learning objectives: DBSCAN's core and noise logic, its connectivity-based clusters, the choice of linkage, and dendrogram-based selection of k.",
+      "learning_objective": "Interpret dendrograms to determine a suitable number of clusters in HAC.",
+      "keywords": ["Ward", "dendrogram", "largest gap", "DBSCAN", "haversine", "noise"]
+    }
+  ]
+}

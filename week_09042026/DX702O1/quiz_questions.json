@@ -1,0 +1,460 @@
+{
+  "quiz_metadata": {
+    "title": "DX702 O1 Fall 2026: Week 2 - Fixed Effects, Bootstrap Simulation & Data-Generating Processes",
+    "description": "A master's-level quiz built on this week's DX702 materials (the firefighters notebook and the Week 2 coding quiz): performing fixed-effects regression (wide-to-long reshaping, group dummies, the dummy-variable trap, common vs. group-specific slopes), inventing fixed-effects situations, running bootstrap simulations for the variance and skewness of an estimated effect (naive differences vs. regression, Monte Carlo noise), and describing data-generating processes with confounders such as fire severity, omitted variables, and randomized assignment.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "The coding-quiz file has one `time` column and separate outcome columns G1, G2, and G3 (WIDE format). Why must it be reshaped before fitting a fixed-effects regression?",
+      "options": [
+        "A) Wide format is faster to regress",
+        "B) Regression only accepts three columns",
+        "C) Fixed-effects regression needs LONG format: one row per (time, group, y) observation, so a single model can estimate the shared time slope across all groups and a dummy can mark each row's group. `df.melt(id_vars='time', var_name='group', value_name='y')` does this",
+        "D) Reshaping removes the confounder"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: In long format, all groups' observations sit in one outcome column, so a single regression can include the shared `time` slope and the group indicators. Wide format would force a separate regression per group. Part 2: A and B are false. D: reshaping changes the layout, not the causal structure. Part 3: Preparing the data correctly is the first practical step in performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Performing Fixed Effects",
+      "question_text": "True or False: If you include a dummy for EVERY group (G1, G2, G3) AND a global intercept, the design matrix is perfectly collinear (the dummy-variable trap), because the dummies always add up to the intercept column of 1s.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. G1 + G2 + G3 = 1 for every row, which exactly duplicates the intercept. There are two fixes: drop the global intercept (`LinearRegression(fit_intercept=False)`, as the coding quiz did, so each dummy coefficient is that group's own intercept), or keep the intercept and drop one dummy (`drop_first=True`), so the coefficients are differences from the reference group. Part 2: Answering False ignores a classic specification error. Part 3: Avoiding the dummy trap is essential to performing FE correctly.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "The model y_it = beta * time_t + alpha_i + e_it, fit with three group dummies and `fit_intercept=False`, gave alpha_G1 of about 0.079, alpha_G2 of about 0.590, alpha_G3 of about 0.269, and beta of about 0.009. How should these be read?",
+      "options": [
+        "A) beta = 0.009 is the single slope on time SHARED by all three groups. Each alpha is that group's own baseline level (its intercept), so G2 sits about 0.51 higher than G1 at any given time, with all groups rising in parallel",
+        "B) Each alpha is a group-specific slope on time",
+        "C) beta is group 1's intercept",
+        "D) The alphas measure the causal effect of time"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: In the FE model, the alphas shift each group's line up or down, and beta is the common slope. Differences between alphas are fixed gaps in levels. Part 2: B confuses intercepts with slopes; group-specific slopes would need time x group interactions. C swaps the roles. D: the alphas are levels, not effects of time. Part 3: Reading FE coefficients correctly is the core of performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "In the coding quiz, regressing G1 alone on time gives a slope of about 0.0085, while the FE model's common slope is about 0.0090. Why do they differ?",
+      "options": [
+        "A) One of them must be a coding error",
+        "B) The FE model ignores group 1",
+        "C) The common slope is always larger",
+        "D) G1's own regression estimates a slope using ONLY G1's data. The FE common slope is a weighted average of the within-group slopes across G1, G2, and G3, pooled under the assumption that all groups share one slope. If the groups' true slopes differ slightly, the pooled value will differ from each group's own slope"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The FE slope pools the within-group variation of all groups. It matches each group's own slope only if the slopes are identical. Allowing different slopes would require a time x group interaction, which tests whether the common-slope assumption holds. Part 2: A and C are unfounded. B is false, since G1 contributes its within variation. Part 3: Distinguishing group-specific slopes from the pooled FE slope was exactly the issue in Question 1 of the coding quiz.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Performing Fixed Effects",
+      "question_text": "The pandas method that converts a wide DataFrame (one column per group) into long format (one row per observation, with a 'group' column) is `df.___()`.",
+      "options": null,
+      "correct_answer": "melt",
+      "explanation": "Part 1: `df.melt(id_vars='time', var_name='group', value_name='y')` stacks the G1, G2, and G3 columns into one `y` column, with a `group` label for each row. The reverse is `pivot` or `pivot_table`. Part 2: `pivot` goes from long to wide, `stack` works on the index, and `concat` joins frames. They are related, but they are not the standard wide-to-long call used here. Part 3: Knowing the reshaping tool is part of performing FE in Python.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": ["melt", "pd.melt", "wide_to_long"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "You refit the same FE model as `smf.ols('y ~ time + C(group)', data=long_df)`, which keeps an intercept and drops G1 as the reference. How do the reported coefficients relate to the earlier no-intercept fit?",
+      "options": [
+        "A) All coefficients will be completely different, including the time slope",
+        "B) The `time` slope is IDENTICAL (about 0.009). The intercept equals G1's fixed effect (about 0.079), and the `C(group)[T.G2]` and `C(group)[T.G3]` coefficients are the DIFFERENCES from G1 (about 0.511 and about 0.190)",
+        "C) The model cannot be estimated",
+        "D) The intercept equals the average of all groups"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The two codings describe the same fitted lines and differ only in parameterization. With a reference category, the intercept is the reference group's level, and the other dummies are offsets from it: 0.590 - 0.079 = 0.511 and 0.269 - 0.079 = 0.190. Part 2: A is wrong, since the slope does not change. C is wrong, since dropping one dummy avoids the trap. D misreads the intercept. Part 3: Translating between FE codings is a practical skill when reading output from different libraries.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Performing Fixed Effects",
+      "question_text": "True or False: A fixed-effects model with one common slope assumes each group's outcome can rise at a DIFFERENT rate over time.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. The common-slope FE model forces PARALLEL lines: each group has its own intercept but the SAME slope beta. If the groups really rise at different rates, you need group x time interactions (random or varying slopes), and you can test this by comparing the two models. Part 2: Answering True confuses varying intercepts with varying slopes. Part 3: Knowing the parallel-lines assumption is important when performing and interpreting FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "A classmate fits `LinearRegression()` (which includes an intercept by default) on `time` plus ALL three group dummies, and reports G1's coefficient as the 'group 1 fixed effect'. The code runs without error. What is the problem?",
+      "options": [
+        "A) There is no problem, because the code ran",
+        "B) The time slope will be wrong",
+        "C) Because of the dummy trap, the intercept and the three dummy coefficients are NOT uniquely identified. scikit-learn's least-squares solver silently returns ONE of infinitely many equivalent solutions (the minimum-norm one), so G1's coefficient is arbitrary and is not the group's own intercept. The time slope and the predictions are still fine. Use `fit_intercept=False` or drop one dummy",
+        "D) scikit-learn automatically drops a dummy, so the coefficient is the difference from G2"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Perfect collinearity means the level parameters can be traded off against each other (add c to the intercept and subtract c from every dummy), so their individual values are not meaningful. statsmodels would warn about a singular matrix, but scikit-learn does not. Part 2: A takes 'no error' as correctness. B is wrong, since the slope is identified. D is false, since scikit-learn does not drop dummies automatically. Part 3: Catching silent errors in identification is an advanced skill in performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Extend the firefighters example to fixed effects: you have damage records for many fires in each of 50 fire STATIONS' districts over 5 years. Which stable confounder would station fixed effects remove?",
+      "options": [
+        "A) The severity of each individual fire",
+        "B) Stable district traits, such as building density, typical construction materials, and distance to hydrants. These affect damage AND how many firefighters a station can usually send, so district FE compare fires within the same district",
+        "C) The weather on each fire's day",
+        "D) The number of firefighters sent"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Station or district FE absorb anything constant about the district. The remaining variation in firefighters within a district (e.g., staffing on different shifts) identifies the effect. Part 2: A varies from fire to fire, so it remains a confounder and still needs to be controlled. C varies over time. D is the treatment itself. Part 3: Building an FE extension of a familiar example is a good way to invent one.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "True or False: In an invented FE example, the 'groups' can be units such as schools, stores, or patients, as long as each group is observed MORE than once and the treatment varies within the group.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The defining requirements of FE are repeated observations within each group and within-group variation in the treatment. The groups can be anything meaningful, such as hospitals, students, products, or districts. Part 2: Answering False would restrict FE to one kind of unit, which ignores its general structure. Part 3: Recognizing these flexible requirements helps you invent varied FE scenarios.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "A student invents this example: 'Effect of a restaurant's Yelp rating on its revenue, with 500 restaurants over 36 months and restaurant fixed effects.' Which concern is most important?",
+      "options": [
+        "A) The ratings must be integers",
+        "B) Restaurant FE remove stable quality differences, but within-restaurant rating changes may be caused by revenue-related events, such as a new chef who changes both the food and the rating, or a busy period that brings more reviews (reverse causality and time-varying confounding). Add month FE, controls such as the number of reviews, and test whether the rating predicts revenue BEFORE rating changes (a lead test)",
+        "C) Fixed effects cannot be used with ratings",
+        "D) 36 months is too many"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A credible FE example must explain WHY X changes within the unit and whether that change is independent of other shocks to Y. Changes in Yelp ratings are not random. Lead tests and controls strengthen the design. Part 2: A, C, and D are not real problems. Part 3: Spotting the most important remaining threat makes an invented example rigorous.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Which invented example correctly pairs EACH fixed effect with the confounder it removes?",
+      "options": [
+        "A) Effect of nurse staffing on patient falls: patient FE remove the hospital's location",
+        "B) Effect of price on sales: price FE remove demand shocks",
+        "C) Effect of a pesticide on crop yield across 300 farms over 10 seasons: FARM FE remove stable soil quality and farmer skill; SEASON FE remove weather shocks shared across the region each year, such as a drought year",
+        "D) Effect of exercise on weight: weight FE remove diet"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Farm FE handle differences between farms that do not change over time, and season FE handle shocks shared by all farms in a given season. Each FE dimension is linked to a named confounder. Part 2: A uses the wrong unit, since patient FE would not capture hospital location in a meaningful way. B and D put fixed effects on the treatment or the outcome, which is incoherent. Part 3: Correctly linking each FE dimension to a confounder is the key skill in inventing FE situations.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Invent a fixed-effects study using data shaped like the coding quiz (several groups observed over time). Describe (1) what the groups and time are, (2) X and Y, (3) the stable confounder the group FE remove, (4) how you would reshape and fit the model in Python, (5) how you would interpret the shared slope and the group effects, and (6) one test of the common-slope assumption.",
+      "options": null,
+      "correct_answer": "(1) Groups: 3 regional warehouses (North, South, West), observed weekly for 52 weeks. (2) X = weekly hours of overtime worked; Y = weekly order-picking errors per 1,000 orders. (3) Warehouse FE remove stable differences such as layout complexity, the age of the scanning equipment, and management practices. Complex warehouses may both schedule more overtime and have more errors, which confounds pooled OLS. (4) Starting from wide data (columns: week, overtime_N, errors_N, ...), melt into long format (week, warehouse, overtime, errors), then fit `smf.ols('errors ~ overtime + C(warehouse)', data=long_df)` with the intercept kept and one warehouse dropped, or LinearRegression on overtime plus all warehouse dummies with `fit_intercept=False`. Cluster standard errors by warehouse, or with only 3 groups, use robust or bootstrap SEs. (5) The shared slope is the change in errors per additional overtime hour WITHIN a warehouse. The warehouse effects are each site's baseline error level, compared with the reference site. (6) Test the common slope: fit `errors ~ overtime * C(warehouse)` and use an F-test on the interaction terms. If they are significant, the overtime effect differs by site, so report slopes for each site.",
+      "explanation": "Part 1: A strong answer specifies a group-by-time structure, a named stable confounder, the correct reshape and model code (avoiding the dummy trap), the interpretation of both the common slope and the group effects, and a formal test of the common-slope assumption. Part 2: Answers without the reshape step, without an interpretation of the group effects, or without testing the slope assumption are incomplete. Part 3: This applies the coding-quiz workflow to an original FE example.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": ["melt", "fixed effects", "common slope", "confounder", "interaction", "C("]
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "A teammate invents: 'Effect of being in a big city on income, using 10,000 people over 8 years with person fixed effects.' Only 4% of people moved between a big city and a small town during the period. What is the best critique?",
+      "options": [
+        "A) The effect is identified ONLY from the 4% who moved, so the estimate is imprecise and applies to MOVERS, who may move BECAUSE they got a high-paying job (reverse causality). Report the number of movers, check income trends before the move, and consider the timing of moves relative to job changes",
+        "B) Person fixed effects cannot be used for location",
+        "C) The design is perfect, because 10,000 is a large sample",
+        "D) Big cities never affect income"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: With person FE, people who never move contribute nothing to the estimate. Movers are a selected group, and a job offer often causes the move, so the timing of moves and pre-move trends must be examined. Part 2: B is false. C confuses total n with useful variation. D is an unsupported claim. Part 3: Assessing where an invented FE design gets its variation, and how credible that variation is, is the advanced skill of this objective.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "In the coding quiz's bootstrap, which line correctly draws one resample of the 10,000-row DataFrame `df2`?",
+      "options": [
+        "A) `df2.sample(n=5000, replace=False)`",
+        "B) `df2.iloc[:10000]`",
+        "C) `df2.sort_values('Y')`",
+        "D) `df2.iloc[rng.integers(0, n, n)]`, which draws n row indices uniformly WITH replacement (equivalent to `df2.sample(n=n, replace=True)`)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: `rng.integers(0, n, n)` returns n random row positions between 0 and n - 1, with repeats allowed, so each resample has the same size as the data and some rows are duplicated or left out. Part 2: A halves the data and does not resample. B and C return the original rows unchanged or reordered. Part 3: Writing the resampling line correctly is the foundation of the coding-quiz bootstrap.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Bootstrap Simulation",
+      "question_text": "A bootstrap of the naive treated-minus-untreated difference gives a VARIANCE of 0.0324 across 1,000 resamples. What is the bootstrap STANDARD ERROR of the effect? Enter only the number.",
+      "options": null,
+      "correct_answer": "0.18",
+      "explanation": "Part 1: SE = sqrt(variance) = sqrt(0.0324) = 0.18. An approximate 95% CI would be the estimate +/- 1.96 * 0.18, about +/- 0.35. Part 2: A common mistake is reporting the variance itself as the SE, or dividing by sqrt(1,000), which confuses the number of bootstrap draws B with the sample size. The standard deviation of the bootstrap estimates is already the SE. Part 3: Converting bootstrap output into an SE is a basic step in reporting bootstrap results.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": ["0.18", "sqrt", "standard error", "variance"]
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Bootstrap Simulation",
+      "question_text": "True or False: Each bootstrap resample should have the SAME number of rows as the original dataset, because the goal is to imitate the variability of an estimate based on a sample of that size.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Sampling variability depends on n. Resampling a smaller number of rows would overstate the SE, and resampling more would understate it. That is why the coding quiz used `rng.integers(0, n, n)` with n = 10,000. Part 2: Answering False would produce a bootstrap that answers a different question (the uncertainty for a different sample size). Part 3: Matching the resample size to n is a core rule of performing a bootstrap.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "In the coding quiz, the naive treated-minus-untreated difference was about 2.92, with a bootstrap variance of about 0.03, so it looks very precise. The data contain a confounder Z. What is the correct interpretation?",
+      "options": [
+        "A) The bootstrap measures PRECISION, not BIAS. The naive difference is precisely estimated, but it estimates the WRONG quantity, because Z affects both treatment and outcome. A small variance gives false confidence; you need to adjust for Z (regression, matching, or weighting) to target the causal effect",
+        "B) A small variance proves that the 2.92 effect is causal",
+        "C) The bootstrap automatically removes confounding",
+        "D) The variance should be zero for a causal effect"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The bootstrap repeats the SAME estimator on resamples. If the estimator is biased, every resample is biased in the same way, so the bootstrap distribution is tightly centered on the wrong value. Precision and validity are separate questions. Part 2: B and C confuse the two. D is meaningless. Part 3: Knowing what the bootstrap does NOT fix is essential when interpreting simulation results.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "Bootstrapping the regression coefficient of Y on X (with an intercept) 1,000 times, students got skewness values of about 0.05 to 0.16, varying with the seed. Why is the true skewness of this sampling distribution close to 0?",
+      "options": [
+        "A) Because X is binary",
+        "B) Because the outcome Y has zero skew",
+        "C) With n = 10,000, the central limit theorem makes the sampling distribution of an OLS coefficient approximately NORMAL, and a normal distribution has skewness 0. The small nonzero values are Monte Carlo noise from using only 1,000 bootstrap draws",
+        "D) Because skewness is always 0 for regression coefficients, regardless of n"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: OLS coefficients are weighted averages of the data, so with a large n, the CLT pushes their distribution toward a normal shape. The variation across seeds reflects the finite B, not real skewness. Part 2: A and B do not determine the sampling distribution's shape. D is false, since with a small n and heavy-tailed errors, coefficients can be skewed. Part 3: Interpreting a higher moment of bootstrap output is an applied bootstrap skill, and it is Question 5 of the coding quiz.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "The standard error of a sample skewness computed from B independent draws is roughly sqrt(6 / B). With B = 1,000, about how large is the Monte Carlo noise in the bootstrap skewness, and what does that imply?",
+      "options": [
+        "A) About 0.006, so any skewness above 0.01 is real",
+        "B) About 6, so skewness cannot be measured",
+        "C) Exactly 0, because bootstrap results are exact",
+        "D) About 0.077 (sqrt(0.006)). Skewness estimates such as 0.10 or -0.08 are consistent with a true skewness of 0. To pin skewness down more tightly, increase B (e.g., B = 10,000 gives an SE of about 0.024)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: sqrt(6 / 1,000) = sqrt(0.006), about 0.077. Two SEs is about 0.15, so the observed 0.05 to 0.16 range is mostly noise around 0. More draws reduce this noise at a rate of 1 / sqrt(B). Part 2: A forgets the square root. B misreads the formula. C ignores Monte Carlo error. Part 3: Judging the simulation noise in bootstrap summaries is part of performing simulations rigorously.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Bootstrap Simulation",
+      "question_text": "True or False: In the coding quiz, the 'correct' answer key listed a skewness of 0.3223 while careful reruns gave about 0.05 to 0.16. This proves the bootstrap is unreliable and should not be used.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. The difference reflects Monte Carlo noise and seed or setup choices (e.g., B, resampling details, whether Z was included). It does not mean the method failed. With a large B, the skewness settles near 0, as theory predicts. The bootstrap is reliable for SEs and CIs of smooth statistics. Higher moments simply need more draws. Part 2: Answering True confuses noisy simulation output with an invalid method. Part 3: Knowing how to diagnose and explain differences between simulation runs is part of mature bootstrap practice.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "You want a bootstrap CI for the treatment effect in the coding-quiz data that adjusts for the confounder Z. Which procedure is best?",
+      "options": [
+        "A) For b = 1..B (e.g., 5,000) with a fixed seed: resample ROWS of (X, Y, Z) with replacement at size n; fit `Y ~ X + Z` on the resample; store the X coefficient. Then report its mean, its standard deviation (the SE), and the 2.5th and 97.5th percentiles as a 95% CI, and compare these with the naive (unadjusted) bootstrap to show how much adjusting for Z shifts the estimate",
+        "B) Bootstrap the naive difference and subtract the mean of Z",
+        "C) Resample only Z",
+        "D) Fit `Y ~ X + Z` once, then bootstrap the residuals of the naive model"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A case (pairs) bootstrap of the ADJUSTED estimator gives the uncertainty of the quantity you actually care about. Comparing it with the naive bootstrap shows how much adjustment changes the center, which is the bias, versus how much it changes the spread, which is the precision. Part 2: B has no statistical basis. C breaks the joint structure of the data. D mixes models incorrectly. Part 3: Combining confounder adjustment with the bootstrap is the advanced application of bootstrap simulation.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "In the firefighters notebook's DGP, what role does `Z_severity` play?",
+      "options": [
+        "A) It is the outcome",
+        "B) It is a CONFOUNDER: more severe fires get MORE firefighters (X = 1 + 3Z + noise) AND cause MORE damage (Y = 2000 + 50,000Z - 1,000X + noise), so it affects both the treatment and the outcome",
+        "C) It is a mediator between firefighters and damage",
+        "D) It is pure noise with no effect"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Severity causes both the number of firefighters and the damage, opening the back-door path X <- Z -> Y. That is why the raw correlation between firefighters and damage is positive even though each firefighter REDUCES damage. Part 2: A is the damage variable. C would require firefighters to cause severity. D contradicts its large coefficients. Part 3: Identifying each variable's role is the first step in describing a DGP.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data-Generating Processes",
+      "question_text": "True or False: In the firefighters DGP, a scatter plot of damage against the number of firefighters shows a POSITIVE association, even though the true causal effect of each firefighter on damage is NEGATIVE (-1,000).",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Severity raises both firefighters (+3 per unit) and damage (+50,000 per unit), and this confounded path dominates the true -1,000 effect, so the raw relationship looks like 'more firefighters, more damage'. That is the classic fallacy the notebook illustrates. Part 2: Answering False assumes correlation reveals causation. Part 3: Explaining how a DGP produces misleading correlations is central to describing DGPs.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "The notebook's 'omitted variables' DGP: X_firefighters = 1 + 4 * Z_severity + 3 * W_fragility + noise, and damage depends on Z, W, and X. If you regress damage on X and Z but leave out W (house fragility), what happens?",
+      "options": [
+        "A) The estimate of the X effect is still unbiased, because Z is controlled",
+        "B) The estimate becomes exactly 0",
+        "C) The regression fails",
+        "D) The estimate is still BIASED: W is a second confounder (it raises both the number of firefighters and the damage, since fragile houses burn worse). Controlling for Z closes one back door, but X <- W -> Y stays open, so you must also include W"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Each confounder opens its own back-door path, so all of them must be closed. Leaving out W puts its effect into the error term, which is correlated with X, so omitted-variable bias remains. Part 2: A assumes one control is enough. B and C are false. Part 3: Describing DGPs with several confounders shows why full adjustment matters.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "In the notebook's 'RCT' version, `X_firefighters = rng.integers(1, 6, size=n)` regardless of severity. What changes in the DGP's causal graph, and what does a simple regression of Y on X now estimate?",
+      "options": [
+        "A) The Z -> X arrow is DELETED, so X is independent of severity. Severity still affects Y, but it is no longer a confounder, so `Y ~ X` gives about -1,000, the true causal effect, with a lower R-squared because severity is left in the error term",
+        "B) Severity disappears from the DGP",
+        "C) The effect of X becomes positive",
+        "D) Randomizing X makes Y independent of everything"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Random assignment cuts every arrow INTO the treatment. The omitted Z is now just noise that is unrelated to X, which costs precision but not unbiasedness. Part 2: B is false, since Z still drives damage. C reverses the true effect. D overstates what randomization does. Part 3: Changing one assignment rule and predicting the result shows a complete understanding of the DGP.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "The firefighters DGP rounds X to an integer and clips it at 1 or more (`np.clip(..., 1, None)`), and it also clips damage at 0 or more. Why are these realistic DGP choices, and what is a side effect?",
+      "options": [
+        "A) They make the data perfectly linear",
+        "B) They ensure that physically impossible values (fractional or negative crew sizes, negative damage) do not appear. A side effect: clipping adds NONLINEARITY at the boundaries, such as many damage values piled up at 0, so a linear regression may not recover the coefficients exactly near the bounds",
+        "C) They remove the confounder",
+        "D) They have no effect on any estimate"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Good DGPs respect real-world constraints, and constraints change the statistical properties of the data. Clipping censors values at a bound, which can slightly bias OLS estimates when many observations are at the bound. Part 2: A reverses the effect. C is unrelated. D ignores censoring. Part 3: Describing the realistic features of a DGP, and their consequences, is part of describing DGPs well.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Data-Generating Processes",
+      "question_text": "True or False: Using a fixed seed such as `rng = np.random.default_rng(42)` in a DGP simulation makes the TRUE causal effect depend on the seed.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. The true effect is set by the DGP's coefficients (e.g., -1,000 per firefighter). The seed only fixes WHICH random draws occur, so the ESTIMATES are reproducible. Different seeds give different estimates scattered around the same truth. Part 2: Answering True confuses the parameter with its estimate. Part 3: Separating the DGP's fixed truth from random sampling is fundamental to describing and simulating DGPs.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Data-Generating Processes",
+      "question_text": "The notebook's 'Deriving Analytically' section computes the regression of Y on X without Z. In 3-4 sentences, explain how you could derive the biased slope ANALYTICALLY from the DGP's coefficients, and what it would show for the firefighters example.",
+      "options": null,
+      "correct_answer": "With Y = 2000 + 50,000Z - 1,000X + noise and X correlated with Z, the slope of the short regression of Y on X equals the true effect plus omitted-variable bias: b = -1,000 + 50,000 * Cov(X, Z) / Var(X). From X = 1 + 3Z + noise, where Z ~ Uniform(0, 1) with Var(Z) = 1/12, we get Cov(X, Z) = 3 * Var(Z) = 0.25, and Var(X) = 9 * (1/12) + Var(noise) = 0.75 + 9 = 9.75 (before rounding and clipping). So the bias is about 50,000 * 0.25 / 9.75, roughly +1,280, and the slope is about +280 (a simulation of the unclipped DGP gives about +275; with the notebook's rounding and clipping it is about +610, which is even more positive). It turns POSITIVE, matching the misleading scatter plot. Including Z (or randomizing X) removes the bias term and recovers -1,000.",
+      "explanation": "Part 1: A strong answer writes the omitted-variable bias formula, links Cov(X, Z) and Var(X) to the DGP's coefficients and distributions, gets the direction (and roughly the size) of the bias, and explains how controlling or randomizing removes it. Part 2: Answers that only say 'it is biased' without the formula or the direction are incomplete. Part 3: Deriving an estimator's expected value from the DGP is the deepest form of describing one.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": ["omitted variable bias", "Cov(X, Z)", "Var(X)", "50,000", "positive", "-1,000"]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Data-Generating Processes",
+      "question_text": "Design a DGP-based simulation that brings together all four of this week's objectives: (1) write a DGP with groups, a group-level confounder, a treatment, and an outcome; (2) show how pooled OLS and fixed effects compare against the known truth; (3) use the bootstrap to quantify uncertainty; and (4) explain what the results teach about real-data analysis.",
+      "options": null,
+      "correct_answer": "(1) DGP: 30 fire districts g, each with a stable fragility W_g ~ Normal(0, 1). Each district has 100 fires, with severity Z_i ~ Uniform(0, 1). Firefighters: X_i = round(2 + 3 * Z_i + 1.5 * W_g + Normal(0, 1)), clipped at 1 or more. Damage: Y_i = 5,000 + 40,000 * Z_i + 8,000 * W_g - 1,000 * X_i + Normal(0, 5,000). True effect of X = -1,000. (2) Estimation: pooled `Y ~ X + Z` omits W_g and is biased upward, because fragile districts get more firefighters AND more damage. FE `Y ~ X + Z + C(district)` absorbs W_g and recovers about -1,000. Repeating the simulation 500 times shows the pooled estimates centered away from -1,000 and the FE estimates centered on it. (3) Bootstrap: for one simulated dataset, resample whole DISTRICTS (a cluster bootstrap, since fires in the same district share W_g) 2,000 times, refit the FE model, and take the 2.5th and 97.5th percentiles as a 95% CI. Check that, across repeated simulations, about 95% of these CIs cover -1,000, while row-level bootstrap CIs are too narrow. (4) Lessons: correlation can reverse the causal sign; FE remove only STABLE group confounders (Z must still be controlled); the bootstrap measures precision, not bias, and its resampling unit must match the dependence structure; and simulation with a known truth is how we validate methods before trusting them on real data.",
+      "explanation": "Part 1: A strong answer writes a full DGP with a group-level confounder, a fire-level confounder, and noise; contrasts pooled OLS with FE against the known truth over repeated simulations; uses a cluster bootstrap and checks CI coverage; and draws concrete lessons for real-data work. Part 2: Answers that skip the known truth, use a row-level bootstrap with clustered data, or never compare estimators are incomplete. Part 3: This capstone question brings together fixed effects, inventing an FE example, bootstrap simulation, and DGP description.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": ["group-level confounder", "fixed effects", "pooled OLS", "cluster bootstrap", "coverage", "true effect"]
+    }
+  ]
+}

@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 3 - Subset Selection, PCR & PLSR",
+    "description": "A master's-level capstone quiz on choosing between forward/backward stepwise selection, principal components regression (PCR), and partial least squares regression (PLSR) based on data conditions (p vs n, multicollinearity, VIF, interpretability goals); performing forward and backward selection with AIC/BIC/CV criteria and reading their output; and performing PCR and PLSR with standardization, cross-validated choice of the number of components, and interpretation of explained variance, using the Lending Club and Taiwan credit results from the Week 3 homework.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Choosing Selection vs. PCR vs. PLSR",
+      "question_text": "Which data condition MOST strongly suggests using PCR or PLSR instead of plain OLS or stepwise selection?",
+      "options": [
+        "A) Only 3 predictors, all uncorrelated",
+        "B) Strong MULTICOLLINEARITY among many predictors (e.g., six monthly bill amounts correlated at 0.80-0.95, with VIFs above 5-10), or more predictors than observations (p > n)",
+        "C) A binary outcome",
+        "D) A perfectly linear relationship with a single predictor"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: PCR and PLSR compress correlated predictors into a few uncorrelated components, which stabilizes the estimates when OLS coefficients have inflated variance or cannot be computed (p > n). The Taiwan bill and payment-status blocks are a typical example. Part 2: A has no redundancy to compress. C calls for a classification method (although PLS-DA exists). D needs no dimension reduction. Part 3: Recognizing when collinearity justifies dimension reduction is the core of the first learning objective.",
+      "learning_objective": "Discern the appropriate conditions for using forward and backward selection, PCR, and PLSR on your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Choosing Selection vs. PCR vs. PLSR",
+      "question_text": "True or False: Forward and backward selection keep a SUBSET of the ORIGINAL predictors, so the final model stays interpretable in the original variables, whereas PCR and PLSR build NEW variables (components) that are linear combinations of all predictors.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Stepwise selection drops or keeps whole variables, so coefficients still read as 'per unit of revol_util', and so on. PCR and PLSR regress on components that mix every predictor, so you lose that one-variable reading (although the effects can be mapped back to the original variables). Part 2: Answering False confuses SELECTION with ROTATION/COMPRESSION, the main difference in this week's methods. Part 3: Matching the method to your goal (interpretation or stable prediction) is part of choosing it appropriately.",
+      "learning_objective": "Discern the appropriate conditions for using forward and backward selection, PCR, and PLSR on your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Choosing Selection vs. PCR vs. PLSR",
+      "question_text": "On Lending Club (12 predictors, maximum VIF 2.51), all methods tied at a test RMSE of 4.2884-4.2888. On Taiwan, payment-status and bill blocks reached VIFs of 5-7. What does this show about choosing a method?",
+      "options": [
+        "A) PCR and PLSR are always useless",
+        "B) Stepwise selection always beats PCR",
+        "C) The methods differ only by random chance",
+        "D) Dimension-reduction methods can only help when predictors share redundant information. With low collinearity (Lending Club), OLS, selection, PCR, and PLS all converge on the same predictions, so the simplest interpretable model wins. The structured collinearity in Taiwan is where PCR and PLS can show their value"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: When predictors are nearly uncorrelated, no direction can be dropped safely, so PCR needs every component and becomes OLS. Methods built for collinearity need collinearity to make a difference. Part 2: A and B overgeneralize from one dataset. C ignores the clear structural reason. Part 3: Using diagnostics such as VIF to predict whether a method will help is exactly what this objective asks for.",
+      "learning_objective": "Discern the appropriate conditions for using forward and backward selection, PCR, and PLSR on your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Choosing Selection vs. PCR vs. PLSR",
+      "question_text": "A genomics dataset has n = 120 patients and p = 5,000 gene-expression predictors. Which approach is appropriate?",
+      "options": [
+        "A) Backward elimination starting from the full OLS model",
+        "B) OLS with all 5,000 predictors",
+        "C) Forward selection (it can start from an empty model and add variables while k < n), or better, PCR or PLSR with a few CV-chosen components (or a lasso). Backward elimination is impossible because the full model with p > n cannot be fit by OLS",
+        "D) Drop 4,880 genes at random until p < n"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: When p > n, X'X is singular, so the full OLS model, the required starting point for backward elimination, does not exist. Forward selection and component-based methods work in this setting, and PLS is especially common in chemometrics and genomics. Part 2: A and B require the impossible full fit. D throws away information without any principle. Part 3: Knowing that backward elimination needs n > p is a key condition when choosing a method.",
+      "learning_objective": "Discern the appropriate conditions for using forward and backward selection, PCR, and PLSR on your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Choosing Selection vs. PCR vs. PLSR",
+      "question_text": "What is the key conceptual difference between PCR and PLSR?",
+      "options": [
+        "A) PCR is UNSUPERVISED: its components maximize the VARIANCE of X and ignore y, so a high-variance direction may be irrelevant for predicting y. PLSR is SUPERVISED: its components maximize the COVARIANCE between X and y, so it usually needs fewer components for the same accuracy",
+        "B) PCR uses y to build components, and PLSR does not",
+        "C) PLSR only works with categorical predictors",
+        "D) There is no difference"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: PCR's first component is the direction of largest spread in X, which may have nothing to do with the target. PLS weights directions by how much they co-vary with y. In the Week 3 homework, PLS reached a CV MSE of about 18.35 with about 4-5 components, while PCR needed 10 to 12. Part 2: B reverses the two methods. C is false. D ignores the supervised/unsupervised difference. Part 3: This difference determines which method to choose when the predictive signal lies in low-variance directions.",
+      "learning_objective": "Discern the appropriate conditions for using forward and backward selection, PCR, and PLSR on your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Choosing Selection vs. PCR vs. PLSR",
+      "question_text": "The diagnostic computed as 1 / (1 - R_j^2), where R_j^2 comes from regressing predictor j on all the other predictors, is called the ___. Values above about 5-10 signal problematic multicollinearity.",
+      "options": null,
+      "correct_answer": "Variance inflation factor (VIF)",
+      "explanation": "Part 1: The VIF measures how much the variance of coefficient j is inflated by its correlation with the other predictors. A VIF of 2.51 (Lending Club's maximum) is mild. Taiwan's 7.06 (PAY_5) is moderate to high. Part 2: The condition number and the correlation matrix are related diagnostics, but neither is defined by this formula. Part 3: The VIF is the standard quick check when choosing between selection and component methods.",
+      "learning_objective": "Discern the appropriate conditions for using forward and backward selection, PCR, and PLSR on your project's dataset.",
+      "keywords": ["VIF", "variance inflation factor", "variance inflation"]
+    },
+    {
+      "number": 7,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Choosing Selection vs. PCR vs. PLSR",
+      "question_text": "A credit-risk team must give regulators reason codes such as 'denied because of high revolving utilization', and it has 40 moderately correlated predictors with n = 50,000. Which method choice is the best fit?",
+      "options": [
+        "A) PCR with 5 components, reporting the components to regulators",
+        "B) PLSR with 3 components, because it is the most accurate",
+        "C) No model; use expert judgment",
+        "D) Prefer a model that uses the ORIGINAL variables: forward or backward selection (or a lasso) validated with CV/AIC, with VIFs checked and collinear blocks combined by domain logic. Use PCR or PLSR only as a benchmark to check whether compression would add meaningful accuracy, because components such as '0.31 x bill1 + 0.28 x bill2 + ...' cannot serve as reason codes"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The regulatory need for explanations in terms of original variables outweighs small gains in accuracy. A large n and moderate collinearity mean selected-variable models will be stable, and component models can confirm that little accuracy is lost. Part 2: A and B produce components that cannot be explained as reason codes. C gives up the evidence-based approach. Part 3: Balancing data conditions with business and regulatory constraints is the advanced application of choosing a method.",
+      "learning_objective": "Discern the appropriate conditions for using forward and backward selection, PCR, and PLSR on your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Choosing Selection vs. PCR vs. PLSR",
+      "question_text": "In 3-4 sentences, explain how you would decide between forward/backward selection, PCR, and PLSR for your own capstone dataset. Name the specific diagnostics you would check and how each result would push your decision.",
+      "options": null,
+      "correct_answer": "First check p relative to n: if p > n, backward elimination is impossible, so use forward selection or components. Next compute VIFs and the correlation matrix. If all VIFs are below 5 (like Lending Club's maximum of 2.51), collinearity is mild, so OLS or stepwise selection will match PCR and PLS, and you should choose the interpretable subset model. If there are blocks of VIFs above 5-10 (like Taiwan's PAY and BILL months), consider PCR or PLSR, preferring PLSR when the predictive signal may lie in low-variance directions, since it uses y. Then compare all candidates on the same cross-validated or held-out RMSE, and choose the simplest model within about one standard error of the best, taking into account whether stakeholders need explanations in terms of the original variables.",
+      "explanation": "Part 1: A strong answer names concrete diagnostics (p vs n, VIF, correlation structure, CV error), links each to a choice of method, and includes the goal (interpretability vs prediction) and the one-standard-error rule. Part 2: Answers that just say 'try everything' or 'use PLS because it is best', without diagnostics or reasoning, are incomplete. Part 3: This applies the first learning objective directly to the student's project.",
+      "learning_objective": "Discern the appropriate conditions for using forward and backward selection, PCR, and PLSR on your project's dataset.",
+      "keywords": ["VIF", "p > n", "multicollinearity", "interpretability", "cross-validation", "PLSR"]
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Choosing Selection vs. PCR vs. PLSR",
+      "question_text": "True or False: PCR is a feature-SELECTION method, because keeping only the first k components means some original predictors are dropped from the model.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Every principal component is a weighted combination of ALL the predictors, so even a 1-component PCR model uses every original variable. PCR reduces DIMENSIONS, not variables. To drop variables, use stepwise selection or a lasso. Part 2: Answering True confuses 'fewer components' with 'fewer features', a common misconception. Part 3: Knowing this prevents choosing PCR when the goal is to reduce how many variables must be collected.",
+      "learning_objective": "Discern the appropriate conditions for using forward and backward selection, PCR, and PLSR on your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Forward & Backward Selection",
+      "question_text": "How does FORWARD stepwise selection work?",
+      "options": [
+        "A) Start with all predictors and remove the worst one at each step",
+        "B) Start with an EMPTY (intercept-only) model. At each step, add the single predictor that most improves the criterion (e.g., the largest drop in AIC), and stop when no remaining predictor improves it",
+        "C) Fit every possible subset of predictors and choose the best",
+        "D) Randomly choose predictors until the R-squared exceeds 0.5"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Forward selection is greedy and adds one variable at a time. It needs only about p^2 / 2 model fits instead of the 2^p fits of best-subset search, which makes it practical for large p. Part 2: A describes backward elimination. C is best-subset selection. D is not a principled method. Part 3: Knowing the algorithm is step one in performing forward selection.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Forward & Backward Selection",
+      "question_text": "How does BACKWARD elimination work?",
+      "options": [
+        "A) Start with the FULL model containing all p predictors. At each step, remove the predictor whose removal most improves the criterion (e.g., the largest drop in AIC), and stop when removing any remaining predictor would make the criterion worse",
+        "B) Start empty and add predictors one at a time",
+        "C) Remove the predictors with the largest coefficients",
+        "D) Remove predictors in alphabetical order"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Backward elimination begins with everything and prunes. In the Week 3 Lending Club homework, it removed NOTHING (the AIC stayed at 114,892.2), meaning every variable paid its complexity penalty. It requires n > p so that the full model can be fit. Part 2: B is forward selection. C confuses coefficient size, which depends on units, with contribution. D has no statistical basis. Part 3: Knowing the backward algorithm is required to perform it.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Forward & Backward Selection",
+      "question_text": "True or False: Because stepwise selection is GREEDY (it makes the locally best move at each step), it is not guaranteed to find the best subset of predictors overall.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. A variable added early is never reconsidered in pure forward selection, and a pair of variables that is only useful together may never enter. Best-subset search checks all 2^p models but is infeasible for large p. Stepwise trades optimality for speed. Part 2: Answering False overstates what stepwise methods guarantee. Part 3: Knowing this limitation is part of performing and interpreting selection responsibly.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Forward & Backward Selection",
+      "question_text": "During forward selection, Model B has k = 8 parameters and a maximized log-likelihood ln(L) = -998. Compute its AIC = 2k - 2 ln(L). Enter only the number.",
+      "options": null,
+      "correct_answer": "2012",
+      "explanation": "Part 1: AIC = 2 * 8 - 2 * (-998) = 16 + 1,996 = 2,012. If the previous model (k = 5, ln(L) = -1,000) had AIC = 10 + 2,000 = 2,010, adding the 3 variables RAISES the AIC by 2, so forward selection would NOT add them. The 2-unit gain in log-likelihood does not cover the extra 6-unit penalty. Part 2: A common mistake is a sign error (-1,980), or forgetting to double the log-likelihood (1,014). Part 3: Computing AIC by hand shows how selection weighs fit against complexity.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": ["2012", "AIC", "2k", "log-likelihood"]
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Forward & Backward Selection",
+      "question_text": "With n = 20,000 training rows, you run selection with AIC and then with BIC. How will the selected models typically differ?",
+      "options": [
+        "A) They will always be identical",
+        "B) AIC selects fewer variables than BIC",
+        "C) BIC's penalty is k * ln(n) (ln(20,000) is about 9.9 per parameter), compared with AIC's 2 per parameter. So BIC is much stricter with large n and tends to select a SMALLER, more parsimonious model, while AIC may keep weak variables like `pub_rec`, whose AIC gain was only 2.4",
+        "D) BIC ignores the number of parameters"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: In the homework, `pub_rec` lowered the AIC by only 2.4, barely more than its 2-point penalty. Under BIC's penalty of about 9.9, it would likely be dropped. AIC targets predictive accuracy, while BIC targets finding the 'true' model and favors parsimony. Part 2: A and B misstate the relationship. D is false. Part 3: Choosing and interpreting the selection criterion is part of performing selection.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Forward & Backward Selection",
+      "question_text": "An analyst runs forward selection on the FULL dataset, then reports the final model's p-values and estimates its test error with 5-fold CV on the same selected variables. What is the problem?",
+      "options": [
+        "A) Using the data to choose variables and then testing them on the same data is optimistic: the p-values are too small and the CV error is biased downward, because the selection already 'saw' every fold. Selection must happen INSIDE each CV training fold, or on a training set with a separate held-out test set",
+        "B) Nothing is wrong",
+        "C) CV should use 2 folds instead of 5",
+        "D) Forward selection cannot be used with CV"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Choosing variables is part of fitting the model. If it uses all the data, later evaluation on that data is contaminated (selection bias, a kind of leakage). The homework avoided this by selecting on the training split and scoring on a held-out test set. Part 2: B overlooks the bias. C changes nothing important. D is false; selection simply belongs inside the CV loop. Part 3: Validating selection correctly is essential to performing it on your own data.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Forward & Backward Selection",
+      "question_text": "In the homework, forward selection added `revol_util` first (R-squared 0.063 alone), then `inq_last_6mths`, then `log_annual_inc`. The AIC fell steeply at first and then flattened (e.g., `dti` -10.2, `pub_rec` -2.4). How should this path be interpreted?",
+      "options": [
+        "A) `revol_util` causes interest rates",
+        "B) The last variables are the most important",
+        "C) The entry order ranks each variable's marginal contribution GIVEN the variables already in the model: `revol_util` is the strongest single predictor. The flattening AIC curve shows diminishing returns, so late entrants are technically justified by AIC but add little practical predictive value",
+        "D) The order would be the same for any dataset"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Each step chooses the variable with the largest conditional improvement. The order is descriptive and depends on the data and on correlated competitors; it is not causal. A flattening curve is a common reason to consider a smaller model with nearly the same accuracy. Part 2: A makes a causal leap. B reverses the meaning of the order. D ignores that entry order depends on the data. Part 3: Reading the selection path correctly is part of analyzing results.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Forward & Backward Selection",
+      "question_text": "True or False: Forward selection and backward elimination always end with exactly the same set of variables.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Because both are greedy and move in opposite directions, they can disagree, especially when predictors are correlated. Backward elimination may keep a pair of variables that only work together, while forward selection never adds them. In the homework they AGREED (all 12 kept), which is evidence that the subset is stable but not a general rule. Part 2: Answering True generalizes from one dataset. Part 3: Running both directions and comparing them is a recommended robustness check when performing selection.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Forward & Backward Selection",
+      "question_text": "Both forward and backward selection kept all 12 Lending Club predictors, and the test RMSE (4.2884) equaled full OLS. LassoCV also kept 12 of 12 nonzero coefficients. What is the right conclusion?",
+      "options": [
+        "A) The selection code is broken",
+        "B) Three independent methods agree that every predictor carries enough unique information to justify its cost. Subsetting gives no improvement in generalization, so report the full 12-variable model for interpretation (VIFs below 3, all p < 0.05)",
+        "C) The model is overfit and should be cut to 3 variables",
+        "D) Lasso should always drop at least one variable"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: When forward selection, backward elimination, and L1 regularization all keep every variable, the evidence that the full set is appropriate is strong. With n = 20,000 and 12 predictors, overfitting risk is small. Part 2: A and C ignore the consistent results from different methods. D misreads the lasso, which keeps variables that pay their penalty. Part 3: Drawing the right conclusion from 'nothing removed' is a real-world selection skill.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Forward & Backward Selection",
+      "question_text": "On Taiwan, you rerun forward selection on 10 bootstrap resamples of the training data. `PAY_1` is selected every time, but which of `log_BILL_AMT2`, `log_BILL_AMT3`, or `log_BILL_AMT4` enters changes from run to run. What does this tell you, and what should you do?",
+      "options": [
+        "A) The bill variables are irrelevant",
+        "B) Forward selection has failed completely",
+        "C) Drop `PAY_1`",
+        "D) The bill months are highly correlated, so they are nearly interchangeable. Stepwise selection picks one more or less arbitrarily, which makes the selected subset UNSTABLE even if the predictions barely change. Report selection frequencies, consider combining the bill block (e.g., an average bill or a PCA/PLS component), or use ridge or elastic net, which handle groups of correlated variables more stably"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Instability under resampling is a well-known weakness of stepwise selection with collinear predictors. Bootstrap selection frequencies reveal it, and combining the block or using a grouped or shrinkage method gives a more reliable model. Part 2: A misreads arbitrary choice as irrelevance. B overreacts, since `PAY_1` is selected consistently. C removes the strongest signal. Part 3: Diagnosing and fixing unstable selection is the advanced skill in this objective.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Forward & Backward Selection",
+      "question_text": "You are performing forward and backward selection on your capstone dataset (e.g., predicting interest rate from 12 borrower features). Describe step by step how you would implement, validate, and report the selection so that the result is honest and reproducible.",
+      "options": null,
+      "correct_answer": "(1) Split the data into train and test sets (e.g., 80/20, seed 42) before any selection; standardize or transform features using the training data only. (2) Implement forward selection: start from an intercept-only model; at each step, fit OLS adding each remaining candidate, add the one with the lowest AIC (or BIC), and stop when no addition lowers it. Record the entry order and the AIC at each step. (3) Implement backward elimination from the full model, removing the variable whose deletion lowers the AIC most, until no deletion helps. (4) Compare the two results; if they disagree, note the correlated variables involved. (5) Validate: compute test RMSE and R-squared for the full, forward, and backward models on the held-out set, or nest the selection inside each CV fold. Check stability with bootstrap selection frequencies. (6) Cross-check with LassoCV. (7) Report: the selected variables and coefficients, the AIC path plot, test metrics against the full model, VIFs, the criterion used (AIC vs BIC), and a warning that p-values after selection are optimistic.",
+      "explanation": "Part 1: A strong answer separates the data before selection, implements both directions with a named criterion, records the path, validates on held-out data (or nested CV), checks stability, compares with regularization, and reports the limits of inference after selection. Part 2: Answers that run selection on all the data and report p-values as final, or that skip comparing with the full model, are incomplete. Part 3: This is the full performance of the second learning objective.",
+      "learning_objective": "Perform forward and backward selection to analyze your project's dataset.",
+      "keywords": ["train/test split", "AIC", "forward", "backward", "test RMSE", "stability"]
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing PCR & PLSR",
+      "question_text": "Which sequence correctly describes performing principal components regression (PCR)?",
+      "options": [
+        "A) Regress y on X, then run PCA on the residuals",
+        "B) Choose the predictors with the largest correlation with y, then run OLS",
+        "C) Standardize X (using the training data), run PCA to get components Z_1...Z_p ordered by explained variance, regress y on the first k components, and choose k by cross-validated MSE. In scikit-learn: `make_pipeline(StandardScaler(), PCA(n_components=k), LinearRegression())`",
+        "D) Run PCA on y and regress it on X"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: PCR has two stages. Unsupervised compression of X comes first, then OLS on the leading components, with k tuned by CV. A pipeline keeps the scaling and PCA inside each CV fold, which avoids leakage. Part 2: A and D misapply PCA. B is a correlation filter, not PCR. Part 3: Knowing the PCR workflow is step one in performing it.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Performing PCR & PLSR",
+      "question_text": "True or False: Predictors should be standardized before PCA in PCR, because otherwise variables measured on large scales (e.g., loan amount in dollars) dominate the components purely because of their units.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. PCA finds the directions of maximum VARIANCE, and variance depends on units. Without standardization, `loan_amnt` (variance in the millions) would swamp `revol_util` (variance around 600), and PC1 would mostly be loan amount. Part 2: Answering False ignores how sensitive PCA is to scale. `PLSRegression` in scikit-learn scales by default (`scale=True`) for the same reason. Part 3: Standardizing is a required step in performing PCR correctly.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing PCR & PLSR",
+      "question_text": "In the homework, PCR on Lending Club gave: PC1 explains 21.6% of the X variance, PC1-PC8 together explain 89.1%, and the CV MSE fell from 23.20 (k = 1) to 18.33 (k = 12), with k = 11 at 18.59 +/- 0.36. How should these results be interpreted?",
+      "options": [
+        "A) PC1 alone is enough",
+        "B) PCR is 21.6% accurate",
+        "C) PCR should use k = 1 because it is simplest",
+        "D) The variance of X is spread across many directions (no dominant component), and the predictive signal is DIFFUSE, so PCR needs almost all 12 components. Compressing to k <= 8 clearly hurts (CV MSE >= 20.37). Here PCR's value is diagnostic (showing that there is little redundancy), not a gain in prediction"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Explained variance in X does not equal predictive power for y. Even 89% of the X variance (k = 8) leaves the CV MSE well above its minimum, so important signal lies in later, smaller components. With low collinearity, PCR becomes OLS. Part 2: A and C contradict the CV curve. B confuses explained variance with accuracy. Part 3: Reading PCR output correctly is central to performing and analyzing it.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing PCR & PLSR",
+      "question_text": "PCR with k = 12 components (all of them) gave a test RMSE of 4.2884 and R-squared of 0.2091, exactly the same as full OLS. Why?",
+      "options": [
+        "A) A coincidence",
+        "B) Using ALL p components is just a rotation of the full predictor space, so regressing y on all p components spans the same space as regressing on all the original standardized predictors. The fitted values are therefore identical to OLS",
+        "C) PCR always performs worse than OLS",
+        "D) The PCA step was skipped"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: PCA is an orthogonal rotation. With k = p, nothing is discarded, so the predictions match OLS exactly. PCR differs from OLS only when k < p, where it trades a little bias for lower variance. Part 2: A misses the mathematical identity. C is false in general. D is not the reason. Part 3: Understanding this identity helps you interpret PCR results on your own data.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing PCR & PLSR",
+      "question_text": "PLSR CV MSE in the homework: k = 1: 19.39; k = 2: 18.79; k = 4: 18.35; minimum at k = 7: 18.3297 +/- 0.30; k = 8 to 12 all about 18.33. Using the ONE-STANDARD-ERROR rule, which k is the most defensible choice?",
+      "options": [
+        "A) About k = 4 to 5: the smallest k whose CV MSE is within one standard error (+0.30, i.e., at most about 18.63) of the minimum. This gives nearly the same accuracy with fewer, more stable components",
+        "B) k = 12, because more is always better",
+        "C) k = 1, because it is the simplest",
+        "D) k = 7 only, because it is the exact minimum"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The one-standard-error rule picks the most parsimonious model whose error is statistically indistinguishable from the best. k = 4 (18.35) is clearly within 18.33 + 0.30. k = 2 (18.79) is outside that band. Part 2: B adds components that bring nothing. C (19.39) is outside the band. D chases noise; k = 7 is defensible, but it is not required by the rule. Part 3: Choosing k with CV and the one-standard-error rule is a key step in performing PLSR.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Performing PCR & PLSR",
+      "question_text": "True or False: In PCR, the first principal component, because it explains the most variance in X, is always the component most correlated with the target y.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. PCA ignores y. A high-variance direction in X may be irrelevant to y, while a low-variance direction may carry the signal. That is exactly why PLSR, which uses y to build its components, often needs fewer components than PCR (about 4-5 vs 10 or more in the homework). Part 2: Answering True is the main misconception PCR users must avoid. Part 3: Knowing this guides you to check CV error, not explained variance, when performing PCR.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing PCR & PLSR",
+      "question_text": "Which scikit-learn code correctly performs PLSR with 5 components and evaluates it with 5-fold CV?",
+      "options": [
+        "A) `PCA(n_components=5).fit(X, y)`",
+        "B) `LinearRegression(n_components=5).fit(X, y)`",
+        "C) `cross_val_score(PLSRegression(n_components=5, scale=True), X_train, y_train, cv=5, scoring='neg_mean_squared_error')`",
+        "D) `PLSRegression(n_components=5).fit(X_test, y_test)`, then score it on `X_test`"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: `PLSRegression` from `sklearn.cross_decomposition` builds supervised components. `cross_val_score` with a negative-MSE score evaluates it on the training data, so the test set stays untouched for the final assessment. Part 2: A is unsupervised PCA, not a regressor. B is not a valid parameter. D fits and scores on the test set, which is leakage that inflates performance. Part 3: Writing correct, leakage-free code is the practical side of performing PLSR.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing PCR & PLSR",
+      "question_text": "Across eight methods on Lending Club, the test RMSE ranged only from 4.2884 to 4.2888 (full OLS, forward, backward, PCR k = 12, PLS k = 7, ridge, lasso, elastic net). What is the best overall recommendation?",
+      "options": [
+        "A) Choose lasso, because its RMSE is listed last",
+        "B) There is no predictive winner, since a gap of 0.0004 is far below the test noise. Choose by purpose: for INTERPRETATION, the 12-variable OLS/backward model (all p < 0.05, VIFs below 3); for a PARSIMONIOUS prediction pipeline, PLS with about 5-7 components, which matches the accuracy with fewer dimensions",
+        "C) Choose PCR with k = 1, because it is simplest",
+        "D) Collect more variables, because the methods failed"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: When methods tie within noise, the decision should rest on interpretability, stability, and simplicity, not on decimal places. The homework's 'optimal strategy' did exactly this. Part 2: A uses an arbitrary rule. C ignores the much worse error of PCR with k = 1 (CV MSE 23.20). D misreads the tie as failure. Part 3: Making an evidence-based recommendation from PCR/PLSR results is the analysis step of this objective.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Performing PCR & PLSR",
+      "question_text": "On Taiwan (target: log credit limit), the leading principal components mostly capture the six highly correlated monthly BILL amounts, but the target relates more to payment behavior and age. PCR needs many components, while PLSR reaches the same CV error with far fewer. What explains this, and what should you report?",
+      "options": [
+        "A) PCR spends its first components on the high-variance bill block, which is not the most predictive direction. PLSR builds its components to co-vary with y, so it captures the useful signal early. Report the CV curves for both, the chosen k by the one-standard-error rule, test RMSE against OLS, and the PLS loadings or VIP scores showing which predictor blocks drive each component",
+        "B) PLSR is overfitting",
+        "C) PCR is broken and should never be used",
+        "D) The bill variables should be removed before any analysis"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: This is the classic case where PCR's unsupervised compression is mismatched to the target. PLS fixes it by using y. Loadings and VIP (variable importance in projection) scores keep the PLS model partly interpretable. Part 2: B has no support, since CV error is on held-out folds. C overgeneralizes. D discards information that may still help in later components. Part 3: Explaining a PCR/PLSR difference on real project data and reporting it fully is the advanced skill in this objective.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Performing PCR & PLSR",
+      "question_text": "Design and justify a full PCR + PLSR analysis for your capstone dataset. Include the preprocessing, how you choose the number of components, the evaluation metrics, a comparison with OLS and stepwise selection, how you would interpret the components, and how you would decide which model to recommend.",
+      "options": null,
+      "correct_answer": "(1) Preprocessing: clean the data (handle missing values, log-transform skewed variables such as income and bills, one-hot encode categoricals), then split into train and test sets (80/20, seed 42). Put a `StandardScaler` inside a pipeline so it is fit on training folds only. (2) PCR: `make_pipeline(StandardScaler(), PCA(k), LinearRegression())` for k = 1..p; PLSR: `PLSRegression(n_components=k, scale=True)` for k = 1..p. Compute the 5-fold CV MSE mean and standard deviation for each k. (3) Choosing k: plot the CV curves, and pick the smallest k within one standard error of the minimum for each method. Also report the cumulative explained variance (scree plot) for PCR, while remembering that explained variance in X is not predictive power. (4) Evaluation: test RMSE and R-squared for PCR(k*), PLS(k*), full OLS, and forward/backward models, plus ridge and lasso as references, all on the same test set. Treat differences smaller than the noise (e.g., about 0.01 RMSE) as ties. (5) Interpretation: inspect PCA loadings (e.g., PC1 = the bill block) and PLS loadings or VIP scores to name what each component represents (e.g., 'payment delinquency', 'balance size'), and map the coefficients back to the original variables if needed. (6) Decision: if VIFs are low and the methods tie, recommend the interpretable OLS or selected model. If collinearity is high and PLS reaches the same accuracy with far fewer components, recommend PLS for prediction and keep the selected model for explanation. Document the choice and its limits.",
+      "explanation": "Part 1: A strong answer puts scaling inside the CV pipeline, tunes k by CV with the one-standard-error rule, separates explained variance from predictive error, compares all methods on the same test set, interprets components with loadings or VIP, and ties the final choice to the collinearity diagnostics and the project's goals. Part 2: Answers that pick k by explained variance alone, scale using all the data, or declare a winner from tiny differences are incomplete. Part 3: This brings together all three learning objectives for the week.",
+      "learning_objective": "Perform PCR and PLSR to analyze your project's dataset.",
+      "keywords": ["standardize", "cross-validation", "number of components", "loadings", "test RMSE", "one standard error"]
+    }
+  ]
+}

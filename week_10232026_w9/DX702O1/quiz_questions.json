@@ -1,0 +1,470 @@
+{
+  "quiz_metadata": {
+    "title": "DX702 O1 Fall 2026: Week 9 - Simulation, DAG-Based Data, and Power Analysis",
+    "description": "A master's-level quiz on designing simulations to validate statistical methods, analyzing the distribution of repeated estimates (bias, standard error, RMSE, bootstrap), generating data from DAGs, testing how assumption violations affect estimators, and performing simulation-based power analysis to choose sample sizes.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Simulation for Method Validation",
+      "question_text": "Why do data scientists use simulation to check whether a statistical method works, especially when no mathematical proof is available?",
+      "options": [
+        "A) Simulation replaces the need to collect any real data for a study",
+        "B) Simulation always produces smaller standard errors than real data",
+        "C) Because you write the data-generating process yourself, you know the true effect, so you can check whether the estimator recovers it on average and how far individual estimates scatter",
+        "D) Simulation proves that a method is unbiased for every possible dataset"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: In real data the true effect is unknown, so you can never check whether an estimate is right. In a simulation you set the true value (e.g., true effect = 2), generate data, apply the method, and compare the estimate to the value you set. Repeating this many times shows the method's bias and variability. Part 2: A is wrong because simulation tests the method; it does not answer substantive questions about the world. B is wrong because simulated standard errors depend on the noise you build in and are not automatically smaller. D overstates it: a simulation shows performance only for the data-generating processes you actually tried, not for every dataset. Part 3: This is the central reason to design simulations to validate methods when theory is unavailable.",
+      "learning_objective": "Design simulations to validate statistical methods when theoretical proofs are not available.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Simulation for Method Validation",
+      "question_text": "True or False: In the code `X = np.random.normal(0, 1, n); Y = 3 * X + np.random.normal(0, 1, n)`, the true causal effect of X on Y is known to be exactly 3, so any regression estimate can be compared directly against 3.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The coefficient 3 is written into the data-generating process, so it is the ground truth by construction. Any single regression estimate (e.g., 2.96) differs from 3 only because of random sampling noise. Part 2: Answering False would treat the estimate as the truth; in a simulation the truth is the parameter you set, and estimates are scattered around it. Part 3: Knowing the true value is what makes a simulation useful for validating a method.",
+      "learning_objective": "Design simulations to validate statistical methods when theoretical proofs are not available.",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Simulation for Method Validation",
+      "question_text": "Which sequence correctly describes a simulation that validates an estimator?",
+      "options": [
+        "A) (1) Write a data-generating process with a known true effect; (2) generate one random sample; (3) apply the estimator and store the estimate; (4) repeat steps 2-3 many times (e.g., 1,000); (5) compare the distribution of stored estimates with the true effect (mean for bias, SD for variability)",
+        "B) (1) Collect real data; (2) estimate the effect once; (3) declare the method valid if the p-value is below 0.05",
+        "C) (1) Generate one large sample; (2) run the estimator once; (3) treat that single estimate as the bias",
+        "D) (1) Choose the estimate you hope to get; (2) adjust the data-generating process until the estimator returns it"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A valid simulation has a known truth, many independent replications, and an analysis of the resulting estimates. The average of the estimates minus the truth gives the bias, and their standard deviation gives the sampling variability. Part 2: B uses real data, where the truth is unknown, and a single p-value says nothing about bias. C uses one replication, so random noise cannot be separated from systematic bias. D is p-hacking: tuning the setup to get a hoped-for result defeats the purpose of validation. Part 3: Knowing these steps is the basic skill behind designing simulations to validate methods.",
+      "learning_objective": "Design simulations to validate statistical methods when theoretical proofs are not available.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Simulation for Method Validation",
+      "question_text": "A student adds `np.random.seed(42)` at the top of a simulation notebook. What does this do?",
+      "options": [
+        "A) It removes bias from the estimator",
+        "B) It makes each replication inside the loop produce identical data",
+        "C) It increases the number of replications automatically",
+        "D) It makes the whole sequence of random draws reproducible, so rerunning the notebook gives the same results, without changing the estimator's bias or variance"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: A seed fixes the starting point of the pseudo-random number generator, so the entire sequence of draws, and every result, can be reproduced exactly by you or a grader. Part 2: A is wrong because the seed does not change the estimator's statistical properties. B is wrong because draws inside the loop still differ from each other; only the overall sequence is repeatable. If you re-seeded inside the loop, every replication would be identical, which is a bug. C is wrong because the number of replications is set by the loop. Part 3: Reproducibility is part of designing a good simulation, but you still need enough replications so the conclusions don't depend on one particular seed.",
+      "learning_objective": "Design simulations to validate statistical methods when theoretical proofs are not available.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Simulation for Method Validation",
+      "question_text": "A churn-analytics team built a new 'weighted matching' estimator for the effect of a retention discount (binary D) on 90-day churn (Y), controlling for tenure (W). There is no published proof that it is unbiased. Design a simulation to validate it. State the data-generating process, what you would vary, how many replications you would run, and which metrics you would report.",
+      "options": null,
+      "correct_answer": "DGP: tenure W ~ Normal(24, 8) months; discount D = 1 if 0.1*(W - 24) + Normal(0, 1) > 0, so W confounds D; churn Y = 0.30 - 0.05*D - 0.005*W + Normal(0, 0.1), so the true effect is -0.05. Vary: sample size (n = 500, 2,000, 10,000) and confounding strength (the W coefficient in D: 0.05, 0.1, 0.3). Replications: 1,000 per setting. Each replication: estimate the effect with the new estimator and, as benchmarks, a naive difference in means and OLS of Y on D and W. Report for each method and setting: bias (mean estimate minus -0.05), standard deviation of the estimates, RMSE, and 95% confidence-interval coverage. The estimator is validated if bias is close to 0 and coverage is near 95% across settings, and it is useful if its RMSE is no worse than OLS.",
+      "explanation": "Part 1: A strong design (a) writes a DGP with a known true effect and real confounding, (b) varies the conditions that matter (n, confounding strength), (c) runs enough replications (around 1,000) to keep Monte Carlo noise small, (d) compares against benchmark estimators, and (e) reports bias, variability, RMSE, and coverage. Part 2: Answers that run the estimator once on real churn data, or report only the mean estimate, cannot separate bias from noise and cannot assess coverage. Leaving out confounding in the DGP would test the estimator only in the easy case. Part 3: This is the full workflow for designing simulations to validate methods without a proof.",
+      "learning_objective": "Design simulations to validate statistical methods when theoretical proofs are not available.",
+      "keywords": ["true effect", "replications", "bias", "coverage", "sample size", "confounding"]
+    },
+    {
+      "number": 6,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Simulation for Method Validation",
+      "question_text": "A researcher tests a new estimator in only one simulation setting: n = 100,000, normally distributed errors, and no confounding. The estimator recovers the true effect almost exactly, so she concludes it is 'valid for all applications.' What is the biggest flaw in her reasoning?",
+      "options": [
+        "A) She should have used a smaller random seed",
+        "B) A simulation shows performance only under the conditions you simulate. She needs to test small samples (e.g., n = 200), skewed or heavy-tailed errors, and confounding before claiming general validity",
+        "C) Large samples always produce biased estimates",
+        "D) Simulations cannot be used to evaluate estimators at all"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A simulation is evidence only for the data-generating processes you tried. Easy conditions (huge n, normal errors, no confounding) are the settings where almost any reasonable method works; real data often has small samples, skew, outliers, and confounding. Part 2: A is wrong because the seed value has no effect on validity. C is false; large samples reduce variance, and bias depends on the method. D is false; simulation is the standard tool when proofs are missing. Part 3: Good simulation design means stress-testing the method under realistic and difficult assumptions, which links to evaluating how assumptions affect accuracy.",
+      "learning_objective": "Design simulations to validate statistical methods when theoretical proofs are not available.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Distribution of Simulated Estimates",
+      "question_text": "If you run a simulation 1,000 times and store the 1,000 coefficient estimates, the standard deviation of those estimates approximates the estimator's ___.",
+      "options": null,
+      "correct_answer": "Standard error",
+      "explanation": "Part 1: The standard error is the standard deviation of an estimator's sampling distribution: how much the estimate would vary across repeated samples from the same population. Simulating many samples and taking the SD of the estimates approximates it directly. Part 2: 'Bias' is the gap between the mean of the estimates and the truth, not their spread. 'Variance' is the square of the standard error. 'Standard deviation of Y' describes the outcome variable, not the estimator. Part 3: Reading spread from a distribution of estimates is the core of analyzing variability through repeated simulations.",
+      "learning_objective": "Analyze the distribution and variability of estimates through repeated simulations.",
+      "keywords": ["standard error", "std error", "se", "sampling distribution"]
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Distribution of Simulated Estimates",
+      "question_text": "In a simulation with true effect beta = 1.5, how do you calculate the estimator's bias?",
+      "options": [
+        "A) The standard deviation of the estimates",
+        "B) The mean of all simulated estimates minus 1.5",
+        "C) The largest estimate minus the smallest estimate",
+        "D) The share of replications with p < 0.05"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Bias = E[beta-hat] - beta. In a simulation, E[beta-hat] is estimated by averaging the estimates across replications, so bias = mean(estimates) - 1.5. If the result is close to 0, the estimator is approximately unbiased. Part 2: A measures variability (the standard error), not systematic error. C is the range, which is sensitive to outliers and grows with the number of replications. D is the rejection rate, which equals power (or Type I error when the true effect is 0). Part 3: Separating bias (center) from variability (spread) is the first step in analyzing the distribution of estimates.",
+      "learning_objective": "Analyze the distribution and variability of estimates through repeated simulations.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Distribution of Simulated Estimates",
+      "question_text": "A simulation with true effect 2.0 and 1,000 replications gives a mean estimate of 2.30 and a standard deviation of 0.40 across replications. What are the bias and the RMSE (root mean squared error)?",
+      "options": [
+        "A) Bias = 0.30; RMSE = 0.70 (bias + SD)",
+        "B) Bias = 2.30; RMSE = 0.40",
+        "C) Bias = 0.30; RMSE = sqrt(0.30^2 + 0.40^2) = 0.50",
+        "D) Bias = -0.30; RMSE = 0.16"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Bias = 2.30 - 2.0 = 0.30. MSE = bias^2 + variance = 0.09 + 0.16 = 0.25, so RMSE = sqrt(0.25) = 0.50. Part 2: A adds bias and SD directly instead of combining them in quadrature. B confuses the mean estimate with the bias and ignores bias in the RMSE. D gets the sign of the bias wrong (the estimator overestimates) and reports the variance instead of the RMSE. Part 3: RMSE summarizes both systematic and random error, so it is the standard metric for comparing estimators across repeated simulations.",
+      "learning_objective": "Analyze the distribution and variability of estimates through repeated simulations.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Distribution of Simulated Estimates",
+      "question_text": "You estimate power by running 1,000 simulated datasets and find that 80% of them give p < 0.05. Roughly how much would this 80% estimate move just from Monte Carlo noise, if you reran the whole simulation with a different seed (95% margin of error)?",
+      "options": [
+        "A) About +/- 2.5 percentage points, because SE = sqrt(0.8 * 0.2 / 1000) = 0.0126 and 1.96 * 0.0126 = 0.025",
+        "B) About +/- 0.1 percentage points, because 1,000 runs is effectively exact",
+        "C) About +/- 8 percentage points, because SE = 0.8 / sqrt(100)",
+        "D) About +/- 25 percentage points, because power is always unstable"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The simulated power is a proportion, so its Monte Carlo standard error is sqrt(p(1 - p) / R) with R replications: sqrt(0.16 / 1000) = 0.0126, giving a 95% margin of about +/- 2.5 percentage points. Results from 77.5% to 82.5% are therefore consistent with each other. Part 2: B ignores Monte Carlo error. C uses the wrong formula and the wrong number of replications. D greatly exaggerates the noise. Part 3: Simulated quantities are estimates too, so analyzing their variability tells you how many replications you need. Going from 1,000 to 10,000 runs cuts the margin to about +/- 0.8 points.",
+      "learning_objective": "Analyze the distribution and variability of estimates through repeated simulations.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Distribution of Simulated Estimates",
+      "question_text": "True or False: In a simulation of OLS, if the standard deviation of the coefficient estimates is 0.20 with n = 500 observations per dataset, increasing to n = 2,000 should cut it to about 0.10.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The standard error of OLS (and of most standard estimators) scales with 1/sqrt(n). Multiplying n by 4 divides the SE by sqrt(4) = 2, so 0.20 becomes about 0.10. Part 2: Answering False usually means expecting the SE to fall in proportion to n (which would give 0.05) or not to change at all. Sample size reduces variance, not bias. Part 3: Checking the 1/sqrt(n) rule across simulated sample sizes is a practical way to analyze variability, and it is the basis of power analysis.",
+      "learning_objective": "Analyze the distribution and variability of estimates through repeated simulations.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Distribution of Simulated Estimates",
+      "question_text": "A credit-risk analyst has 3,000 real loan applications and wants a standard error for the MEDIAN income of approved applicants. There is no simple textbook formula she trusts for this skewed data. Which plan is best?",
+      "options": [
+        "A) Use the formula sigma / sqrt(n) for the mean and report it as the SE of the median",
+        "B) Draw 3,000 new incomes from a normal distribution and compute their median once",
+        "C) Split the data into two halves and report the difference between the two medians as the SE",
+        "D) Bootstrap: resample the 3,000 rows with replacement (keeping n = 3,000), compute the median of approved applicants in each resample, repeat about 2,000 times, and use the SD of those medians as the SE (and their 2.5th and 97.5th percentiles as a 95% CI)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The bootstrap treats the sample as a stand-in for the population. Resampling with replacement mimics drawing new samples, so the spread of the recomputed statistic approximates its sampling distribution, even for statistics like the median that lack simple formulas. Part 2: A uses the SE formula for the mean, which differs from the median's, especially with skewed data. B invents a normal distribution that does not match skewed incomes and computes the median only once, so there is no distribution to measure. C uses a single split, which gives an unstable and wrongly scaled measure of spread. Part 3: The bootstrap is repeated simulation applied to real data, and it is the main practical tool for estimating standard errors from data.",
+      "learning_objective": "Analyze the distribution and variability of estimates through repeated simulations.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Building Data from DAGs",
+      "question_text": "What does it mean that a causal diagram is a directed ACYCLIC graph (DAG)?",
+      "options": [
+        "A) Every variable must cause every other variable",
+        "B) Arrows may point in both directions between two variables",
+        "C) The graph must contain at least one feedback loop, such as X -> Y -> X",
+        "D) Arrows show the direction of causation, and you can never follow arrows from a variable back to itself, so there are no causal loops"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: 'Directed' means each arrow has a direction (cause -> effect). 'Acyclic' means there is no path that leads from a variable back to itself. That is why variables can be put in a causal order and simulated one after another. Part 2: A describes a fully connected graph, which is not required. B describes bidirected edges, which a DAG does not allow. C is the opposite of acyclic; feedback over time must be represented as separate time-indexed nodes (X_t -> Y_t -> X_t+1). Part 3: Acyclicity is what makes it possible to build simulated data from a DAG step by step.",
+      "learning_objective": "Construct data using directed acyclic graphs (DAGs) to model relationships and dependencies.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Building Data from DAGs",
+      "question_text": "True or False: When simulating data from a DAG, you should generate variables in causal order, parents before children. Each variable is created as a function of its parents plus its own random noise.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. In a DAG W -> X -> Y with W -> Y, you first draw W, then X = f(W) + noise, then Y = g(X, W) + noise. Every variable needs its causes to exist before it can be computed. Part 2: Generating a child before its parent (e.g., Y before W) cannot build in the arrow W -> Y, and leaving out the noise term makes the relationships deterministic and unrealistic. Part 3: This is the basic rule for constructing data from a DAG.",
+      "learning_objective": "Construct data using directed acyclic graphs (DAGs) to model relationships and dependencies.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Building Data from DAGs",
+      "question_text": "Which DAG does this code represent?\n`W = np.random.normal(0, 1, n)`\n`X = 2 * W + np.random.normal(0, 1, n)`\n`Y = 3 * X + 1.5 * W + np.random.normal(0, 1, n)`",
+      "options": [
+        "A) W -> X, W -> Y, X -> Y (W is a confounder of the X -> Y effect)",
+        "B) X -> W -> Y (W is a mediator)",
+        "C) X -> W <- Y (W is a collider)",
+        "D) X -> Y only; W is unrelated to both"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: W appears on the right-hand side of both X and Y, so it causes both. X appears on the right-hand side of Y, so X -> Y. This makes W a confounder that opens the back door X <- W -> Y. Part 2: B would need W to be computed from X. C would need W to be computed from both X and Y. D ignores the 2*W and 1.5*W terms. Part 3: Reading the DAG from simulation code, and writing code from a DAG, are two sides of the same skill.",
+      "learning_objective": "Construct data using directed acyclic graphs (DAGs) to model relationships and dependencies.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Building Data from DAGs",
+      "question_text": "Using the same code (W ~ N(0,1); X = 2W + e; Y = 3X + 1.5W + e, all noise N(0,1)), what slope do you get, in large samples, from regressing Y on X ALONE?",
+      "options": [
+        "A) 3.0, the true effect, because OLS is unbiased",
+        "B) 1.5, the effect of W",
+        "C) 3.6, because Var(X) = 4 + 1 = 5 and Cov(X, Y) = 3 * 5 + 1.5 * 2 = 18, so the slope = 18 / 5 = 3.6",
+        "D) 4.5, the sum of the two coefficients"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The OLS slope is Cov(X, Y) / Var(X). Var(X) = 2^2 * 1 + 1 = 5 and Cov(X, W) = 2, so Cov(X, Y) = 3 * Var(X) + 1.5 * Cov(X, W) = 15 + 3 = 18, giving 18 / 5 = 3.6. A simulation with 1,000,000 rows confirms 3.60. The extra 0.6 is omitted-variable bias from leaving out W. Part 2: A ignores the open back door through W. B and D just add or pick coefficients without using the covariance structure. Adding W to the regression brings the estimate back to 3.0. Part 3: Building data from a DAG lets you see confounding bias directly and check that controlling for the confounder removes it.",
+      "learning_objective": "Construct data using directed acyclic graphs (DAGs) to model relationships and dependencies.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Building Data from DAGs",
+      "question_text": "You simulate X ~ N(0,1) and Y ~ N(0,1) independently, so the true effect of X on Y is 0, and then C = X + Y + N(0,1). In large samples, what coefficient on X do you get from regressing Y on X AND C?",
+      "options": [
+        "A) 0, because X has no effect on Y",
+        "B) -0.5, because controlling for the collider C opens the path X -> C <- Y and creates a spurious negative association",
+        "C) +0.5, because C transmits a positive effect from X to Y",
+        "D) 1.0, because C contains X with coefficient 1"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Solving the normal equations with Var(X) = 1, Var(C) = 3, Cov(X, C) = 1, Cov(Y, X) = 0, and Cov(Y, C) = 1 gives a coefficient of -0.5 on X (and +0.5 on C); a 1,000,000-row simulation confirms -0.50. Among units with the same C, a higher X must be offset by a lower Y. Part 2: A is the correct answer only if you do NOT control for C. C gets the sign wrong; C is an effect of Y, not a channel from X to Y. D confuses how C is built with the regression coefficient. Part 3: Simulating from a DAG is the clearest way to show that controlling for a collider creates bias, the same lesson as the bike-trail example from Week 5.",
+      "learning_objective": "Construct data using directed acyclic graphs (DAGs) to model relationships and dependencies.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Building Data from DAGs",
+      "question_text": "A retailer's DAG is: Season (Q) -> Ad spend (A), Season (Q) -> Sales (S), Ad spend (A) -> Website visits (M) -> Sales (S). You simulate data from this DAG to check your analysis plan. Which regression recovers the TOTAL causal effect of ad spend on sales?",
+      "options": [
+        "A) Regress S on A and Q, which closes the back door A <- Q -> S and leaves the causal path through M open",
+        "B) Regress S on A, Q, and M, controlling for everything available",
+        "C) Regress S on A alone, because simple regressions are unbiased",
+        "D) Regress S on M alone, because visits are the direct cause of sales"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The total effect includes the path through the mediator (A -> M -> S), so you must not block it, but you must close the confounding back door through season (Q). Controlling for Q only does both. In the simulation, the estimate should match the product of the coefficients you set on A -> M and M -> S. Part 2: B controls for the mediator M, which removes the indirect effect and leaves only the direct effect (zero in this DAG). C leaves the back door through Q open, so seasonal confounding biases the estimate. D estimates the effect of M, not of A. Part 3: Building data from a DAG lets you check, before touching real data, that your choice of control variables gives the effect you actually want.",
+      "learning_objective": "Construct data using directed acyclic graphs (DAGs) to model relationships and dependencies.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Assumptions and Estimator Accuracy",
+      "question_text": "Which assumption, if violated, makes the OLS coefficient on X BIASED, not just its standard error wrong?",
+      "options": [
+        "A) Errors are normally distributed",
+        "B) Errors have constant variance (homoskedasticity)",
+        "C) Exogeneity: the error term is unrelated to X (E[e | X] = 0), meaning no omitted confounder, no reverse causality, and no classical measurement error in X",
+        "D) The sample size is greater than 30"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: OLS is unbiased when the error is mean-independent of X. Omitted confounders, reverse causality, and measurement error in X all violate this and shift the coefficient away from the truth. Part 2: A (non-normality) matters mainly for small-sample inference, not for bias. B (heteroskedasticity) makes the default SEs wrong but leaves the coefficient unbiased. D is a rule of thumb for normal approximations, not a condition for unbiasedness. Part 3: Knowing which assumptions affect bias and which affect only inference is the starting point for evaluating how assumptions change an estimator's accuracy.",
+      "learning_objective": "Evaluate the impact of different assumptions on the accuracy of statistical estimators.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Assumptions and Estimator Accuracy",
+      "question_text": "True or False: If you simulate Y = 2X + e where the spread of e grows with X (heteroskedasticity), the average OLS coefficient across 1,000 simulations will be clearly different from 2.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Heteroskedasticity does not violate exogeneity, so the OLS coefficients still average about 2. What goes wrong is the default (homoskedastic) standard error, which no longer matches the true spread of the estimates. Part 2: Answering True confuses an inference problem (wrong SEs, wrong p-values) with a bias problem. Part 3: A simulation separates these two effects clearly: the mean of the estimates tests bias, and comparing their SD with the reported SE tests whether inference is valid.",
+      "learning_objective": "Evaluate the impact of different assumptions on the accuracy of statistical estimators.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Assumptions and Estimator Accuracy",
+      "question_text": "You simulate X_true ~ N(0, 1) and Y = 2 * X_true + N(0, 1), but your regression only sees X_measured = X_true + N(0, 1) (classical measurement error with the same variance as X_true). In large samples, what is the OLS coefficient of Y on X_measured?",
+      "options": [
+        "A) 2.0, because measurement error averages out",
+        "B) 4.0, because noise inflates the coefficient",
+        "C) 0, because noisy data has no signal",
+        "D) About 1.0, because the reliability ratio Var(X_true) / Var(X_measured) = 1 / 2 shrinks the coefficient toward zero: 2 * 0.5 = 1.0"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Classical measurement error in X causes attenuation bias. The estimate converges to beta * Var(X_true) / (Var(X_true) + Var(u)) = 2 * 1 / 2 = 1.0, and a simulation with 1,000,000 rows confirms 1.00. Part 2: A would hold only for measurement error in Y, which adds noise but no bias. B gets the direction wrong, since classical error pulls the coefficient toward zero. C goes too far, because half of the signal remains. Part 3: This shows how one violated assumption (X measured without error) changes the estimator's accuracy by a predictable amount that a simulation can confirm.",
+      "learning_objective": "Evaluate the impact of different assumptions on the accuracy of statistical estimators.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Assumptions and Estimator Accuracy",
+      "question_text": "In a simulation with strongly heteroskedastic errors, the 95% confidence intervals built from default OLS standard errors contain the true coefficient in only 88% of 2,000 replications. What does this show, and what should you do?",
+      "options": [
+        "A) The coefficient is biased, so you should drop the observations with the largest X",
+        "B) The default SEs are too small, so the intervals are too narrow and false positives are more common than 5%. Switch to heteroskedasticity-robust (HC1/HC3) standard errors and rerun to check that coverage returns to about 95%",
+        "C) 88% is close enough to 95%, so no action is needed",
+        "D) Increase the confidence level to 99% so the problem goes away"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Coverage below the nominal 95% means the SEs understate the true sampling variability. The fix is robust SEs (e.g., statsmodels `cov_type='HC3'`), and the check is to rerun the simulation and confirm coverage is near 95%. With 2,000 replications, 88% is far outside the Monte Carlo margin of about +/- 1 point. Part 2: A misdiagnoses bias and throws away data. C ignores a rejection rate more than twice the intended 5%. D hides the problem instead of fixing the SEs. Part 3: Checking coverage across simulations is a direct way to evaluate how an assumption affects the accuracy of inference.",
+      "learning_objective": "Evaluate the impact of different assumptions on the accuracy of statistical estimators.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Assumptions and Estimator Accuracy",
+      "question_text": "A fraud-analytics team estimates the effect of a new two-factor authentication prompt (D) on fraud losses (Y) with OLS, controlling for account age and transaction size. They assume there is no unmeasured confounding, but they suspect an unobserved 'customer sophistication' variable U affects both who gets the prompt and fraud losses. Design a simulation-based sensitivity analysis that shows how wrong their estimate could be.",
+      "options": null,
+      "correct_answer": "Build a DGP with true effect -50 dollars: U ~ N(0, 1); account age and transaction size from realistic distributions; D = 1 if 0.5*age_z + gamma*U + N(0, 1) > 0; Y = 200 - 50*D + 30*size_z - delta*U + N(0, 40). Vary the confounding strength on a grid, gamma and delta in {0, 0.25, 0.5, 1.0} (in SD units). Run 1,000 replications per grid cell with n set to the team's real sample size. In each replication, fit the team's actual OLS model (Y on D, age, size, leaving out U) and record the D coefficient. Report bias (mean estimate + 50), RMSE, and 95% CI coverage for each cell, shown as a heat map of bias over gamma x delta. Conclusion rule: find the smallest (gamma, delta) at which the estimate's sign flips or the CI stops covering -50, and judge whether that much confounding is plausible. If it is, add a proxy for U (e.g., device type or history of using security features) or use a design such as a randomized rollout.",
+      "explanation": "Part 1: A strong answer (a) places the suspected unobserved confounder in a DGP with a known true effect, (b) varies its strength on both arrows (U -> D and U -> Y), (c) fits the team's exact model in every replication, (d) reports bias, RMSE, and coverage across the grid, and (e) turns the result into a decision such as adding a proxy or randomizing. Part 2: Answers that just say 'there may be bias' without varying confounding strength, or that include U in the regression (which the team cannot do), do not test the actual assumption. Part 3: This is exactly the task of evaluating how a key assumption, here no unmeasured confounding, affects an estimator's accuracy.",
+      "learning_objective": "Evaluate the impact of different assumptions on the accuracy of statistical estimators.",
+      "keywords": ["unobserved confounder", "sensitivity", "bias", "coverage", "grid", "replications"]
+    },
+    {
+      "number": 24,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Assumptions and Estimator Accuracy",
+      "question_text": "A simulation compares two estimators of a marketing-campaign lift (true value = 1.0) over 1,000 replications. Estimator A: mean 1.00, SD 0.50. Estimator B: mean 1.10, SD 0.20. The business wants the single most accurate point estimate for budget planning. Which conclusion is correct?",
+      "options": [
+        "A) Choose A, because an unbiased estimator is always more accurate",
+        "B) The two are equally accurate, because their means differ by only 0.10",
+        "C) Choose B, because its RMSE = sqrt(0.10^2 + 0.20^2) = 0.22 is less than half of A's RMSE = 0.50, even though B has a small bias",
+        "D) Neither can be judged without real data"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: For point-estimate accuracy, RMSE combines bias and variance. B's small bias (0.10) is more than offset by its much lower variability, giving an RMSE of 0.22 versus 0.50. This is the bias-variance tradeoff in estimator choice. Part 2: A treats unbiasedness as the only criterion, but an unbiased estimator with high variance can be far off in any single sample. B ignores the large difference in spread. D is wrong because the point of the simulation is that the true value is known, so accuracy can be measured. Part 3: Evaluating estimators under the assumptions you simulated means comparing bias, variance, and RMSE, not looking at bias alone.",
+      "learning_objective": "Evaluate the impact of different assumptions on the accuracy of statistical estimators.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Power Analysis",
+      "question_text": "What is statistical power?",
+      "options": [
+        "A) The probability of rejecting the null hypothesis when the true effect is not zero (power = 1 - beta, where beta is the Type II error rate)",
+        "B) The probability that the null hypothesis is true",
+        "C) The probability of rejecting the null hypothesis when it is true (alpha)",
+        "D) The size of the estimated coefficient"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Power is the chance that a study detects an effect that really exists, i.e., gets p < alpha when H1 is true. The usual target is 80%, which means a 20% risk of a false negative. Part 2: B is a Bayesian posterior probability, which a frequentist test does not give. C is the significance level (the Type I error rate). D is the effect size, one input to power but not power itself. Part 3: A precise definition is needed before you can perform power analysis to choose a sample size.",
+      "learning_objective": "Perform power analysis to determine the sample size required for detecting significant effects in regression models.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Power Analysis",
+      "question_text": "True or False: Lowering the significance level from alpha = 0.05 to alpha = 0.01, with the same sample size and effect size, increases a test's power.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. A stricter alpha raises the bar for rejecting H0, so fewer true effects reach significance and power falls. With alpha = 0.01 you need a larger sample to keep 80% power. Part 2: Answering True confuses reducing false positives (which a lower alpha does) with detecting more true effects (which it does not). Part 3: Alpha, effect size, noise (variance), and sample size are the four inputs to power analysis, and changing any one of them changes the required n.",
+      "learning_objective": "Perform power analysis to determine the sample size required for detecting significant effects in regression models.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Power Analysis",
+      "question_text": "Which procedure correctly estimates, by simulation, the power of a regression to detect a treatment effect of 0.2 with n = 500?",
+      "options": [
+        "A) Fit the regression once on real data and report 1 - p-value as the power",
+        "B) Simulate data with a true effect of 0 and count how often p < 0.05",
+        "C) Simulate 1,000 datasets with n = 500 and report the average coefficient",
+        "D) Simulate 1,000 datasets of n = 500 with a true effect of 0.2 (and realistic noise and covariates), fit the regression to each, record whether the treatment p-value is below 0.05, and report the share of datasets where it is"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Simulated power is the rejection rate under the alternative: build in the effect you want to detect, repeat the full analysis many times, and count how often it is significant. Part 2: A misreads a p-value as power. B estimates the Type I error rate (which should be about 5%), not power. C measures bias, not how often the effect is detected. Part 3: This is the simulation-based power analysis used in the Week 9 coding quiz, and it works even for regressions too complex for closed-form power formulas.",
+      "learning_objective": "Perform power analysis to determine the sample size required for detecting significant effects in regression models.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Power Analysis",
+      "question_text": "An A/B test compares average order value between two groups using a regression of Y on a treatment dummy. The outcome has standard deviation sigma = 10 dollars, the minimum effect worth detecting is delta = 5 dollars, alpha = 0.05 (two-sided), and target power = 80%. Using n per group = 2 * (z_0.975 + z_0.80)^2 * sigma^2 / delta^2, with z_0.975 = 1.96 and z_0.80 = 0.84, how many observations per group are needed? Round up to a whole number.",
+      "options": null,
+      "correct_answer": "63",
+      "explanation": "Part 1: n = 2 * (1.96 + 0.84)^2 * 10^2 / 5^2 = 2 * 7.84 * 100 / 25 = 62.72, which rounds up to 63 per group (126 in total). Part 2: Common mistakes are leaving out the factor 2 (31 per group), squaring the z-values separately instead of their sum, or using sigma / delta without squaring it. Rounding down to 62 falls just short of 80% power. Part 3: This closed-form result is the benchmark that a simulation-based power analysis should roughly match for a simple two-group regression.",
+      "learning_objective": "Perform power analysis to determine the sample size required for detecting significant effects in regression models.",
+      "keywords": ["63", "62.72", "1.96", "0.84", "per group"]
+    },
+    {
+      "number": 29,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Power Analysis",
+      "question_text": "A simulation shows that with n = 1,000, a regression detects an effect of 0.50 with 80% power. A stakeholder now wants 80% power to detect an effect of 0.25, half as large, with everything else unchanged. About how large must n be?",
+      "options": [
+        "A) About 2,000, because halving the effect doubles the required sample",
+        "B) About 4,000, because the SE scales with 1/sqrt(n): halving the detectable effect requires halving the SE, which requires 4 times the sample",
+        "C) About 1,414, because n scales with sqrt(2)",
+        "D) About 8,000, because power is cubic in sample size"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Power depends on effect / SE. To keep the same power with half the effect, the SE must also halve, and since SE is proportional to 1/sqrt(n), n must go up by a factor of 4, to about 4,000. Rerunning the simulation at n = 4,000 should confirm power of about 80%. Part 2: A assumes SE scales with 1/n. C confuses which quantity is square-rooted. D has no basis. Part 3: The 'quarter the effect size needs 16 times the n' intuition is a key result of power analysis and explains why detecting small effects is expensive.",
+      "learning_objective": "Perform power analysis to determine the sample size required for detecting significant effects in regression models.",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Power Analysis",
+      "question_text": "A health-insurance company plans a study of whether a wellness-app subsidy (randomized, D) reduces annual claims (Y, highly right-skewed), controlling for age and prior-year claims in a regression. Leadership asks: 'How many members do we need to detect a $150 reduction?' Describe a simulation-based power analysis that answers this, including how you would use the covariates, and give the decision rule.",
+      "options": null,
+      "correct_answer": "(1) Build the DGP from last year's data: draw age and prior-year claims by resampling real member records (bootstrap rows) so the skewed claims distribution is preserved; assign D at random with probability 0.5; generate Y = baseline claims model fitted on historical data + (-150)*D + residuals resampled from that model. (2) For each candidate n in {2,000, 4,000, 6,000, 8,000, 10,000}, run 1,000 replications: fit OLS of Y on D, age, and prior_claims with robust (HC3) SEs, and record whether the p-value on D is below 0.05. (3) Plot power against n and pick the smallest n with power of at least 80%, then add about 10% for attrition. (4) Also run the analysis without covariates to show how much prior-year claims, a strong predictor of Y, reduce residual variance and therefore the required n. (5) Check Type I error by rerunning with effect = 0 and confirming the rejection rate is about 5%.",
+      "explanation": "Part 1: A strong answer (a) builds a realistic DGP, using resampling so the skewed claims are not replaced by a normal assumption, (b) builds in the target effect (-$150), (c) fits the exact planned regression with robust SEs in each replication, (d) sweeps over n to find where power reaches 80%, and (e) checks both the benefit of covariates and the Type I error rate. Part 2: Answers that apply a normal-theory formula to heavily skewed claims, ignore the covariates (giving too large an n), or report the average coefficient instead of the rejection rate miss what power analysis is for. Part 3: This is a full power analysis to choose a sample size for a regression model, turned into a clear recommendation for leadership.",
+      "learning_objective": "Perform power analysis to determine the sample size required for detecting significant effects in regression models.",
+      "keywords": ["power", "replications", "sample size", "p-value", "covariates", "80%"]
+    }
+  ]
+}

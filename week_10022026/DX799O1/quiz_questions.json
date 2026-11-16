@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 6 - Data Quality, Data Integration, Decision Trees & Random Forests",
+    "description": "A master's-level capstone quiz on evaluating data quality before modeling (the CDC dimensions: completeness, validity, accuracy, consistency, representativeness), integrating multi-source datasets and documenting unmatched or missing records, making defensible cleaning decisions (leakage, duplicates, undocumented codes, outcome definition), controlling decision-tree complexity (depth, cost-complexity pruning, Gini), and explaining how randomness makes random forests more accurate (bootstrap, feature subsampling, OOB, interpretability trade-offs).",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Data Quality Dimensions",
+      "question_text": "The CDC framework (El Burai Felix et al., 2024) evaluates health data on attributes such as completeness, validity, accuracy, consistency, and representativeness. What does COMPLETENESS measure?",
+      "options": [
+        "A) Whether values fall inside allowed ranges and formats",
+        "B) The share of expected records and fields that are actually present, for example how many counties have a non-missing uninsured rate, and which columns are mostly empty",
+        "C) Whether the values match the real-world truth",
+        "D) Whether the sample reflects the target population"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Completeness is about presence: missing rows (counties absent from a file) and missing cells (null fields). In the Week 6 audit, `id`, `url`, and `member_id` were 100% empty, and 44 columns were more than 50% missing, which is a completeness finding. Part 2: A is validity, C is accuracy, and D is representativeness. These are related but separate dimensions. Part 3: Naming each dimension precisely is the first step in a documented data-quality evaluation.",
+      "learning_objective": "Evaluate data quality before modeling using standard dimensions (completeness, validity, accuracy, consistency, representativeness)",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data Quality Dimensions",
+      "question_text": "True or False: If a dataset is 100% complete (no missing values), it can be assumed to be accurate and valid as well.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. A fully populated column can still hold impossible values (validity), such as `dti` < 0 or `revol_util` > 100% in Lending Club, or wrong values (accuracy), such as a county's population entered from the wrong year. Undocumented codes like EDUCATION = 0/5/6 in the Taiwan data were 'complete' but not valid categories. Part 2: Answering True treats one dimension as a proxy for all of them; each dimension needs its own check. Part 3: Evaluating data quality means checking every dimension separately.",
+      "learning_objective": "Evaluate data quality before modeling using standard dimensions (completeness, validity, accuracy, consistency, representativeness)",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Quality Dimensions",
+      "question_text": "In a county health file, one record lists median age = 214, and another lists a hospital-bed rate of -3 per 1,000. Which data-quality dimension do these most directly violate?",
+      "options": [
+        "A) Representativeness",
+        "B) Timeliness",
+        "C) Validity: the values fall outside the possible or allowed range, so they fail rule-based checks such as 0 <= age <= 120 and rate >= 0",
+        "D) Consistency across sources"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Validity checks whether values follow their domain rules (ranges, formats, allowed codes). Range checks catch these errors without any outside reference. Accuracy, in contrast, needs a trusted source to compare against. Part 2: A concerns who is covered. B concerns how current the data are. D concerns agreement between sources or definitions; none of these is the main problem here. Part 3: Classifying an error correctly tells you which check and which fix to apply.",
+      "learning_objective": "Evaluate data quality before modeling using standard dimensions (completeness, validity, accuracy, consistency, representativeness)",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data Quality Dimensions",
+      "question_text": "Dataset 1 defines 'uninsured' as adults aged 18-64 without coverage, while Dataset 2 counts all ages. Both report percentages per county. Which dimension is the concern, and what should you do?",
+      "options": [
+        "A) Consistency (comparability of definitions): the metrics measure different populations, so you should not mix or compare them directly. Pick one definition, document it, and, if needed, harmonize by recomputing from age-specific counts",
+        "B) Completeness; impute the missing ages",
+        "C) Validity; delete counties above 20%",
+        "D) No concern, because both are percentages"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Consistency asks whether the same concept is defined, coded, and measured the same way across sources and over time. Two 'uninsured %' columns with different denominators look comparable but are not, and combining them would bias any analysis of access. Part 2: B and C apply fixes for other dimensions. D falls for surface similarity, since matching units do not mean matching definitions. Part 3: Checking that metrics are comparable is exactly the concern raised in the capstone post about integrating county datasets.",
+      "learning_objective": "Evaluate data quality before modeling using standard dimensions (completeness, validity, accuracy, consistency, representativeness)",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Data Quality Dimensions",
+      "question_text": "The data-quality dimension that asks whether the records in a dataset reflect the target population, for example whether rural counties are under-covered compared with the nation, is called ___.",
+      "options": null,
+      "correct_answer": "Representativeness",
+      "explanation": "Part 1: Representativeness asks whether the data cover the population the conclusions are meant to apply to. If small rural counties drop out because of suppression or failed merges, national conclusions about social vulnerability and access would be biased toward urban patterns. Part 2: Completeness counts missing items but does not ask WHICH units are missing. Validity and accuracy concern the correctness of values. Part 3: Representativeness links data quality directly to how far the findings can be generalized.",
+      "learning_objective": "Evaluate data quality before modeling using standard dimensions (completeness, validity, accuracy, consistency, representativeness)",
+      "keywords": ["representativeness", "representative", "coverage", "population"]
+    },
+    {
+      "number": 6,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Data Quality Dimensions",
+      "question_text": "A capstone team finds that 6% of counties have a suppressed (missing) hospital-access value, and almost all of them have populations under 10,000. The team plans to drop them and report national results. What is the best evaluation and plan?",
+      "options": [
+        "A) Dropping 6% is always acceptable, so proceed",
+        "B) Replace the missing values with 0, since small counties have no hospitals",
+        "C) Fill in the national mean and do not mention it",
+        "D) The data are not missing at random: suppression depends on population size, so dropping these counties hurts REPRESENTATIVENESS and biases the results toward larger counties. Report the missingness by county size and rurality, compare the characteristics of dropped and kept counties, run a sensitivity analysis (e.g., multiple imputation or a rural-only analysis), and state the limitation"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: When missingness is tied to a characteristic (small population), the remaining sample differs systematically from the target. Transparent reporting plus sensitivity checks lets readers judge the impact, which is what the CDC framework and the capstone post call for. Part 2: A ignores the pattern behind the missingness. B invents values and confuses suppression with zero. C hides the problem and shrinks the true variation. Part 3: Combining the completeness and representativeness dimensions into a documented decision is the advanced use of this objective.",
+      "learning_objective": "Evaluate data quality before modeling using standard dimensions (completeness, validity, accuracy, consistency, representativeness)",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Integrating Multi-Source Data",
+      "question_text": "When merging two U.S. county-level datasets (e.g., CDC SVI and an AHRF healthcare-access file), what is the most reliable join key?",
+      "options": [
+        "A) The 5-digit county FIPS code, stored as a zero-padded STRING (e.g., '01001'), because names vary ('St. Louis' vs 'Saint Louis', duplicate names across states) while FIPS codes are unique standard identifiers",
+        "B) County name only",
+        "C) The row number in each file",
+        "D) County population, rounded to the nearest thousand"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: FIPS codes uniquely identify counties nationwide. Storing them as strings keeps the leading zeros; reading them as integers turns '01001' into 1001 and breaks matches for states like Alabama. Part 2: B fails on spelling differences and on duplicate names, since many states have a 'Washington County'. C assumes the same row order in both files. D is neither unique nor stable. Part 3: Choosing a correct, consistently formatted key is the first check when combining datasets.",
+      "learning_objective": "Integrate datasets from multiple sources and document unmatched or missing records",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Integrating Multi-Source Data",
+      "question_text": "True or False: An inner join silently drops records that have no match in the other table, so you should count unmatched records on each side (e.g., with an outer join and an indicator column) before deciding how to merge.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. An inner join keeps only matching keys, so unmatched counties vanish without any warning. Using `pd.merge(..., how='outer', indicator=True)` and counting `left_only`, `right_only`, and `both` makes the losses visible and lets you check why they happen (FIPS changes, territories, formatting). Part 2: Answering False assumes merges are lossless; that is exactly how analyses lose rural or recently re-coded counties without anyone noticing. Part 3: Making unmatched records visible is the basis for documenting them.",
+      "learning_objective": "Integrate datasets from multiple sources and document unmatched or missing records",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Integrating Multi-Source Data",
+      "question_text": "Your SVI file is from 2020 and your healthcare-access file is from 2023. Connecticut replaced its 8 counties with 9 planning regions (new FIPS codes) in 2022. What problem does this create, and how should you handle it?",
+      "options": [
+        "A) No problem, because county codes never change",
+        "B) A TEMPORAL-scope mismatch: the Connecticut records will not match across the two vintages, and a mismatched time frame may change what is being compared. Use a crosswalk (or matching vintages), state the reference years, and document the affected records",
+        "C) Delete Connecticut and never mention it",
+        "D) Average the two years together"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Datasets from different years can disagree on geography (re-coded or merged counties) and on context (e.g., before and after the pandemic). Crosswalks or matched vintages fix the keys, and documenting the years makes the comparison honest. Part 2: A is factually wrong, since FIPS codes do change. C hides the loss. D mixes incompatible units and periods. Part 3: Checking the time frame of each source is a core integration step named in the capstone post.",
+      "learning_objective": "Integrate datasets from multiple sources and document unmatched or missing records",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Integrating Multi-Source Data",
+      "question_text": "You expect 3,143 rows after merging two county files, but the result has 3,410 rows. What is the most likely cause, and what is the fix?",
+      "options": [
+        "A) Pandas randomly adds rows during merges",
+        "B) The outer join added counties that do not exist",
+        "C) Duplicate keys: at least one file has more than one row per FIPS (e.g., multiple years or subgroups), so the merge multiplied rows (one-to-many or many-to-many). Check key uniqueness first, filter or aggregate to one row per county, and use `validate='one_to_one'` in `pd.merge` so it raises an error if the assumption fails",
+        "D) The CSV file is corrupted"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: When a key appears k times in one table and m times in the other, the merge produces k * m rows for it. Extra rows inflate the sample and double-count counties in later statistics. Asserting uniqueness and using `validate=` catch this early. Part 2: A is false. B would only add unmatched keys, not duplicates. D is unlikely and does not explain a systematic increase. Part 3: Checking the cardinality of a merge is a standard verification step when combining sources.",
+      "learning_objective": "Integrate datasets from multiple sources and document unmatched or missing records",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Integrating Multi-Source Data",
+      "question_text": "The SVI file has 3,143 counties. After an outer join with the access file, 3,050 SVI counties matched. What PERCENT of SVI counties are unmatched? Round to 2 decimal places and enter only the number (e.g., 4.25).",
+      "options": null,
+      "correct_answer": "2.96",
+      "explanation": "Part 1: Unmatched = 3,143 - 3,050 = 93 counties. 93 / 3,143 = 0.02959, which is 2.96%. Part 2: A common mistake is dividing by the matched count (93 / 3,050 = 3.05%) or reporting the match rate (97.04%) instead of the unmatched rate. Part 3: Reporting exact unmatched counts and rates, and then describing WHICH counties they are, is how readers can judge the impact of merge losses.",
+      "learning_objective": "Integrate datasets from multiple sources and document unmatched or missing records",
+      "keywords": ["93", "3143", "2.96", "unmatched"]
+    },
+    {
+      "number": 12,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Integrating Multi-Source Data",
+      "question_text": "You are writing the methods section of a capstone that links social vulnerability (SVI) to healthcare access across U.S. counties. 93 counties did not match, and 6% have suppressed access values. Describe concretely how you would RECORD and REPORT the unmatched and missing records so that readers can judge their impact on the results.",
+      "options": null,
+      "correct_answer": "(1) A data-flow (CONSORT-style) table or diagram: rows in each source, rows after each filter and merge, matched/left-only/right-only counts, and the final analytic sample. (2) A list of unmatched FIPS codes with the reason for each (e.g., Connecticut planning regions recoded in 2022, territories, formatting or leading-zero errors) saved as an appendix CSV. (3) A missingness table for each variable (count and %) broken down by state, rurality, and SVI quartile, showing whether the missingness is concentrated in particular groups. (4) A comparison of included and excluded counties on key traits (population, SVI score, rurality) to test whether the missingness is random. (5) Documentation of every decision (dropped, imputed with method, or recoded) in a cleaning log with code and versions of the source files. (6) A sensitivity analysis showing the main estimate under complete cases vs. multiple imputation, and with vs. without the affected states, plus a limitations paragraph stating the likely direction of any bias.",
+      "explanation": "Part 1: A strong answer gives counts at every step, explains WHY records were lost, shows WHO was lost (by subgroup), and shows whether it matters (sensitivity analysis), all with reproducible logs. Part 2: Answers that just say 'we removed missing data' or 'documented the issues' without tables, reasons, subgroup breakdowns, or sensitivity checks do not let readers judge the impact. Part 3: This directly answers the capstone prompt's documentation question and applies the CDC framework.",
+      "learning_objective": "Integrate datasets from multiple sources and document unmatched or missing records",
+      "keywords": ["flow diagram", "unmatched", "reason", "missingness table", "sensitivity analysis", "rural"]
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Cleaning: Leakage, Duplicates & Codes",
+      "question_text": "What is TARGET LEAKAGE in a predictive model?",
+      "options": [
+        "A) Losing rows during a merge",
+        "B) A model that uses too few features",
+        "C) Rows that appear twice in the data",
+        "D) Using a feature that would not be available at prediction time because it is recorded AFTER (or as a result of) the outcome, for example Lending Club's `recoveries` or `total_pymnt` when predicting default at loan origination. It inflates validation scores and fails in deployment"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Leakage hands the model part of the answer. `recoveries` > 0 only happens after a charge-off, so it nearly reveals the label. The test is simple: 'Would I know this value at the moment I make the prediction?' Part 2: A is a merge-loss problem. B is underfitting. C is duplication. All are real issues, but none of them is leakage. Part 3: Screening columns for leakage was an explicit step of the Week 6 audit before any trees were fit.",
+      "learning_objective": "Make and document data-cleaning decisions (leakage, duplicates, invalid codes, outcome definition) before modeling",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Cleaning: Leakage, Duplicates & Codes",
+      "question_text": "True or False: Undocumented category codes, such as EDUCATION = 0, 5, 6 in the Taiwan credit data, should be left as they are, because the model will learn whatever they mean.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Undocumented codes have no defined meaning, so a model would treat them as real groups and might learn artifacts. The Week 6 audit recoded the 345 EDUCATION 0/5/6 rows (and MARRIAGE = 0) into an 'other/unknown' category and documented the change. Part 2: Answering True confuses 'the model can fit it' with 'the result is meaningful'. Unexplained codes also make the results impossible to interpret or reproduce. Part 3: Explicit, logged recoding is part of defensible cleaning.",
+      "learning_objective": "Make and document data-cleaning decisions (leakage, duplicates, invalid codes, outcome definition) before modeling",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Cleaning: Leakage, Duplicates & Codes",
+      "question_text": "In the Lending Club data, the audit kept only CLOSED loans (Fully Paid, Charged Off, Default) and excluded 'Current' and late loans before modeling default. Why?",
+      "options": [
+        "A) The outcome of a current loan is not yet known (it is censored). Counting it as 'not defaulted' would mislabel loans that may still default and bias the default rate downward, so the outcome has to be defined only where it has been observed",
+        "B) To make the dataset smaller so that models run faster",
+        "C) Because current loans have missing interest rates",
+        "D) To increase the default rate artificially"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A label must reflect a finished outcome. Of the 2.26M loans, 919,695 were Current, and treating them as non-defaults would contaminate the 0 class, since some will charge off later. Restricting to the 1,303,638 closed loans gives a well-defined target. Part 2: B is a side effect, not the reason. C is false. D misstates the motivation: the goal is a correct label, not a particular rate. Part 3: Defining the outcome carefully is the most important cleaning decision for any supervised model.",
+      "learning_objective": "Make and document data-cleaning decisions (leakage, duplicates, invalid codes, outcome definition) before modeling",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Cleaning: Leakage, Duplicates & Codes",
+      "question_text": "The cleaned Lending Club sample has a 20.3% default rate. A model reports 79% accuracy. Why does the audit report the class balance before modeling?",
+      "options": [
+        "A) Class balance does not affect evaluation",
+        "B) It sets the BASELINE: predicting 'everyone repays' already scores about 79.7% accuracy, so 79% accuracy is WORSE than doing nothing. With imbalanced classes, use ROC-AUC or PR-AUC (random baseline about 0.203) and stratified splits instead",
+        "C) It shows that the model is excellent",
+        "D) Accuracy is always the best metric for credit risk"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The majority-class rate is the accuracy floor. Knowing the target balance determines which metrics are honest and why stratified 80/20 splits are needed, which kept 20.29% defaults in both train and test. Part 2: A and D ignore imbalance. C misreads a below-baseline score. Part 3: Profiling the target is a data-quality step that protects every later model comparison.",
+      "learning_objective": "Make and document data-cleaning decisions (leakage, duplicates, invalid codes, outcome definition) before modeling",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Cleaning: Leakage, Duplicates & Codes",
+      "question_text": "The Taiwan audit found no duplicate IDs but 35 duplicate profiles once the ID column was ignored. What is the right reasoning about these rows?",
+      "options": [
+        "A) IDs are unique, so there cannot be duplicates",
+        "B) Keep them all, because duplicates improve accuracy",
+        "C) Identical feature-and-label rows under different IDs are likely data-entry or extraction duplicates. If kept, one copy can land in the training set and another in the test set, which inflates the test scores. Drop them and document the count (35)",
+        "D) Duplicate the minority class to fix the imbalance"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Duplicate checks should be run on content, not just on keys. Duplicate rows split across train and test turn the test into a memory check and overstate performance. Dropping them and logging the count is the documented decision. Part 2: A trusts IDs blindly. B confuses repetition with information. D is a different, deliberate technique (oversampling) that should only be applied to training data. Part 3: Content-based duplicate detection is a standard pre-modeling check.",
+      "learning_objective": "Make and document data-cleaning decisions (leakage, duplicates, invalid codes, outcome definition) before modeling",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Cleaning: Leakage, Duplicates & Codes",
+      "question_text": "A teammate's first random forest on Lending Club scores a test AUC of 0.99. The feature list includes `int_rate`, `dti`, `grade`, `last_pymnt_amnt`, `total_rec_prncp`, and `recoveries`. What is the best diagnosis and next step?",
+      "options": [
+        "A) Celebrate; random forests are very powerful",
+        "B) Add more trees to confirm the score",
+        "C) Lower the max depth, because the AUC is too high",
+        "D) The score is suspicious and points to leakage: `last_pymnt_amnt`, `total_rec_prncp`, and `recoveries` record repayment history AFTER origination and nearly reveal the outcome. Remove all post-origination fields, keep only information available at application time (e.g., `int_rate`, `dti`, `grade`, `term`), refit, and expect a realistic AUC around 0.70"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Credit-default models at origination typically reach an AUC around 0.70 (Week 6 forest: 0.7047). A score of 0.99 almost always means the label has leaked in. Checking each feature's timing against the prediction moment exposes the culprits. Part 2: A trusts a too-good result. B and C change the model and leave the data problem in place. Part 3: Spotting leakage from model behavior and fixing it in the data is the advanced application of cleaning decisions.",
+      "learning_objective": "Make and document data-cleaning decisions (leakage, duplicates, invalid codes, outcome definition) before modeling",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Decision Trees: Complexity & Pruning",
+      "question_text": "A decision tree splits on the feature and threshold that most reduce Gini impurity, where Gini = 1 - sum(p_k^2). What is the Gini impurity of a node in which 100% of the loans are 'Fully Paid'?",
+      "options": [
+        "A) 0, because a pure node has 1 - 1^2 = 0, the minimum impurity",
+        "B) 0.5",
+        "C) 1",
+        "D) 0.25"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: With one class at p = 1, Gini = 1 - 1 = 0. A 50/50 binary node has the maximum Gini, 1 - (0.25 + 0.25) = 0.5. A node with 20% defaults has 1 - (0.04 + 0.64) = 0.32. Part 2: B is the maximum impurity for two classes. C is impossible for Gini. D is a miscalculation. Part 3: Gini is the criterion that decides every split in the Week 6 trees.",
+      "learning_objective": "Control decision-tree complexity with depth limits and cost-complexity pruning",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Decision Trees: Complexity & Pruning",
+      "question_text": "True or False: Decision trees do not require feature scaling, because each split compares a single feature with a threshold, so rescaling a feature only moves the threshold and leaves the partition unchanged.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. A split such as `int_rate <= 14.395%` produces the same partition whether the rate is stored as a percentage or as a z-score; only the threshold value changes. The Week 6 notebook kept the shared scaler only so that the pipelines stayed identical across models. Part 2: Answering False carries over the scaling needs of distance-based (KNN) or margin-based (SVM) models, which really do depend on scale. Part 3: This is a practical advantage of trees in mixed-unit health or credit data.",
+      "learning_objective": "Control decision-tree complexity with depth limits and cost-complexity pruning",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Decision Trees: Complexity & Pruning",
+      "question_text": "In the Week 6 depth sweep on Lending Club, the best tree (depth 5) had CV AUC 0.690 (train 0.701), while an UNLIMITED-depth tree had train AUC 1.000 but CV AUC 0.541. What does this show?",
+      "options": [
+        "A) The unlimited tree is the best model because it is perfect on the training data",
+        "B) The bias-variance trade-off: deep trees memorize the training data (low bias, very high variance), so they fail on new data, scoring barely above a coin flip (0.5). A moderate depth balances the two and gives the best out-of-sample AUC",
+        "C) Cross-validation is broken",
+        "D) Depth has no effect on tree performance"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: As depth grows, train AUC climbs toward 1 while CV AUC peaks and then falls (0.6645 at depth 9, 0.5930 at depth 15). The widening train-CV gap is the signature of overfitting. Part 2: A judges a model by its training fit. C has no basis, since the fold SDs were small and stable. D contradicts the curve. Part 3: Reading validation curves to choose model complexity is the central idea of this objective.",
+      "learning_objective": "Control decision-tree complexity with depth limits and cost-complexity pruning",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Decision Trees: Complexity & Pruning",
+      "question_text": "Cost-complexity pruning grows a large tree and then removes branches by minimizing R_alpha(T) = Error(T) + alpha * |leaves(T)|. What happens as `ccp_alpha` increases?",
+      "options": [
+        "A) The tree grows more leaves",
+        "B) Nothing changes, because alpha only affects random forests",
+        "C) Each leaf carries a larger penalty, so branches whose error reduction is not worth their extra leaves get pruned. The tree shrinks from almost unpruned (alpha = 1e-5, overfit) to a stump (alpha = 1e-2, underfit). CV chooses the middle; in Week 6, alpha = 2.5e-4 gave a 24-leaf tree with CV AUC 0.6907",
+        "D) The Gini criterion is replaced by entropy"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Alpha is the price of each leaf. A small alpha keeps nearly the full tree, and a large alpha collapses it. Cross-validating along the pruning path found compact trees (19-24 leaves) that matched or beat the best depth-limited trees (0.7675 vs 0.7594 on Taiwan), because pruning can keep a deep branch where it helps and cut it elsewhere. Part 2: A reverses the effect. B is false, since ccp_alpha is a tree parameter. D confuses pruning with the choice of split criterion. Part 3: Pruning is the second main tool for controlling tree complexity.",
+      "learning_objective": "Control decision-tree complexity with depth limits and cost-complexity pruning",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Decision Trees: Complexity & Pruning",
+      "question_text": "The Week 6 depth-3 tree for Lending Club splits first on `int_rate <= 14.395%`, and its riskiest leaf (high rate, 60-month term, renter) defaults at about 47%. Its test AUC (0.689) is a little below the random forest's (about 0.70). In 2-3 sentences, explain why a credit committee might still prefer this shallow tree.",
+      "options": null,
+      "correct_answer": "A depth-3 tree has at most 8 leaves, so it can be read as plain if/then RULES (e.g., rate > 14.4% AND 60-month term AND renter means about 47% default risk) that a committee can check, explain to regulators, and use to justify adverse-action decisions. Its AUC is only about 0.01 lower than the forest's, which is a small accuracy cost for full transparency, while a 300-tree forest is a black box that needs post-hoc tools (feature importance, SHAP) to explain.",
+      "explanation": "Part 1: A strong answer names interpretability (readable rules), regulatory or fairness explainability, and the small size of the accuracy gap. Part 2: Answers that claim the tree is more accurate, or that ignore the trade-off, miss the point. Part 3: Weighing interpretability against accuracy is a key judgment when choosing tree complexity.",
+      "learning_objective": "Control decision-tree complexity with depth limits and cost-complexity pruning",
+      "keywords": ["interpretable", "rules", "explain", "regulators", "accuracy", "black box"]
+    },
+    {
+      "number": 24,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Decision Trees: Complexity & Pruning",
+      "question_text": "Two analysts retrain the same unlimited-depth tree on two different bootstrap samples of the Taiwan data. The root split stays `PAY_1 <= 1.5`, but the lower splits and the predicted probabilities for many clients change a lot. What does this instability show, and what follows from it?",
+      "options": [
+        "A) The data must contain errors",
+        "B) The tree is underfitting",
+        "C) Gini is the wrong criterion; switch to entropy and the instability disappears",
+        "D) Deep trees have HIGH VARIANCE: small changes in the data change the greedy splits and push changes down every branch below. This is exactly the weakness that bagging and random forests target, since averaging many such trees cancels much of the variance while keeping their low bias"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Greedy, hierarchical splitting makes deep trees sensitive to small changes in the data, because one different split changes everything beneath it. Averaging B decorrelated trees reduces the variance, roughly to rho * sigma^2 + (1 - rho) * sigma^2 / B. Part 2: A and C misdiagnose a structural property of deep trees. B reverses it: these trees overfit. Part 3: This connects the limits of tree complexity to the reason ensembles exist.",
+      "learning_objective": "Control decision-tree complexity with depth limits and cost-complexity pruning",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Random Forests: Why Randomness Helps",
+      "question_text": "What are the two sources of randomness in a random forest?",
+      "options": [
+        "A) Random labels and random test sets",
+        "B) Each tree is trained on a BOOTSTRAP sample of the rows (sampling with replacement), and each split considers only a RANDOM SUBSET of the features (`max_features`, e.g., sqrt(p))",
+        "C) Random tree depths and random loss functions",
+        "D) Random feature scaling and random class weights"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Bootstrapping makes each tree see different data, and feature subsampling stops every tree from choosing the same dominant feature (e.g., `PAY_1`) at the top. Together, they make the trees DIFFERENT, so their errors partly cancel when averaged or voted. Part 2: A would destroy the learning signal. C and D are not how random forests work. Part 3: This is the 'why randomness makes the forest smarter' idea from the week's discussion.",
+      "learning_objective": "Explain how bootstrap and feature randomness make random forests more accurate, and weigh their trade-offs",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Random Forests: Why Randomness Helps",
+      "question_text": "True or False: Adding more trees (a larger `n_estimators`) makes a random forest overfit more, just as making one tree deeper does.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Each extra tree is another independent draw being averaged, so the forest's error levels off as B grows instead of rising. More trees reduce variance with diminishing returns; the cost is compute time. Overfitting in forests is controlled by per-tree settings such as `max_depth` and `min_samples_leaf`. Part 2: Answering True confuses ensemble size with model complexity. In Week 6, the most overfit forest (train 0.984 vs CV 0.697) was caused by unlimited depth with 5-row leaves, not by the number of trees. Part 3: Knowing which hyperparameter controls what is essential when tuning forests.",
+      "learning_objective": "Explain how bootstrap and feature randomness make random forests more accurate, and weigh their trade-offs",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Random Forests: Why Randomness Helps",
+      "question_text": "Each tree's bootstrap sample leaves out about 36.8% of the rows (since (1 - 1/n)^n -> e^-1). How does a random forest use these rows?",
+      "options": [
+        "A) As 'out-of-bag' (OOB) data: each row is predicted only by the trees that did not see it, giving a nearly free estimate of generalization performance that should be close to the CV score, as it was in Week 6",
+        "B) They are deleted permanently",
+        "C) They are used to train a second forest",
+        "D) They are added to the test set"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Every row is out-of-bag for roughly a third of the trees, so averaging those trees' predictions gives an honest held-out prediction for every row without a separate split. `oob_score=True` reports this. Part 2: B, C, and D misdescribe the procedure; the left-out rows are still used to train other trees. Part 3: OOB evaluation is a practical benefit of the bootstrap randomness in forests.",
+      "learning_objective": "Explain how bootstrap and feature randomness make random forests more accurate, and weigh their trade-offs",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Random Forests: Why Randomness Helps",
+      "question_text": "In the Taiwan data, `PAY_1` (latest repayment status) dominates: about 70% of clients who are 2 or more months late default. Why does a smaller `max_features` (e.g., sqrt(p) instead of all p features) often help a forest here?",
+      "options": [
+        "A) It makes each tree more accurate on its own",
+        "B) It removes `PAY_1` from the model",
+        "C) Without it, almost every tree would split on `PAY_1` first and the trees would be highly CORRELATED, so averaging would reduce little variance. Restricting the candidates forces some trees to use other features, which DECORRELATES the trees and lets the ensemble average out more error",
+        "D) It speeds up training only, with no effect on accuracy"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The variance of an average of correlated trees is rho * sigma^2 + (1 - rho) * sigma^2 / B. Lowering rho (correlation) matters more than adding trees. Feature subsampling lowers rho, at a small cost in each tree's own accuracy. Part 2: A reverses the effect, since each tree gets slightly weaker. B is false, because `PAY_1` still appears whenever it is drawn. D ignores the decorrelation benefit. Part 3: Decorrelation is the precise reason the randomness makes the forest smarter.",
+      "learning_objective": "Explain how bootstrap and feature randomness make random forests more accurate, and weigh their trade-offs",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Random Forests: Why Randomness Helps",
+      "question_text": "True or False: Impurity-based (Gini) feature importance from a random forest can favor continuous or high-cardinality features, so permutation importance on held-out data is a more reliable check before you tell stakeholders which features 'matter'.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Features with many possible split points get more chances to reduce impurity by chance, so mean-decrease-in-impurity scores can overrate them. Permutation importance measures how much held-out performance drops when a feature is shuffled, which is closer to its real predictive contribution. Neither measure shows causation. Part 2: Answering False takes the default importances at face value, a common mistake when explaining forests in healthcare or credit. Part 3: Explaining forests honestly is part of weighing their benefits against their opacity.",
+      "learning_objective": "Explain how bootstrap and feature randomness make random forests more accurate, and weigh their trade-offs",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Random Forests: Why Randomness Helps",
+      "question_text": "A hospital wants to predict 30-day readmission from county-linked patient data (SVI, access measures, clinical history). A random forest reaches AUC 0.78; logistic regression reaches 0.75; a depth-4 tree reaches 0.72. The clinical leads ask, 'Which model should we deploy, and how do we know the data supports it?' Write an analysis that covers data-quality and integration checks, why the forest performs better, the interpretability trade-off, and a concrete recommendation.",
+      "options": null,
+      "correct_answer": "(1) Data first: confirm completeness, validity, and consistency of the merged data; report unmatched FIPS codes and missing values by rurality and SVI quartile; and confirm no leakage (e.g., no post-discharge variables). An AUC gap means little if the representativeness of the data is poor. (2) Why the forest wins: bootstrap samples plus random feature subsets decorrelate many deep trees, so averaging lowers variance while capturing nonlinearities and interactions (e.g., high SVI combined with low access) that logistic regression misses without engineered terms. Verify with OOB/CV, and compare on the same stratified test set with confidence intervals for the AUC difference. (3) Trade-off: the forest is less interpretable. Explain it with permutation importance and SHAP, check calibration and fairness across subgroups, and keep in mind that importance is not causation. Logistic regression (AUC 0.75) gives clear odds ratios; the depth-4 tree gives readable rules but loses accuracy. (4) Recommendation: deploy the forest if its AUC gain is statistically and clinically meaningful (e.g., more correctly flagged high-risk patients per 1,000), paired with SHAP explanations and subgroup monitoring. Otherwise use logistic regression as the transparent baseline. Document all data decisions and revalidate when the data are refreshed.",
+      "explanation": "Part 1: A strong answer starts with data-quality and integration checks, explains the forest's advantage in terms of variance reduction from decorrelated trees, addresses interpretability with specific tools (permutation importance, SHAP, calibration, fairness checks), and makes a conditional recommendation tied to clinical value. Part 2: Answers that pick the highest AUC without checking leakage, representativeness, or interpretability, or that call feature importance causal, are incomplete. Part 3: This brings together all five learning objectives for the week.",
+      "learning_objective": "Explain how bootstrap and feature randomness make random forests more accurate, and weigh their trade-offs",
+      "keywords": ["data quality", "leakage", "decorrelate", "variance", "interpretability", "SHAP"]
+    }
+  ]
+}

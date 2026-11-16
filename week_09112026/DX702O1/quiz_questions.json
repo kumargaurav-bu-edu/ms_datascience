@@ -1,0 +1,470 @@
+{
+  "quiz_metadata": {
+    "title": "DX702 O1 Fall 2026: Week 3 - Event Studies & Differences-in-Differences",
+    "description": "A master's-level quiz on implementing a simple event study (estimation vs. event windows, building a counterfactual with the mean, trend, or market model, abnormal and cumulative abnormal returns, regression with event dummies, assumptions and pitfalls) and performing differences-in-differences (the 2x2 DiD calculation, the regression with a treated x post interaction, the parallel trends assumption, pre-trend checks, two-way fixed effects, clustered standard errors, and common threats), with real-world finance, policy, health, and business scenarios.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "What is the core idea of an event study?",
+      "options": [
+        "A) Compare a treated group with an untreated group over time",
+        "B) Use data from BEFORE an event to predict what the outcome WOULD have been afterward without the event (the counterfactual), then attribute the gap between the actual and predicted outcome after the event to the event",
+        "C) Randomly assign the event to some units",
+        "D) Regress the outcome on the event date as a continuous variable"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: An event study builds a counterfactual from the period before the event (the estimation window) and measures the deviation in the event window. In finance, that deviation is the 'abnormal return' of a stock after an announcement. Part 2: A describes differences-in-differences, which needs a control group. C is a randomized experiment. D misdescribes the design. Part 3: Understanding the counterfactual logic is the foundation for implementing an event study.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "In a stock-market event study, how are the ESTIMATION WINDOW and the EVENT WINDOW defined?",
+      "options": [
+        "A) The estimation window is a period BEFORE the event (e.g., trading days -250 to -30) used to fit the 'normal' return model. The event window is the short period around the event (e.g., days -1 to +1) where abnormal returns are measured. The two should not overlap, so the event cannot contaminate the normal model",
+        "B) Both windows are the same period",
+        "C) The estimation window is after the event, and the event window is before it",
+        "D) The event window must be at least one year long"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Keeping the windows separate means the normal-return model reflects behavior that is not affected by the event. A gap (e.g., days -30 to -2) also guards against information leaking before the announcement. Part 2: B contaminates the counterfactual. C reverses the roles. D is too long: long windows let unrelated news creep in. Part 3: Setting the windows correctly is the first implementation step.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "True or False: The ABNORMAL RETURN on a day in the event window is the actual return minus the expected (counterfactual) return predicted by the model fit on the estimation window.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. AR_t = R_t - E[R_t], where E[R_t] comes from, for example, the market model alpha + beta * R_market,t. Adding up the abnormal returns over the event window gives the CUMULATIVE abnormal return (CAR). Part 2: Answering False misses the definition behind every event-study estimate. Part 3: Calculating abnormal returns is the core computation of an event study.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "A market model fitted on the estimation window gives alpha = 0.001 and beta = 1.2. On the announcement day, the market return is 2.0% (0.02) and the stock's actual return is 5.0% (0.05). What is the abnormal return as a decimal? Enter only the number.",
+      "options": null,
+      "correct_answer": "0.025",
+      "explanation": "Part 1: Expected return = 0.001 + 1.2 * 0.02 = 0.001 + 0.024 = 0.025. Abnormal return = 0.05 - 0.025 = 0.025, or +2.5 percentage points attributable to the event. Part 2: A common mistake is subtracting only the market return (0.05 - 0.02 = 0.03), which ignores beta and alpha. Another is forgetting alpha (0.05 - 0.024 = 0.026). Part 3: Calculating an abnormal return from the market model is the hands-on core of a simple event study.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": ["0.025", "expected return", "alpha", "beta"]
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "Why is the MARKET MODEL (R_i = alpha + beta * R_m) usually a better counterfactual than the 'constant mean return' model for a stock's event study?",
+      "options": [
+        "A) It always gives larger abnormal returns",
+        "B) It removes the need for an estimation window",
+        "C) It is only used for bonds",
+        "D) It adjusts for MARKET-WIDE movements on the event day. If the whole market rose 2% that day, the constant-mean model would wrongly count that rise as an effect of the event, while the market model attributes only the firm-specific gap to the event, which lowers the variance of abnormal returns and reduces bias"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Market-wide shocks such as Fed announcements are common to all stocks. Controlling for them through beta isolates the firm-specific effect and gives more precise estimates. Part 2: A is false, since the direction depends on the market move. B is wrong, because alpha and beta must be estimated. C is false. Part 3: Choosing a good counterfactual model is a key implementation decision.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "A company's daily sales are regressed on a time trend plus dummies for days 0 to +5 after a celebrity endorsement (with the earlier days as the baseline). What do the coefficients on the event dummies estimate?",
+      "options": [
+        "A) The deviation of sales on each event-window day from the counterfactual trend projected from the earlier data, i.e., the day-by-day effect of the endorsement (similar to abnormal returns)",
+        "B) The long-run sales trend",
+        "C) The average sales before the event",
+        "D) The effect of the time trend"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Including event-day dummies alongside a trend fitted on non-event days is the regression form of an event study. Each dummy gives that day's 'abnormal' sales relative to the trend, and the coefficients plotted over time show how the effect rises and fades. Part 2: B and D describe the trend term. C describes the intercept or baseline. Part 3: Writing the event study as a regression is a standard way to implement it with standard errors.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "True or False: A simple single-unit event study is credible even if other major news (e.g., an earnings report or an industry-wide regulation) arrives in the same event window, because the counterfactual model automatically removes other events.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. A key event-study assumption is that NOTHING ELSE unusual happens in the event window. Confounding events, especially firm-specific ones that the market model cannot capture, get mixed into the abnormal return. Short windows and checking news coverage help guard against this. Part 2: Answering True overstates the counterfactual model, which captures only 'normal' patterns. Part 3: Checking for confounding events is part of implementing a credible event study.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "Over days -1 to +1 around a merger announcement, the abnormal returns are +0.4%, +3.1%, and -0.5%. What is the CAR, and what does a positive CAR on day -1 suggest?",
+      "options": [
+        "A) CAR = 3.1%; day -1 is irrelevant",
+        "B) CAR = 3.0% (0.4 + 3.1 - 0.5). A positive abnormal return on day -1 suggests information LEAKED before the official announcement (or the market anticipated it), which is why event windows often start a day or two before the event",
+        "C) CAR = 4.0%",
+        "D) CAR = -0.5%, because only the last day counts"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: CAR = the sum of the abnormal returns = 0.4 + 3.1 - 0.5 = 3.0%. Reactions before the announcement are a known feature (leaks, rumors), so windows include day -1 to capture the full effect. Part 2: A ignores the other days. C adds the absolute values. D ignores the earlier days. Part 3: Adding up and interpreting abnormal returns is the final step of a simple event study.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "The sum of abnormal returns across all days in the event window is called the ___ abnormal return (abbreviated CAR).",
+      "options": null,
+      "correct_answer": "Cumulative",
+      "explanation": "Part 1: CAR(t1, t2) = sum of AR_t from t1 to t2. It captures the total effect of the event across the window, including leaks before the event and slow adjustment after it. Averaging CARs across many firms experiencing the same type of event gives the CAAR. Part 2: Terms such as 'average', 'total', or 'compound' abnormal return are not the standard name in event-study notation. Part 3: Knowing CAR is basic event-study vocabulary.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": ["cumulative", "CAR", "sum"]
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "A city introduces a sugary-drink tax on July 1. An analyst uses the 24 months of soda sales before July 1 to fit a trend-plus-seasonality model and finds that July-December sales came in 12% below the forecast. Which concern is MOST important before attributing the full 12% to the tax?",
+      "options": [
+        "A) The model used too much data",
+        "B) Sales should be measured in liters",
+        "C) The model assumes the earlier trend and seasonality would have CONTINUED without the tax. If something else changed at the same time (a new health campaign, a supply disruption, a broader regional decline), the 12% mixes those in. Check with a control city or neighboring region (moving toward DiD), with placebo 'events' on earlier dates, and by checking whether cross-border purchases rose",
+        "D) There is no concern, because event studies are always unbiased"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A single-unit event study has no comparison group, so any other change during the event window is mistaken for the effect. Placebo dates test whether the model produces spurious 'effects', and a control unit leads naturally to difference-in-differences. Cross-border shopping is a well-documented response to soda taxes. Part 2: A and B are minor. D is false. Part 3: Spotting the counterfactual assumption and proposing checks is the advanced skill of implementing event studies.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Implementing a Simple Event Study",
+      "question_text": "You want to estimate how a major airline's stock reacted to news of a high-profile safety incident. Describe step by step how you would implement a simple event study, including the data, windows, counterfactual model, calculations, significance testing, and at least two threats to validity.",
+      "options": null,
+      "correct_answer": "(1) Data: daily returns for the airline and a market index (e.g., the S&P 500) or an airline-industry index, from about 1 year before the event through about 10 days after. (2) Define day 0 as the first trading day the news was public. Estimation window: days -250 to -30. Event window: days -1 to +5 (to capture leaks and slow adjustment), with a gap between the windows. (3) Counterfactual: fit the market model R_airline = alpha + beta * R_market on the estimation window using OLS. (4) For each event day: expected return = alpha-hat + beta-hat * R_market,t; AR_t = R_t - expected; CAR = the sum of the ARs over the window. (5) Significance: use the standard deviation of the estimation-window residuals, sigma; t-stat for AR = AR / sigma, and for CAR = CAR / (sigma * sqrt(L)) for a window of L days. Equivalently, regress returns on the market return plus event-day dummies. (6) Threats: confounding news in the window (e.g., earnings reports or fuel-price shocks), so check the news and use short windows; industry-wide effects if all airlines fell (using an airline index as the benchmark isolates the firm-specific part); a structural break in beta before the event; and thin trading or volatility clustering, which affect the standard errors.",
+      "explanation": "Part 1: A strong answer specifies the event date, separate estimation and event windows, the market model, the AR and CAR formulas, a significance test based on estimation-window residuals, and concrete threats with mitigations. Part 2: Answers that compare prices simply before and after without a counterfactual, or that omit the windows or the significance test, are incomplete. Part 3: This is a full implementation of the first learning objective.",
+      "learning_objective": "Implement a simple event study",
+      "keywords": ["estimation window", "event window", "market model", "abnormal return", "CAR", "confounding"]
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "What does a differences-in-differences (DiD) estimate compare?",
+      "options": [
+        "A) The CHANGE over time in the treated group minus the CHANGE over time in the control group: (Treated_after - Treated_before) - (Control_after - Control_before). The control group's change stands in for what would have happened to the treated group without treatment",
+        "B) The treated group's level after treatment minus the control group's level after treatment",
+        "C) The treated group after treatment minus before treatment",
+        "D) The control group before treatment minus after treatment"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The first difference (within each group, over time) removes stable differences between the groups. The second difference (between the groups) removes shocks common to both over time. What remains is the treatment effect, provided the trends are parallel. Part 2: B is a cross-sectional comparison that is confounded by baseline differences. C is a before/after comparison that is confounded by time trends. D is meaningless on its own. Part 3: This is the defining calculation of DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "What is the PARALLEL TRENDS assumption in DiD?",
+      "options": [
+        "A) The treated and control groups have the same outcome level before treatment",
+        "B) The treatment effect is the same for everyone",
+        "C) Both groups were treated at the same time",
+        "D) WITHOUT treatment, the treated group's outcome would have changed by the same amount over time as the control group's. Their levels may differ, but their trends would have matched"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: DiD only needs the counterfactual TRENDS to match, not the levels. If the trends differ, the DiD estimate includes that difference as bias. It cannot be tested directly after treatment, but pre-treatment trends give supporting evidence. Part 2: A is too strong and is not required. B is a different assumption (homogeneous effects). C describes timing, not trends. Part 3: Parallel trends is the identifying assumption of DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "New Jersey raised its minimum wage, and Pennsylvania did not. Average fast-food employment per store: NJ before = 20.4, NJ after = 21.0; PA before = 23.3, PA after = 21.2. What is the DiD estimate of the effect on employment per store? Enter only the number (it may be negative or positive).",
+      "options": null,
+      "correct_answer": "2.7",
+      "explanation": "Part 1: NJ change = 21.0 - 20.4 = +0.6. PA change = 21.2 - 23.3 = -2.1. DiD = 0.6 - (-2.1) = +2.7 employees per store. That means employment did NOT fall relative to the control state, which echoes the well-known Card and Krueger (1994) finding. Part 2: A common mistake is using only NJ's change (+0.6), which ignores the common shock, or comparing levels after the policy (21.0 - 21.2 = -0.2), which ignores the baseline difference. Part 3: Calculating the 2x2 DiD by hand is the basic way to perform DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": ["2.7", "0.6", "-2.1", "difference"]
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "In the regression Y = b0 + b1 * Treated + b2 * Post + b3 * (Treated x Post) + e, which coefficient is the DiD estimate of the treatment effect?",
+      "options": [
+        "A) b1, the baseline difference between the groups",
+        "B) b2, the change over time in the control group",
+        "C) b3, the coefficient on the interaction Treated x Post, which equals (treated after - treated before) - (control after - control before)",
+        "D) b0, the intercept"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: In the 2x2 case, the cell means are: control before = b0; control after = b0 + b2; treated before = b0 + b1; treated after = b0 + b1 + b2 + b3. The difference in changes is therefore b3. Using a regression also gives standard errors and lets you add controls. Part 2: A captures the stable group difference. B captures the shared time shock. D is the control group's baseline. Part 3: Specifying and reading the DiD regression is the standard way to perform DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "True or False: DiD requires the treated and control groups to have the SAME average outcome before treatment.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Differences in levels are removed by the first difference, or by the 'Treated' term in the regression. In the NJ/PA example, PA started with more employees per store (23.3 vs 20.4), and DiD still works. What matters is that the TRENDS would have been parallel. Part 2: Answering True confuses parallel trends with equal levels, which would rule out many valid DiD applications. Part 3: Knowing what DiD does and does not require is essential to performing it correctly.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "How can you find supporting evidence for parallel trends before trusting a DiD estimate?",
+      "options": [
+        "A) Plot the outcome over several PRE-treatment periods for both groups and check that they moved together. Formally, estimate an event-study version (interact Treated with each period's dummy) and test that the pre-period coefficients ('leads') are close to zero",
+        "B) Check that the post-treatment outcomes are equal",
+        "C) Check that the sample size is above 1,000",
+        "D) Parallel trends can be proven exactly with post-treatment data"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Pre-trends give indirect evidence. If the groups diverged before treatment, they would likely have diverged after it too. Lead coefficients close to zero support the assumption, though they cannot prove it for the post-treatment period. Part 2: B uses the outcome that treatment affects. C is not relevant. D is impossible, because the post-treatment counterfactual is never observed. Part 3: Testing pre-trends is a required step when performing DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "A hospital chain adopts a new discharge protocol in 10 of its 40 hospitals (the rest serve as controls) and records monthly readmission rates for 24 months. How should the DiD regression be specified and its standard errors computed?",
+      "options": [
+        "A) Use only the post-treatment months, with default standard errors",
+        "B) A two-way fixed effects (TWFE) DiD, `readmit ~ treated_post + C(hospital) + C(month)`, where `treated_post` = 1 for treated hospitals after adoption. Hospital fixed effects absorb stable hospital differences, month fixed effects absorb shared shocks, and standard errors are CLUSTERED by hospital, because each hospital's monthly errors are correlated",
+        "C) Pooled OLS of readmissions on `treated` only",
+        "D) Cluster by month, with no fixed effects"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: TWFE extends the 2x2 DiD to many units and periods. Clustering by the unit where treatment is assigned (the hospital) accounts for serial correlation, which Bertrand, Duflo, and Mullainathan (2004) showed otherwise produces standard errors that are far too small. Part 2: A drops the before/after comparison. C ignores time and the baseline differences. D clusters on the wrong dimension and omits the fixed effects. Part 3: Writing a panel DiD with correct inference is how DiD is performed in practice.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "A DiD study of a job-training program uses participants as the treated group and nonparticipants as controls. Participants' earnings were FALLING in the months just before enrolling, which is why many signed up. What bias does this create?",
+      "options": [
+        "A) No bias, because DiD removes everything",
+        "B) A bias toward zero",
+        "C) It makes parallel trends hold exactly",
+        "D) The 'Ashenfelter dip': participants had a temporary drop before enrolling, so their earnings would likely have RECOVERED anyway (mean reversion). DiD then credits that natural rebound to the program and overstates its effect. Use longer pre-periods, match on the earnings path before enrollment, or drop the months of the dip"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Selection based on temporary shocks violates parallel trends, because the treated group's trajectory without treatment is a rebound, not the control group's flat trend. This is a classic problem in evaluating training programs. Part 2: A overstates what DiD can do. B gets the direction wrong. C is the opposite of the truth. Part 3: Recognizing selection-driven violations of parallel trends is an advanced skill in performing DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "True or False: A PLACEBO DiD that pretends treatment happened 2 years earlier (using only pre-treatment data) should find an effect near zero if the design is credible.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. If no treatment actually happened at the fake date, a significant 'effect' reveals different trends or other confounding shocks, which undermines the real estimate. A placebo outcome that the treatment should not affect can be used in the same way. Part 2: Answering False misunderstands the logic of falsification tests. Part 3: Placebo tests are a standard robustness check when performing DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "A grocery chain raises prices in its Boston stores (treated) but not in its Hartford stores (control). Afterward, many Boston shoppers start driving to the Hartford stores. How does this affect the DiD estimate of the price increase's effect on Boston sales?",
+      "options": [
+        "A) The control group is CONTAMINATED (spillover, a violation of SUTVA): Hartford sales rise BECAUSE of the treatment, so the control's change is no longer the counterfactual. The DiD (Boston change minus the inflated Hartford change) overstates the negative effect. Choose controls far enough away to avoid spillovers, or model the spillover explicitly",
+        "B) It has no effect on the estimate",
+        "C) It understates the effect",
+        "D) It makes parallel trends easier to test"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: DiD assumes the control group is unaffected by the treatment. Spillovers move the control in the opposite direction, which widens the gap: Boston's drop minus Hartford's gain is larger in magnitude than the true effect. Part 2: B ignores the contamination. C gets the direction wrong. D is unrelated. Part 3: Checking that controls are not contaminated is a practical requirement when performing DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "Which comparison does a DiD design improve on by adding a control group?",
+      "options": [
+        "A) A randomized controlled trial",
+        "B) A simple before/after (pre-post) comparison of the treated group alone, which cannot separate the treatment effect from changes that would have happened anyway (seasonality, the economy, inflation). The control group's change removes these shared time effects",
+        "C) A regression discontinuity design",
+        "D) Instrumental variables"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A before/after comparison attributes ALL change to the treatment. DiD subtracts the control group's change to remove trends and shocks common to both groups, the same idea as an event study with an added comparison unit. Part 2: A, C, and D are different designs that DiD does not directly build on. Part 3: Understanding why the control group is needed is basic to performing DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "In a DiD regression, what do the 'Treated' main effect and the 'Post' main effect each control for?",
+      "options": [
+        "A) Treated controls for the treatment effect, and Post controls for the sample size",
+        "B) Both control for confounders that change over time",
+        "C) Treated controls for STABLE differences between the treated and control groups (e.g., NJ stores being smaller), and Post controls for changes over time SHARED by both groups (e.g., a regional recession). That leaves the interaction to capture the treatment effect",
+        "D) Neither does anything; only the interaction matters"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Each main effect removes one type of confounding: group-level differences that do not change over time, and time shocks that hit both groups equally. In panel form, these become unit and time fixed effects. Part 2: A mislabels them. B is only half right (Post handles common shocks, not group-specific changes). D is false, since leaving them out would bias the interaction. Part 3: Knowing what each term does is necessary to specify DiD correctly.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "A state bans phone use while driving in 2018 and a neighboring state does not. Crash rates (per 100k drivers): treated 2017 = 150, 2019 = 120; control 2017 = 140, 2019 = 130. What is the DiD estimate, and how is it read?",
+      "options": [
+        "A) -30 crashes per 100k, because the treated state fell by 30",
+        "B) -10 crashes per 100k",
+        "C) +10 crashes per 100k",
+        "D) -20 crashes per 100k: the treated state fell by 30 and the control by 10, so the ban is associated with 20 FEWER crashes per 100k drivers than would have happened under the control's trend, assuming the trends were parallel"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: DiD = (120 - 150) - (130 - 140) = -30 - (-10) = -20. The control's drop of 10 reflects general improvements (safer cars, enforcement) that would have reached the treated state anyway. Part 2: A is the before/after change, which includes the shared trend. B is the control's change only. C gets the sign wrong. Part 3: Calculating and reading a 2x2 DiD in a policy setting is the core skill of performing DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "In an event-study plot from a DiD panel, the coefficients for periods -4 to -1 (before treatment) are near zero, while those for periods 0 to +4 grow from 0.5 to 2.0. How should this be interpreted?",
+      "options": [
+        "A) The flat pre-period coefficients support parallel trends, and the rising post-period coefficients show that the effect BUILDS over time, e.g., as more customers adopt the new feature, rather than being a one-time jump. A single post dummy would average these into one number and hide the dynamics",
+        "B) The design has failed, because the effects change over time",
+        "C) Pre-period coefficients should be large for a valid design",
+        "D) The effect is exactly 2.0 for all post periods"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Dynamic DiD (the event-study form) both checks pre-trends and shows how the effect evolves after treatment, which matters for policy timing and for cost-benefit analysis. Part 2: B misreads effects that change over time as failure. C reverses the logic of the pre-trend check. D ignores the growth pattern. Part 3: This links event studies and DiD, showing how the two learning objectives connect.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "States adopt a policy in DIFFERENT years (2015, 2017, 2019), and its effect grows over time. A researcher runs a standard two-way fixed effects DiD. What is the known problem?",
+      "options": [
+        "A) There is no problem",
+        "B) With staggered timing and effects that change over time, standard TWFE uses ALREADY-TREATED states as controls for later adopters, which can give 'forbidden comparisons' and negative weights, so the estimate can be biased, even in the wrong direction. Use modern estimators such as Callaway-Sant'Anna or Sun-Abraham that compare each cohort with not-yet-treated or never-treated units",
+        "C) Staggered adoption makes parallel trends automatically true",
+        "D) TWFE cannot be estimated with more than two periods"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Goodman-Bacon (2021) showed that TWFE is a weighted average of all 2x2 comparisons, including ones where an earlier-treated group serves as the 'control'. When effects grow, those comparisons subtract part of the real effect. Newer estimators avoid this. Part 2: A ignores a major recent finding. C and D are false. Part 3: Knowing the limits of TWFE is part of performing DiD correctly in realistic settings.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "True or False: With only ONE treated unit and one control unit (e.g., one city vs. another), the DiD point estimate can be computed, but standard errors are unreliable, because shocks specific to either city cannot be separated from the treatment effect. Using more units or synthetic control helps.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. With one unit per group, any shock specific to one city in the post period (a plant closure, a sports championship) looks exactly like the treatment, and there is no variation across units to estimate uncertainty. More units, permutation-based inference, or synthetic control (a weighted combination of many controls) address this. Part 2: Answering False overstates how reliable 2x2 designs with few units are. Part 3: Judging whether a DiD has enough units is part of performing it responsibly.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "An app launches a premium feature in Canada (treated) but not in the U.S. (control). Weekly engagement before launch: Canada rose by about 2% per week, and the U.S. rose by about 0.5% per week. After launch, Canada's growth jumps. What is the best way to proceed?",
+      "options": [
+        "A) Run the standard DiD; the pre-trends do not matter",
+        "B) Only compare post-launch levels",
+        "C) Pre-trends are NOT parallel (2% vs 0.5% weekly growth), so a standard DiD would credit Canada's faster underlying growth to the feature. Options: find a better control with similar pre-trends (e.g., Australia, or a synthetic control built from several countries); add group-specific linear trends as a sensitivity check; or use an honest-DiD bound (Rambachan-Roth) showing how large a violation would overturn the result",
+        "D) Drop the pre-period data"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Different pre-trends are a direct warning against the standard DiD. Better controls or methods that allow for differing trends, with transparent sensitivity analysis, give credible estimates. Part 2: A ignores the evidence. B removes the before/after logic. D hides the problem. Part 3: Responding properly to failed pre-trends is the advanced skill in performing DiD.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "Which comparison of a SIMPLE EVENT STUDY and DIFFERENCES-IN-DIFFERENCES is correct?",
+      "options": [
+        "A) They are identical methods",
+        "B) DiD needs no assumptions, but event studies do",
+        "C) Event studies require a control group, but DiD does not",
+        "D) A simple event study builds the counterfactual from the treated unit's OWN past (a trend or market model) and assumes nothing else changed in the event window. DiD builds the counterfactual from a CONTROL group's change and assumes parallel trends. DiD protects against shocks common to both groups that a single-unit event study cannot separate, but it needs a valid comparison group"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Both methods estimate a counterfactual, but from different sources (the unit's own history vs. a control group) and under different assumptions. An event study with a market model is already a partial 'control' for market-wide shocks, and a DiD event-study plot combines both ideas. Part 2: A ignores real differences. B is false, since parallel trends is a strong assumption. C reverses the requirements. Part 3: Comparing the two methods brings both of this week's learning objectives together.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Performing Differences-in-Differences",
+      "question_text": "A ride-share company introduced surge-price caps in Chicago in March 2025 but not in Philadelphia. Leadership wants to know the effect on weekly rides. Design a DiD analysis: specify the data, the regression, how you would check parallel trends, robustness and placebo tests, the inference method, and two threats with their fixes.",
+      "options": null,
+      "correct_answer": "Data: weekly rides by city (or, better, by neighborhood or zone within each city, giving many units) for about 52 weeks before and 26 weeks after March 2025. Regression: rides_zt = alpha_z + gamma_t + beta * (Chicago_z x Post_t) + e_zt, i.e., `smf.ols('log_rides ~ treat_post + C(zone) + C(week)', data=df).fit(cov_type='cluster', cov_kwds={'groups': df['zone']})`. beta is the DiD effect (in logs, an approximate percentage change). Parallel trends: plot the weekly log rides for the two cities before the policy, and estimate the event-study version with leads and lags (Chicago x week relative to March 2025); the leads should be about 0. Robustness: a placebo date (pretend the caps started in March 2024), a placebo outcome (e.g., food-delivery orders, which the caps should not affect), alternative controls (Boston or a synthetic control from several cities), and dropping holiday weeks. Inference: cluster standard errors by zone; with few cities, also use permutation or wild-cluster bootstrap inference. Threats: (1) a simultaneous Chicago-specific shock (a transit strike, a weather event, or a major convention), so check the news, add controls such as weather and transit ridership, or exclude those weeks; (2) driver spillovers, where drivers move to Philadelphia or other platforms, contaminating the control, so measure driver supply in both cities and consider a control farther away. Interpretation: report beta with a CI and the event-study plot, and note that the estimate applies to Chicago-like markets.",
+      "explanation": "Part 1: A strong answer specifies panel data with many units, a TWFE DiD regression with clustered standard errors, an event-study pre-trend check, placebo tests on time and outcome, alternative controls, inference for few clusters, and concrete threats (simultaneous shocks, spillovers) with fixes. Part 2: Answers with only a 2x2 comparison of city averages, no pre-trend check, or default standard errors are incomplete. Part 3: This is a full application of performing DiD in a business setting.",
+      "learning_objective": "Perform differences-in-differences",
+      "keywords": ["parallel trends", "fixed effects", "cluster", "placebo", "event study", "spillover"]
+    }
+  ]
+}
