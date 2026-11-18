@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 8 - K-Nearest Neighbors, Distance Metrics & Feature Scaling",
+    "description": "Tests how KNN makes classification and regression predictions from nearby points, how the Euclidean, Manhattan, Minkowski, and cosine distance metrics compare and when each fits, why feature scaling matters for distance-based models, and how outliers and scaling affect each metric, as covered in the Week 8 learning objectives.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "How KNN Makes Predictions",
+      "question_text": "How does a K-Nearest Neighbors model make a prediction for a new data point?",
+      "options": [
+        "A) It finds the k training points closest to the new point under a distance metric. For classification it predicts the majority class among those k neighbors; for regression it predicts the average (mean) of their target values",
+        "B) It fits a line through all the training points and reads off the value at the new point",
+        "C) It builds a decision tree with k levels",
+        "D) It averages the target values of ALL training points, weighted equally"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: KNN is an instance-based method. The prediction comes directly from the labels of the nearest training points: a vote for classification and a mean for regression. Part 2: B describes linear regression. C confuses k with tree depth. D ignores the 'nearest' part, and would predict the overall mean for every point. Part 3: This is the core prediction rule described in the first learning objective.",
+      "learning_objective": "Describe how K-Nearest Neighbors makes predictions for classification and regression tasks based on the values of nearby data points.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "How KNN Makes Predictions",
+      "question_text": "KNN does no real work at training time; it simply stores the training data and does all the distance computation when a prediction is requested. Because of this, KNN is called a ___ learner.",
+      "options": null,
+      "correct_answer": "Lazy (instance-based) learner",
+      "explanation": "Part 1: A lazy learner postpones computation until prediction time. `fit()` for KNN just stores (or indexes) the data, and `predict()` computes distances to the stored points. This makes training instant but prediction slow for large datasets, which is why KD-trees and ball trees are used. Part 2: 'Eager' learners such as logistic regression or decision trees build a model during training. 'Parametric' is wrong too, since KNN has no fixed set of learned parameters. Part 3: Knowing that KNN is lazy explains both how it predicts and its practical costs.",
+      "learning_objective": "Describe how K-Nearest Neighbors makes predictions for classification and regression tasks based on the values of nearby data points.",
+      "keywords": ["lazy", "instance-based", "memory-based", "non-parametric"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "How KNN Makes Predictions",
+      "question_text": "True or False: With k = 1, a KNN classifier always achieves 100% accuracy on its own training data (assuming no two identical points have different labels), but this usually means it is overfitting.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. With k = 1, each training point's nearest neighbor is itself (distance 0), so it predicts its own label perfectly. The decision boundary follows every noisy point, which gives high variance and poor generalization. Part 2: Answering False misses that perfect training accuracy here comes from memorization, not learning. Part 3: The choice of k controls how many nearby points shape the prediction, which is central to how KNN works.",
+      "learning_objective": "Describe how K-Nearest Neighbors makes predictions for classification and regression tasks based on the values of nearby data points.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "How KNN Makes Predictions",
+      "question_text": "A KNN regressor with k = 3 predicts the price of a house. Its three nearest neighbors sold for $200k, $260k, and $230k. A fourth, slightly farther house sold for $900k. What is the prediction?",
+      "options": [
+        "A) $397.5k, the mean of all four houses",
+        "B) $230k, the mean of the 3 nearest neighbors: (200 + 260 + 230) / 3 = 230",
+        "C) $260k, the largest of the three neighbors",
+        "D) $900k, because the most expensive house dominates"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: With k = 3, only the three nearest houses count, and their mean is 690 / 3 = $230k. The $900k house is the 4th neighbor and is ignored. Part 2: A uses k = 4. C uses the maximum instead of the mean. D wrongly assumes that extreme target values dominate, when the cutoff k excludes them here. Part 3: This applies the KNN regression rule, averaging the k nearest targets, exactly as the learning objective describes.",
+      "learning_objective": "Describe how K-Nearest Neighbors makes predictions for classification and regression tasks based on the values of nearby data points.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "How KNN Makes Predictions",
+      "question_text": "How does increasing k (e.g., from 1 to 50) change a KNN model?",
+      "options": [
+        "A) The decision boundary becomes more jagged and variance increases",
+        "B) Nothing changes, because k only affects training speed",
+        "C) The model always becomes more accurate",
+        "D) Predictions average over more neighbors, so the decision boundary becomes smoother: variance goes down but bias goes up. If k is too large (e.g., k = n), the model predicts the overall majority class or mean for every point and underfits"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Small k gives low bias and high variance (it follows the noise); large k gives high bias and low variance (it smooths away real structure). The best k is chosen by cross-validation, and for binary classification an odd k is often used to avoid ties. Part 2: A describes DECREASING k. B is wrong because k changes the predictions. C ignores underfitting at large k. Part 3: Understanding how k changes which nearby points drive the prediction is part of describing how KNN works.",
+      "learning_objective": "Describe how K-Nearest Neighbors makes predictions for classification and regression tasks based on the values of nearby data points.",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "How KNN Makes Predictions",
+      "question_text": "A distance-weighted KNN regressor (weights = 1 / distance) with k = 3 has neighbors at distances 1, 2, and 4 with target values 10, 20, and 40. What is the prediction?",
+      "options": [
+        "A) About 17.14: weights are 1, 0.5, and 0.25, so (1 * 10 + 0.5 * 20 + 0.25 * 40) / (1 + 0.5 + 0.25) = 30 / 1.75 = 17.14",
+        "B) 23.33, the unweighted mean",
+        "C) 10, the value of the closest neighbor",
+        "D) 40, the value of the farthest neighbor"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: With `weights='distance'`, closer neighbors count more: weight = 1 / d. The weighted mean is 30 / 1.75 = 17.14, pulled toward the closest point's value of 10. Part 2: B is the default `weights='uniform'` result. C is the k = 1 result. D gives the most influence to the farthest point, which is backward. Part 3: Distance weighting is a common variant of how KNN uses nearby values, and it makes predictions less sensitive to the exact choice of k.",
+      "learning_objective": "Describe how K-Nearest Neighbors makes predictions for classification and regression tasks based on the values of nearby data points.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "How KNN Makes Predictions",
+      "question_text": "True or False: For a binary classification problem, choosing an even k such as k = 4 can never produce a tied vote among the neighbors.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. With k = 4 the vote can split 2-2. Libraries break such ties by a rule (e.g., scikit-learn picks the class that comes first in sorted order), which is arbitrary. That is why an odd k (3, 5, 7) is often recommended for binary problems, or distance weighting is used to break ties. Part 2: Answering True overlooks the simple counting argument. Part 3: Knowing how majority voting works, including ties, is part of describing KNN classification.",
+      "learning_objective": "Describe how K-Nearest Neighbors makes predictions for classification and regression tasks based on the values of nearby data points.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "How KNN Makes Predictions",
+      "question_text": "An e-commerce company wants to use KNN to recommend products: for each customer, find 10 similar customers and suggest what they bought. There are 5 million customers and 300 behavioral features, and recommendations must be served in under 50 ms. What is the biggest practical concern, and the best response?",
+      "options": [
+        "A) KNN cannot be used for recommendations",
+        "B) Training will take too long, so use a smaller k",
+        "C) Prediction is the bottleneck: brute-force KNN computes the distance to all 5 million customers at request time, and with 300 dimensions distances also become less informative (curse of dimensionality). Reduce dimensions (e.g., PCA or embeddings to about 50), use an approximate nearest-neighbor index (e.g., FAISS or HNSW), and validate recommendation quality with offline hit rate",
+        "D) Use k = 5,000,000 so every customer is considered"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Because KNN is a lazy learner, all of its cost is at prediction time. At this scale and dimensionality you need dimensionality reduction and approximate nearest-neighbor search to meet the latency target, plus an offline metric to confirm that recommendation quality holds. Part 2: A is false; KNN-based collaborative filtering is widely used. B gets the bottleneck backward, since training is instant. D makes every recommendation the same global average. Part 3: This applies an understanding of how KNN predicts to a real deployment decision.",
+      "learning_objective": "Describe how K-Nearest Neighbors makes predictions for classification and regression tasks based on the values of nearby data points.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Comparing Distance Metrics",
+      "question_text": "For two points x and y with n features, which set of formulas is correct?",
+      "options": [
+        "A) Euclidean = sum of |x_i - y_i|; Manhattan = sqrt(sum of (x_i - y_i)^2); Minkowski = max |x_i - y_i|; Cosine = x . y",
+        "B) All four metrics are the same formula with different names",
+        "C) Euclidean = sqrt(sum of (x_i - y_i)^2); Manhattan = sum of |x_i - y_i|; Minkowski = (sum of |x_i - y_i|^p)^(1/p); Cosine distance = 1 - (x . y) / (||x|| * ||y||)",
+        "D) Euclidean = (x . y) / (||x|| * ||y||); Manhattan = x - y; Minkowski = p * (x - y); Cosine = sqrt(x^2 + y^2)"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Euclidean is the straight-line (L2) distance. Manhattan is the city-block (L1) distance. Minkowski generalizes both with a parameter p (p = 1 gives Manhattan, p = 2 gives Euclidean). Cosine distance measures the angle between vectors, not their length. Part 2: A swaps Euclidean and Manhattan and confuses Minkowski with Chebyshev. B ignores the real differences. D mixes up cosine similarity with Euclidean distance. Part 3: Knowing these formulas is required before comparing when each metric is appropriate.",
+      "learning_objective": "Compare different distance metrics (Euclidean, Manhattan, Minkowski, and Cosine) and explain when each might be more appropriate.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Comparing Distance Metrics",
+      "question_text": "Compute the Euclidean distance between points A = (1, 2) and B = (4, 6). Give a number.",
+      "options": null,
+      "correct_answer": "5",
+      "explanation": "Part 1: Euclidean = sqrt((4 - 1)^2 + (6 - 2)^2) = sqrt(9 + 16) = sqrt(25) = 5. For comparison, the Manhattan distance is |3| + |4| = 7, and the Chebyshev (Minkowski with p going to infinity) distance is max(3, 4) = 4. Part 2: A common mistake is to add the differences without squaring them (giving 7, which is the Manhattan distance) or to forget the square root (giving 25). Part 3: Calculating the same pair under different metrics shows that the metric changes the numbers, and therefore which points count as 'nearest.'",
+      "learning_objective": "Compare different distance metrics (Euclidean, Manhattan, Minkowski, and Cosine) and explain when each might be more appropriate.",
+      "keywords": ["5", "sqrt(25)", "9 + 16", "euclidean"]
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Comparing Distance Metrics",
+      "question_text": "The 'Think About It' prompt asks what (x^p + y^p)^(1/p) becomes for a very large p. For differences x = 3 and y = 4, the values are about 4.50 at p = 3, 4.02 at p = 10, and 4.0000 at p = 100. What does Minkowski distance approach as p goes to infinity?",
+      "options": [
+        "A) The sum of the differences (7), i.e., Manhattan distance",
+        "B) Zero, because large exponents shrink everything",
+        "C) The average difference (3.5)",
+        "D) The single largest coordinate difference, max(|x_i - y_i|) = 4. This is the Chebyshev (L-infinity) distance, because the largest term dominates the sum as p grows"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: As p grows, 4^p becomes vastly larger than 3^p, so (3^p + 4^p)^(1/p) approaches (4^p)^(1/p) = 4. In general, Minkowski with p -> infinity is the maximum absolute coordinate difference. It looks only at the 'worst' feature, like a king's moves on a chessboard. Part 2: A is p = 1. B misunderstands the 1/p root, which undoes the exponent. C is not any Minkowski limit. Part 3: Seeing Minkowski as a family running from Manhattan (p = 1) through Euclidean (p = 2) to Chebyshev (p = infinity) is key to comparing these metrics. (Note: computing 3**1000 with Python integers and then converting to float overflows, so use floats or logarithms.)",
+      "learning_objective": "Compare different distance metrics (Euclidean, Manhattan, Minkowski, and Cosine) and explain when each might be more appropriate.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Comparing Distance Metrics",
+      "question_text": "Consider three word-count vectors: u = (1, 2), v = (10, 20), and w = (2, 1). Which statement about cosine distance and Euclidean distance is correct?",
+      "options": [
+        "A) u is closer to v under both metrics",
+        "B) Cosine distance(u, v) = 0, because they point in the same direction (v = 10u), while cosine distance(u, w) = 0.2. Under Euclidean distance, however, u is much closer to w (about 1.41) than to v (about 20.1)",
+        "C) Cosine distance(u, v) = 10, because v is 10 times longer",
+        "D) Both metrics rank w as farthest from u"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Cosine compares DIRECTION only: u and v have the same 1:2 word mix, so their angle is 0 and the cosine distance is 0. Euclidean compares absolute position, so the long vector v is far away, and w, a different mix that happens to be close in length, looks nearer. Part 2: A and D ignore the fact that the two metrics rank these points in opposite orders. C confuses length with angle, since cosine distance ranges from 0 to 2. Part 3: This is exactly why cosine distance suits documents, where a long and a short article on the same topic should be 'close.'",
+      "learning_objective": "Compare different distance metrics (Euclidean, Manhattan, Minkowski, and Cosine) and explain when each might be more appropriate.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Comparing Distance Metrics",
+      "question_text": "True or False: Minkowski distance with p = 1 is the Manhattan distance, and with p = 2 it is the Euclidean distance. In scikit-learn, KNeighborsClassifier(metric='minkowski', p=2) is the default.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Minkowski (sum of |x_i - y_i|^p)^(1/p) reduces to the L1 (Manhattan) distance at p = 1 and to the L2 (Euclidean) distance at p = 2. scikit-learn's KNN defaults to metric='minkowski' with p=2, which is plain Euclidean distance. Part 2: Answering False would miss that Minkowski is a family that generalizes both. Part 3: Knowing that p is the tuning knob lets you compare metrics by changing a single hyperparameter in cross-validation.",
+      "learning_objective": "Compare different distance metrics (Euclidean, Manhattan, Minkowski, and Cosine) and explain when each might be more appropriate.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Comparing Distance Metrics",
+      "question_text": "A legal-tech startup wants to find the 5 most similar past court opinions for a new case. Each document is a TF-IDF vector with 50,000 dimensions, and documents range from 2 pages to 200 pages. Which metric should they use, and why?",
+      "options": [
+        "A) Euclidean, because it is the default and works for all data",
+        "B) Chebyshev, because only the single most frequent word matters",
+        "C) Cosine distance, because it compares the topic mix (direction) and ignores document length (size), so a 2-page and a 200-page opinion on the same legal issue are treated as similar. It also works well with sparse, high-dimensional TF-IDF vectors",
+        "D) Manhattan on raw word counts, because longer documents should be considered more relevant"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: With TF-IDF text, what matters is which terms appear in what proportions, not how long the document is. Cosine distance is invariant to the length of each vector and is the standard choice for document similarity. Part 2: A would rank long documents as far from short ones, regardless of topic. B throws away nearly all the information. D directly rewards length, which is the bias the team wants to avoid. Part 3: This answers the week's question about when cosine is more appropriate than Euclidean or Manhattan.",
+      "learning_objective": "Compare different distance metrics (Euclidean, Manhattan, Minkowski, and Cosine) and explain when each might be more appropriate.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Comparing Distance Metrics",
+      "question_text": "A city delivery company's vans can only drive along a street grid with blocks running north-south and east-west. To find the depot 'nearest' to each customer in travel terms, which metric best matches reality?",
+      "options": [
+        "A) Cosine distance, because direction matters",
+        "B) Manhattan distance, because travel on a grid is the sum of the blocks moved east-west and north-south, not the straight-line (as-the-crow-flies) Euclidean distance",
+        "C) Chebyshev distance, because only the longer direction matters",
+        "D) Euclidean distance, because it is always the shortest"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Manhattan (L1) distance is literally named after grid travel: the distance = |dx| + |dy|. On a street grid it measures the actual driving distance far better than a straight line through buildings. Part 2: A ignores how far apart the points are. C fits movement where diagonal steps cost the same as straight ones (like a chess king), not driving. D gives the shortest geometric path, which vans cannot take. Part 3: Matching a metric to how distance works in the domain is the core of choosing when each metric is appropriate.",
+      "learning_objective": "Compare different distance metrics (Euclidean, Manhattan, Minkowski, and Cosine) and explain when each might be more appropriate.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Why Feature Scaling Matters",
+      "question_text": "Why does KNN with Euclidean distance need feature scaling?",
+      "options": [
+        "A) Because scaling changes the class labels",
+        "B) Because KNN cannot handle numbers larger than 1",
+        "C) Because scaling makes the model train faster",
+        "D) Because Euclidean distance adds up squared differences in each feature's raw units, so a feature with a large numeric range (e.g., income in dollars) dominates the distance and features with small ranges (e.g., age in years) are effectively ignored. Scaling puts the features on comparable ranges"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Distance-based models treat one unit of every feature as equally important. Without scaling, the feature measured in the biggest units decides who the neighbors are, regardless of how relevant it is. Part 2: A is false, since scaling only changes the features. B is false, because KNN handles any magnitude. C is mostly irrelevant, since KNN has almost no training step. Part 3: This is the central reason given in the third learning objective.",
+      "learning_objective": "Explain why feature scaling is important when using distance-based models, especially with Euclidean distance.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Why Feature Scaling Matters",
+      "question_text": "True or False: Cosine distance is completely unaffected by feature scaling, so rescaling ONE feature (e.g., converting income from thousands of dollars to dollars, multiplying it by 1,000) never changes which neighbors are found.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Cosine distance ignores the overall LENGTH of a vector (multiplying the whole vector by a constant), but stretching a single feature changes every vector's direction. Multiplying income by 1,000 makes nearly every vector point along the income axis, so the neighbors change. Part 2: Answering True confuses scaling a whole vector with scaling one feature. Part 3: Scaling still matters for cosine when features are in different units. This is a subtle part of explaining why scaling matters for distance-based models.",
+      "learning_objective": "Explain why feature scaling is important when using distance-based models, especially with Euclidean distance.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Why Feature Scaling Matters",
+      "question_text": "Customer A is (age 25, income $50,000). Customer B is (age 60, income $51,000). Customer C is (age 26, income $58,000). Using unscaled Euclidean distance, which customer is nearest to A, and what changes after standardizing (age SD about 15 years, income SD about $20,000)?",
+      "options": [
+        "A) Unscaled: B is nearest (about 1,000.6 vs. 8,000.0), even though B is 35 years older, because income differences dominate. After standardizing: d(A, B) is about sqrt(2.33^2 + 0.05^2) = 2.33 and d(A, C) is about sqrt(0.07^2 + 0.40^2) = 0.41, so C becomes the nearest neighbor",
+        "B) C is nearest in both cases",
+        "C) B is nearest in both cases",
+        "D) The two distances are equal before and after scaling"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Unscaled, the $1,000 income gap swamps the 35-year age gap, so B looks nearest. After dividing each feature by its SD, a 35-year age gap is 2.33 SDs while an $8,000 income gap is only 0.4 SDs, so C, who is similar on both features, is truly closer. Part 2: B and C ignore how scaling reweights the features. D is false, since standardizing changes the relative distances. Part 3: This worked example shows exactly why Euclidean KNN needs scaling.",
+      "learning_objective": "Explain why feature scaling is important when using distance-based models, especially with Euclidean distance.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Why Feature Scaling Matters",
+      "question_text": "What is the key difference between StandardScaler and MinMaxScaler for KNN?",
+      "options": [
+        "A) StandardScaler removes outliers; MinMaxScaler keeps them",
+        "B) They are identical",
+        "C) StandardScaler transforms each feature to (x - mean) / SD, giving mean 0 and SD 1 without bounding the range. MinMaxScaler maps each feature to [0, 1] using (x - min) / (max - min), so one extreme value compresses all the other values into a narrow band",
+        "D) MinMaxScaler is only for categorical features"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Both put features on comparable scales, but they do it differently. Min-max uses only the two most extreme values, so a single outlier (e.g., one income of $10M) squeezes everyone else close to 0. Standardization uses the mean and SD, which are also affected by outliers but less drastically. Part 2: A is false, since neither scaler removes outliers. B ignores the formulas. D is false; both scalers are for numeric features. Part 3: Choosing a scaler is part of explaining how scaling matters for distance-based models.",
+      "learning_objective": "Explain why feature scaling is important when using distance-based models, especially with Euclidean distance.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Why Feature Scaling Matters",
+      "question_text": "A student standardizes the WHOLE dataset (train and test together) and then splits it for KNN evaluation. What is wrong with this?",
+      "options": [
+        "A) Nothing; scaling before splitting is best practice",
+        "B) It leaks information: the test set's mean and SD influence how the training data are scaled, so the evaluation is slightly optimistic. Fit the scaler on the training data only, e.g., in a Pipeline([('scale', StandardScaler()), ('knn', KNeighborsClassifier())]) inside cross-validation, and then transform the test data",
+        "C) Standardizing should only be applied to the test set",
+        "D) KNN does not need a train/test split"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Every step learned from data, including the scaling parameters, must be fit only on training folds. A Pipeline makes this automatic within cross-validation, so each fold's validation data stays truly unseen. Part 2: A ignores data leakage. C would leave the training data unscaled. D is false, since every model needs held-out evaluation. Part 3: Scaling correctly, without leakage, is part of applying scaling in distance-based models.",
+      "learning_objective": "Explain why feature scaling is important when using distance-based models, especially with Euclidean distance.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Why Feature Scaling Matters",
+      "question_text": "True or False: Unlike KNN, decision trees and random forests generally do not need feature scaling, because their splits are thresholds on a single feature and do not depend on distances between points.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. A split such as 'income > 52,000' works the same whether income is in dollars or in standardized units, because a monotonic rescaling keeps the order of the values. KNN, k-means, SVM with an RBF kernel, and regularized regression ARE sensitive to scale. Part 2: Answering False would apply KNN's requirement to every model. Part 3: Contrasting distance-based models with tree-based ones shows WHY scaling matters specifically for distance-based models.",
+      "learning_objective": "Explain why feature scaling is important when using distance-based models, especially with Euclidean distance.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Why Feature Scaling Matters",
+      "question_text": "A hospital uses KNN to flag patients at risk of sepsis from heart rate (40-180 bpm), white-blood-cell count (2,000-30,000 per microliter), temperature (35-41 C), and lactate (0.5-10 mmol/L). Accuracy is poor and the neighbors seem to be chosen mostly by WBC count. What is the best fix?",
+      "options": [
+        "A) Drop WBC count from the model",
+        "B) Increase k to 100",
+        "C) Switch to Chebyshev distance",
+        "D) Standardize all four features inside a Pipeline (fit on the training data only), then tune k and the metric (p = 1 vs. 2) with stratified cross-validation, scoring on recall at a clinically acceptable false-alarm rate"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: WBC's range is in the tens of thousands, so it dominates Euclidean distance. Standardizing gives each vital sign comparable influence, and tuning k and p with leakage-free, stratified cross-validation, scored on the clinically relevant metric, completes the fix. Part 2: A throws away a clinically important feature instead of rescaling it. B smooths predictions but does nothing about the scaling problem. C makes it worse, because Chebyshev uses only the largest raw difference, which would usually be WBC. Part 3: This applies the importance of scaling to a high-stakes medical model.",
+      "learning_objective": "Explain why feature scaling is important when using distance-based models, especially with Euclidean distance.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Why Feature Scaling Matters",
+      "question_text": "A real-estate firm's KNN price model uses square footage (500-6,000), number of bedrooms (1-6), distance to downtown (0.5-40 miles), and year built (1900-2024). The validation RMSE is $95,000. Explain why the current neighbors are probably wrong, and give a concrete preprocessing and tuning plan.",
+      "options": null,
+      "correct_answer": "Why the neighbors are wrong: unscaled Euclidean distance is dominated by square footage (range about 5,500) and, to a lesser extent, year built (range about 124), so bedrooms (range 5) and distance to downtown barely count, and houses that are 30 miles apart can end up as 'neighbors.' Plan: (1) Put StandardScaler (or RobustScaler if square footage has extreme mansions) into a Pipeline with KNeighborsRegressor so scaling is fit on training folds only. (2) Optionally convert year built to house age = 2024 - year_built; after scaling this gives the same distances, but it is easier to interpret. (3) Tune with GridSearchCV over k in {3, 5, 7, 10, 15, 25}, weights in {'uniform', 'distance'}, and p in {1, 2}, scoring on negative RMSE with 5-fold CV. (4) Compare the validation RMSE with the $95,000 baseline and check a sample of neighbor sets to confirm that the neighbors are now similar on all four features.",
+      "explanation": "Part 1: A strong answer names the dominant features and explains how unscaled distance distorts the choice of neighbors, then gives a leakage-free Pipeline, the choice of scaler, a hyperparameter grid, and a validation check against the baseline. Part 2: Answers that only say 'scale the data' without the Pipeline or the tuning, or that drop features instead of scaling them, are incomplete. Part 3: This fully applies the scaling learning objective to a real regression problem.",
+      "learning_objective": "Explain why feature scaling is important when using distance-based models, especially with Euclidean distance.",
+      "keywords": ["StandardScaler", "dominate", "Pipeline", "cross-validation", "square footage", "RMSE"]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Outliers, Scaling and Metric Choice",
+      "question_text": "Two points differ by (1, 1, 1, 10) across four features, where the last feature contains an outlier value. Why is Manhattan distance considered more robust to outliers than Euclidean distance here?",
+      "options": [
+        "A) Manhattan ignores the largest difference",
+        "B) Euclidean SQUARES each difference, so the outlier's 10 contributes 100 of the 103 squared units (about 97%), giving distance 10.15. Manhattan adds absolute differences, so the 10 contributes 10 of 13 (about 77%). Squaring makes large deviations dominate much more",
+        "C) Manhattan always gives a smaller distance than Euclidean",
+        "D) Euclidean cannot handle values larger than 1"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: L2 distance grows quadratically with each difference, so one extreme feature takes over the distance. L1 grows linearly, so the other features keep more of their say. This answers the week's question of why to use Manhattan when there are outliers. Part 2: A is false, since Manhattan includes every difference. C is wrong: for the same pair, Manhattan is actually never smaller than Euclidean (13 > 10.15); robustness is about the SHARE contributed by the outlier, not the total. D is false. Part 3: Comparing how each metric weights extreme differences is the core of this learning objective.",
+      "learning_objective": "Analyze how outliers and feature scaling affect different distance metrics and how to choose or adjust metrics accordingly.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Outliers, Scaling and Metric Choice",
+      "question_text": "True or False: Standardizing a feature (z = (x - mean) / SD) removes its outliers, because every value ends up within a few standard deviations of 0.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Standardization is a linear transformation, so it keeps the SHAPE of the distribution, outliers included. For example, with 99 values of 0 and one value of 100, the mean is 1 and the population SD is about 9.95, so the outlier's z-score is (100 - 1) / 9.95, about 9.95, still an extreme outlier. Part 2: Answering True confuses rescaling with trimming or winsorizing. Part 3: This answers the 'Think About It' prompt and explains why outliers need separate handling beyond scaling.",
+      "learning_objective": "Analyze how outliers and feature scaling affect different distance metrics and how to choose or adjust metrics accordingly.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Outliers, Scaling and Metric Choice",
+      "question_text": "A transaction-amount feature has a few extreme values ($250,000 against a typical $40). Which scaler is the best choice before running KNN?",
+      "options": [
+        "A) RobustScaler, which centers on the median and divides by the interquartile range (IQR = Q3 - Q1). Because the median and IQR are hardly affected by a few extreme values, typical transactions keep a sensible spread. Optionally log-transform the amounts first to reduce the skew",
+        "B) MinMaxScaler, because it guarantees values in [0, 1]",
+        "C) No scaling, because outliers will cancel out",
+        "D) StandardScaler, because the mean and SD ignore outliers"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Robust statistics (median, IQR) describe the bulk of the data and are not pulled by rare extremes. A log transform further compresses the long right tail common in money amounts. Part 2: B squashes every normal transaction near 0, because the max is $250,000. C leaves the raw dollar scale dominating every other feature. D is wrong because both the mean and the SD are sensitive to outliers. Part 3: Choosing a scaler based on the presence of outliers is exactly the 'adjust accordingly' part of this objective.",
+      "learning_objective": "Analyze how outliers and feature scaling affect different distance metrics and how to choose or adjust metrics accordingly.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Outliers, Scaling and Metric Choice",
+      "question_text": "Rank Manhattan (p = 1), Euclidean (p = 2), and Chebyshev (p = infinity) from LEAST to MOST sensitive to a single feature with an outlier value.",
+      "options": [
+        "A) Chebyshev < Euclidean < Manhattan",
+        "B) All three are equally sensitive",
+        "C) Manhattan < Euclidean < Chebyshev. As p increases, the largest coordinate difference gets more weight, and at p = infinity the distance is determined entirely by that single largest difference",
+        "D) Euclidean < Manhattan < Chebyshev"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Raising differences to the power p and taking the p-th root gives more and more weight to the largest term as p grows. Manhattan weights all differences linearly, Euclidean squares them, and Chebyshev uses only the maximum. Part 2: A reverses the order. B ignores the effect of p. D misplaces Euclidean. Part 3: Seeing that p acts as a 'sensitivity to outliers' knob lets you choose or tune the metric deliberately.",
+      "learning_objective": "Analyze how outliers and feature scaling affect different distance metrics and how to choose or adjust metrics accordingly.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Outliers, Scaling and Metric Choice",
+      "question_text": "In 2-3 sentences, PROVE with a concrete numeric example that outliers can still exist after standardizing a feature.",
+      "options": null,
+      "correct_answer": "Take a feature with 99 values equal to 0 and one value equal to 100. The mean is 1 and the population SD is sqrt((99 * 1^2 + 99^2) / 100), about 9.95. After standardizing, the 99 typical values become (0 - 1) / 9.95 = -0.10 and the extreme value becomes (100 - 1) / 9.95 = +9.95, almost 10 standard deviations from the mean. Standardization is linear, so it changes the units but keeps the outlier just as extreme relative to the rest of the data.",
+      "explanation": "Part 1: A valid proof gives specific numbers, computes the mean and SD, and shows that the outlier's z-score is still extreme (far beyond the usual |z| > 3 cutoff). It should also note that the transformation is linear, so relative positions are preserved. Part 2: Answers that just assert 'scaling doesn't remove outliers' without numbers, or that use min-max scaling instead of standardization, don't meet the prompt. Part 3: This answers the 'Think About It' question directly and supports choosing robust scalers or metrics.",
+      "learning_objective": "Analyze how outliers and feature scaling affect different distance metrics and how to choose or adjust metrics accordingly.",
+      "keywords": ["mean", "standard deviation", "z-score", "9.95", "linear", "outlier"]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Outliers, Scaling and Metric Choice",
+      "question_text": "An insurer uses KNN to estimate claim severity from 6 standardized features. A few policyholders have extreme values (e.g., vehicle value 15 SDs above the mean), and these points keep showing up as 'neighbors' with distorted predictions. Which adjustment is most defensible?",
+      "options": [
+        "A) Switch to Chebyshev distance, so only the largest feature difference counts",
+        "B) Use MinMaxScaler, so all values are forced into [0, 1]",
+        "C) Delete every row with any |z| > 2",
+        "D) Use RobustScaler (or log-transform skewed features first), switch to Manhattan distance (p = 1) to reduce the influence of any single extreme feature, and set weights='distance'. Compare against the current setup with cross-validated MAE, and review extreme records instead of deleting them automatically"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Combining a robust scaler, a lower-p metric, and distance weighting reduces the influence of outliers at the scaling step, the distance step, and the voting step, and cross-validated MAE (itself robust to outliers) confirms the improvement. Reviewing extreme records keeps legitimate high-value policies in the data. Part 2: A makes things WORSE, since Chebyshev is the metric most dominated by a single extreme difference. B lets the outliers squash the other values into a narrow band. C throws away a large share of valid data; with 6 features, many normal rows have some |z| > 2. Part 3: This is a complete answer to choosing or adjusting metrics when there are outliers.",
+      "learning_objective": "Analyze how outliers and feature scaling affect different distance metrics and how to choose or adjust metrics accordingly.",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Outliers, Scaling and Metric Choice",
+      "question_text": "You are building a KNN classifier to detect fraudulent card transactions using amount (heavily right-skewed with extreme values), merchant-category embedding (a 32-dimensional vector), hour of day, and distance from home (miles). Design the preprocessing and metric choice for each feature group, explain how outliers and scaling affect each metric, and describe how you would validate the design.",
+      "options": null,
+      "correct_answer": "(1) Amount: apply log1p(amount) to compress the long tail, then RobustScaler (median and IQR) so a $250,000 transaction does not distort the scale for typical $40 purchases. (2) Distance from home: also skewed, so apply log1p and RobustScaler. (3) Hour of day: encode cyclically as sin(2 * pi * h / 24) and cos(2 * pi * h / 24) so that 23:00 and 01:00 are close, then standardize. (4) Merchant embedding: the direction of the vector carries the meaning, so L2-normalize it, which makes Euclidean distance on it equivalent to cosine. Metric: use Manhattan (p = 1) on the combined, scaled features, since squared Euclidean would let one extreme feature dominate and Chebyshev would let it decide the distance alone. Use weights='distance'. Validation: a Pipeline with a ColumnTransformer inside stratified 5-fold cross-validation (fraud is rare), with a grid search over k in {5, 11, 21}, p in {1, 2}, and scalers {Robust, Standard}. Score on precision-recall AUC and recall at a 1% false-positive rate, and compare with an unscaled Euclidean baseline to show the improvement.",
+      "explanation": "Part 1: A strong answer matches the preprocessing to each feature's distribution (log plus robust scaling for skewed money and distance values, cyclical encoding for time, normalization for embeddings), explains the metric's sensitivity to outliers (Manhattan < Euclidean < Chebyshev), and validates with leakage-free, stratified cross-validation scored on metrics that suit imbalanced fraud data. Part 2: Answers that apply one scaler to everything, use raw amounts, or measure accuracy on imbalanced data miss the key issues. Part 3: This brings together all four objectives: how KNN predicts, how the metrics compare, why scaling matters, and how outliers drive metric choice.",
+      "learning_objective": "Analyze how outliers and feature scaling affect different distance metrics and how to choose or adjust metrics accordingly.",
+      "keywords": ["log", "RobustScaler", "Manhattan", "cosine", "stratified", "precision-recall"]
+    }
+  ]
+}

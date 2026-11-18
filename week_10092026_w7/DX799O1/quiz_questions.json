@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 7 - Decision Trees, Impurity, Bagging & Random Forests",
+    "description": "Tests choosing decision-tree size by validation rather than training fit, computing and interpreting Gini, entropy, and log loss, how bagging with bootstrap samples stabilizes high-variance trees (including out-of-bag error), and how random forests decorrelate trees with feature subsampling, are tuned with grid search, and trade off accuracy against interpretability, as covered in the Week 7 notebook's main ideas.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Tree Size and Overfitting",
+      "question_text": "A churn model is a decision tree limited to 4 leaves. What is the main limitation of this tree?",
+      "options": [
+        "A) It always overfits because 4 leaves memorize the training set",
+        "B) It can only split the feature space into 4 final regions, so if churn depends on several interacting conditions (e.g., inactivity AND low watch time AND a failed payment), it will underfit and miss many cases, although it is easy to read",
+        "C) It cannot produce predicted probabilities",
+        "D) It requires feature scaling before training"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A tree with L leaves divides the data into L regions, each with one predicted class distribution. Four regions is very little expressive power, so the tree has high bias, but each leaf is an interpretable customer segment. Part 2: A is backward; a 4-leaf tree is too simple to memorize. C is false, since each leaf stores a class distribution (e.g., 20 churners out of 100 gives P = 0.20). D is false, because tree splits are thresholds and are not affected by scaling. Part 3: Seeing a small tree as an underfitting, high-bias model is the first step in choosing tree size.",
+      "learning_objective": "Explain how decision-tree size drives underfitting and overfitting, and choose tree size using validation or cross-validation.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Tree Size and Overfitting",
+      "question_text": "True or False: The best size for a decision tree (max_depth, max_leaf_nodes, or min_samples_leaf) should be chosen by whichever setting gives the highest TRAINING accuracy.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Training accuracy keeps rising as the tree grows, and a fully grown tree can often reach close to 100% by memorizing the training set. Tree size must be chosen by validation or cross-validation performance, which measures how well the tree generalizes. Part 2: Answering True would always pick the biggest tree, which overfits. Part 3: This is one of the notebook's main ideas: the best tree size is not chosen by training performance.",
+      "learning_objective": "Explain how decision-tree size drives underfitting and overfitting, and choose tree size using validation or cross-validation.",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Tree Size and Overfitting",
+      "question_text": "A leaf in a classification tree contains 80 customers who stayed and 20 who churned. The tree's predicted churn probability for any new customer who lands in this leaf is ___.",
+      "options": null,
+      "correct_answer": "0.20 (20%)",
+      "explanation": "Part 1: A leaf stores the class distribution of the training samples that reached it, so P(churn) = 20 / (80 + 20) = 0.20. The hard-label prediction would be 'no churn' at a 0.5 threshold. Part 2: Answering 'churn' or 'no churn' gives only the class label and ignores the probability. Answering 0.25 divides churners by stayers (20 / 80) instead of by the total. Part 3: Knowing that leaves produce probabilities is what makes log loss and threshold tuning possible for trees.",
+      "learning_objective": "Explain how decision-tree size drives underfitting and overfitting, and choose tree size using validation or cross-validation.",
+      "keywords": ["0.2", "0.20", "20%", "20 percent"]
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Tree Size and Overfitting",
+      "question_text": "A depth sweep on a churn dataset (5-fold cross-validation) gives: depth 2 -> train 0.74 / CV 0.73; depth 5 -> 0.83 / 0.81; depth 8 -> 0.91 / 0.80; depth None (fully grown) -> 1.00 / 0.74. Which depth should you choose, and why?",
+      "options": [
+        "A) None, because it reaches 100% training accuracy",
+        "B) Depth 2, because it has the smallest train-CV gap",
+        "C) Depth 5: it has the highest cross-validation accuracy (0.81) with a small gap. Depth 2 underfits (both scores are low), and deeper trees overfit, with the gap widening to 0.26 for the fully grown tree",
+        "D) Depth 8, because it has the second-highest training accuracy"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Choose the size that maximizes validation performance. Depth 5 is best (0.81), and depth 8 is close (0.80) but more complex, so the simpler model wins. Part 2: A uses training accuracy, which rewards memorization. B uses the gap alone, but a small gap with low scores means underfitting. D again uses training accuracy. Part 3: Reading this kind of sweep is the practical skill for choosing tree size.",
+      "learning_objective": "Explain how decision-tree size drives underfitting and overfitting, and choose tree size using validation or cross-validation.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Tree Size and Overfitting",
+      "question_text": "Which hyperparameter change would most directly REDUCE overfitting in a single decision tree?",
+      "options": [
+        "A) Increasing min_samples_leaf from 1 to 50, so every leaf must contain at least 50 training samples and its prediction rests on enough data",
+        "B) Setting max_depth=None",
+        "C) Lowering min_samples_split to 2",
+        "D) Raising max_leaf_nodes from 16 to 10,000"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A larger minimum leaf size stops the tree from building leaves around one or two unusual samples, which limits its complexity and makes leaf probabilities more stable. Part 2: B, C, and D all let the tree grow larger or split more finely, which INCREASES overfitting. Part 3: Knowing which parameters limit tree size (max_depth, max_leaf_nodes, min_samples_leaf, ccp_alpha) is how you put tree-size selection into practice.",
+      "learning_objective": "Explain how decision-tree size drives underfitting and overfitting, and choose tree size using validation or cross-validation.",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Tree Size and Overfitting",
+      "question_text": "Why is a single fully grown decision tree called a HIGH-VARIANCE model?",
+      "options": [
+        "A) Because its predictions are always far from the truth on average",
+        "B) Because it uses random numbers when it predicts",
+        "C) Because it needs a lot of memory",
+        "D) Because small changes in the training data (e.g., removing 5% of rows) can change the top splits and therefore the whole tree, so its predictions vary a lot from one training sample to another"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Greedy splitting means an early change in the best split cascades into a completely different tree. Each tree fits its sample's noise, so predictions change a lot across training samples. That is the definition of high variance. Part 2: A describes high bias. B is false, since predictions are deterministic once trained. C is about cost, not variance. Part 3: This instability is exactly what bagging and random forests are designed to fix.",
+      "learning_objective": "Explain how decision-tree size drives underfitting and overfitting, and choose tree size using validation or cross-validation.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Tree Size and Overfitting",
+      "question_text": "A retailer's merchandising team wants rules it can print on a one-page guide for store managers to flag products likely to lose money. A fully grown tree has CV AUC 0.71, a depth-3 tree 0.76, and a random forest 0.82. What should the data scientist recommend?",
+      "options": [
+        "A) The fully grown tree, because it uses every pattern in the data",
+        "B) The depth-3 tree for the printed guide, since it gives at most 8 readable rules and beats the overfit full tree. Report that the random forest is about 0.06 AUC better, and offer it as a back-office scoring tool explained with SHAP, so the business chooses knowingly between interpretability and accuracy",
+        "C) The random forest only, because accuracy is all that matters",
+        "D) Neither, because trees cannot be used for business decisions"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The business requirement (rules a manager can follow) favors a small tree, and here the shallow tree is also more accurate than the overfit full tree. Being clear about the forest's extra accuracy, and offering SHAP explanations, matches the interpretability-versus-performance tradeoff raised in this week's discussion. Part 2: A is the worst on both accuracy and readability. C ignores the stated requirement for printable rules. D is false. Part 3: This applies tree-size selection to a real decision about accuracy versus interpretability.",
+      "learning_objective": "Explain how decision-tree size drives underfitting and overfitting, and choose tree size using validation or cross-validation.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Impurity Measures and Log Loss",
+      "question_text": "For a node with class proportions p_k, which formulas are correct for Gini impurity and entropy?",
+      "options": [
+        "A) Gini = sum of p_k; Entropy = max p_k",
+        "B) Gini = sum of p_k * log(p_k); Entropy = 1 - sum of p_k^2",
+        "C) Both equal the proportion of the majority class",
+        "D) Gini = 1 - sum of p_k^2; Entropy = - sum of p_k * log2(p_k). Both are 0 for a pure node and largest when the classes are evenly mixed (for two classes: Gini 0.5, entropy 1 bit)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Both formulas measure how mixed a node is. Gini is the chance that two randomly drawn samples from the node have different labels; entropy is the average information (in bits) needed to identify a label. The tree chooses splits that reduce the weighted impurity the most. Part 2: A gives nonsense (the sum of p_k is always 1). B swaps the formulas and drops the minus sign. C describes majority-class accuracy, not impurity. Part 3: These formulas are the basis for how a tree evaluates splits.",
+      "learning_objective": "Compute and interpret Gini impurity, entropy, and log loss for decision-tree models.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Impurity Measures and Log Loss",
+      "question_text": "True or False: A node where all 120 samples belong to the 'churn' class has a Gini impurity of 0 and an entropy of 0.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. With p = 1 for one class, Gini = 1 - 1^2 = 0 and entropy = -1 * log2(1) = 0. A pure node cannot be improved by splitting, so the tree stops splitting it. Part 2: Answering False might come from confusing impurity with node size, since impurity depends only on the class proportions. Part 3: Knowing that impurity reaches its minimum at pure nodes is essential for reading what a tree is optimizing.",
+      "learning_objective": "Compute and interpret Gini impurity, entropy, and log loss for decision-tree models.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Impurity Measures and Log Loss",
+      "question_text": "A leaf contains 80 'stayed' and 20 'churned' customers. Compute its Gini impurity. Give a decimal.",
+      "options": null,
+      "correct_answer": "0.32",
+      "explanation": "Part 1: p_stay = 0.8 and p_churn = 0.2, so Gini = 1 - (0.8^2 + 0.2^2) = 1 - (0.64 + 0.04) = 0.32. For comparison, its entropy is -(0.8 * log2 0.8 + 0.2 * log2 0.2), about 0.722 bits. Part 2: Common mistakes are reporting the sum of squares (0.68) or the churn rate (0.2). Part 3: Computing impurity by hand shows what the tree's split criterion is actually minimizing.",
+      "learning_objective": "Compute and interpret Gini impurity, entropy, and log loss for decision-tree models.",
+      "keywords": ["0.32", "1 - (0.64 + 0.04)", "gini", "0.68"]
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Impurity Measures and Log Loss",
+      "question_text": "A parent node has 50 churners and 50 stayers (entropy = 1.0). A split sends 40 samples left (30 stayers, 10 churners) and 60 right (20 stayers, 40 churners). What is the information gain using entropy?",
+      "options": [
+        "A) About 0.125: left entropy H(0.75) = 0.811 and right entropy H(1/3) = 0.918, so the weighted child entropy = 0.4 * 0.811 + 0.6 * 0.918 = 0.875, and the gain = 1.0 - 0.875 = 0.125",
+        "B) 0.5, because the split is half of the data",
+        "C) 1.0, because the parent's entropy is 1",
+        "D) -0.125, because splits always increase entropy"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Information gain = parent impurity - weighted average child impurity, with weights equal to each child's share of the samples (40% and 60%). Here the gain is about 0.125 bits. Using Gini, the decrease would be 0.5 - (0.4 * 0.375 + 0.6 * 0.444), about 0.083. Part 2: B and C ignore the formula. D is wrong, because the weighted child impurity can never be higher than the parent's for these concave measures. Part 3: The tree compares this gain across all candidate splits and picks the largest.",
+      "learning_objective": "Compute and interpret Gini impurity, entropy, and log loss for decision-tree models.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Impurity Measures and Log Loss",
+      "question_text": "A model predicts P(churn) = 0.2 for a customer who DID churn, and P(churn) = 0.2 for another customer who did NOT churn. What is each customer's log-loss contribution (natural log)?",
+      "options": [
+        "A) Both are 0.2",
+        "B) Both are 0, because the hard label for both is 'no churn'",
+        "C) Churned customer: -ln(0.2), about 1.61 (a big penalty for low confidence in the true class). Non-churned customer: -ln(0.8), about 0.22 (a small penalty)",
+        "D) Churned: 0.8; non-churned: 0.2"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Log loss = -[y * ln(p) + (1 - y) * ln(1 - p)], so it penalizes the probability given to the TRUE class. Being confidently wrong is expensive (it goes to infinity as p approaches 0 for a true positive). Part 2: A and D confuse probabilities with losses. B evaluates only hard labels, which is exactly what log loss avoids. Part 3: Log loss judges predicted probabilities rather than labels, one of the notebook's main ideas.",
+      "learning_objective": "Compute and interpret Gini impurity, entropy, and log loss for decision-tree models.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Impurity Measures and Log Loss",
+      "question_text": "True or False: Two models with the same accuracy must have the same log loss.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Accuracy counts only whether the predicted label is correct at a threshold, while log loss uses the actual probabilities. A model that predicts 0.51 for every true positive and one that predicts 0.95 can have identical accuracy but very different log loss (0.67 vs. 0.05 per sample). Part 2: Answering True ignores how confident and how well calibrated the predictions are. Part 3: This is why log loss is the better metric when probabilities drive decisions, such as pricing or retention budgets.",
+      "learning_objective": "Compute and interpret Gini impurity, entropy, and log loss for decision-tree models.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Impurity Measures and Log Loss",
+      "question_text": "How different are trees built with criterion='gini' and criterion='entropy' in practice?",
+      "options": [
+        "A) Entropy trees are always far more accurate",
+        "B) They usually choose very similar splits and reach similar accuracy, because both curves are concave and peak at an even class mix. Gini is slightly faster to compute (no logarithm), so it is scikit-learn's default",
+        "C) Gini can only be used for regression",
+        "D) Entropy cannot handle more than two classes"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Both impurity measures rank candidate splits almost the same way, so the trees and scores typically differ only slightly. Gini avoids computing logarithms, which is why it is the default. Part 2: A overstates the difference. C is false; Gini is for classification, and regression trees use squared or absolute error. D is false, since entropy works for any number of classes. Part 3: Knowing that the two criteria are close lets you spend tuning effort on tree size instead.",
+      "learning_objective": "Compute and interpret Gini impurity, entropy, and log loss for decision-tree models.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Impurity Measures and Log Loss",
+      "question_text": "A subscription company uses predicted churn probabilities to set retention-offer budgets: expected loss = P(churn) * customer lifetime value. Model X has accuracy 0.86 and log loss 0.41. Model Y has accuracy 0.85 and log loss 0.29. Which should they deploy?",
+      "options": [
+        "A) Model X, because it has higher accuracy",
+        "B) Either, because accuracies within 1 point are the same",
+        "C) Neither, because log loss is only for neural networks",
+        "D) Model Y: budgets depend on the probability VALUES, and Y's much lower log loss means its probabilities are more accurate and better calibrated. Confirm with a calibration plot and the Brier score before deploying"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: When the business multiplies probabilities by dollar values, poorly calibrated probabilities waste budget. Log loss directly measures probability quality, so the 0.12 improvement matters far more than a 1-point difference in accuracy. Part 2: A focuses on a threshold-based metric that is irrelevant to how the probabilities are used. B ignores the large difference in log loss. C is false, since log loss applies to any probabilistic classifier. Part 3: Choosing a metric that matches how predictions are used is the practical value of understanding log loss.",
+      "learning_objective": "Compute and interpret Gini impurity, entropy, and log loss for decision-tree models.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Bagging and Bootstrap Samples",
+      "question_text": "In bagging (bootstrap aggregating), how is each tree's training set created?",
+      "options": [
+        "A) Each tree gets a different, non-overlapping tenth of the data",
+        "B) Each tree is trained on the full dataset in the same order",
+        "C) Each tree gets a bootstrap sample: n rows drawn WITH replacement from the n training rows, so some rows appear several times and others not at all. The trees' predictions are then averaged (regression) or combined by vote or averaged probabilities (classification)",
+        "D) Each tree is trained only on the misclassified rows of the previous tree"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Sampling with replacement gives each tree a slightly different view of the data, so the trees make somewhat different errors, and averaging them cancels much of the variance. Part 2: A describes k-fold partitioning. B would give identical trees, so averaging would change nothing. D describes boosting, a sequential method. Part 3: The bootstrap is the 'B' in bagging and the source of its variance reduction.",
+      "learning_objective": "Explain how bagging with bootstrap samples and out-of-bag evaluation stabilizes high-variance trees.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Bagging and Bootstrap Samples",
+      "question_text": "True or False: In a bootstrap sample of size n drawn from n rows, each row is left out with probability (1 - 1/n)^n, which approaches 1/e, about 36.8%, for large n. These left-out rows are called out-of-bag (OOB) samples.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Each of the n draws misses a given row with probability 1 - 1/n, so missing it in all n draws has probability (1 - 1/n)^n, which is about 0.368 for n = 1,000. Each tree therefore sees about 63.2% of the unique rows. The rows it never saw act as a free validation set for that tree. Part 2: Answering False might come from assuming every row appears in every bootstrap sample. Part 3: OOB samples let bagged models estimate test error without a separate hold-out set.",
+      "learning_objective": "Explain how bagging with bootstrap samples and out-of-bag evaluation stabilizes high-variance trees.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bagging and Bootstrap Samples",
+      "question_text": "If each tree's prediction has variance sigma^2 and any two trees' predictions have correlation rho, the variance of the average of B trees is rho * sigma^2 + (1 - rho) * sigma^2 / B. With rho = 0.3 and sigma^2 = 1, what does this imply?",
+      "options": [
+        "A) The variance falls from 1.0 (B = 1) to 0.37 (B = 10) and 0.307 (B = 100), but it can never go below rho * sigma^2 = 0.3. Adding trees removes the (1 - rho) / B part, while the remaining variance can only be reduced by making the trees LESS correlated, which is exactly what random forests do",
+        "B) The variance reaches 0 as B goes to infinity",
+        "C) The variance increases as more trees are added",
+        "D) Correlation between trees has no effect on the ensemble"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Averaging reduces only the uncorrelated part of the variance. The rho * sigma^2 floor stays because correlated trees make the same mistakes. Bagging lowers the second term; random forests' feature subsampling lowers rho and therefore the floor. Part 2: B would hold only if rho = 0. C is the opposite of what the formula says. D contradicts the rho term. Part 3: This formula explains both how bagging stabilizes trees and why random forests improve on it.",
+      "learning_objective": "Explain how bagging with bootstrap samples and out-of-bag evaluation stabilizes high-variance trees.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Bagging and Bootstrap Samples",
+      "question_text": "A team has only 1,200 labeled insurance claims and does not want to set aside a large hold-out set. They train RandomForestClassifier(n_estimators=500, oob_score=True). How should they use the OOB score?",
+      "options": [
+        "A) Ignore it, because only test-set scores are valid",
+        "B) Use it as the training accuracy",
+        "C) Treat it as an approximately unbiased estimate of generalization accuracy: each row is scored only by the roughly 37% of trees that never saw it. Use it to compare max_features or min_samples_leaf settings cheaply, but still confirm the final model with cross-validation or a small final test set before reporting",
+        "D) Increase oob_score to 2 for a better estimate"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: OOB predictions are made by trees that never saw the row, so they behave like cross-validation predictions and come at no extra training cost, which is valuable when data are scarce. Part 2: A wastes a reliable estimate. B is wrong because OOB is NOT training accuracy; the training score is computed on seen rows and is optimistic. D is meaningless, since oob_score is a boolean. Part 3: Using OOB evaluation well is a practical benefit of bagging.",
+      "learning_objective": "Explain how bagging with bootstrap samples and out-of-bag evaluation stabilizes high-variance trees.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Bagging and Bootstrap Samples",
+      "question_text": "True or False: In bagging and random forests, increasing n_estimators from 200 to 2,000 generally does not cause overfitting. Validation error levels off, and the main cost is training and prediction time.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Each tree is trained independently, and adding more of them only averages away more of the (1 - rho) / B variance term, so the error converges instead of rising. (Each tree can still overfit on its own; tree depth and min_samples_leaf control that.) Part 2: Answering False applies boosting's behavior, where adding sequential trees CAN overfit, to bagging. Part 3: Knowing this lets you set n_estimators simply 'large enough' and tune the other parameters instead.",
+      "learning_objective": "Explain how bagging with bootstrap samples and out-of-bag evaluation stabilizes high-variance trees.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bagging and Bootstrap Samples",
+      "question_text": "Bagging gives a big improvement for fully grown decision trees but almost none for bagged linear regression models. Why?",
+      "options": [
+        "A) Linear regression cannot be trained on bootstrap samples",
+        "B) Bagging only works on categorical targets",
+        "C) Linear regression is always more accurate than trees",
+        "D) Bagging reduces VARIANCE. Fully grown trees are low-bias, high-variance models whose fits change a lot from one bootstrap sample to another, so averaging helps. Linear regression is a stable, low-variance model, so its bootstrap fits are nearly identical and averaging them changes little"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The benefit of averaging grows with how much the base models disagree. Unstable learners such as deep trees gain the most, and stable learners gain little. Bagging does NOT reduce bias, so averaging high-bias models leaves them biased. Part 2: A and B are false, since bagging works with any learner and any target type. C is false in general. Part 3: Knowing which models benefit explains why bagging is paired with high-variance trees.",
+      "learning_objective": "Explain how bagging with bootstrap samples and out-of-bag evaluation stabilizes high-variance trees.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Bagging and Bootstrap Samples",
+      "question_text": "A bank's single decision tree for small-business loan default gives very different top splits each time it is retrained on a new month of data, which confuses credit officers. Its CV AUC also swings between 0.68 and 0.75. Explain what is happening and how bagging would help, including concrete settings and how you would show the improvement.",
+      "options": null,
+      "correct_answer": "What is happening: a single deep tree is a high-variance learner. Small changes in the monthly data change the greedy top split, and that change cascades into a different tree and different predictions, so both the structure and the AUC are unstable. How bagging helps: train many trees on bootstrap samples and average their predicted probabilities. For example, use BaggingClassifier(estimator=DecisionTreeClassifier(min_samples_leaf=20), n_estimators=300, oob_score=True), or a RandomForestClassifier, which also decorrelates the trees. Averaging cancels the tree-to-tree variance, so predictions and AUC become much more stable from month to month. Showing the improvement: (1) report the mean and SD of the AUC across 10 repeated 5-fold CV runs for the single tree and the bagged model, expecting a higher mean and a much smaller SD; (2) retrain both on each of the last 6 months and compare how much individual borrowers' predicted probabilities change; (3) use the OOB score as a cheap check. For credit officers, explain the bagged model with permutation importance or SHAP rather than one tree's splits.",
+      "explanation": "Part 1: A strong answer identifies high variance as the cause, explains how bootstrap aggregation reduces it, gives concrete settings, and proposes measurable checks on stability (SD across CV runs, month-to-month changes in predictions) as well as on accuracy. Part 2: Answers that only suggest pruning, or that say 'use more data' without bagging, miss the ensemble idea. Ignoring interpretability for credit officers misses the stakeholder concern. Part 3: This applies bagging's variance reduction to a real lending problem.",
+      "learning_objective": "Explain how bagging with bootstrap samples and out-of-bag evaluation stabilizes high-variance trees.",
+      "keywords": ["high variance", "bootstrap", "average", "out-of-bag", "stability", "n_estimators"]
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Random Forests: Tuning and Interpretation",
+      "question_text": "What does a random forest add on top of bagged decision trees?",
+      "options": [
+        "A) At each split, a tree considers only a random subset of the features (max_features). This forces the trees to differ from one another (lower correlation rho), so averaging them reduces variance more than plain bagging",
+        "B) It uses a single tree with random weights",
+        "C) Each tree is trained on the errors of the previous one",
+        "D) It removes bootstrap sampling"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: In plain bagging, a strong feature (e.g., 'days since last login') tends to be the top split in nearly every tree, which makes the trees similar. Random feature subsets give other features a chance, so the trees become less correlated and the rho * sigma^2 variance floor drops. Part 2: B is not an ensemble. C describes boosting. D is wrong, since random forests keep bootstrap sampling by default. Part 3: This is the notebook's main idea: random forests improve bagging by making the trees less similar to one another.",
+      "learning_objective": "Explain how random forests decorrelate trees, tune them with cross-validated search, and balance accuracy against interpretability.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Random Forests: Tuning and Interpretation",
+      "question_text": "A random forest classifier with max_features='sqrt' is trained on 64 features. How many features are considered at each split?",
+      "options": [
+        "A) 64",
+        "B) 8, because sqrt(64) = 8, chosen at random again for every split",
+        "C) 32",
+        "D) 1"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: 'sqrt' means the square root of the number of features, here 8, drawn fresh at each split (not once per tree). This is the usual default for classification; for regression, scikit-learn's default is 1.0, all features. Part 2: A turns the random forest back into plain bagging. C would be max_features = 0.5. D gives extremely random, weak trees. Part 3: max_features is the main setting for how much decorrelation you add, and it is often the most important parameter to tune.",
+      "learning_objective": "Explain how random forests decorrelate trees, tune them with cross-validated search, and balance accuracy against interpretability.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Random Forests: Tuning and Interpretation",
+      "question_text": "A GridSearchCV tunes a random forest over n_estimators in {100, 200, 400, 800}, max_depth in {5, 10, None}, and max_features in {'sqrt', 0.3, 0.5}, with cv=5. How many model fits does this run (excluding the final refit)?",
+      "options": [
+        "A) 10",
+        "B) 36",
+        "C) 4 * 3 * 3 = 36 combinations times 5 folds = 180 fits. RandomizedSearchCV with n_iter = 20 would need only 100 fits, and Bayesian tools such as Optuna use earlier results to choose the next settings to try",
+        "D) 5"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Grid search tries every combination on every fold: 36 * 5 = 180, plus one refit on all the training data. The cost grows multiplicatively with each parameter, which is why random search or Bayesian optimization is preferred for large search spaces. Part 2: A adds the grid sizes instead of multiplying them. B forgets the folds. D counts only the folds. Part 3: Knowing the cost of a search is part of tuning random forests sensibly.",
+      "learning_objective": "Explain how random forests decorrelate trees, tune them with cross-validated search, and balance accuracy against interpretability.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Random Forests: Tuning and Interpretation",
+      "question_text": "True or False: A random forest's built-in impurity-based feature_importances_ are always a reliable ranking of how much each feature matters, even for high-cardinality features such as customer ID or ZIP code.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Mean decrease in impurity is computed on the TRAINING data and favors features with many unique values, because they offer more possible split points. A random ID column can look important. Permutation importance on held-out data, or SHAP values, give more reliable rankings. Part 2: Answering True trusts a known biased default. Part 3: Interpreting a forest correctly is central to the accuracy-versus-interpretability tradeoff discussed this week.",
+      "learning_objective": "Explain how random forests decorrelate trees, tune them with cross-validated search, and balance accuracy against interpretability.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Random Forests: Tuning and Interpretation",
+      "question_text": "In a fraud dataset, 2% of transactions are fraudulent. A default random forest reaches 98.1% accuracy but catches only 15% of the fraud cases. What is the most appropriate response?",
+      "options": [
+        "A) Accept it, because 98.1% accuracy is excellent",
+        "B) Remove all the fraud cases so the classes are balanced",
+        "C) Switch to a single deep decision tree",
+        "D) Accuracy is misleading here, since predicting 'not fraud' for everyone already scores 98%. Use class_weight='balanced' or 'balanced_subsample' (or a balanced random forest that undersamples each bootstrap), evaluate with precision-recall AUC and recall at a set false-positive rate, and tune the probability threshold rather than using 0.5"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: With a 2% minority class, bootstrap samples and impurity splits are dominated by the majority class. Reweighting or rebalancing each tree's sample, choosing metrics that suit imbalance, and tuning the threshold address this directly, as in the imbalanced-forest article shared this week. Part 2: A falls for the accuracy illusion. B deletes exactly the cases the model needs to learn. C adds variance and does not fix the imbalance. Part 3: Tuning a forest for the business objective, catching fraud, is the practical skill here.",
+      "learning_objective": "Explain how random forests decorrelate trees, tune them with cross-validated search, and balance accuracy against interpretability.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Random Forests: Tuning and Interpretation",
+      "question_text": "In 2-3 sentences, explain why LOWERING max_features (e.g., from all features to sqrt(p)) can improve a random forest's test accuracy even though each individual tree becomes WEAKER.",
+      "options": null,
+      "correct_answer": "Restricting each split to a random subset of features stops every tree from using the same dominant features, so the trees become less correlated (a lower rho). The ensemble's variance is rho * sigma^2 + (1 - rho) * sigma^2 / B, so lowering rho reduces the floor that averaging alone cannot remove. The ensemble therefore generalizes better even though each tree is slightly less accurate (higher individual bias). If max_features is too low, the trees become too weak and bias dominates, so max_features is tuned with cross-validation.",
+      "explanation": "Part 1: A strong answer links fewer candidate features to more diverse trees, a lower correlation, and lower ensemble variance, refers to the variance formula, and notes the opposite risk of trees that are too weak. Part 2: Answers that say 'fewer features means less overfitting' without mentioning decorrelation or averaging miss the mechanism. Answers claiming that individual trees get MORE accurate are wrong. Part 3: This explains why random forests improve on bagging.",
+      "learning_objective": "Explain how random forests decorrelate trees, tune them with cross-validated search, and balance accuracy against interpretability.",
+      "keywords": ["correlation", "decorrelate", "variance", "averaging", "diverse", "bias"]
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Random Forests: Tuning and Interpretation",
+      "question_text": "A data scientist tunes a random forest with GridSearchCV on the full dataset, reports best_score_ = 0.87 as the model's expected performance, and then evaluates on a test set that was also used to choose the features. A reviewer objects. What is the correct procedure?",
+      "options": [
+        "A) Split off a test set FIRST and never use it for feature selection or tuning. Put feature selection and the model inside a Pipeline, tune with GridSearchCV on the training data only (or use nested cross-validation for an unbiased estimate), and report the final score once on the untouched test set. best_score_ is optimistic because it is the maximum over many configurations",
+        "B) Report best_score_, because cross-validation is always unbiased",
+        "C) Tune on the test set to get the highest possible score",
+        "D) Skip tuning, because random forests have no hyperparameters"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Choosing the best of many configurations on the same folds produces an optimistic score (selection bias), and using the test set for feature selection leaks information. A Pipeline plus a held-out test set or nested CV gives an honest estimate. These are the 'common errors to avoid' in this week's tuning article. Part 2: B ignores selection bias. C turns the test set into a training set. D is false, since n_estimators, max_depth, max_features, and min_samples_leaf all matter. Part 3: Leakage-free tuning is required for any credible random forest result.",
+      "learning_objective": "Explain how random forests decorrelate trees, tune them with cross-validated search, and balance accuracy against interpretability.",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Random Forests: Tuning and Interpretation",
+      "question_text": "For a capstone project, a random forest flags product recommendations likely to lose money (CV AUC 0.84), while a depth-4 decision tree reaches AUC 0.77. Leadership says that 'the forest says so' is not a business case. Propose a plan that keeps most of the forest's accuracy while giving explanations a merchandiser can act on, and describe how you would measure whether the explanations are faithful.",
+      "options": null,
+      "correct_answer": "(1) Keep the tuned forest (e.g., max_features='sqrt', min_samples_leaf=20, 500 trees, tuned with RandomizedSearchCV in a Pipeline) as the scoring model. (2) Global explanation: compute permutation importance on held-out data and SHAP summary plots to show which drivers (e.g., discount depth, return rate, supplier lead time) push predicted loss up. (3) Local explanation: for each flagged recommendation, show its top 3 SHAP contributions in plain language, e.g., 'flagged mainly because the discount is above 35% and the category return rate is above 12%.' (4) Surrogate rules: fit a shallow surrogate tree (depth 3-4) to the FOREST's predictions, or use the published SHAP-plus-co-clustering approach that summarizes the forest with a few shallow trees, to produce printable rules. (5) Measure faithfulness: report the surrogate's agreement with the forest on held-out data (fidelity, e.g., 90% label agreement or R^2 of the probabilities) and its own AUC, and check that SHAP rankings stay stable across bootstrap refits. (6) Business validation: back-test the flagged products against realized profit and loss, and report dollars saved compared with the depth-4 tree. Present the tradeoff explicitly: about 0.07 AUC gained, along with explanations that keep 90% fidelity.",
+      "explanation": "Part 1: A strong plan keeps the accurate model and adds global explanations (permutation importance, SHAP), local per-decision explanations, and simple surrogate rules, then measures fidelity and ties the result to business value, which directly addresses the interpretability-versus-accuracy question from this week's discussion. Part 2: Plans that switch to the weaker tree without measuring the cost, rely on biased impurity importances, or offer explanations without checking fidelity are incomplete. Part 3: This brings together tree size, impurity, bagging, and random forest tuning and interpretation in one capstone-style workflow.",
+      "learning_objective": "Explain how random forests decorrelate trees, tune them with cross-validated search, and balance accuracy against interpretability.",
+      "keywords": ["SHAP", "permutation importance", "surrogate", "fidelity", "held-out", "business"]
+    }
+  ]
+}

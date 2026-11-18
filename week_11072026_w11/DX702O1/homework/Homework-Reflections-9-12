@@ -1,0 +1,34 @@
+In all cases, written answers (apart from code) should not be longer than about three paragraphs.  Graders may not read all of your
+submission if it is longer than that.
+
+Homework Reflection 9
+
+1. Write some code that will use a simulation to estimate the standard deviation of the coefficient when there is heteroskedasticity.  
+Compare these standard errors to those found via statsmodels OLS or a similar linear regression model.
+
+2. Write some code that will use a simulation to estimate the standard deviation of the coefficient when errors are highly correlated / non-independent.
+Compare these standard errors to those found via statsmodels OlS or a similar linear regression model.
+
+Show that if the correlation between errors is high enough, then the estimated standard deviation of the coefficient, using bootstrap errors, 
+might not match that found by a full simulation of the Data Generating Process.  (This can be fixed if you have a huge amount of data for the bootstrap simulation.)
+
+Homework Reflection 10
+
+We are skipping this one, this time.
+
+Homework Reflection 11
+
+1. Construct a dataset for an event study where the value, derivative, and second derivative of a trend all change discontinuously (suddenly) after an event.
+Build a model that tries to decide whether the event is real (has a nonzero effect) using:
+(a) only the value,
+(b) the value, derivative, and second derivative.
+Which of these models is better at detecting and/or quantifying the impact of the event?  (What might "better" mean here?)
+
+2. Construct a dataset in which there are three groups whose values each increase discontinuously (suddenly) by the same amount at a shared event; they change in parallel
+over time, but they have different starting values.  Create a model that combines group fixed effects with an event study, as suggested in the online reading.
+Explain what you did, how the model works, and how it accounts for both baseline differences and the common event effect.
+
+Homework Reflection 12
+
+Construct a dataset in which prior trends do not hold, and in which this makes the differences-in-differences come out wrong.  Explain why the
+differences-in-differences estimate of the effect comes out higher or lower than the actual effect.

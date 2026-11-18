@@ -1,0 +1,497 @@
+{
+  "quiz_metadata": {
+    "title": "DX702 O1 Fall 2026: Week 4 - Instrumental Variables & Regression Discontinuity",
+    "description": "A master's-level quiz on conducting instrumental-variables studies (relevance, exclusion, independence, 2SLS, Wald estimator, weak instruments, LATE for compliers), inventing credible IV scenarios, conducting regression-discontinuity studies (running variable, cutoff, bandwidth, local linear fits, manipulation and covariate-balance checks, sharp vs. fuzzy RD), and inventing realistic RD examples from policy, education, and clinical thresholds.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Conducting an IV Study",
+      "question_text": "An instrument Z is used to estimate the effect of treatment X on outcome Y when a confounder U affects both X and Y. Which conditions must Z satisfy?",
+      "options": [
+        "A) Z must be strongly correlated with Y and uncorrelated with X",
+        "B) RELEVANCE: Z must actually move X (a strong first stage). EXCLUSION: Z must affect Y ONLY through X. INDEPENDENCE (exogeneity): Z must be as good as randomly assigned, i.e., unrelated to U. Monotonicity is also needed when the result is interpreted as a LATE",
+        "C) Z must be the same variable as the confounder U",
+        "D) Z only needs to be measured before Y"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: IV works by using only the variation in X that comes from Z. If Z is unrelated to U and affects Y only through X, that variation is clean of confounding. Relevance can be tested with the first stage; exclusion and independence must be argued. Part 2: A reverses the requirements. C would bring the confounding back in. D is necessary but far from sufficient. Part 3: These assumptions are the foundation of conducting any IV study.",
+      "learning_objective": "Conduct an instrumental variables study",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Conducting an IV Study",
+      "question_text": "True or False: A common rule of thumb is that a first-stage F-statistic below about 10 for the instrument signals a WEAK instrument, which makes the IV estimate unreliable.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. With a weak first stage, the IV estimate is biased toward OLS, has very large standard errors, and its confidence intervals can be misleading. The Staiger-Stock rule of F > 10 is the classic check, and recent work suggests even higher thresholds (around 104) for valid t-tests. Part 2: Answering False ignores the main testable failure of IV. Part 3: Checking the strength of the first stage is a required step in conducting an IV study.",
+      "learning_objective": "Conduct an instrumental variables study",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Conducting an IV Study",
+      "question_text": "Which sequence correctly describes two-stage least squares (2SLS)?",
+      "options": [
+        "A) Regress Z on Y, then regress X on the residuals",
+        "B) Regress Y on X, then add Z as a control",
+        "C) Stage 1: regress X on Z (and the controls) and keep the predicted values X-hat. Stage 2: regress Y on X-hat (and the same controls). The stage-2 slope is the IV estimate. Use a dedicated IV routine (e.g., `linearmodels.IV2SLS`) so the standard errors are correct",
+        "D) Regress Y on Z only and report that slope as the effect of X"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Stage 1 isolates the part of X explained by the instrument, which is free of confounding by U under the IV assumptions. Stage 2 relates Y to that clean part of X. Part 2: A and B are not IV procedures. D is the REDUCED FORM: it is the effect of Z on Y, which must be divided by the first stage to give the effect of X. Part 3: Knowing the mechanics of 2SLS is the practical core of conducting an IV study.",
+      "learning_objective": "Conduct an instrumental variables study",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Conducting an IV Study",
+      "question_text": "A job-training study randomly mails invitations (Z = 1 or 0). Invited people are 0.6 (60 percentage points) more likely to attend the training (first stage). Invited people earn $2,400 more per year on average (reduced form). Using the Wald estimator, what is the effect of ATTENDING the training on annual earnings, in dollars? Enter only the number.",
+      "options": null,
+      "correct_answer": "4000",
+      "explanation": "Part 1: Wald IV = reduced form / first stage = 2,400 / 0.6 = $4,000 per attendee. The invitation's effect is spread over only the 60% whose attendance it changed, so the effect per actual participant is larger. Part 2: Reporting $2,400 gives the intention-to-treat (ITT) effect of the invitation, not of attendance. Multiplying (2,400 * 0.6 = 1,440) reverses the scaling. Part 3: Computing the Wald estimator by hand shows exactly how IV rescales the reduced form by the first stage.",
+      "learning_objective": "Conduct an instrumental variables study",
+      "keywords": [
+        "4000",
+        "2400 / 0.6",
+        "Wald",
+        "first stage"
+      ]
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Conducting an IV Study",
+      "question_text": "An analyst's first stage has F = 3. Even so, the 2SLS estimate looks very close to the OLS estimate, and the analyst concludes, 'Confounding is not a problem.' What is wrong?",
+      "options": [
+        "A) With a weak instrument, 2SLS is biased TOWARD OLS and its sampling distribution is wide and non-normal. Agreement with OLS may just reflect the weakness, not the absence of confounding. Find a stronger instrument or use weak-instrument-robust inference (e.g., Anderson-Rubin confidence intervals)",
+        "B) Nothing; similar estimates prove there is no confounding",
+        "C) An F of 3 is excellent",
+        "D) The analyst should simply drop the first stage"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: When the instrument hardly moves X, the predicted X-hat mostly reflects noise that is correlated with the original X, so 2SLS falls back toward the biased OLS answer. Robust methods such as Anderson-Rubin give honest (often very wide) intervals. Part 2: B draws a causal conclusion from a weak design. C misreads the F-statistic. D would mean IV is no longer being done. Part 3: Diagnosing weak instruments is a key quality check when conducting IV.",
+      "learning_objective": "Conduct an instrumental variables study",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Conducting an IV Study",
+      "question_text": "With a binary instrument and binary treatment, IV estimates a LOCAL average treatment effect (LATE). For whom is that effect estimated?",
+      "options": [
+        "A) For everyone in the population",
+        "B) For ALWAYS-TAKERS only",
+        "C) For NEVER-TAKERS only",
+        "D) For COMPLIERS: people whose treatment status is changed by the instrument (they take the treatment when Z = 1 and not when Z = 0). Under monotonicity, there are no defiers, and the LATE is the average effect for this group"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Always-takers and never-takers behave the same regardless of Z, so they contribute no variation in X that comes from Z. The IV estimate therefore averages the effect over compliers only. That is why different instruments for the same treatment can give different estimates. Part 2: A applies only if effects are the same for everyone. B and C are exactly the groups IV cannot learn about. Part 3: Interpreting whose effect IV estimates is essential when reporting an IV study.",
+      "learning_objective": "Conduct an instrumental variables study",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Conducting an IV Study",
+      "question_text": "True or False: Running the two stages of 2SLS by hand with two separate OLS regressions gives both the correct coefficient AND the correct standard errors.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. The coefficient is correct, but the second-stage OLS standard errors are WRONG: they use residuals computed with X-hat instead of the actual X and ignore that X-hat was estimated. Dedicated IV routines (`linearmodels.iv.IV2SLS`, Stata `ivregress`, R `ivreg`) correct this. Part 2: Answering True leads to misleading confidence intervals and p-values. Part 3: Using correct inference is part of conducting an IV study properly.",
+      "learning_objective": "Conduct an instrumental variables study",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Conducting an IV Study",
+      "question_text": "Card-style study: using growing up near a 4-year college as an instrument for years of schooling, the IV estimate of the return to schooling is about 13% per year, while OLS gives about 7%. Which interpretation and set of checks is best?",
+      "options": [
+        "A) IV can exceed OLS because it is a LATE for compliers (people whose schooling depends on proximity, often from lower-income families facing cost barriers, who may have HIGH returns) and because OLS can be attenuated by measurement error in schooling. Check first-stage strength, control for region and urban residence (proximity may also signal better local labor markets, threatening exclusion), and report the complier interpretation",
+        "B) IV must always be smaller than OLS, so the IV estimate is wrong",
+        "C) The difference proves that ability bias is negative for everyone",
+        "D) Average the two estimates to get 10% and report that"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A larger IV estimate is consistent with heterogeneous effects (compliers at the margin have higher returns) and with OLS attenuation from measurement error. The main threat is that college proximity is associated with urban areas that have higher wages, so controls are needed to defend exclusion. Part 2: B wrongly assumes a fixed ordering of IV and OLS. C overgeneralizes from a LATE. D has no statistical basis. Part 3: Interpreting IV results critically and running the key validity checks is the advanced skill of conducting an IV study.",
+      "learning_objective": "Conduct an instrumental variables study",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Inventing an IV Scenario",
+      "question_text": "Which proposed instrument is the MOST credible for estimating the effect of hospital C-section rates on infant health?",
+      "options": [
+        "A) The mother's income",
+        "B) Random assignment of laboring mothers to on-call obstetricians who differ in their tendency to perform C-sections (a physician-preference instrument): the assignment depends on shift timing, not on the mother's risk, and should affect infant health only through the delivery method",
+        "C) The infant's birth weight",
+        "D) Whether the mother had a C-section before"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Shift-based assignment works like a lottery (independence), physicians' C-section tendencies differ strongly (relevance), and the physician plausibly affects infant outcomes mainly through the delivery decision (exclusion). This needs defending, since physicians may differ in other skills too. Part 2: A affects health through many paths (nutrition, care), so it violates exclusion. C is an outcome-related variable. D is correlated with maternal risk factors, which violates independence. Part 3: Spotting a credible instrument is the first step in inventing an IV scenario.",
+      "learning_objective": "Invent your own scenario that uses instrumental variables",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Inventing an IV Scenario",
+      "question_text": "True or False: Rainfall is often a convincing instrument for any outcome because it is random, so it automatically satisfies the exclusion restriction.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Being random gives INDEPENDENCE, but exclusion requires that Z affect Y only through X. Rainfall affects agriculture, mood, traffic, disease, and protest turnout, so using it to instrument one of these for an outcome affected by another often breaks exclusion. Part 2: Answering True confuses independence with exclusion, the most common mistake in invented IV scenarios. Part 3: A good invented scenario argues each assumption separately.",
+      "learning_objective": "Invent your own scenario that uses instrumental variables",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing an IV Scenario",
+      "question_text": "A student proposes: 'Effect of smartphone use (X) on teen sleep (Y), using cell-tower 5G rollout dates by ZIP code (Z) as the instrument.' Which threat to the design is the most serious?",
+      "options": [
+        "A) The first stage cannot be estimated",
+        "B) ZIP codes are too small",
+        "C) 5G rollouts went first to wealthier, denser, urban ZIP codes, which may differ in sleep patterns for other reasons (noise, schedules, income). That breaks independence unless the analysis controls for ZIP and time fixed effects or uses only the timing variation within similar areas",
+        "D) 5G rollout is perfectly random"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Infrastructure rollouts are targeted, not random, so Z is correlated with confounders. Strengthening the design (fixed effects, comparing early and late rollouts within the same metro area, checking pre-trends) makes independence more believable. Exclusion also needs an argument, because 5G could affect sleep through other devices. Part 2: A and B are not the main problem. D is the false assumption that creates the threat. Part 3: Stress-testing an invented instrument is central to this objective.",
+      "learning_objective": "Invent your own scenario that uses instrumental variables",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing an IV Scenario",
+      "question_text": "An e-commerce company wants the causal effect of using a product recommendation widget (X) on order value (Y). Heavy shoppers use the widget more. Which invented instrument is best?",
+      "options": [
+        "A) An A/B test that randomly ENCOURAGES some users (e.g., the widget is auto-expanded for a random 50%) while everyone can still choose whether to use it. The random encouragement is the instrument for actual widget use (an encouragement design)",
+        "B) The user's past order value",
+        "C) The user's device type",
+        "D) The number of products viewed in the session"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Random encouragement guarantees independence, it increases use (relevance, which should be verified), and it plausibly affects orders only through widget use (exclusion). The IV estimate is then the LATE for users who use the widget because of the encouragement. Part 2: B is a confounder. C is correlated with income and behavior. D is a post-treatment variable. All three fail the IV assumptions. Part 3: Encouragement designs are a powerful way to build your own IV scenario.",
+      "learning_objective": "Invent your own scenario that uses instrumental variables",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Inventing an IV Scenario",
+      "question_text": "Invent your own instrumental-variables scenario. State (1) the treatment X and outcome Y, (2) the confounder U that makes OLS biased, (3) your instrument Z, (4) your argument for relevance, independence, and exclusion, (5) who the compliers are (what the LATE means), and (6) the biggest remaining threat and how you would check for it.",
+      "options": null,
+      "correct_answer": "Example: (1) X = enrolling in a hospital's remote patient-monitoring program; Y = 90-day readmission. (2) U = patient motivation and health literacy: motivated patients enroll more and are readmitted less, so OLS overstates the program's benefit. (3) Z = whether the discharge nurse on duty is a 'high-enroller' (nurses are assigned by shift schedule and differ in how often they sign patients up). (4) Relevance: in the first stage, high-enroller nurses raise enrollment by about 25 points (check that F > 10). Independence: shift assignment is unrelated to patient characteristics (check that age, diagnosis, and comorbidities are balanced across nurse types). Exclusion: the nurse affects readmission only through enrollment, which is the main concern. (5) Compliers are patients who enroll only when they get a high-enroller nurse: marginal, less motivated patients. (6) Threat: high-enroller nurses might also give better discharge instructions, which violates exclusion. Check by controlling for measures of discharge quality, testing the instrument's effect on readmission in patients ineligible for the program (it should be about 0), and using a leave-one-out nurse propensity measure.",
+      "explanation": "Part 1: A strong answer names a concrete confounder, builds an instrument with a plausible as-if-random source, argues each assumption separately with a way to check it, interprets the LATE for the compliers, and names a credible threat to exclusion with a test. Part 2: Answers that propose a confounder-correlated instrument (e.g., income), skip the exclusion argument, or never say whose effect is estimated are incomplete. Part 3: This directly fulfills the objective of inventing an IV scenario.",
+      "learning_objective": "Invent your own scenario that uses instrumental variables",
+      "keywords": [
+        "relevance",
+        "exclusion",
+        "independence",
+        "compliers",
+        "first stage",
+        "confounder"
+      ]
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Inventing an IV Scenario",
+      "question_text": "Two invented instruments for the effect of military service on later earnings: (i) the Vietnam draft lottery number; (ii) living near a military base. Which comparison is correct?",
+      "options": [
+        "A) Both are equally valid",
+        "B) Base proximity is better, because it has a stronger first stage",
+        "C) Neither can ever be used as an instrument",
+        "D) The draft lottery is more credible: numbers were randomly assigned (independence) and strongly affected service (relevance), and exclusion is fairly plausible (though draft avoidance through extra schooling is a threat). Base proximity is correlated with local economies and family military traditions that affect earnings directly, breaking independence and exclusion"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Angrist's draft-lottery study is a classic example because the instrument was a government lottery. Proximity to a base mixes many local factors that affect earnings directly. Even the lottery needs an exclusion argument, since men with low numbers sometimes stayed in school to avoid service. Part 2: A ignores the difference in how the instruments were assigned. B lets strength override validity. C is too strong. Part 3: Comparing candidate instruments and choosing the credible one is the advanced skill of designing IV scenarios.",
+      "learning_objective": "Invent your own scenario that uses instrumental variables",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Conducting an RD Study",
+      "question_text": "In a regression discontinuity design, what is the RUNNING (forcing) variable?",
+      "options": [
+        "A) The outcome being studied",
+        "B) A randomly generated variable",
+        "C) Any control variable",
+        "D) The continuous variable whose value relative to a CUTOFF determines treatment, such as a test score (scholarship at 80 or above), age (Medicare at 65), or income (aid below a threshold)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: In sharp RD, treatment switches on exactly at the cutoff c of the running variable R. Units just above and just below c are nearly identical, so the jump in Y at c estimates the treatment effect at the cutoff. Part 2: A is the outcome. B and C are not part of RD's identification. Part 3: Identifying the running variable and the cutoff is step one of conducting an RD study.",
+      "learning_objective": "Conduct a regression discontinuity study",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Conducting an RD Study",
+      "question_text": "True or False: The RD estimate is a LOCAL effect. It identifies the treatment effect for units AT (or very near) the cutoff, and it may not apply to units far from the threshold.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. RD compares units just above and just below c. The effect of a scholarship for students who scored about 80 may differ from its effect for students who scored 95 or 50. Extrapolating requires extra assumptions. Part 2: Answering False overstates what RD can generalize to, a common mistake in reporting policy conclusions. Part 3: Stating the scope of the RD estimate is part of conducting and reporting an RD study.",
+      "learning_objective": "Conduct a regression discontinuity study",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Conducting an RD Study",
+      "question_text": "Which regression specification correctly estimates a sharp RD effect with local linear fits that allow different slopes on each side of the cutoff c, using a running variable R and treatment D = 1[R >= c]?",
+      "options": [
+        "A) `Y ~ D`, using all the data",
+        "B) `Y ~ D + R_c + D:R_c`, where R_c = R - c, estimated only on observations within a bandwidth h of the cutoff. The coefficient on D is the jump in Y at the cutoff",
+        "C) `Y ~ R`, with no treatment term",
+        "D) `Y ~ D + R + R^2 + R^3 + R^4 + R^5` on the whole sample"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Centering R at the cutoff makes the D coefficient the difference between the two fitted lines exactly at c. The interaction lets the slopes differ on each side, and restricting to |R - c| <= h keeps the comparison local. Part 2: A compares all treated and untreated units, which reintroduces confounding by R. C has no treatment effect at all. D uses high-order global polynomials, which Gelman and Imbens warn produce noisy, misleading estimates near the cutoff. Part 3: Specifying the local linear RD regression is the core skill of conducting an RD study.",
+      "learning_objective": "Conduct a regression discontinuity study",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Conducting an RD Study",
+      "question_text": "What is the trade-off when choosing the BANDWIDTH h in an RD study?",
+      "options": [
+        "A) The bandwidth has no effect on the estimate",
+        "B) A larger bandwidth always gives a more accurate estimate",
+        "C) A narrow bandwidth means less BIAS (units are more comparable and the linear approximation works better) but more VARIANCE (fewer observations). A wide bandwidth means less variance but more bias. Use a data-driven choice (e.g., Calonico-Cattaneo-Titiunik, as in `rdrobust`) and show that the estimate is robust across bandwidths",
+        "D) The bandwidth should always cover the full range of the running variable"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The bandwidth is the main bias-variance setting in RD. Optimal-bandwidth procedures balance the two, and a robustness plot of the estimate at h/2, h, and 2h shows whether the conclusion depends on the choice. Part 2: A is false. B and D ignore the growing bias as observations get further from the cutoff. Part 3: Choosing and justifying the bandwidth is an essential step in conducting RD.",
+      "learning_objective": "Conduct a regression discontinuity study",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Conducting an RD Study",
+      "question_text": "If people can precisely control their running variable to land just above the cutoff, for example teachers nudging scores from 79 to 80, the RD is invalid. The test that looks for a suspicious jump in the DENSITY of observations at the cutoff is known as the ___ test.",
+      "options": null,
+      "correct_answer": "McCrary (density / manipulation test)",
+      "explanation": "Part 1: The McCrary test (now often run with `rddensity` by Cattaneo, Jansson, and Ma) checks whether there is a bunching of observations just above the cutoff. Bunching suggests manipulation, which makes units on the two sides non-comparable. Part 2: A balance test checks covariates rather than the density, and a placebo-cutoff test checks for fake jumps away from c. Both are useful, but they are different tests. Part 3: Checking for manipulation is a required validity check in any RD study.",
+      "learning_objective": "Conduct a regression discontinuity study",
+      "keywords": [
+        "McCrary",
+        "density",
+        "manipulation",
+        "bunching",
+        "rddensity"
+      ]
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Conducting an RD Study",
+      "question_text": "An RD study of a merit scholarship at a test score of 80 finds a big jump in college GPA. It also finds that family income and high-school GPA JUMP at the cutoff. What does this suggest?",
+      "options": [
+        "A) The covariate jumps confirm that the scholarship works",
+        "B) This is expected and harmless",
+        "C) The bandwidth is too narrow",
+        "D) Units just above and just below the cutoff are NOT comparable (a failed covariate balance test), possibly because of sorting or manipulation. The GPA jump may reflect who ended up above the cutoff rather than the scholarship's effect, so the design's validity is in doubt"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Variables determined before treatment should change smoothly at the cutoff, because the scholarship cannot change family income or past GPA. Jumps signal that the 'as-if random' assumption fails. Investigate manipulation (density test) and consider a donut RD that excludes the observations closest to the cutoff. Part 2: A misreads a validity failure as evidence. B is wrong, since balance is required. C does not explain jumps in pre-treatment variables. Part 3: Interpreting balance checks is a key part of conducting RD.",
+      "learning_objective": "Conduct a regression discontinuity study",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Conducting an RD Study",
+      "question_text": "At age 65, Medicare coverage jumps from 60% to 95% (a 35-point jump). Hospital visits jump by 7 per 100 people (0.07 per person). Treating this as a FUZZY RD, what is the estimated effect of HAVING coverage on hospital visits for those who gain coverage at 65?",
+      "options": [
+        "A) 0.20 visits per person (0.07 / 0.35), because a fuzzy RD is an IV estimate: the jump in the outcome divided by the jump in the treatment probability at the cutoff",
+        "B) 0.07 visits per person",
+        "C) 0.0245 visits per person (0.07 * 0.35)",
+        "D) 0.35 visits per person"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: In a fuzzy RD, crossing the cutoff only raises the probability of treatment, so being above the cutoff is used as an instrument. Effect = (jump in Y) / (jump in treatment) = 0.07 / 0.35 = 0.20 extra visits per newly covered person. This is a LATE for people who gain coverage because they turn 65. Part 2: B is the reduced-form (ITT) jump. C multiplies instead of dividing. D is the first stage. Part 3: Combining RD with IV logic is an advanced form of conducting an RD study.",
+      "learning_objective": "Conduct a regression discontinuity study",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Conducting an RD Study",
+      "question_text": "True or False: A PLACEBO cutoff test estimates the RD at fake thresholds (e.g., scores of 70 and 90 when the real cutoff is 80). Finding significant jumps at several fake cutoffs strengthens confidence in the true RD estimate.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Placebo cutoffs should show NO jumps. If significant jumps appear where no treatment changes, the outcome is not smooth in the running variable, or the specification creates artificial jumps, which UNDERMINES the real estimate. Part 2: Answering True reverses the logic of placebo tests. Part 3: Falsification tests like placebo cutoffs are standard robustness checks in conducting RD.",
+      "learning_objective": "Conduct a regression discontinuity study",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Conducting an RD Study",
+      "question_text": "A city gives a free tutoring program to students who score BELOW 50 on a fall reading test. The sharp-RD estimate shows a 6-point improvement in spring scores for students just below 50. The density test is fine, covariates are balanced, and the estimate is stable across bandwidths from 5 to 15 points. A council member wants to expand the program to students scoring 50 to 70. What is the best advice?",
+      "options": [
+        "A) Expand immediately, because the RD proves a 6-point gain for everyone",
+        "B) The evidence is strong but LOCAL: it shows about a 6-point effect for students near 50. Students at 60 to 70 may benefit less (they need less help) or more. Pilot the expansion with random assignment or a staggered rollout, or test for heterogeneous effects across the bandwidth, before promising 6 points to everyone",
+        "C) Cancel the program, because RD is unreliable",
+        "D) Ignore the bandwidth checks and use a 5th-degree polynomial"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The validity checks support the internal validity of the estimate at the cutoff, but external validity away from c is a separate question. A pilot or a gradual expansion provides direct evidence for the new group. Part 2: A overgeneralizes the local estimate. C ignores the strong validity checks. D introduces a specification Gelman and Imbens warn against. Part 3: Turning a well-run RD into an honest policy recommendation is the advanced use of this objective.",
+      "learning_objective": "Conduct a regression discontinuity study",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Inventing an RD Example",
+      "question_text": "Which of these situations is a valid setting for a regression discontinuity design?",
+      "options": [
+        "A) Patients choose whether to take a vitamin",
+        "B) Treatment assigned by coin flip",
+        "C) A hospital automatically gives a sepsis treatment bundle to patients whose sepsis risk score reaches 4 or higher on a continuous screening scale, and outcomes are compared for patients scoring just above and just below 4",
+        "D) Comparing states that do and do not have a law"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: RD needs a continuous running variable (the risk score) and a known cutoff (4) that determines treatment, along with outcomes for units on both sides. Clinical decision rules are a common source of RD designs. Part 2: A is self-selection with no cutoff. B is a randomized experiment, which does not need RD. D is a cross-sectional comparison, better suited to DiD or synthetic control. Part 3: Spotting the structure an RD needs is the first step in inventing RD examples.",
+      "learning_objective": "Invent your own regression discontinuity example",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing an RD Example",
+      "question_text": "A student invents this RD: 'Effect of a 'Gold' loyalty status on spending; customers earn Gold at 5,000 points.' What is the most serious threat to this example?",
+      "options": [
+        "A) Customers can SEE their points and deliberately buy a little more to cross 5,000 (manipulation of the running variable), so customers just above the cutoff are more engaged than those just below. Check the density for bunching above 5,000 and consider using points measured on a date customers could not foresee",
+        "B) 5,000 is too large a number",
+        "C) Loyalty programs cannot be studied",
+        "D) Spending is not a continuous outcome"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: RD validity requires that units cannot precisely sort themselves around the cutoff. When the running variable is visible and controllable, bunching is likely. A good invented example names this threat and a way to test or reduce it (density test, donut RD, or a hidden or lagged running variable). Part 2: B, C, and D are not real threats to the design. Part 3: Testing the manipulation risk in your own RD idea is central to inventing a credible example.",
+      "learning_objective": "Invent your own regression discontinuity example",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Inventing an RD Example",
+      "question_text": "True or False: Election RDs that compare candidates who barely won (e.g., 50.5% of the vote) with those who barely lost (49.5%) are considered credible because, in very close races, which side of 50% a candidate lands on is close to random.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. With the vote share as the running variable and 50% as the cutoff, close elections are a well-known RD setting (e.g., incumbency-advantage studies by Lee, 2008). Candidates cannot precisely control a margin of a few votes, so bare winners and bare losers are comparable. Part 2: Answering False overlooks one of the most-cited RD applications. Some studies examine possible sorting in very close U.S. House races, so balance checks are still important. Part 3: Election cutoffs give a ready template for inventing RD examples.",
+      "learning_objective": "Invent your own regression discontinuity example",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Inventing an RD Example",
+      "question_text": "In 2-3 sentences, explain the difference between a SHARP and a FUZZY RD design, and give one real-world example of each.",
+      "options": null,
+      "correct_answer": "In a SHARP RD, crossing the cutoff completely determines treatment: the probability of treatment jumps from 0 to 1. Example: a state gives every student who scores 1,300 or higher on the SAT an automatic merit scholarship. In a FUZZY RD, crossing the cutoff only RAISES the probability of treatment, because some people above it do not take the treatment and some below it do. The effect is estimated as an IV ratio (jump in the outcome / jump in treatment). Example: Medicare at 65, where coverage rises sharply but some people under 65 already have insurance and not everyone over 65 enrolls.",
+      "explanation": "Part 1: A strong answer explains that the treatment probability jumps fully from 0 to 1 in a sharp RD and only partly in a fuzzy RD, notes the IV/Wald scaling used for fuzzy RD, and gives a concrete, correct example of each. Part 2: Answers that confuse fuzzy RD with a 'noisy outcome', or give examples without clear cutoffs, are incomplete. Part 3: Knowing which type your invented example is shapes how you would estimate it.",
+      "learning_objective": "Invent your own regression discontinuity example",
+      "keywords": [
+        "sharp",
+        "fuzzy",
+        "probability",
+        "cutoff",
+        "IV",
+        "Medicare"
+      ]
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing an RD Example",
+      "question_text": "Which invented RD example has the most credible running variable?",
+      "options": [
+        "A) Effect of a 'healthy' label on sales, where store managers decide which products are 'healthy enough'",
+        "B) Effect of moving from 1st to 2nd grade on reading, using age",
+        "C) Effect of class size on test scores using Maimonides' rule in Israel: the enrollment count determines class splits (e.g., 41 students creates two classes), so predicted class size drops sharply at multiples of 40",
+        "D) Effect of a city's population on happiness"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Enrollment is a rule-based running variable with known cutoffs at multiples of 40, and it is hard for families to manipulate precisely. The class-size drop gives a (fuzzy) RD used by Angrist and Lavy (1999). Part 2: A is decided by managers' discretion, so there is no fixed, objective cutoff. B confuses age with grade progression, which changes for everyone at the same time. D has no cutoff and no treatment. Part 3: Choosing a rule-based, hard-to-manipulate running variable is key to inventing a credible RD.",
+      "learning_objective": "Invent your own regression discontinuity example",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Inventing an RD Example",
+      "question_text": "An analyst proposes an RD on the minimum legal drinking age (21) to estimate the effect of legal alcohol access on mortality. The data have age measured only in YEARS. What is the most important design fix?",
+      "options": [
+        "A) Use a coarser age variable, in decades, to increase the sample size",
+        "B) Get age measured in DAYS or MONTHS from the 21st birthday. With yearly bins, the comparison is between 20-year-olds and 21-year-olds as whole groups, which mixes in a full year of aging and is not local to the cutoff. Fine-grained age lets you fit local linear models in a narrow bandwidth around the birthday, as in Carpenter and Dobkin (2009)",
+        "C) Drop the cutoff and compare all people under 21 with all people over 21",
+        "D) Use the year of birth as the instrument"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: RD needs enough resolution in the running variable to compare units that are truly close to the cutoff. Measuring age in days isolates the effect of the 21st birthday from gradual aging and allows bandwidth and density checks. Part 2: A and C make the comparison less local, which increases bias. D changes the design without fixing the resolution problem. Part 3: Making sure the running variable is precise enough is an advanced design decision when inventing RD examples.",
+      "learning_objective": "Invent your own regression discontinuity example",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Inventing an RD Example",
+      "question_text": "Invent your own regression discontinuity study for a policy, education, or clinical setting. Specify (1) the running variable, the cutoff, and whether it is sharp or fuzzy; (2) the treatment and outcome; (3) why units near the cutoff are comparable; (4) the estimation method (specification, bandwidth); (5) at least three validity checks; and (6) how far the result can be generalized.",
+      "options": null,
+      "correct_answer": "Example: (1) Running variable: a newborn's birth weight in grams; cutoff: 1,500 g. Infants under 1,500 g are classified 'very low birth weight' (VLBW) and receive intensive NICU care. This is FUZZY, because some heavier infants also get intensive care. (2) Treatment: intensive NICU care; outcome: 1-year mortality (as in Almond et al., 2010). (3) Infants weighing 1,490 g and 1,510 g are nearly identical biologically, and parents cannot control birth weight to the gram. (4) Local linear regression of mortality on centered weight, with an indicator for weight below 1,500 g and its interaction with weight, using the `rdrobust` optimal bandwidth (about 85 g) with a triangular kernel. The fuzzy estimate is the jump in mortality divided by the jump in NICU-care probability. (5) Checks: a McCrary/`rddensity` test for bunching at 1,500 g (rounding to round numbers is a known issue, so try a donut RD that excludes 1,495-1,505 g); covariate balance (maternal age, education, gestational age) at the cutoff; placebo cutoffs at 1,400 g and 1,600 g; and robustness across bandwidths from h/2 to 2h. (6) Generalization: this is a LATE for infants near 1,500 g whose care depends on the classification. It does not tell us the effect for 900 g infants, who always get NICU care.",
+      "explanation": "Part 1: A strong answer gives a precise running variable and cutoff, states whether the design is sharp or fuzzy and the matching estimator, argues local comparability, specifies a local linear model with a data-driven bandwidth, lists density, balance, placebo, and bandwidth checks (and heaping or donut RD where relevant), and limits the conclusion to units at the cutoff. Part 2: Answers without validity checks, that use global polynomials, or that generalize far from the cutoff are incomplete. Part 3: This brings together conducting and inventing RD in one design.",
+      "learning_objective": "Invent your own regression discontinuity example",
+      "keywords": [
+        "running variable",
+        "cutoff",
+        "bandwidth",
+        "McCrary",
+        "balance",
+        "local"
+      ]
+    }
+  ]
+}

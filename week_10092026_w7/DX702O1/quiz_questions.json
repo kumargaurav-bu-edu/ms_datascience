@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX702 O1 Fall 2026: Week 7 - Simple Linear Regression, Residuals, Confounders & Model Accuracy",
+    "description": "A master's-level quiz on The Effect, Chapter 13 (first half): the difference between error terms and residuals, identifying confounders that bias a regression slope, the assumptions behind OLS inference (normal, constant-variance, independent errors), interpreting R-squared, standard errors, t-statistics, p-values, and confidence intervals, and computing the slope and intercept of a simple regression.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Error Terms vs. Residuals",
+      "question_text": "In the model Y = beta_0 + beta_1 * X + epsilon, fit by OLS to give Y-hat = b_0 + b_1 * X, what is the difference between the error term epsilon and the residual e?",
+      "options": [
+        "A) They are the same thing with two names",
+        "B) The error term is the difference between Y and the TRUE population line (beta_0 + beta_1 * X). It is unobservable because we never know the true betas. The residual e = Y - Y-hat is the difference between Y and the ESTIMATED line, which we can compute from the data",
+        "C) The residual is unobservable and the error term is computed from the data",
+        "D) The error term only exists when the model is wrong"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The error term belongs to the population model and contains everything except X that determines Y. The residual belongs to our sample fit. Residuals are estimates of the errors, and we use them to estimate the error variance and to check assumptions. Part 2: A blurs the distinction between the population and the sample. C reverses which one is observable. D is wrong because even a correct model has errors, which come from omitted influences and noise. Part 3: This is the first learning objective, and it underlies how standard errors and diagnostics work.",
+      "learning_objective": "Explain the difference between error terms and residuals in regression",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Error Terms vs. Residuals",
+      "question_text": "True or False: When OLS includes an intercept, the residuals always sum to exactly zero, and they are uncorrelated with X in the sample, by construction.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The OLS first-order conditions force sum(e_i) = 0 (from the intercept) and sum(X_i * e_i) = 0 (from the slope). These are mechanical properties of the fit, not evidence about the true errors. Part 2: Answering False misses that these hold in EVERY OLS fit with an intercept. That is exactly why a residual-X correlation of zero cannot prove that the true error is unrelated to X, i.e., that there is no confounding. Part 3: Separating the mechanical properties of residuals from the assumptions about errors is the heart of this objective.",
+      "learning_objective": "Explain the difference between error terms and residuals in regression",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Error Terms vs. Residuals",
+      "question_text": "An analyst says: 'I checked my regression of salary on years of education. The correlation between the residuals and education is exactly 0, so education is uncorrelated with the error term and my estimate is causal.' What is wrong with this reasoning?",
+      "options": [
+        "A) Nothing; zero correlation proves exogeneity",
+        "B) The correlation should be 1 for a causal effect",
+        "C) OLS forces residuals to be uncorrelated with X in every sample, so the check is guaranteed to pass. It says nothing about whether the unobservable ERROR term (which contains, e.g., family background or ability) is correlated with education. Exogeneity must be argued from causal reasoning, not tested with residuals",
+        "D) Residuals should be correlated with Y, not X"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Because OLS chooses b_1 so that the residuals are orthogonal to X, the sample correlation is 0 by construction. If ability raises both education and salary, the true error is correlated with education, OLS biases b_1 upward, and the residuals STILL show zero correlation with X. Part 2: A is the error being described. B and D are not valid tests. Part 3: Understanding that residuals cannot reveal error-X correlation shows why the residual/error distinction matters for causal claims.",
+      "learning_objective": "Explain the difference between error terms and residuals in regression",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Error Terms vs. Residuals",
+      "question_text": "To estimate the variance of the error term in simple regression with n observations, we compute s^2 = sum(e_i^2) / (n - 2). Why do we divide by n - 2 rather than n?",
+      "options": [
+        "A) Two degrees of freedom are used up by estimating b_0 and b_1, so the residuals are slightly 'too small' compared with the true errors. Dividing by n - 2 corrects this and gives an unbiased estimate of sigma^2",
+        "B) To make the result larger so that p-values are always significant",
+        "C) Because two observations are always dropped as outliers",
+        "D) It is a convention with no statistical reason"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: OLS fits the line as close as possible to the sample, so the residuals understate the true errors. Two parameters were estimated, so only n - 2 independent pieces of residual information remain. Dividing by n - 2 gives E[s^2] = sigma^2. Part 2: B is not a valid motivation. C is false; no data are dropped. D is wrong because the correction follows from degrees of freedom. Part 3: This is a concrete consequence of residuals being estimates of the errors, and it feeds directly into standard errors.",
+      "learning_objective": "Explain the difference between error terms and residuals in regression",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Error Terms vs. Residuals",
+      "question_text": "For a single observation, the residual is computed as the actual value of Y minus the ___ value of Y from the estimated regression line.",
+      "options": null,
+      "correct_answer": "Predicted (fitted) value, Y-hat",
+      "explanation": "Part 1: The residual e_i = Y_i - Y-hat_i, where Y-hat_i = b_0 + b_1 * X_i is the predicted (fitted) value. A positive residual means the point lies above the fitted line. Part 2: 'True' or 'population' value would describe the error term, which uses the unknown betas. 'Mean' value would give the deviation from the mean of Y, which is used in SST, not the residual. Part 3: Knowing exactly how residuals are calculated supports every later diagnostic and accuracy measure.",
+      "learning_objective": "Explain the difference between error terms and residuals in regression",
+      "keywords": ["predicted", "fitted", "y-hat", "yhat", "estimated"]
+    },
+    {
+      "number": 6,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Error Terms vs. Residuals",
+      "question_text": "A credit analyst regresses default rate on debt-to-income ratio for 2,000 borrowers and plots the residuals against the FITTED values. The residuals form a U-shape: positive at low and high fitted values, negative in the middle. What does this indicate, and what should she do?",
+      "options": [
+        "A) The residuals sum to zero, so the model is fine",
+        "B) The error term is perfectly normal",
+        "C) The sample size is too large",
+        "D) The relationship is probably NONLINEAR, so the straight line misses a systematic curve. Add a squared term (DTI^2) or use a transformation or spline, then recheck that the residuals look like patternless noise around 0"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: If the model is correctly specified, residuals should look like random noise around 0 at every fitted value. A U-shape means part of the systematic relationship has been left in the residuals, i.e., in what the model treats as error. Adding curvature moves it into the model. Part 2: A confuses a mechanical property (residuals summing to zero) with good fit. B is not what the plot shows. C is irrelevant. Part 3: Using residuals to diagnose problems with the assumed error structure applies the residual/error distinction in practice.",
+      "learning_objective": "Explain the difference between error terms and residuals in regression",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Identifying Confounders",
+      "question_text": "In a regression of Y on X, what makes a variable W a confounder?",
+      "options": [
+        "A) W is caused by Y only",
+        "B) W causes (or is associated through a back door with) BOTH X and Y. Leaving W out puts it in the error term, where it is correlated with X, which biases the slope on X",
+        "C) W is any variable that is correlated with Y",
+        "D) W lies on the causal path from X to Y (X -> W -> Y)"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A confounder opens a back-door path X <- W -> Y. If W is omitted, it becomes part of the error term, so Cov(X, epsilon) is not 0, and OLS gives a biased slope (omitted variable bias). Part 2: A describes a variable caused by the outcome, and controlling for it can create bias. C is too broad; a variable related only to Y is not a confounder. D describes a mediator, which should NOT be controlled for when estimating the total effect. Part 3: Precisely defining confounders is the basis for identifying them.",
+      "learning_objective": "Identify potential confounders in a regression model",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Identifying Confounders",
+      "question_text": "True or False: To get the causal effect of X on Y, you should control for every variable that is correlated with either X or Y.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. You should control for confounders, which are common causes on back-door paths. Controlling for mediators (X -> M -> Y) removes part of the effect you want, and controlling for colliders (X -> C <- Y) OPENS a non-causal path and creates bias. Part 2: Answering True is the 'kitchen sink' mistake. Choosing controls requires causal reasoning, for example with a DAG, not just checking correlations. Part 3: Identifying confounders means telling them apart from mediators and colliders.",
+      "learning_objective": "Identify potential confounders in a regression model",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Identifying Confounders",
+      "question_text": "A health study regresses blood pressure on weekly exercise hours and finds a NEGATIVE slope. Age is omitted. Older people exercise less and have higher blood pressure. How does omitting age most likely affect the estimated slope?",
+      "options": [
+        "A) It exaggerates the benefit: the slope is more negative than the true effect, because people who exercise less are also older, and their higher blood pressure from age is wrongly credited to the lack of exercise",
+        "B) It makes the slope less negative",
+        "C) It has no effect, because age is not in the model",
+        "D) It flips the slope from negative to positive"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The direction of omitted variable bias = sign(effect of age on blood pressure) * sign(association of age with exercise) = (+) * (-) = negative. The bias pushes the slope further below its true value, so the estimated benefit of exercise is overstated. Part 2: B gets the sign of the bias wrong. C ignores the fact that omitted confounders end up in the error term. D could only happen if the bias were larger than the true effect, which the question gives no reason to assume. Part 3: Reasoning about the direction of bias is a key skill in identifying confounders.",
+      "learning_objective": "Identify potential confounders in a regression model",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Identifying Confounders",
+      "question_text": "An e-commerce team estimates the effect of receiving a promotional email (X) on purchase amount (Y). Which variable is the most likely CONFOUNDER?",
+      "options": [
+        "A) Whether the customer clicked the link in the email (affected by the email, and it affects purchases)",
+        "B) A customer-satisfaction survey sent after the purchase",
+        "C) Past purchase frequency: the marketing team targets frequent buyers with emails, and frequent buyers spend more anyway",
+        "D) The color of the 'Buy' button, which is the same for everyone"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Past purchase frequency affects BOTH who receives the email (targeting) and how much they spend, which opens the back door email <- frequency -> spending. Omitting it would credit loyal customers' baseline spending to the email. Part 2: A is a mediator on the causal path. B is measured after the outcome, so it could be a collider or an outcome-driven variable. D does not vary, so it cannot confound anything. Part 3: This applies the definition of a confounder to a realistic marketing setting.",
+      "learning_objective": "Identify potential confounders in a regression model",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Identifying Confounders",
+      "question_text": "The true model is Y = 2 * X + 3 * W + epsilon, but you regress Y on X alone. Regressing W on X gives a slope of 0.4. What will your estimated slope on X converge to?",
+      "options": [
+        "A) 2.0",
+        "B) 3.0",
+        "C) 5.0",
+        "D) 3.2, because the omitted-variable-bias formula gives b_X = beta_X + beta_W * delta = 2 + 3 * 0.4 = 3.2, so the slope overstates the true effect by 1.2"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Omitting W adds beta_W times delta, the slope from regressing W on X. Here 3 * 0.4 = 1.2, so the estimate is 3.2 instead of 2. Part 2: A is the true effect, which you would get only if you controlled for W. B is W's effect. C just adds the two coefficients. Part 3: The OVB formula puts a number on how much a confounder distorts the slope, which is essential for identifying confounders that matter.",
+      "learning_objective": "Identify potential confounders in a regression model",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Identifying Confounders",
+      "question_text": "A city regresses neighborhood crime rate on the number of police officers per 1,000 residents and finds a POSITIVE slope: more police, more crime. The mayor concludes that police cause crime. Identify at least two likely confounders or problems, explain the direction of bias each would create, and recommend concrete improvements to the analysis.",
+      "options": null,
+      "correct_answer": "(1) Reverse causality / simultaneity: the city assigns more police to neighborhoods that already have high crime, so crime causes police. This makes the slope more positive than the true (likely negative) effect. (2) Confounder, neighborhood poverty or unemployment: poverty is linked to higher crime, and poorer, higher-crime areas also receive more police resources. That is a positive association with both variables, so the bias pushes the slope upward. (3) Confounder, population density or commercial activity: dense downtown areas have more reported crime and more officers, again biasing the slope upward. Improvements: add controls for poverty rate, unemployment, density, and number of businesses; use neighborhood fixed effects with panel data to remove stable differences; and, ideally, use a source of variation in police that is unrelated to crime, such as hiring grants or terror-alert deployments as instrumental variables, or a staggered policing reform with difference-in-differences.",
+      "explanation": "Part 1: A strong answer names concrete confounders, explains the sign of the bias each creates (positive association with X times positive effect on Y gives upward bias), recognizes reverse causality, and proposes specific design fixes. Part 2: Answers that just say 'there are confounders' without naming them or giving the direction of bias are too vague. Answers that recommend controlling for arrests made after police deployment risk controlling for a mediator. Part 3: This applies identifying confounders to a policy question with real stakes.",
+      "learning_objective": "Identify potential confounders in a regression model",
+      "keywords": ["reverse causality", "poverty", "confounder", "upward bias", "fixed effects", "control"]
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Regression Assumptions",
+      "question_text": "Which set lists the common assumptions behind standard OLS inference (normal sampling distributions of coefficients, standard errors, and t-tests), as presented in this week's topic overview?",
+      "options": [
+        "A) The error term has mean zero and is unrelated to X (exogeneity), has constant variance (homoskedasticity), is independent across observations, and is normally distributed (or the sample is large enough for the CLT); the relationship is linear in the parameters",
+        "B) X must be normally distributed and Y must be binary",
+        "C) The R-squared must be above 0.5",
+        "D) There must be no outliers in X and the sample size must be under 1,000"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Exogeneity (with a linear form) gives unbiased coefficients. Homoskedasticity and independence make the usual SE formula correct. Normal errors (or a large n through the CLT) make the coefficients' sampling distribution normal, which justifies t-tests. The topic overview highlights normal, constant-variance, independent errors. Part 2: B makes up requirements about X and Y. C confuses fit with assumptions. D is not an OLS assumption, and larger samples help. Part 3: Knowing these assumptions is the third learning objective.",
+      "learning_objective": "Explain the common assumptions for a regression model",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Regression Assumptions",
+      "question_text": "True or False: OLS coefficient estimates can be unbiased even if the error term is NOT normally distributed. Normality mainly matters for exact small-sample inference (t-tests and confidence intervals).",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Unbiasedness requires exogeneity (E[epsilon | X] = 0), not normality. With moderate to large samples, the CLT makes the coefficients approximately normal anyway, so the usual inference still works approximately. Part 2: Answering False overstates the role of normality and confuses the assumptions needed for unbiasedness with those needed for exact inference. Part 3: Knowing which assumption supports which property is central to explaining regression assumptions.",
+      "learning_objective": "Explain the common assumptions for a regression model",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regression Assumptions",
+      "question_text": "A study regresses student test scores on hours of tutoring using 3,000 students from 60 schools. Students in the same school share teachers and resources. Which assumption is most likely violated, and what is the consequence?",
+      "options": [
+        "A) Linearity; the slope will be exactly zero",
+        "B) Independence of the errors: students in the same school have correlated errors, so the default standard errors are TOO SMALL and the p-values too optimistic. Use standard errors clustered by school",
+        "C) Normality of X; the regression cannot be estimated",
+        "D) No assumption is violated, because 3,000 is a large sample"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Shared school-level factors make the errors of students in the same school move together, so 3,000 students carry less independent information than 3,000 truly independent observations. The usual SE formula ignores this and understates uncertainty; clustering fixes it. Part 2: A and C describe assumptions that are irrelevant here or don't exist. D is wrong because a large sample does not fix correlated errors. Part 3: Recognizing that independence is violated in grouped data is a key application of the regression assumptions.",
+      "learning_objective": "Explain the common assumptions for a regression model",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regression Assumptions",
+      "question_text": "In a regression of household food spending on income, the residuals fan out: they are small for low-income households and very spread out for high-income households. Which assumption is violated, and what is the fix?",
+      "options": [
+        "A) Independence; drop high-income households",
+        "B) Linearity; switch to logistic regression",
+        "C) Homoskedasticity (constant error variance): the errors are heteroskedastic. The OLS slope is still unbiased, but the default SEs are wrong. Use heteroskedasticity-robust (HC1 or HC3) standard errors, and consider modeling log(spending)",
+        "D) Normality of X; standardize income"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A fan-shaped residual plot is the classic sign of heteroskedasticity. Robust SEs correct the inference without changing the coefficients, and a log transform often stabilizes the variance. Part 2: A throws away valid data. B misuses logistic regression, which is for binary outcomes. D addresses a non-existent assumption. Part 3: Matching a diagnostic pattern to the violated assumption and its fix is the practical use of this objective.",
+      "learning_objective": "Explain the common assumptions for a regression model",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Regression Assumptions",
+      "question_text": "True or False: OLS requires the predictor X itself to be normally distributed; otherwise, the slope estimate and its standard error are invalid.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. OLS assumptions concern the ERROR term (and its relationship to X), not the distribution of X. X can be skewed, binary, or uniform; a 0/1 treatment dummy is a common example. Part 2: Answering True is a common misconception, and it leads analysts to transform predictors unnecessarily. Part 3: Knowing what the assumptions actually cover avoids wasted effort and misdiagnosis.",
+      "learning_objective": "Explain the common assumptions for a regression model",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Regression Assumptions",
+      "question_text": "A retail chain regresses daily sales on advertising spend using 3 years of daily data from one store. Residual checks show: a residual autocorrelation of 0.6 at lag 1, a fan shape in the residuals, and a roughly normal histogram. Which plan best addresses the assumptions?",
+      "options": [
+        "A) Ignore it, because the histogram is normal",
+        "B) Delete every other day of data to remove the autocorrelation",
+        "C) Switch to a decision tree, because trees have no assumptions",
+        "D) Errors are serially correlated (independence is violated) and heteroskedastic. Use HAC (Newey-West) standard errors, which are robust to both; add day-of-week and holiday controls and possibly lagged sales to capture the persistence; and recheck the residual autocorrelation and plots afterward"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Time-series errors are often autocorrelated, so neighboring days share shocks, and here they are also heteroskedastic. Newey-West SEs fix the inference, and adding controls for the systematic patterns (weekly cycles, holidays) reduces the autocorrelation at its source. Part 2: A focuses on normality, the least important of the three issues here. B wastes data and does not address the cause. C sidesteps the problem without solving inference about the advertising effect. Part 3: Diagnosing several assumption violations and prescribing fixes is the advanced application of this objective.",
+      "learning_objective": "Explain the common assumptions for a regression model",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Regression Accuracy Measures",
+      "question_text": "A regression of monthly electricity bill on home square footage has R-squared = 0.64. What does this mean?",
+      "options": [
+        "A) Square footage causes 64% of the electricity bill",
+        "B) 64% of the variation in electricity bills across homes is explained by the linear relationship with square footage (R^2 = 1 - SSR / SST), and the other 36% is left in the residuals",
+        "C) Predictions are correct 64% of the time",
+        "D) The slope equals 0.64"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: R-squared measures the share of the total variance of Y (SST) that the fitted line accounts for. In simple regression it equals the squared correlation between X and Y, so here r = 0.8. Part 2: A gives it a causal meaning, which R-squared does not have. C confuses it with classification accuracy. D confuses it with the slope, which depends on the units. Part 3: Interpreting R-squared correctly is a core part of assessing regression accuracy.",
+      "learning_objective": "Interpret statistical measures to assess regression model accuracy",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Regression Accuracy Measures",
+      "question_text": "True or False: A high R-squared (e.g., 0.95) shows that the slope coefficient is an unbiased causal effect.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. R-squared measures fit, not causality. A model can fit very well because of a confounder, for example ice-cream sales predicting drownings through hot weather with a high R-squared, and still have a badly biased slope. A model with low R-squared can still estimate an unbiased causal effect if X is exogenous, as in a randomized experiment with noisy outcomes. Part 2: Answering True confuses good prediction with causal identification. Part 3: Knowing what accuracy measures do NOT tell you is as important as knowing what they do.",
+      "learning_objective": "Interpret statistical measures to assess regression model accuracy",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regression Accuracy Measures",
+      "question_text": "A regression of weekly sales (in $1,000s) on advertising spend (in $1,000s) reports: coefficient = 1.8, standard error = 0.6, t = 3.0, p = 0.003, n = 200. Which interpretation is correct?",
+      "options": [
+        "A) Each additional $1,000 of advertising is associated with about $1,800 more weekly sales. The estimate is 3 standard errors from zero, and if the true slope were 0, an estimate this extreme would occur only about 0.3% of the time, so we reject H0: beta_1 = 0 at the 5% level",
+        "B) There is a 99.7% probability that the true slope is 1.8",
+        "C) The p-value of 0.003 means the effect is tiny",
+        "D) The SE of 0.6 means that 60% of the predictions are wrong"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: t = coefficient / SE = 1.8 / 0.6 = 3.0. The p-value is the probability of seeing a t-statistic at least this extreme IF H0 (beta_1 = 0) were true. It measures evidence against H0, not the size or certainty of the effect. Part 2: B misinterprets the p-value as the probability that a hypothesis is true. C confuses statistical significance with effect size. D misreads the SE, which measures how precisely the slope is estimated. Part 3: Correctly reading SEs, t-statistics, and p-values is central to assessing a regression.",
+      "learning_objective": "Interpret statistical measures to assess regression model accuracy",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regression Accuracy Measures",
+      "question_text": "Using the same output (coefficient 1.8, SE 0.6, large n), what is the approximate 95% confidence interval for the slope, and how should it be read?",
+      "options": [
+        "A) [1.2, 2.4], from 1.8 +/- 0.6",
+        "B) [0, 3.6], from 1.8 +/- 1.8",
+        "C) There is a 95% chance that the true slope is exactly 1.8",
+        "D) About [0.62, 2.98], from 1.8 +/- 1.96 * 0.6. If we repeated the study many times, about 95% of intervals built this way would contain the true slope. Because 0 is outside the interval, this matches p < 0.05"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: A 95% CI is the estimate +/- 1.96 * SE (using the t critical value for small samples). It gives the range of slopes consistent with the data and shows the precision in the outcome's units, which is often more informative than a p-value. Part 2: A uses 1 SE, which gives only about 68% coverage. B uses 3 SEs, which is too wide and not 95%. C misinterprets the interval as a probability about a single value. Part 3: Reading confidence intervals is a key way to assess how precise a regression estimate is.",
+      "learning_objective": "Interpret statistical measures to assess regression model accuracy",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Regression Accuracy Measures",
+      "question_text": "Two models predict house prices. Model A: R-squared = 0.72, residual standard error (RMSE) = $48,000. Model B: R-squared = 0.70, RMSE = $31,000, fit on a different dataset of cheaper homes. In 2-3 sentences, explain why R-squared alone cannot tell you which model predicts more accurately, and which measure you would focus on.",
+      "options": null,
+      "correct_answer": "R-squared is relative: it compares the explained variation with the TOTAL variation of Y in that dataset, so a dataset with more varied prices can show a higher R-squared even when its absolute errors are larger. The residual standard error (RMSE) is in dollars and directly measures the typical size of a prediction error. Model B's typical error of $31,000 is smaller in absolute terms, but because the datasets differ, the fair comparison is RMSE (or MAE) on the SAME held-out test set, ideally relative to the average price (e.g., RMSE as a percentage of the mean price).",
+      "explanation": "Part 1: A strong answer explains that R-squared depends on the variance of Y, so it cannot be compared across datasets, identifies RMSE or the residual standard error as the absolute accuracy measure in the outcome's units, and recommends comparing models on the same test set. Part 2: Answers that pick Model A because '0.72 > 0.70', or that treat R-squared as accuracy in dollars, miss the scale issue. Part 3: Choosing the right accuracy measure for the question is the core of interpreting regression accuracy.",
+      "learning_objective": "Interpret statistical measures to assess regression model accuracy",
+      "keywords": ["R-squared", "RMSE", "residual standard error", "variance", "same test set", "dollars"]
+    },
+    {
+      "number": 24,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Regression Accuracy Measures",
+      "question_text": "With 2 million transaction records, a regression of basket size on a new app feature gives a coefficient of 0.04 items (SE 0.005, p < 0.001) and R-squared = 0.002. A product manager says, 'Highly significant, so let's roll it out to every store!' What is the best response?",
+      "options": [
+        "A) Agree, because p < 0.001 proves the feature is valuable",
+        "B) Reject the result, because R-squared = 0.002 means the coefficient is wrong",
+        "C) The effect is precisely estimated but practically tiny: the 95% CI is about [0.03, 0.05] items per basket, and large samples make even trivial effects significant. Convert it to dollars (e.g., 0.04 items * $6 margin = $0.24 per basket), compare that with the rollout cost, and check that the feature was assigned without confounding (ideally an A/B test)",
+        "D) Add more variables until the R-squared reaches 0.5"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Statistical significance is about precision, and practical significance is about size. With n = 2 million, very small effects become significant. The decision should rest on the CI in business units and on whether the estimate is causal. A low R-squared simply means basket size varies for many other reasons, which does not invalidate the coefficient. Part 2: A equates significance with importance. B misuses R-squared. D chases fit instead of answering the business question. Part 3: Combining SE, CI, p-value, and R-squared correctly into a decision is the advanced use of this objective.",
+      "learning_objective": "Interpret statistical measures to assess regression model accuracy",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Computing the Slope",
+      "question_text": "For the data X = [1, 2, 3, 4, 5] and Y = [2, 4, 5, 4, 5], compute the OLS slope b_1 = sum((X_i - X-bar)(Y_i - Y-bar)) / sum((X_i - X-bar)^2). Give a decimal.",
+      "options": null,
+      "correct_answer": "0.6",
+      "explanation": "Part 1: X-bar = 3 and Y-bar = 4. The deviations are x = (-2, -1, 0, 1, 2) and y = (-2, 0, 1, 0, 1). The sum of x*y = 4 + 0 + 0 + 0 + 2 = 6, and the sum of x^2 = 4 + 1 + 0 + 1 + 4 = 10, so b_1 = 6 / 10 = 0.6. The intercept is b_0 = Y-bar - b_1 * X-bar = 4 - 1.8 = 2.2. Part 2: Common mistakes are dividing by n instead of by the sum of x^2, or swapping X and Y, which gives the slope of X on Y (6 / 6 = 1.0). Part 3: Computing the slope by hand shows that it is Cov(X, Y) / Var(X).",
+      "learning_objective": "Compute slope in simple regression and distinguish between error terms and residuals for accurate modeling",
+      "keywords": ["0.6", "6 / 10", "covariance", "variance", "2.2"]
+    },
+    {
+      "number": 26,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Computing the Slope",
+      "question_text": "Which expression is NOT a correct formula for the simple-regression OLS slope b_1?",
+      "options": [
+        "A) Cov(X, Y) / Var(X)",
+        "B) Cov(X, Y) / Var(Y)",
+        "C) r_XY * (s_Y / s_X), where r is the correlation and s is the standard deviation",
+        "D) sum((X_i - X-bar)(Y_i - Y-bar)) / sum((X_i - X-bar)^2)"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: B divides by the variance of Y. That gives the slope from regressing X on Y, which is a different line. A, C, and D are equivalent forms of the same OLS slope for Y on X. Part 2: A is the covariance form. C rescales the correlation into Y's units per unit of X. D is the sum-of-products form used in hand calculations. Part 3: Recognizing the equivalent slope formulas, and the one that is not, makes the computation reliable.",
+      "learning_objective": "Compute slope in simple regression and distinguish between error terms and residuals for accurate modeling",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Computing the Slope",
+      "question_text": "A regression of annual salary ($) on years of experience gives Y-hat = 42,000 + 3,100 * Experience, using workers with 2 to 30 years of experience. How should the intercept and slope be interpreted?",
+      "options": [
+        "A) Each additional year of experience is associated with $3,100 higher predicted salary. The intercept ($42,000) is the predicted salary at 0 years of experience, but because no one in the sample has fewer than 2 years, it is an extrapolation and should not be taken literally as a starting salary",
+        "B) Every worker earns exactly $42,000 plus $3,100 per year",
+        "C) The intercept means the average salary in the sample is $42,000",
+        "D) The slope means that experience causes a $3,100 raise for everyone"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The slope is the change in predicted Y per one-unit change in X. The intercept is the prediction at X = 0, which is meaningful only if X = 0 lies within (or near) the data. Here it is outside the 2-30 range, so it mostly anchors the line. Part 2: B ignores the residuals, since individuals vary around the line. C confuses the intercept with the mean of Y, which equals b_0 + b_1 * X-bar. D adds a causal claim that the regression alone cannot support, because confounders such as education may be present. Part 3: Interpreting the slope and intercept correctly is part of using a computed regression accurately.",
+      "learning_objective": "Compute slope in simple regression and distinguish between error terms and residuals for accurate modeling",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Computing the Slope",
+      "question_text": "Using X = [1, 2, 3, 4, 5], Y = [2, 4, 5, 4, 5] and the fitted line Y-hat = 2.2 + 0.6 * X, the residuals are [-0.8, 0.6, 1.0, -0.6, -0.2]. What is the R-squared?",
+      "options": [
+        "A) 0.4",
+        "B) 0.8",
+        "C) 0.6: SSR = 0.64 + 0.36 + 1.0 + 0.36 + 0.04 = 2.4 and SST = sum((Y_i - 4)^2) = 4 + 0 + 1 + 0 + 1 = 6, so R^2 = 1 - 2.4 / 6 = 0.6",
+        "D) 2.4"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: R-squared = 1 - SSR / SST, where SSR is the sum of squared RESIDUALS (computable) and SST is the total variation of Y around its mean. Note also that the residuals sum to 0 (-0.8 + 0.6 + 1.0 - 0.6 - 0.2 = 0), as OLS guarantees. Part 2: A is SSR / SST, the unexplained share. B is a common arithmetic slip. D is SSR itself. Part 3: This links the slope calculation, the residuals, and accuracy measures in one worked example.",
+      "learning_objective": "Compute slope in simple regression and distinguish between error terms and residuals for accurate modeling",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Computing the Slope",
+      "question_text": "True or False: If the correlation between X and Y is 0.5, the standard deviation of Y is 20, and the standard deviation of X is 4, then the OLS slope of Y on X is 2.5.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. b_1 = r * (s_Y / s_X) = 0.5 * (20 / 4) = 0.5 * 5 = 2.5. The correlation measures the strength of the linear relationship in standardized units, and the ratio of standard deviations converts it to Y units per X unit. Part 2: Answering False might come from using s_X / s_Y (giving 0.1) or forgetting the correlation (giving 5). Part 3: This shortcut formula is a quick way to compute or check a slope from summary statistics.",
+      "learning_objective": "Compute slope in simple regression and distinguish between error terms and residuals for accurate modeling",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Computing the Slope",
+      "question_text": "A coffee chain regresses daily revenue on outdoor temperature for 365 days at one store: Y-hat = 1,200 + 35 * Temp (degrees F), SE of slope = 4, R-squared = 0.41. Leadership wants to know (a) what the slope means, (b) how much to trust it, and (c) whether it is a causal effect of temperature. Write a concise analysis covering how the slope is computed, what the residuals and errors represent here, the key assumptions to check, and possible confounders.",
+      "options": null,
+      "correct_answer": "(a) Meaning: the slope is computed as Cov(Temp, Revenue) / Var(Temp). It means each 1 degree F warmer day is associated with about $35 more predicted daily revenue, so a 70 F day is predicted at 1,200 + 35 * 70 = $3,650. (b) Trust: t = 35 / 4 = 8.75, and the 95% CI is about 35 +/- 1.96 * 4 = [$27, $43] per degree, so the slope is precisely estimated. R-squared = 0.41 means temperature explains 41% of daily revenue variation, and the residuals, which are actual minus predicted revenue, hold the other 59%, reflecting promotions, weekdays, and events. The true error term additionally contains everything not modeled. Assumptions to check: plot residuals against fitted values for curvature (revenue may level off or fall on very hot days, so try adding Temp^2); look for a fan shape (heteroskedasticity, so use HC3 SEs); and check day-to-day residual autocorrelation (independence, so use Newey-West SEs). (c) Causality and confounders: season and holidays (summer brings both warm weather and tourists), day of week, and local events can affect both temperature patterns and revenue. Add month, day-of-week, and holiday controls and compare the slope; if it shrinks a lot, the original $35 was partly confounded.",
+      "explanation": "Part 1: A strong answer computes and interprets the slope in units, reads the SE, CI, and R-squared, distinguishes the residuals (computable from the fitted line) from the errors (all unmodeled factors), names specific assumptions with diagnostics and fixes, and proposes concrete confounders and controls. Part 2: Answers that treat R-squared as causal proof, ignore time-series dependence, or say 'there may be confounders' without naming them are incomplete. Part 3: This brings together all five learning objectives in one applied analysis.",
+      "learning_objective": "Compute slope in simple regression and distinguish between error terms and residuals for accurate modeling",
+      "keywords": ["confidence interval", "residual", "error term", "heteroskedasticity", "confounder", "season"]
+    }
+  ]
+}

@@ -1,0 +1,470 @@
+{
+  "quiz_metadata": {
+    "title": "DX702 O1 Fall 2026: Week 11 - Event Studies, Multiple Groups, and Placebo Tests",
+    "description": "A master's-level quiz on event studies from The Effect, Chapter 17: building counterfactuals with means-adjusted, market-adjusted, and risk-adjusted (market model) returns, computing and testing abnormal and cumulative abnormal returns, running regression-based event studies with multiple affected groups and staggered timing, and using placebo tests to strengthen causal claims.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Financial Market Event Studies",
+      "question_text": "In a financial-market event study, what are the 'estimation window' and the 'event window'?",
+      "options": [
+        "A) Both are the same period; the event study compares returns on the event day only",
+        "B) The estimation window is the period after the event, used to measure the effect; the event window is the period before, used to predict",
+        "C) The estimation window is a period well before the event (e.g., trading days -250 to -30), used to fit a model of normal returns; the event window is a short period around the event (e.g., days -1 to +1), where actual returns are compared with the model's predictions",
+        "D) The estimation window is the period in which the event is announced; the event window is the period in which investors forget about it"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The estimation window gives clean, pre-event data for learning the stock's normal relationship to the market. It ends well before the event so that leaked news and anticipation do not contaminate it. The event window is the short span in which the effect should appear. Part 2: A leaves no data to build a counterfactual. B reverses the windows, and using post-event data to predict 'normal' returns would build the effect into the counterfactual. D invents a definition. Part 3: Separating these two windows is the basic design of a financial event study in Huntington-Klein's Chapter 17.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Financial Market Event Studies",
+      "question_text": "In an event study of stock prices, the actual return on a day minus the return predicted for that day if the event had not happened is called the ___ return.",
+      "options": null,
+      "correct_answer": "Abnormal return (AR)",
+      "explanation": "Part 1: Abnormal return AR_t = R_t - E[R_t], where E[R_t] is the counterfactual 'normal' return from a means-adjusted, market-adjusted, or market model. It is the estimated effect of the event on that day. Part 2: 'Excess return' usually means the return above the risk-free rate, which is a different concept. 'Cumulative abnormal return' is the sum of ARs over several days, not a single day's value. Part 3: The abnormal return is the core quantity in event studies built on financial-market methods.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": ["abnormal", "abnormal return", "AR"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Financial Market Event Studies",
+      "question_text": "True or False: Event studies work best over short time horizons, because the longer the window after the event, the more likely other time-varying factors (news, macro shocks, earnings) are to confound the comparison with the counterfactual.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The event study's key assumption is that nothing else changed the outcome at the same time as the event. Over a day or two that is plausible, especially in efficient markets that react quickly. Over months, the counterfactual prediction drifts and many other events pile up. Part 2: Answering False ignores the time-varying back doors that Huntington-Klein stresses: the longer the window, the weaker the case that the event alone explains the gap. Part 3: This is why financial event studies typically use windows such as (-1, +1) or (0, +5) days.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Financial Market Event Studies",
+      "question_text": "Which statement correctly matches the three common ways of predicting a stock's 'normal' return in the event window?",
+      "options": [
+        "A) Means-adjusted: expected return = the stock's average return in the estimation window. Market-adjusted: expected return = the market return that day (e.g., S&P 500). Risk-adjusted (market model): expected return = alpha + beta * market return, with alpha and beta fit by regression on the estimation window",
+        "B) Means-adjusted: expected return = the market return. Market-adjusted: expected return = 0. Risk-adjusted: expected return = the stock's average return",
+        "C) All three methods use only the event-window data to compute the expected return",
+        "D) Means-adjusted uses tomorrow's price; market-adjusted uses last year's price; risk-adjusted uses analyst forecasts"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: These are the three methods Huntington-Klein presents. The means-adjusted method assumes the stock behaves as it usually does. The market-adjusted method assumes it moves one-for-one with the market. The market model allows the stock's own intercept and sensitivity (beta) to the market. Part 2: B mixes up the definitions. C would build the event's effect into the prediction. D invents inputs that none of the methods use. Part 3: Choosing the model of normal returns is the first decision in any financial event study, and the market model is usually the most credible because it adjusts for market-wide moves.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Financial Market Event Studies",
+      "question_text": "Using the estimation window, you fit the market model R_stock = 0.001 + 1.2 * R_market. On the day a pharmaceutical company announces FDA approval, the market return is -0.02 (-2%) and the stock's actual return is +0.03 (+3%). What is the abnormal return on that day, as a decimal?",
+      "options": null,
+      "correct_answer": "0.053",
+      "explanation": "Part 1: Expected return = 0.001 + 1.2 * (-0.02) = 0.001 - 0.024 = -0.023. Abnormal return = actual - expected = 0.03 - (-0.023) = 0.053, or +5.3%. Part 2: Using the market-adjusted method would give 0.03 - (-0.02) = 0.05. Ignoring the market entirely would give 0.03 - 0.001 = 0.029. The market model gives a larger AR because a stock with beta 1.2 'should' have fallen 2.3% on a down day. Part 3: Computing ARs from a fitted market model is the core calculation in a financial-market event study.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": ["0.053", "5.3", "-0.023", "expected return"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Financial Market Event Studies",
+      "question_text": "A retailer's abnormal returns over the event window (days -1, 0, +1) around a CEO resignation are -0.010, -0.045, and +0.005. What is the cumulative abnormal return (CAR), and how is it interpreted?",
+      "options": [
+        "A) CAR = -0.045, because only the event day counts",
+        "B) CAR = -0.017, the average of the three ARs",
+        "C) CAR = +0.060, the sum of the absolute values",
+        "D) CAR = -0.010 - 0.045 + 0.005 = -0.050: over the three-day window, the stock underperformed its predicted path by about 5%, which is the estimated total effect of the resignation news"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: CAR adds the abnormal returns over the event window, capturing leakage before the announcement (day -1) and continued adjustment after it (day +1): -0.010 - 0.045 + 0.005 = -0.050. Part 2: A misses the pre- and post-event days. B is the average AR, which is a different statistic and understates the total effect. C ignores signs and so mixes gains with losses. Part 3: Summing ARs into a CAR is how financial event studies report the total effect of an event.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Financial Market Event Studies",
+      "question_text": "In the estimation window, the standard deviation of the stock's daily abnormal returns (residuals from the market model) is 0.02. On the event day, AR = 0.053. How do you judge whether this is statistically significant?",
+      "options": [
+        "A) It is significant whenever AR is positive",
+        "B) Compute t = AR / SD = 0.053 / 0.02 = 2.65. Since |t| > 1.96, the abnormal return is unlikely to be ordinary daily noise at the 5% level",
+        "C) Divide AR by the market return to get the t-statistic",
+        "D) Significance cannot be tested in event studies"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The estimation-window residuals show how much a 'normal' day's return deviates from the model just by chance. Dividing the event-day AR by that SD gives a t-statistic; 2.65 > 1.96 means a day this unusual would happen less than 5% of the time without an event. For a CAR over k days, divide by SD * sqrt(k). Part 2: A confuses the sign with significance. C uses the wrong denominator. D is false, since this test is standard practice. Part 3: Separating real effects from random variation is the key statistical step in financial event studies.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Financial Market Event Studies",
+      "question_text": "An analyst measures the effect of a merger announcement on the acquiring firm's stock, but rumors of the deal appeared in the press 10 trading days before the official announcement. What is the main problem if the event window is only day 0?",
+      "options": [
+        "A) There is no problem, because markets react only to official announcements",
+        "B) The estimation window becomes too long",
+        "C) Part of the price reaction already happened when the rumors appeared, so the day-0 AR understates the total effect. The window should start before the rumor date (e.g., day -10), and the estimation window should end before any leakage",
+        "D) The market model's beta becomes exactly 1"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Information leakage and anticipation move prices before the official date. Efficient markets price in news as soon as it becomes public, so a day-0-only window misses the earlier reaction. Extending the event window and keeping the estimation window clean fixes this. Part 2: A contradicts how efficient markets work. B is unrelated to the leakage problem. D has no basis; beta is estimated from the data. Part 3: Choosing event and estimation windows that match when information actually arrived is central to performing a credible financial event study.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Financial Market Event Studies",
+      "question_text": "An ESG fund manager wants to know whether announcements of large data breaches lower the breached company's stock price. She has 60 breach announcements at 60 different firms from 2015 to 2025. Which design is best?",
+      "options": [
+        "A) Compare the average stock price of breached firms with non-breached firms over the whole 10 years",
+        "B) Use only the largest breach and look at its price chart",
+        "C) Regress each firm's annual return on a breach dummy with no market adjustment",
+        "D) For each firm, fit a market model on trading days -250 to -30; compute ARs for days -1 to +3; sum them to a CAR; then average the 60 CARs (CAAR) and test it with the cross-sectional SD of the CARs. Drop or flag events where earnings were released in the same window"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: This is the standard financial event-study pipeline: a firm-specific model of normal returns, a short event window, CARs per event, the cross-event average (CAAR) with a cross-sectional test, and a check for confounding events such as earnings releases. Pooling 60 events greatly reduces noise compared with any single event. Part 2: A is a between-firm comparison that ignores timing and confounders. B has very little power and the result may not generalize. C uses an annual horizon, which brings in a year of confounders, and ignores market movements. Part 3: This applies the full method to a real investment question.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Financial Market Event Studies",
+      "question_text": "A policy analyst wants to apply an event study outside finance: did a city's new bike-lane network (opened on one date) change daily bike-share trips? She has three years of daily trips before the opening and wants the effect over the following six months. Which approach is most defensible?",
+      "options": [
+        "A) Fit a time-series forecasting model (e.g., ARIMA or seasonal regression with day-of-week, month, and weather terms) on the pre-opening data, forecast the six months after opening as the counterfactual, and estimate the effect as actual minus forecast, with forecast intervals. Also note that a six-month horizon leaves more room for confounders than a short window",
+        "B) Compare the average trips in the six months after opening with the average trips in the six months before",
+        "C) Use the stock market as the counterfactual for bike trips",
+        "D) Assume the trips would have been zero without the bike lanes"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: For outcomes with trends and seasonality, a forecasting model trained on the pre-event period provides a credible counterfactual, the time-series version of 'normal returns.' Forecast intervals show whether the actual values fall outside what chance would produce. Part 2: B confuses seasonal change with the effect, since summer months follow winter ones. C uses an irrelevant benchmark. D assumes an absurd counterfactual. Part 3: Huntington-Klein discusses forecasting as a way to extend event studies beyond markets, but warns that longer horizons weaken the causal claim.",
+      "learning_objective": "Perform event studies using methods developed for financial markets.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "In an event study with many affected groups (e.g., states adopting a law in different years), what does 'event time' (relative time) mean?",
+      "options": [
+        "A) The calendar year in which the data were collected",
+        "B) The number of periods since that group's own event, t - E_g. For example, a state adopting in 2015 is at event time 0 in 2015 and +2 in 2017, and a state adopting in 2018 is at event time 0 in 2018",
+        "C) The total number of events in the sample",
+        "D) The time it takes the researcher to run the regression"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Re-centering each group on its own event date lines up groups with different adoption years, so you can estimate how outcomes change k periods before or after the event, pooled across groups. Part 2: A is calendar time, which is controlled with time fixed effects rather than used to index the effect. C and D are not part of the design. Part 3: Building an event-time variable is the first step in performing event studies with multiple affected groups.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "True or False: In a regression-based event study with dummies for each event time, you should include a dummy for EVERY relative period, including the period just before the event (t = -1), along with group fixed effects.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. One relative period must be left out as the reference, most commonly t = -1, the last period before the event. Otherwise the event-time dummies are perfectly collinear with the group fixed effects (they sum to 1 for every group). Each estimated coefficient then means 'the outcome k periods from the event compared with the period just before it.' Part 2: Including every dummy causes the dummy-variable trap and makes the coefficients uninterpretable. Part 3: Choosing and stating a reference period is required for correctly performing event studies with multiple groups.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "Why does having multiple affected groups with DIFFERENT event dates help an event study compared with all groups being treated on the same date?",
+      "options": [
+        "A) It removes the need for a counterfactual",
+        "B) It guarantees that every group has the same effect",
+        "C) It makes the sample size smaller and the analysis simpler",
+        "D) Staggered timing separates the event's effect from calendar-time shocks. Groups not yet treated in a given period act as comparisons, so a nationwide shock in 2020 is not confused with the effect, which is impossible if everyone is treated in 2020"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: When all groups are treated at the same time, the event's effect is perfectly confounded with anything else that happened then. With staggered timing, time fixed effects can absorb calendar shocks, because in any year some groups are treated and others are not. Part 2: A is wrong because a counterfactual is still required; it just comes from other groups. B is wrong because effects can still differ across groups, which is actually a known problem for TWFE event studies. C is backward, since multiple groups add data. Part 3: This is the main advantage of event studies with multiple affected groups.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "Which regression is the standard dynamic event-study specification for groups g observed over time t, where E_g is group g's event date?",
+      "options": [
+        "A) Y_gt = alpha_g + gamma_t + sum over k (k not equal to -1) of beta_k * 1(t - E_g = k) + e_gt, with group FE, time FE, and one dummy per relative period except the omitted reference period",
+        "B) Y_gt = beta_0 + beta_1 * t + e_gt, a single time trend",
+        "C) Y_gt = alpha_g + beta * Y_g(t-1) + e_gt, using lagged outcomes only",
+        "D) Y_gt = beta * E_g + e_gt, regressing the outcome on the event date"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Each beta_k measures the average outcome k periods from the event relative to period -1, after removing stable group differences (alpha_g) and common time shocks (gamma_t). The leads (k < 0) test for pre-trends and the lags (k >= 0) trace the effect over time. Part 2: B ignores groups and events. C is a dynamic panel specification with no event indicators. D treats the date as if it were a continuous dose. Part 3: This is the regression approach for multiple affected groups that Chapter 17 builds up to.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "An event-study plot of a minimum-wage increase on teen employment shows lead coefficients (k = -4 to -2) of about 0 with confidence intervals that include 0, and lag coefficients (k = 0 to +4) of -0.5, -1.0, -1.4, -1.5, -1.5 percentage points with intervals that exclude 0. How should you interpret it?",
+      "options": [
+        "A) The policy had no effect because the leads are 0",
+        "B) The policy increased employment",
+        "C) No evidence of pre-trends supports the parallel-trends assumption. After the increase, teen employment falls gradually, levels off at about -1.5 percentage points after 3 periods, and the effect persists",
+        "D) The plot cannot be interpreted without knowing the calendar years"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Flat leads mean treated and comparison groups were moving together before the event, which makes the post-event changes credible as effects. The lags show the effect phasing in and stabilizing. Part 2: A confuses the leads (a pre-trend check) with the lags (the effects). B reads the signs backward. D is wrong because event time already lines up the groups, and calendar effects are absorbed by time fixed effects. Part 3: Reading leads and lags is the main interpretation skill for event studies with multiple groups.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "Recent research (e.g., Goodman-Bacon 2021; Sun and Abraham 2021) warns about using plain two-way fixed effects event studies with staggered adoption. What is the problem?",
+      "options": [
+        "A) TWFE always produces standard errors that are too large",
+        "B) When effects differ across adoption cohorts or grow over time, TWFE implicitly uses already-treated groups as controls, which can weight effects incorrectly (even negatively) and contaminate the lead and lag estimates. Heterogeneity-robust estimators such as Sun-Abraham, Callaway-Sant'Anna, or a stacked design avoid this",
+        "C) TWFE cannot include group fixed effects",
+        "D) TWFE requires every group to be treated at the same time"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: With staggered timing and changing effects, groups treated early serve as 'controls' for groups treated later, so their ongoing effects bias the comparison. Robust estimators compare each cohort only with not-yet-treated or never-treated units. Part 2: A misstates the issue, which is bias, not SE size. C is false; TWFE is defined by including group FE. D is backward; staggered timing is exactly the setting where this problem arises. Part 3: Knowing this pitfall, and its fixes, is part of performing modern event studies with multiple groups.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "True or False: One simple way to run an event study with multiple groups is to estimate the abnormal outcome for each group separately (actual minus that group's own pre-event prediction) and then average these group-level effects by event time.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. This 'prediction then average' approach extends the single-group method: build a counterfactual for each group from its own pre-event data (e.g., a trend or a market model), compute the abnormal outcomes, and average them across groups at each relative time, as financial studies do with CAAR. Part 2: Answering False assumes only regression can handle many groups. The two approaches are alternatives, and the regression approach adds time fixed effects so it can use not-yet-treated groups as controls. Part 3: Comparing these two strategies is part of performing event studies with multiple affected groups.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "Where should standard errors be clustered in a state-level event study of a policy adopted by 30 states in different years, with annual data from 2005 to 2022?",
+      "options": [
+        "A) By year, because the policy happens in years",
+        "B) No clustering, because each state-year is independent",
+        "C) By event time k, because each coefficient corresponds to one k",
+        "D) By state, the level at which treatment is assigned, because a state's outcomes and errors are serially correlated across years. With only 30 states, check the results with a wild cluster bootstrap"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Cluster at the level of treatment assignment and serial correlation, here the state. Ignoring within-state correlation over 18 years greatly understates the SEs (Bertrand, Duflo, and Mullainathan 2004). Part 2: A clusters on the wrong dimension. B assumes independence that panel data almost never has. C is not a meaningful grouping of errors. Part 3: Correct inference is part of performing a credible event study with multiple groups.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "A ride-sharing company launched a driver-bonus program in 40 cities, at different months between 2022 and 2024. Twenty other cities never received it. Leadership wants the program's effect on weekly driver hours and whether it fades. Which plan is best?",
+      "options": [
+        "A) Compare average driver hours in launch cities with non-launch cities over the whole period",
+        "B) Run an event study with city and week fixed effects and relative-week dummies from -12 to +26 (omitting -1), estimated with a heterogeneity-robust method (e.g., Callaway-Sant'Anna using never-treated and not-yet-treated cities as controls), clustered by city. Read the leads for pre-trends and the lags for whether the effect fades",
+        "C) Look only at the first city's launch week",
+        "D) Regress driver hours on a single post-launch dummy with no fixed effects"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: This plan uses staggered timing and never-treated cities, separates seasonality and company-wide changes (week fixed effects) from stable city differences (city fixed effects), tests for pre-trends, traces the effect over time to answer the question about fading, avoids TWFE bias from staggered timing, and clusters correctly. Part 2: A is a between-city comparison that ignores timing. C uses one event with little power. D leaves out the fixed effects, merges all post-periods into one number, and so cannot show whether the effect fades. Part 3: This is a full application of event studies with multiple affected groups.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Event Studies with Multiple Groups",
+      "question_text": "A hospital system rolled out a new sepsis-alert algorithm in 12 hospitals at different quarters from 2021 to 2024. You have quarterly sepsis mortality rates for all 12 hospitals from 2018 to 2025. Describe how you would perform the event study: the data set-up, the specification, the reference period, how you would read the results, and one threat to validity with a check for it.",
+      "options": null,
+      "correct_answer": "Set-up: a hospital-by-quarter panel, with event time k = quarter - rollout quarter for each hospital, binning k <= -8 and k >= +8 into end bins. Specification: mortality_hq = alpha_h + gamma_q + sum over k (k not equal to -1) of beta_k * 1(event time = k) + e_hq, with hospital and quarter fixed effects. Because every hospital is eventually treated, use not-yet-treated hospitals as controls with a heterogeneity-robust estimator (e.g., Sun-Abraham or Callaway-Sant'Anna). Cluster SEs by hospital and use a wild cluster bootstrap, since there are only 12 clusters. Reference period: k = -1. Reading: leads (k = -8 to -2) close to 0 support parallel trends; lags show whether mortality fell after rollout and how fast the effect phased in. Threat: hospitals may have adopted the alert when they were already improving sepsis care (e.g., a new quality-improvement program) or because of a recent spike in deaths (mean reversion). Check: inspect the leads for pre-trends, run placebo tests with fake rollout dates, and test an outcome the alert should not affect, such as hip-fracture mortality.",
+      "explanation": "Part 1: A strong answer re-centers the panel on each hospital's rollout, writes the dynamic specification with a reference period, recognizes that every unit is eventually treated (so not-yet-treated hospitals are the controls), handles inference with few clusters, interprets leads versus lags, and names a concrete threat with a diagnostic. Part 2: Answers that compare before and after averages pooled across all hospitals, leave out a reference period, or ignore pre-trends are incomplete. Part 3: This applies event studies with multiple affected groups and connects them to placebo testing.",
+      "learning_objective": "Perform event studies with multiple affected groups.",
+      "keywords": ["event time", "fixed effects", "reference period", "leads", "pre-trend", "not-yet-treated"]
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "What is a placebo test in an event study?",
+      "options": [
+        "A) Running the same event-study analysis where NO effect should exist (a fake event date, a group that was not affected, or an outcome the event should not change) and checking that the estimated 'effect' is close to zero",
+        "B) Giving a sugar pill to the treated group",
+        "C) Re-running the main analysis with a larger sample to get a smaller p-value",
+        "D) Removing the event window from the data"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A placebo test uses the method in a setting where you KNOW the true effect is zero. If the method still finds an 'effect' there, it is picking up trends, noise, or confounders rather than the event, which undermines the main result. Part 2: B is the medical-trial meaning of placebo, not the research-design one. C is a sample-size change, not a falsification test. D removes the data needed to measure any effect. Part 3: Placebo tests are the main tool Chapter 17 recommends for strengthening causal claims from event studies.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "True or False: If you run your event-study method on 1,000 randomly chosen dates when nothing happened and use a 5% significance level, you should expect about 50 of those placebo runs to show a 'significant' effect just by chance.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. With alpha = 0.05 and no true effect, about 5% of tests reject by chance: 0.05 * 1,000 = 50. If far more than 50 reject (e.g., 200), the method's standard errors are too small or the counterfactual is biased, and the main result should not be trusted. Part 2: Answering False assumes that a correct method never produces false positives. Part 3: Comparing the placebo rejection rate with alpha is a direct way to use placebo tests to validate an event study.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "Which of these is a valid 'placebo outcome' test for an event study of whether a new soda tax reduced soda sales in a city?",
+      "options": [
+        "A) Re-estimating the effect on soda sales with a different estimator",
+        "B) Measuring soda sales in the same city one year after the tax",
+        "C) Running the same event study on bottled-water sales, which the tax does not cover and which should not fall because of it. A large drop there would suggest something else, such as a store closure or lower foot traffic, happened at the same time",
+        "D) Measuring soda sales in the city with the tax doubled"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A placebo outcome is one that shares the same potential confounders (overall store traffic, local economic shocks) but should not respond to the event itself. Finding no effect there supports the claim that the soda drop comes from the tax. Part 2: A and B re-measure the actual outcome, so they are robustness or persistence checks, not placebo tests. D describes a different, hypothetical treatment. Part 3: Placebo outcomes are one of the main ways to use placebo tests to strengthen event-study conclusions.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "A study finds a CAR of -4.0% after airline accidents. To build a placebo distribution, the researcher picks 1,000 random non-accident dates for the same airlines and computes the same CAR for each. Only 18 of the 1,000 placebo CARs are as negative as -4.0%. What does this show?",
+      "options": [
+        "A) The accidents had no effect, because some placebo CARs were large",
+        "B) The placebo test is invalid because it used the same airlines",
+        "C) The p-value is 18%",
+        "D) The empirical (randomization) p-value is about 18 / 1,000 = 0.018, so a CAR as negative as -4% is rare on ordinary days. This supports a real negative effect of accidents"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The placebo dates form the distribution of CARs expected under 'no event.' The share of placebo CARs at least as extreme as the actual one is an empirical one-sided p-value: 0.018. This approach makes no assumption that returns are normally distributed. Part 2: A misreads a few extreme placebo values as evidence against an effect, when some extreme values are expected. B is wrong because using the same firms is what makes the placebo comparable. C is off by a factor of 10. Part 3: Building a placebo distribution is a practical way to use placebo tests for inference in event studies.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "In a multi-group event study, the coefficients on the leads (k = -5 to -2) are all close to zero and jointly insignificant (F-test p = 0.64). In 2-3 sentences, explain why these leads work as a built-in placebo test, and what you would conclude if instead they had grown steadily toward the post-event values.",
+      "options": null,
+      "correct_answer": "The leads estimate 'effects' in periods BEFORE the event, when the event cannot have caused anything, so they are a placebo test of the method. Coefficients close to zero and a joint F-test p of 0.64 mean the treated groups were not already diverging from the comparison groups, which supports parallel trends and anticipation-free timing. If the leads had grown steadily toward the post-event values, that would signal a pre-existing trend or anticipation. The post-event coefficients would then partly reflect that trend, not the event, so you would need a design that adjusts for trends (e.g., group-specific trends or matching on pre-trends) or a more credible comparison group.",
+      "explanation": "Part 1: Pre-event coefficients are a natural placebo, because causality cannot run backward in time. Near-zero leads support the identifying assumption, and trending leads suggest confounding by pre-existing trends or anticipation. Part 2: Answers that treat lead coefficients as part of the effect, or ignore the joint test, miss their falsification role. Part 3: Testing the leads is the most common way to use placebo tests in regression-based event studies.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": ["leads", "pre-trend", "before the event", "parallel trends", "anticipation", "placebo"]
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "A researcher studying a state's new paid-sick-leave law runs the same event study on five neighboring states that did NOT pass the law, using the treated state's adoption date as a fake event date. Four of the five placebo states show a 'significant' drop in flu-related ER visits at that date, about as large as the treated state's drop. What should she conclude?",
+      "options": [
+        "A) The treated state's 'effect' is probably not caused by the law. Something regional happened at the same time (e.g., a mild flu season), so the result is confounded by a time-varying shock and she needs a design with comparison states, such as difference-in-differences against those neighbors",
+        "B) The law worked so well that it spilled over and reduced flu in all neighboring states",
+        "C) The placebo test proves the law reduced ER visits",
+        "D) Placebo tests on other states are never informative"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A placebo group that was not treated but shows the same 'effect' at the same date points to a shared time-varying shock, which is exactly the confounder that single-group event studies cannot rule out. Part 2: B is possible in principle but much less plausible than a regional flu pattern, and it would need separate evidence of spillovers. C reverses the logic. D is false; placebo groups are a standard check. Part 3: Using placebo groups shows when an event-study result is not credible and points toward a design that uses comparison groups.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "True or False: Passing a placebo test (finding no effect on fake dates and placebo outcomes) PROVES that the event study's main estimate is a causal effect.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. A placebo test can REJECT a design by revealing a problem, but passing it only rules out the specific confounders the placebo was designed to detect. A shock that hits only the treated unit, at exactly the event date, can still bias the estimate. Part 2: Answering True confuses failing to find evidence of bias with having evidence of no bias. Part 3: Placebo tests strengthen a causal claim and should be reported with other checks (pre-trends, alternative counterfactual models, robustness to window choice), not treated as proof.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "A crypto analyst claims that tweets by a well-known CEO move Dogecoin's price. Using 25 tweets, she finds an average 1-hour abnormal return of +3.1%. Which set of placebo checks would best test this claim?",
+      "options": [
+        "A) Re-run the same 25 tweets with a 1-year window",
+        "B) Average the 25 returns again using the median instead of the mean",
+        "C) (1) Fake times: compute the same 1-hour AR at 1,000 random hours with no tweet and see where +3.1% falls in that distribution. (2) Placebo content: the CEO's tweets that do not mention crypto should show no effect. (3) Placebo asset: an unrelated coin or a stock index over the same hours should show no effect. (4) Leads: ARs in the hour BEFORE each tweet should be close to 0",
+        "D) Drop the 5 tweets with the smallest effects and recompute"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: This combination tests whether +3.1% is unusual for ordinary hours (random fake times), whether the effect is specific to crypto-related content (placebo content), whether it is specific to Dogecoin rather than crypto-wide moves (placebo asset), and whether prices moved before the tweet (leads, which would suggest reverse causality or leakage). Part 2: A extends the window so far that it brings in confounders. B is a robustness check, not a placebo test. D cherry-picks the events. Part 3: Combining several types of placebo test is how to strengthen, or refute, a causal claim from an event study.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "A bank's analytics team reports that a new mobile-app feature launched on March 1 increased daily logins by 12%, based on a single-group event study comparing post-launch logins with a forecast from the previous 6 months. Design a set of placebo and robustness tests that would convince a skeptical Chief Data Officer, and say what result from each test would WEAKEN the claim.",
+      "options": null,
+      "correct_answer": "(1) Fake launch dates: re-run the same forecast-versus-actual analysis at 50 or more placebo dates in the prior two years, especially other March 1sts, to check seasonality. Weakens the claim if placebo dates often show +12% jumps, for example from start-of-month payday logins. (2) Placebo outcome: run the same analysis on logins to the bank's desktop website, which did not get the feature. Weakens the claim if desktop logins also jumped about 12%, which would point to a marketing campaign or seasonal surge. (3) Placebo group: compare iOS users who received the feature with Android users who received it two weeks later (staggered rollout). Weakens the claim if Android logins rose on March 1 before their own launch. (4) Pre-period check: plot daily forecast errors for the 30 days before March 1. Weakens the claim if the errors were already trending upward. (5) Model robustness: re-estimate with alternative counterfactuals (a seasonal ARIMA, and a regression with day-of-week and payday dummies). Weakens the claim if the effect shrinks sharply or loses significance under reasonable alternative models.",
+      "explanation": "Part 1: A strong design uses several kinds of placebo (dates, outcomes, groups, and pre-periods) plus robustness to the choice of counterfactual model, and states in advance what failing each test would look like. This makes the analysis falsifiable rather than confirmatory. Part 2: Answers that only re-run the main analysis, or report a p-value without any falsification test, would not satisfy a skeptic. Answers that list placebo types without saying what result would weaken the claim are not concrete enough. Part 3: This applies placebo testing to strengthen a single-group event study in a real business setting.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": ["fake dates", "placebo outcome", "placebo group", "seasonality", "pre-period", "forecast"]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Placebo Tests in Event Studies",
+      "question_text": "Two analysts study the effect of an earnings-guidance cut on stock returns. Analyst X uses a (-1, +1) event window and passes a placebo test on 1,000 random dates (4.8% rejection rate). Analyst Y uses a (-1, +60) window; the placebo rejection rate on random dates is 19%. Which conclusion is correct?",
+      "options": [
+        "A) Analyst Y is more convincing because a longer window captures the full effect",
+        "B) Analyst X is more credible. A placebo rejection rate close to the nominal 5% shows that X's test is well calibrated, while Y's 19% rate shows that the 60-day window accumulates drift and confounders, so Y's test produces false positives almost 4 times too often",
+        "C) The two analyses are equally valid because both used placebo tests",
+        "D) Placebo rejection rates do not depend on window length"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A well-calibrated test should reject about 5% of the time when there is no effect. Y's 19% shows that a long window lets the counterfactual drift away from the truth, giving false positives, which is Huntington-Klein's warning about long horizons made visible by placebos. Part 2: A values completeness over validity. C ignores what the placebo results actually say. D contradicts the evidence. Part 3: Using placebo tests to compare event-study designs shows how they strengthen, or weaken, causal claims.",
+      "learning_objective": "Use placebo tests with event studies.",
+      "keywords": []
+    }
+  ]
+}

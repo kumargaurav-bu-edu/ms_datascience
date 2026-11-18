@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 2 - Fixed Effects, Bootstrap Simulation & Data-Generating Processes",
+    "description": "A master's-level quiz (a different set from the Week 3 and Week 6 DX701 quizzes and the Week 2 DX702 quiz) covering fixed effects vs. random effects, first differencing, within R-squared, and fixed effects with binary outcomes; inventing fixed-effects designs in public health, education, and e-commerce; bootstrap variants (parametric, block, cluster), bootstrap hypothesis tests, and the jackknife; and data-generating processes that build in measurement error, reverse causality, heteroskedasticity, and sample selection.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "What is the key assumption difference between FIXED effects and RANDOM effects models for panel data?",
+      "options": [
+        "A) Random effects ASSUME the unit-specific effect alpha_i is UNCORRELATED with the regressors X. Fixed effects allow alpha_i to be correlated with X, so FE remain consistent when stable unobserved traits confound X, while RE would be biased",
+        "B) Fixed effects assume alpha_i is uncorrelated with X",
+        "C) Random effects cannot include an intercept",
+        "D) There is no difference; they always give the same estimates"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: RE treat alpha_i as random noise unrelated to X, which makes them more efficient because they use between variation too, but they are biased if that assumption fails. FE make no such assumption, so they are robust to time-invariant confounding. The Hausman test compares the two: a significant difference suggests the RE assumption fails. Part 2: B reverses the assumptions. C is false. D is wrong whenever alpha_i is correlated with X. Part 3: Knowing when FE are needed rather than RE is central to performing FE appropriately.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Performing Fixed Effects",
+      "question_text": "True or False: With exactly TWO time periods, regressing the CHANGE in Y on the CHANGE in X (first differencing) gives the same slope estimate as the entity fixed-effects (within) estimator.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. First differencing removes alpha_i by subtracting period 1 from period 2: (Y_i2 - Y_i1) = beta * (X_i2 - X_i1) + (e_i2 - e_i1). With T = 2, this is algebraically identical to demeaning. With T > 2, the two estimators differ and have different efficiency depending on the error structure. Part 2: Answering False misses a standard equivalence. Part 3: Knowing the alternative ways to remove fixed effects is part of performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "A fixed-effects regression with 200 firm dummies reports R-squared = 0.94, while the 'within R-squared' is 0.06. Which interpretation is correct?",
+      "options": [
+        "A) The model explains 94% of the effect of X",
+        "B) The overall R-squared is inflated by the 200 dummies, which explain the large stable DIFFERENCES between firms. The within R-squared (0.06) shows that X explains only 6% of the variation WITHIN firms over time, which is the variation that identifies the slope",
+        "C) The within R-squared must be a mistake",
+        "D) A within R-squared of 0.06 means the slope is zero"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Firm dummies soak up most of the variance in Y, because firms differ a lot in their levels. The within R-squared measures the fit after removing firm means, which is the relevant measure of how well X explains changes within firms. A low within R-squared is common and does not make the slope wrong. Part 2: A confuses R-squared with the effect size. C is unfounded. D confuses fit with the coefficient, since a significant slope can coexist with a low R-squared. Part 3: Reading FE fit statistics correctly is part of performing and reporting FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "You want individual fixed effects with a BINARY outcome (e.g., hospital readmission, 0 or 1) for 20,000 patients, each with about 3 visits. Which approach is most commonly used, and what is its caveat?",
+      "options": [
+        "A) A linear probability model (LPM) with patient fixed effects (`readmit ~ X + C(patient)`, or demeaning). Coefficients are changes in the PROBABILITY of readmission. Caveats: predictions can fall outside [0, 1], and patients whose outcome never changes contribute nothing. A conditional (fixed-effects) logit is an alternative that avoids the incidental-parameters bias of putting dummies into an ordinary logit",
+        "B) An ordinary logit with 20,000 patient dummies is always unbiased",
+        "C) Fixed effects cannot be used with binary outcomes",
+        "D) Convert the outcome to a continuous variable by adding noise"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The LPM with FE is simple and easy to interpret. The conditional logit removes the fixed effects mathematically. A logit with many dummies and few observations per unit suffers from the incidental parameters problem (biased slopes). Part 2: B ignores that bias. C is false. D distorts the data. Part 3: Choosing a valid FE method for different outcome types is practical knowledge for performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Performing Fixed Effects",
+      "question_text": "True or False: Fixed effects make MEASUREMENT ERROR in X less of a problem, because they remove stable differences between units.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. FE often make attenuation bias WORSE. Demeaning removes much of the true (signal) variation in X, while random measurement error remains, so the signal-to-noise ratio of the within variation falls and the slope shrinks further toward 0. This is a well-known trade-off, e.g., in returns-to-schooling studies of twins. Part 2: Answering True confuses removing confounders with removing noise. Part 3: Anticipating how FE interact with measurement error is an advanced consideration when performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "A Hausman test comparing FE and RE estimates of the effect of advertising on sales across 300 stores gives p < 0.001. The FE estimate is 0.8 (SE 0.20), and the RE estimate is 1.6 (SE 0.08). What should you report?",
+      "options": [
+        "A) RE, because its SE is smaller",
+        "B) The average of the two, 1.2",
+        "C) Neither, because the test shows both are wrong",
+        "D) The FE estimate (0.8). The significant Hausman test rejects the RE assumption that store effects are uncorrelated with advertising, so RE (1.6) is likely BIASED upward, probably because stores with high baseline demand also advertise more. FE give up some precision for consistency"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: When RE's assumption fails, its greater efficiency is worthless, because it is precise around the wrong value. The direction of the gap fits a positive confounder (popular stores advertise more). Part 2: A favors precision over validity. B mixes a biased estimate with a consistent one. C misreads the test, which only says the estimates differ significantly. Part 3: Making a principled choice between FE and RE is an advanced FE skill.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Performing Fixed Effects",
+      "question_text": "The statistical test that compares fixed-effects and random-effects estimates, and whose rejection suggests that the random-effects assumption (unit effects uncorrelated with X) fails, is called the ___ test.",
+      "options": null,
+      "correct_answer": "Hausman",
+      "explanation": "Part 1: The Hausman (Durbin-Wu-Hausman) test checks whether the FE and RE coefficient vectors differ by more than chance. If they do, RE is inconsistent and FE are preferred. Part 2: The F-test for the joint significance of the fixed effects asks a different question: whether the unit effects exist at all. Part 3: Knowing this test supports the choice of whether to perform FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": ["Hausman", "Durbin-Wu-Hausman"]
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Which invented public-health example is a good use of COUNTY fixed effects?",
+      "options": [
+        "A) The effect of a single national law passed on one day, with no variation across counties",
+        "B) The effect of a person's blood type on their lifespan",
+        "C) The effect of the number of primary-care clinics per 10,000 residents on preventable hospitalizations, using 3,000 counties over 12 years. County FE remove stable traits (rurality, typical age mix, local health culture) that affect both clinic supply and hospitalizations",
+        "D) The effect of a county's founding year on its income"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Clinic counts change over time within counties (openings and closures), so there is within variation, and county FE handle stable confounders. Adding year FE would also absorb national trends. Part 2: A has no variation across counties. B uses a trait that never changes within a person. D uses a trait that never changes within a county, so FE would absorb it. Part 3: Matching an FE design to a real public-health question is the core of inventing FE examples.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "An e-commerce analyst invents this example: 'Effect of the number of product photos on conversion rate, using 5,000 products over 26 weeks, with product fixed effects.' What makes this a sensible FE design?",
+      "options": [
+        "A) Products never change, so FE are unnecessary",
+        "B) Product FE remove stable traits such as brand strength, category, and baseline appeal. Better-selling products may get more photos AND convert better. Photo counts change within products when sellers update listings, which provides the within variation. Week FE can absorb sales events like Black Friday",
+        "C) FE are only valid for people, not products",
+        "D) Conversion is binary, so FE cannot be used"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A good invented example names the stable confounder (product appeal), the source of within variation (listing updates), and any common time shocks. Part 2: A misreads the design, since photo counts DO change. C is false, because FE work for any repeatedly observed entity. D is wrong, since conversion RATES are continuous and an LPM works for binary outcomes. Part 3: Explaining why the design works is essential when inventing FE examples.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "True or False: In an invented study with student fixed effects (students observed across many courses), you can estimate the effect of a student's GENDER on their grades.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Gender is constant within each student, so it is absorbed by the student fixed effect and cannot be estimated. You COULD estimate how the effect of something that varies, such as course size, differs by gender (an interaction). Part 2: Answering True ignores the rule that FE absorb every variable that is constant within the entity. Part 3: Checking which variables an invented FE design can estimate prevents a common design error.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "A school district invents this study: 'Effect of teacher experience on student test gains, with 900 teachers over 8 years.' Which combination of fixed effects is best?",
+      "options": [
+        "A) Only student fixed effects",
+        "B) Test-score fixed effects",
+        "C) No fixed effects, because experience is random",
+        "D) SCHOOL fixed effects (stable school resources and demographics), YEAR fixed effects (district-wide test or curriculum changes), and possibly TEACHER fixed effects (stable teaching talent), so the experience effect comes from the same teacher gaining experience over time. Cluster SEs by teacher or school"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: School FE handle differences in where teachers work, and year FE handle shocks over time. Teacher FE separate the effect of experience from talent: otherwise better teachers may stay longer, so experienced teachers look better because of selection. This is a classic design in the economics of education. Part 2: A alone misses differences at the teacher and school level. B is incoherent. C makes a false assumption. Part 3: Layering several FE dimensions to handle several confounders is an advanced skill in inventing FE designs.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Invent a fixed-effects study where RANDOM effects would be tempting but WRONG. Describe the panel, the treatment and outcome, why the unit effects are likely correlated with the treatment, the FE specification, how you would test FE vs. RE, and what result you would expect.",
+      "options": null,
+      "correct_answer": "Panel: 1,500 small businesses observed quarterly for 5 years. Treatment X = whether the business uses a cloud accounting tool that quarter (adoption varies over time). Outcome Y = quarterly profit margin. Why RE would be wrong: well-managed, growth-oriented businesses (a stable 'management quality' alpha_i) are more likely to adopt the tool AND have higher margins anyway, so alpha_i is correlated with X, which violates the RE assumption and biases RE upward. FE specification: `margin ~ uses_tool + C(business_id) + C(quarter)`, with SEs clustered by business; the effect is identified from businesses that switch, before vs. after adoption. Test: estimate both models (e.g., `linearmodels.PanelOLS` with entity effects and `RandomEffects`) and run a Hausman test. Expected result: RE gives a larger, very precise effect (e.g., +4 points); FE give a smaller, less precise effect (e.g., +1.2 points); the Hausman test rejects (p < 0.05), so report FE and explain the upward bias in RE. Also check for pre-adoption trends to rule out adoption that follows already-rising margins.",
+      "explanation": "Part 1: A strong answer gives a panel with within variation in X, a specific stable confounder correlated with X, the correct FE specification with clustering, a Hausman comparison, and the expected direction of the RE bias, with a pre-trend check. Part 2: Answers that do not explain WHY the unit effects correlate with X, or that skip the comparison test, are incomplete. Part 3: This fulfills the objective of inventing an FE situation at an advanced level.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": ["fixed effects", "random effects", "Hausman", "correlated", "within", "cluster"]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Which invented example uses a NON-TIME repeated dimension for fixed effects?",
+      "options": [
+        "A) Monthly sales of 100 stores over 3 years",
+        "B) Annual GDP of 50 countries",
+        "C) The effect of a drug on blood pressure in a CROSSOVER trial: each patient receives both the drug and a placebo in different periods, with patient FE. Or twins studies, where the 'entity' is the twin pair and education varies between the twins",
+        "D) A one-time survey of 2,000 adults"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: FE need repeated observations within an entity, but repetition can come from settings or related units, not just time. In crossover trials, each patient serves as their own control. In twin studies, comparing twins within a pair removes shared family background and genes. Part 2: A and B repeat over time. D has no repetition at all. Part 3: Recognizing non-time FE structures broadens the range of examples you can invent.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "A twins study finds that the within-twin-pair return to an extra year of schooling (FE) is 5%, compared with 9% in a pooled OLS regression across all individuals. Which explanation is the most complete?",
+      "options": [
+        "A) The FE estimate is definitely the true causal effect",
+        "B) Twin FE remove shared family background and genes, which inflate the pooled OLS estimate (ability bias), so part of the drop from 9% to 5% reflects removing confounding. But FE also make ATTENUATION from measurement error in reported schooling worse, so 5% may be too LOW. Researchers address this with a second, independent report of schooling as an instrument (Ashenfelter and Krueger)",
+        "C) Twins are not representative, so the result is meaningless",
+        "D) Pooled OLS is unbiased, so FE are wrong"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Two forces move in the same direction: removing confounders lowers the estimate correctly, while stronger measurement error lowers it incorrectly. Instrumenting each twin's schooling with their sibling's report of it corrects the measurement error, and studies find returns closer to the OLS value. Part 2: A ignores measurement error. C overstates the concern about representativeness. D ignores ability bias. Part 3: Weighing the competing biases in an FE design is the advanced skill this objective calls for.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "What is a PARAMETRIC bootstrap?",
+      "options": [
+        "A) Resampling rows of the data with replacement",
+        "B) Resampling the parameters directly from the data",
+        "C) Fit a parametric model to the data (e.g., Y ~ Normal(mu-hat, sigma-hat), or a regression with estimated coefficients and residual SD), then generate NEW simulated datasets FROM that fitted model, re-estimate the statistic on each, and use their spread to measure uncertainty",
+        "D) Bootstrapping without a random seed"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The parametric bootstrap simulates from the assumed model, which works well with small samples IF the model is right. The nonparametric bootstrap (A) resamples the observed data and assumes less. Part 2: B is not a procedure. D has nothing to do with being parametric. Part 3: Knowing both bootstrap families lets you choose the right one when performing simulations.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "You want a bootstrap SE for the average daily return of a stock over 3 years, and returns show volatility clustering (calm and turbulent periods). Which bootstrap is appropriate?",
+      "options": [
+        "A) The ordinary bootstrap, resampling individual days",
+        "B) A BLOCK bootstrap (e.g., the moving-block or stationary bootstrap): resample contiguous BLOCKS of days (e.g., 20-day blocks) with replacement to keep the short-run dependence within each block",
+        "C) Resample only the first year",
+        "D) No bootstrap can be used for time series"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Resampling individual days breaks the time dependence and understates the uncertainty when observations are correlated. Blocks keep the local dependence structure. The block length is a tuning choice that grows with the strength of the dependence. Part 2: A ignores the dependence. C wastes data. D is false. Part 3: Matching the bootstrap to the data's dependence is a key practical skill.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Bootstrap Simulation",
+      "question_text": "The original estimate of a ratio statistic is 5.0. The mean of 4,000 bootstrap estimates is 5.4. Using the standard bootstrap BIAS CORRECTION (corrected = 2 * original - bootstrap mean), what is the bias-corrected estimate? Enter only the number.",
+      "options": null,
+      "correct_answer": "4.6",
+      "explanation": "Part 1: Estimated bias = bootstrap mean - original = 5.4 - 5.0 = 0.4. Corrected estimate = original - bias = 5.0 - 0.4 = 4.6 (equivalently, 2 * 5.0 - 5.4). Ratio estimators are often biased in small samples, and the bootstrap estimates that bias. Part 2: Common mistakes are adding the bias (5.4) or reporting the bootstrap mean as the estimate. Note that bias correction can increase variance, so it should be used carefully. Part 3: Calculating a bias correction from bootstrap output extends what you can do with bootstrap simulation.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": ["4.6", "bias", "0.4", "2 * 5.0 - 5.4"]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Bootstrap Simulation",
+      "question_text": "True or False: To use the bootstrap for a HYPOTHESIS TEST (e.g., H0: the mean difference is 0), you should resample from data that have been shifted so that H0 is TRUE (e.g., subtract each group's mean and add back the pooled mean), so that the bootstrap distribution represents the null hypothesis.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. A p-value needs the distribution of the statistic UNDER H0. Shifting the data to satisfy H0 and then resampling gives that null distribution. The p-value is the share of bootstrap statistics at least as extreme as the observed one. Alternatively, check whether a bootstrap CI excludes the null value. Part 2: Answering False misses why the bootstrap distribution must be centered on the null when computing p-values. Part 3: Using the bootstrap for inference is an important extension of the method.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "A 95% percentile bootstrap CI for the increase in revenue from a new pricing strategy is [-$1.20, +$5.80] per customer. What can you conclude?",
+      "options": [
+        "A) The interval includes 0, so at the 5% level, the data are consistent with no effect, as well as with effects up to about +$5.80. The evidence is inconclusive: report the point estimate and the wide uncertainty, and consider collecting more data before rolling out the strategy",
+        "B) The strategy definitely increases revenue",
+        "C) The strategy definitely decreases revenue",
+        "D) The bootstrap failed, because the interval includes negative values"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A CI that includes 0 means we cannot rule out no effect at that confidence level. The upper end shows that a sizable positive effect is still plausible, which supports getting more data rather than declaring the strategy a failure. Part 2: B and C claim certainty the data do not support. D misreads a normal result. Part 3: Turning bootstrap CIs into decisions is the practical end goal of bootstrap simulation.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "How does the JACKKNIFE differ from the bootstrap?",
+      "options": [
+        "A) The jackknife resamples with replacement many times",
+        "B) The jackknife needs a parametric model",
+        "C) The jackknife only works for medians",
+        "D) The jackknife recomputes the statistic n times, each time LEAVING OUT one observation (no randomness). Its SE comes from the spread of these leave-one-out estimates. It is deterministic and cheap for smooth statistics but unreliable for non-smooth ones like the median, where the bootstrap is preferred"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The jackknife is a systematic leave-one-out resampling method and a forerunner of the bootstrap. For the mean, the jackknife SE equals s / sqrt(n) exactly. It is also used for bias estimation and for influence diagnostics. Part 2: A describes the bootstrap. B describes the parametric bootstrap. C reverses the weakness, since the jackknife performs poorly for medians. Part 3: Knowing related resampling methods helps you choose the right tool.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "A regression with strongly HETEROSKEDASTIC errors (the variance grows with X) needs bootstrap SEs. Which approach handles the heteroskedasticity correctly?",
+      "options": [
+        "A) A residual bootstrap that shuffles residuals across all observations",
+        "B) Resample only the X values",
+        "C) A PAIRS (case) bootstrap that resamples (X, Y) rows together, or a WILD bootstrap that keeps each X with its own residual multiplied by a random sign or weight, so the variance stays tied to its X value",
+        "D) Bootstrapping cannot handle heteroskedasticity"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Shuffling residuals across observations assumes constant variance and puts large residuals onto small X values, which gives the wrong SEs. Pairs and wild bootstraps keep the link between the variance of each residual and its X. The wild bootstrap is especially popular with few clusters. Part 2: A assumes constant variance. B breaks the X-Y relationship. D is false. Part 3: Choosing the right bootstrap variant for the error structure is an applied skill.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Bootstrap Simulation",
+      "question_text": "True or False: With only n = 8 observations, the nonparametric bootstrap gives reliable confidence intervals, because you can generate as many resamples as you want.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. With n = 8, the empirical distribution is a poor stand-in for the population: it has only 8 distinct values and misses the tails. So the bootstrap CI is often too narrow, and its coverage falls below 95%. More resamples cannot fix information that is not in the data. Consider exact methods, a parametric bootstrap with a well-justified model, or simply collecting more data. Part 2: Answering True confuses B (resamples) with n (real information). Part 3: Knowing the small-sample limits of the bootstrap is part of performing it responsibly.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "Which statement BEST describes what a complete data-generating process specification includes?",
+      "options": [
+        "A) Only the final regression formula",
+        "B) Only the sample size",
+        "C) Only the list of variable names",
+        "D) The causal ORDER of the variables (which causes which), the FUNCTIONAL FORM and coefficients of each relationship, the DISTRIBUTIONS of the exogenous variables and noise terms, and how units are SAMPLED or selected into the observed data"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: A full DGP describes how the world creates the data, including how observations enter the dataset (selection), because selection can create bias by itself. With all of these pieces specified, you can simulate the data and know the true effects. Part 2: A, B, and C each give only one piece. Part 3: Knowing what a complete DGP contains is the foundation for describing one.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "DGP: true_income ~ Normal(0, sd = 2) (variance 4); spending = 2 * true_income + noise; but you observe reported_income = true_income + Normal(0, sd = 1) (measurement-error variance 1). What slope will the regression of spending on REPORTED income converge to?",
+      "options": [
+        "A) About 1.6: classical measurement error ATTENUATES the slope by the reliability ratio Var(X) / (Var(X) + Var(u)) = 4 / (4 + 1) = 0.8, so 2 * 0.8 = 1.6",
+        "B) 2.0, because measurement error does not matter",
+        "C) 2.5, because measurement error inflates slopes",
+        "D) 0, because the noise cancels the signal"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Random error in X adds variance to the predictor that is unrelated to Y, which biases the slope toward 0 by the reliability ratio. Simulating this DGP shows the attenuation, and FE can make it worse by lowering the signal variance. Part 2: B ignores attenuation bias. C gets the direction wrong for classical error. D overstates the effect. Part 3: Building measurement error into a DGP shows how data-quality problems bias estimates.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "You want to simulate REVERSE CAUSALITY between police presence and crime. Which DGP captures it?",
+      "options": [
+        "A) `police = rng.normal(...)`; `crime = 5 - 0.5 * police + noise`",
+        "B) `crime_lag = rng.normal(50, 10, n)`; `police = 10 + 0.4 * crime_lag + noise_p` (cities with more crime hire more police); `crime = 20 + 0.6 * crime_lag - 0.8 * police + noise_c`. A naive regression of crime on police will show a POSITIVE or weakened slope, even though police truly REDUCE crime (-0.8)",
+        "C) `crime = police`",
+        "D) `police = crime`, with no noise"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Crime drives police deployment, and police reduce crime. Past crime acts as a common cause (here through the lag), so the raw correlation mixes both directions. Simulating this DGP shows why naive estimates can even suggest that 'police cause crime'. Part 2: A has only one direction, so no reverse causality. C and D are deterministic identities with no causal content. Part 3: Encoding feedback in a DGP shows a sophisticated understanding of how data arise.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Data-Generating Processes",
+      "question_text": "True or False: A DGP can produce HETEROSKEDASTIC errors on purpose, e.g., `y = 3 + 2 * x + rng.normal(0, 0.5 * x)`, where the noise SD grows with x. Simulating this lets you check whether default OLS standard errors are misleading compared with robust or bootstrap SEs.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Making the noise SD depend on x creates a fan-shaped spread. OLS slopes stay unbiased, but default SEs are wrong. Repeated simulations show the true sampling SD of the slope, which robust (HC3) and pairs-bootstrap SEs match while default SEs do not. Part 2: Answering False misses how DGPs are used to test inference methods. Part 3: Designing DGPs to test methods is a practical use of describing DGPs.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Data-Generating Processes",
+      "question_text": "Describe a DGP that produces SELECTION BIAS (a sample-selection problem) in 2-4 sentences or equations, and state what a naive analysis of the selected sample would conclude.",
+      "options": null,
+      "correct_answer": "Example: ability ~ Normal(0, 1); test_prep_hours ~ Normal(10, 3), independent of ability; admission_score = 0.5 * ability + 0.1 * test_prep_hours + Normal(0, 0.5); students are ADMITTED (observed) only if admission_score > 1.5; later_GPA = 3.0 + 0.4 * ability + Normal(0, 0.3), so prep has NO true effect on GPA. Because admission requires a high score, admitted students with LOW prep must have HIGH ability. Among admitted students, prep is therefore NEGATIVELY correlated with ability, so a naive regression of GPA on prep in the admitted sample shows a spurious NEGATIVE effect of prep, even though the true effect is 0.",
+      "explanation": "Part 1: A strong answer specifies the variables, a selection rule that depends on a common effect (here the admission score), and the true null effect, then explains the spurious association created by observing only selected units (a collider). Part 2: Answers that describe selection without equations, or that never state the true effect or the misleading conclusion, are incomplete. Part 3: Including the sampling or selection mechanism is a complete way to describe a DGP.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": ["selection", "admitted", "threshold", "collider", "spurious", "true effect"]
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "A DGP specifies `y = 1 + 0.5 * x + 0.3 * x**2 + noise`, but an analyst fits only `y ~ x`. Over 1,000 simulations with x ~ Uniform(0, 4), what will happen to the estimated slope on x?",
+      "options": [
+        "A) It will equal 0.5 on average",
+        "B) It will be 0, because the model is wrong",
+        "C) It will be biased away from 0.5 (here, larger, about 1.7), because the linear fit absorbs the curvature: over x in [0, 4], the x^2 term rises with x. The residuals will show a U-shape. The 'slope' is then a summary of the average gradient over the observed range, not the coefficient 0.5",
+        "D) It will be negative"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Leaving out the x^2 term is like omitting a variable correlated with x. The best linear approximation has slope 0.5 + 0.3 * Cov(x, x^2) / Var(x). For Uniform(0, 4), that is 0.5 + 0.3 * 4 = 1.7. Simulating the DGP shows this specification bias directly. Part 2: A ignores the curvature. B and D have no basis. Part 3: Understanding how a nonlinear DGP affects linear estimates shows a complete grasp of DGPs.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "You suspect that your real-data FE estimate is attenuated by measurement error. How can a DGP simulation help you judge whether this is plausible?",
+      "options": [
+        "A) Build a DGP that mimics your data: the same number of units and periods, a realistic within-unit variance of the true X, a stable unit confounder, and measurement error of plausible size (e.g., from a validation study). Then compare FE estimates with and without the error against the KNOWN true effect, over many simulations, to see how much attenuation to expect, and check how it changes as the error variance grows",
+        "B) Simulations cannot say anything about real data",
+        "C) Run the real regression with more decimal places",
+        "D) Replace the real data with the simulated data in the final report"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A calibrated simulation shows how big the bias could be under realistic assumptions. If plausible error levels produce large attenuation, you should report that the estimate is likely a lower bound, or use corrections (instruments, repeated measurements). Part 2: B dismisses a standard approach to sensitivity analysis. C changes nothing. D would be misleading. Part 3: Using DGPs to understand bias in real analyses is the advanced use of this objective.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Data-Generating Processes",
+      "question_text": "Design a single simulation study that combines all four objectives: specify a panel DGP with a stable unit confounder AND classical measurement error in X; compare pooled OLS, fixed effects, and fixed effects with a correctly measured X; use a cluster bootstrap for the uncertainty; and explain what the results would teach about choosing and interpreting estimators.",
+      "options": null,
+      "correct_answer": "DGP: 200 units i, 10 periods t. Unit confounder a_i ~ Normal(0, 1). True treatment X_it = 0.8 * a_i + Normal(0, 1) (within variance 1). Outcome Y_it = 2 + 1.5 * X_it + 2 * a_i + Normal(0, 1), so the true effect is 1.5. Observed X*_it = X_it + Normal(0, 0.7) (measurement-error variance 0.49). Estimators: (1) pooled OLS `Y ~ X*` is biased UPWARD by a_i and biased downward by measurement error, with the net direction depending on the parameters (here, upward); (2) FE `Y ~ X* + C(unit)` removes a_i, but the attenuation gets worse: the within reliability is 1 / (1 + 0.49), about 0.67, so the estimate is about 1.0; (3) FE with the true X recovers about 1.5. Simulation: repeat 500 times and plot the distributions of each estimator around 1.5. Inference: for one dataset, use a cluster bootstrap that resamples units with all 10 of their periods, B = 2,000, and percentile CIs; check coverage across the simulations (e.g., the FE CI rarely covers 1.5 when X is mismeasured). Lessons: FE fix stable confounding but not measurement error; the bootstrap measures precision, not bias, so a tight CI around the wrong value is possible; and knowing the DGP lets you anticipate the direction and size of each bias, motivating corrections such as instrumenting with a second measurement of X.",
+      "explanation": "Part 1: A strong answer specifies a full DGP with numbers, predicts the bias of each estimator analytically (confounding and attenuation), uses repeated simulations with a cluster bootstrap and coverage checks, and draws concrete methodological lessons. Part 2: Answers that ignore measurement error, use a row-level bootstrap, or do not compare against the known truth are incomplete. Part 3: This brings together fixed effects, inventing an FE design, bootstrap simulation, and DGP description in one study.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": ["measurement error", "attenuation", "fixed effects", "cluster bootstrap", "coverage", "true effect"]
+    }
+  ]
+}

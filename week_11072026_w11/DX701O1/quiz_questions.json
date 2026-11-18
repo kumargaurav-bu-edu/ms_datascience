@@ -1,0 +1,504 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 11 - Intellectual Property, Property Theories, and AI",
+    "description": "Covers how property and intellectual property are defined (copyrights, patents, trademarks, trade secrets), the labor, utilitarian, and personality theories used to justify IP rights along with open-source and Creative Commons alternatives, and how generative AI and LLMs connect to social issues such as authorship, training-data disputes, voice cloning, and bias.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Property and Intellectual Property",
+      "question_text": "In philosophical and legal terms, which statement best defines property?",
+      "options": [
+        "A) Any physical object that a person currently holds in their hands or home",
+        "B) A relationship between people with respect to a thing: a bundle of rights that lets the owner use it, exclude others from it, and transfer or sell it",
+        "C) Only land and buildings that are registered with a government office",
+        "D) Anything a person has spent money on, whether or not the law recognizes their claim"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Property is best understood as a bundle of rights (use, exclusion, transfer) that one person holds against others with respect to some object. It is a social and legal relationship, not the object itself. Part 2: A confuses possession with ownership; you can hold a borrowed laptop without owning it. C describes only real property and leaves out personal and intellectual property. D is wrong because paying for something (e.g., a streaming license) does not by itself create ownership rights the law recognizes. Part 3: Defining property as a bundle of rights is what lets us extend the idea to intangible intellectual objects, the core move of this week's first learning objective.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Property and Intellectual Property",
+      "question_text": "Tavani contrasts tangible property with intellectual objects. If you take my bicycle, I no longer have it, but if you copy my song, we both still have it. Because many people can possess an intellectual object at the same time without depriving anyone else, intellectual objects are described as ___.",
+      "options": null,
+      "correct_answer": "Non-exclusive (non-rivalrous)",
+      "explanation": "Part 1: Intellectual objects (songs, software, novels, formulas) are non-exclusive: one person's use does not prevent another's, and copying costs almost nothing in digital form. Tangible objects are exclusive, so one person's possession excludes others. Part 2: Answers such as 'tangible' or 'scarce' describe physical property, the opposite case. 'Public domain' describes a legal status (no IP protection), not this built-in feature of the object. Part 3: Non-exclusivity is why IP rights must be created by law; without copyright or patents, nothing physical stops copying, which is what makes IP disputes in cyberspace so hard.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": [
+        "non-exclusive",
+        "nonexclusive",
+        "non-rivalrous",
+        "nonrivalrous",
+        "non-rival"
+      ]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Property and Intellectual Property",
+      "question_text": "True or False: U.S. copyright law protects an idea itself. For example, the first author to write a novel about a boy wizard at a magic school owns the idea, and no one else may write a story with that premise.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Under the idea/expression dichotomy, copyright protects only the original expression of an idea once it is fixed in a tangible medium (the actual text, melody, or code), never the idea, plot premise, method, or fact underneath it. Part 2: The statement treats copyright like a patent on a concept. Even patents do not protect abstract ideas, and many authors have legally written different boy-wizard stories. Part 3: Knowing what copyright does and does not cover is central to defining IP, and it matters later for AI: style and ideas are not protected, but copied expression can be.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Property and Intellectual Property",
+      "question_text": "Coca-Cola has protected its soft-drink formula for more than a century without filing a patent, by limiting knowledge of it to a few employees, using NDAs, and keeping it in a vault. Which form of intellectual property is this?",
+      "options": [
+        "A) Copyright, because the formula is written down in a recipe document",
+        "B) Patent, because the formula is a novel and useful composition of matter",
+        "C) Trademark, because the formula is closely linked to the Coca-Cola brand",
+        "D) Trade secret, because the formula gets its economic value from being kept secret and the company makes reasonable efforts to keep it confidential"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: A trade secret is business information (formula, process, customer list, model weights) that has economic value because it is not generally known and that the owner takes reasonable steps to protect. Protection lasts as long as secrecy holds. Part 2: A is wrong because copyright would protect only the wording of the recipe, not the formula itself. B is wrong because a patent would require public disclosure and would expire after 20 years, which is exactly what Coca-Cola avoided. C confuses the protected brand name and logo with the product's recipe. Part 3: Telling apart the four main IP types (copyright, patent, trademark, trade secret) is the core of defining intellectual property.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Property and Intellectual Property",
+      "question_text": "A fintech startup wants to patent a new fraud-detection method. Which set of requirements must the invention meet to receive a U.S. utility patent?",
+      "options": [
+        "A) It must be patentable subject matter (not merely an abstract idea; see Alice Corp. v. CLS Bank, 2014), novel, useful, and non-obvious to a person skilled in the field",
+        "B) It must be original and fixed in a tangible medium such as source code saved to disk",
+        "C) It must be kept secret and give the startup an economic advantage over competitors",
+        "D) It must be used in commerce to identify the startup's services and distinguish them from competitors"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Utility patents require patentable subject matter plus novelty, usefulness (utility), and non-obviousness. After Alice (2014), software methods that only apply an abstract idea on a generic computer are not patentable, so the startup must show a specific technical improvement. In return the patent gives about 20 years of exclusive rights in exchange for public disclosure. Part 2: B states the copyright standard. C states the trade-secret standard, which is the opposite of a patent's disclosure requirement. D states the trademark standard. Part 3: Matching each IP type to its legal criteria turns the definition of IP into something you can apply to real disputes over software and algorithms.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Property and Intellectual Property",
+      "question_text": "Which pairing correctly matches each type of U.S. intellectual property protection with how long it lasts?",
+      "options": [
+        "A) Copyright: 20 years from filing; Patent: life of the author plus 70 years; Trademark: 10 years, never renewable; Trade secret: 5 years",
+        "B) Copyright: 14 years; Patent: 14 years; Trademark: 14 years; Trade secret: 14 years",
+        "C) Copyright: life of the author plus 70 years (95 years for works made for hire); Patent: 20 years from filing; Trademark: renewable indefinitely while in use; Trade secret: as long as it stays secret",
+        "D) Copyright: forever; Patent: forever; Trademark: 20 years; Trade secret: life of the inventor"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: After the 1998 Copyright Term Extension Act (Sonny Bono Act), copyright lasts for the author's life plus 70 years, or 95 years from publication for works made for hire. Utility patents last 20 years from filing. Trademarks are renewed every 10 years for as long as the mark is used in commerce. Trade secrets last as long as secrecy is maintained. Part 2: A swaps the copyright and patent terms. B uses the original 1790 copyright term of 14 years and wrongly applies it to every type. D is wrong because U.S. copyrights and patents are time-limited by the Constitution's 'limited Times' clause. Part 3: Duration is a key part of each IP definition and sets up the theory debate about whether long terms actually serve the public.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Property and Intellectual Property",
+      "question_text": "A data-ethics professor posts a 2-page excerpt from a 400-page copyrighted textbook to the course site, adds her own written critique, and restricts access to enrolled students. Under the four-factor fair-use test, why is this most likely fair use?",
+      "options": [
+        "A) The purpose is nonprofit teaching and criticism (transformative), only a small portion of the work is used, and posting it to a closed class site is unlikely to replace sales of the textbook",
+        "B) Any use by a university is automatically fair use, whatever the amount copied",
+        "C) Copying is fair use as long as the professor credits the author and publisher",
+        "D) The textbook is a factual work, so it has no copyright protection at all"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Courts weigh four factors: (1) purpose and character of the use, (2) nature of the copyrighted work, (3) amount and substantiality used, and (4) effect on the potential market. Teaching with critique, a small excerpt, and closed access all favor fair use. Part 2: B is a common myth; universities have lost fair-use cases over copying whole chapters into coursepacks. C confuses attribution with permission, since crediting the author avoids plagiarism but not infringement. D is wrong because a textbook's original expression (explanations, organization, examples) is copyrightable even though its facts are not. Part 3: Fair use is the main legal limit on the copyright 'bundle of rights' and is the same doctrine at the center of today's AI training lawsuits.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Property and Intellectual Property",
+      "question_text": "True or False: Under the Digital Millennium Copyright Act (DMCA, 1998), breaking the DRM encryption on an e-book can be illegal even if what you planned to do with the text (such as quoting a short passage in a review) would itself have been fair use.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The DMCA's anti-circumvention provision (Section 1201) makes bypassing a technological protection measure a separate violation, whether or not the later use infringes. The only exceptions are narrow exemptions set by the Library of Congress every three years. Part 2: Believing 'fair use always protects me' overlooks that the DMCA created a new right of access control on top of copyright. Tavani and other critics argue this tips the balance away from the public. Part 3: The DMCA shows how digital technology changed what IP means in practice: owners can now enforce their rights through code as well as through law.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Property and Intellectual Property",
+      "question_text": "A credit-scoring company has built (1) a brand name 'ScoreWise' with a logo, (2) Python source code for its scoring app, (3) trained model weights and a curated training dataset, and (4) a genuinely new hardware-accelerated method for computing risk scores in real time. Which IP strategy best fits each asset?",
+      "options": [
+        "A) Patent all four assets, because patents give the strongest protection",
+        "B) Copyright all four assets, because copyright is automatic and costs nothing",
+        "C) Keep all four as trade secrets, because disclosure always helps competitors",
+        "D) Register 'ScoreWise' and the logo as trademarks; rely on copyright for the source code; protect the model weights and dataset as trade secrets with access controls and NDAs; file a patent only for the specific new technical method"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Each asset fits a different type. Trademarks protect brand identifiers. Copyright protects the expression in source code. Trade secrets suit model weights and curated data, which get their value from secrecy and are hard to patent or copyright. A patent fits only a novel, non-obvious technical method that is more than an abstract idea. Part 2: A fails because a brand and plain code are not patentable inventions, and patenting the weights would force public disclosure. B fails because copyright cannot protect a name or a functional method. C fails because a brand must be public to work as a brand, and the code and method would lose protection if reverse-engineered. Part 3: Real organizations combine IP types, so knowing each definition lets you design a protection strategy instead of just listing terms.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Property and Intellectual Property",
+      "question_text": "An individual with no connection to a major sportswear company registers 'nike-shoes-outlet.com' and offers to sell the domain back to the company for $250,000. What is the most appropriate legal response for the company?",
+      "options": [
+        "A) Sue the registrant for patent infringement, because the domain copies Nike's product designs",
+        "B) Treat it as cybersquatting: bring a claim under the U.S. Anticybersquatting Consumer Protection Act (1999), or file an ICANN UDRP complaint, showing bad-faith intent to profit from the trademark",
+        "C) Do nothing, because domain names are first-come, first-served and cannot conflict with trademarks",
+        "D) File a copyright takedown notice, because the brand name is a copyrighted work"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Registering a domain that is confusingly similar to a famous mark in bad faith, here with an offer to sell it back at a large markup, is cybersquatting. The ACPA and the ICANN Uniform Domain-Name Dispute-Resolution Policy (UDRP) both let the trademark owner recover the domain. Part 2: A is wrong because no product design or invention is involved. C is outdated; first-come registration does not defeat a bad-faith trademark claim. D is wrong because short names and slogans are protected by trademark law, not copyright. Part 3: Cybersquatting shows how the trademark definition carries into cyberspace, a central theme of Tavani's chapter on IP disputes online.",
+      "learning_objective": "Define property and intellectual property.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Theories of Property Rights",
+      "question_text": "The labor theory of property holds that when people 'mix their labor' with resources found in nature, they gain a natural right to what they produce. Which philosopher is most associated with this theory, and in which work?",
+      "options": [
+        "A) G. W. F. Hegel, in Philosophy of Right",
+        "B) Jeremy Bentham and John Stuart Mill, in their writings on utilitarianism",
+        "C) John Locke, in the Second Treatise of Government (1690)",
+        "D) Richard Stallman, in the GNU Manifesto"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Locke argued that each person owns their own body and labor, so mixing that labor with unowned resources (for example, farming common land) creates a property right. This holds as long as 'enough and as good' is left for others, known as the Lockean proviso. Applied to IP, an author's or programmer's intellectual labor would justify owning the result. Part 2: A names the source of the personality theory. B names the founders of the utilitarian theory, which looks at social outcomes rather than labor. D names the founder of the free-software movement, who rejects strong software ownership. Part 3: Knowing which thinker grounds which theory is the base for comparing the three justifications for IP rights.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Theories of Property Rights",
+      "question_text": "True or False: The utilitarian theory justifies intellectual property rights mainly as incentives. Temporary exclusive rights encourage people to create and invent, which increases the total benefit to society.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Utilitarian theory judges IP by its results: if exclusive rights lead to more books, drugs, and software than would otherwise exist, society is better off overall. The U.S. Constitution's purpose to 'promote the Progress of Science and useful Arts' reflects this reasoning. Part 2: Saying the creator has a natural right because of their effort is the labor theory. Saying the work expresses the creator's self is the personality theory. Utilitarian theory makes neither claim. Part 3: Separating outcome-based (utilitarian) from rights-based (labor, personality) reasoning is the key step in explaining the theories behind IP.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Theories of Property Rights",
+      "question_text": "Which statement best describes the personality theory of intellectual property?",
+      "options": [
+        "A) IP rights exist because they maximize economic growth and the number of new inventions",
+        "B) IP rights exist because the creator worked hard, and labor creates ownership",
+        "C) IP should not exist; all information should be free to copy",
+        "D) A creative work is an extension of the creator's personality, so the creator has a moral right to control how it is presented, including attribution and protecting it from distortion. This idea is linked to Hegel and to European 'moral rights' (droit moral)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Personality theory, rooted in Hegel, treats property as a way people express themselves in the world. A painting or song carries part of its creator's identity, which supports moral rights such as attribution and integrity, the right to prevent mutilation of the work. Part 2: A is the utilitarian theory. B is Locke's labor theory. C is the 'information wants to be free' position, which rejects IP rather than justifying it. Part 3: This is the third of the three classic theories; it explains claims that are about dignity, not money, like an artist objecting to how a work is used.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Theories of Property Rights",
+      "question_text": "Robert Nozick asked: if I pour a can of tomato juice I own into the ocean, so that its molecules mix evenly through the sea, do I now own the ocean, or have I just wasted my juice? What weakness in the labor theory does this example expose?",
+      "options": [
+        "A) It shows that utilitarian theory cannot measure total happiness accurately",
+        "B) It shows that tomato juice cannot be patented",
+        "C) It shows that mixing labor with something does not clearly explain why you gain the thing rather than lose your labor, or how much of the resulting object you are entitled to",
+        "D) It shows that personality theory applies only to artists and not to programmers"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Nozick's example questions the central step of the labor theory: why should 'mixing' labor create ownership instead of just losing the labor? It also questions how far the claim reaches. A developer who adds 200 lines to a 2-million-line open-source project has 'mixed labor' with it, but does not own the whole codebase. Part 2: A is a criticism of utilitarianism, not of the labor theory. B misreads the example as a patent question. D raises a scope issue for personality theory that the example doesn't address. Part 3: Explaining the theories behind IP means understanding each one's weaknesses as well as its claims.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Theories of Property Rights",
+      "question_text": "A songwriter has already licensed and been paid for her song, and the license allows broad public performance. A political campaign she strongly opposes plays the song at its rallies. She objects that the use distorts what the song means and associates her with views she rejects. Which theory of IP best supports her objection?",
+      "options": [
+        "A) Personality theory, because the song expresses her identity, and moral rights of integrity and association protect that even after she has been paid",
+        "B) Utilitarian theory, because the campaign's use reduces total social happiness",
+        "C) Labor theory, because she worked hard writing the song and deserves more payment",
+        "D) None of them; once a license is paid for, no theory supports any further claim by the creator"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Her complaint is not about money, since she has been paid. It is about identity and the integrity of her work, which is what personality theory and moral rights address. Part 2: B could be argued, but the claim would depend on adding up everyone's welfare, not on her personal connection to the song. C misreads the complaint as a demand for more pay. D ignores that moral-rights traditions (strong in Europe, limited in the U.S. through laws like VARA for visual art) protect creators' non-economic interests. Part 3: Matching real disputes to the theory that best explains them is how you show you understand the reasoning behind IP rights, not just the definitions.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Theories of Property Rights",
+      "question_text": "A drug company says it needs a 20-year patent on a new HIV medication to recover about $2 billion in R&D costs. Critics point out that high patent-protected prices put the drug out of reach for millions of patients in low-income countries. Which analysis is the most accurate use of the utilitarian theory?",
+      "options": [
+        "A) Utilitarian theory always supports the patent, because the company did the work",
+        "B) Utilitarian theory always rejects patents, because any monopoly reduces happiness",
+        "C) Utilitarian theory weighs the incentive benefit (the drug exists only because R&D could be recovered) against the harm of restricted access, and may support policies such as compulsory licensing or tiered pricing where access costs outweigh the extra incentive",
+        "D) Utilitarian theory says the company's personality is expressed in the molecule, so it should set any price it wants"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Utilitarianism is a balancing test. It supports patents as long as the innovation they encourage is worth more than the cost of monopoly pricing. Where that cost is lives lost to unaffordable drugs, it can favor tools such as TRIPS compulsory licensing or tiered pricing. Part 2: A gives a labor-theory reason, so it is not a utilitarian argument. B wrongly treats utilitarianism as anti-patent, when it is in fact the main justification for the patent system. D misapplies personality theory to a corporation and a chemical compound. Part 3: Applying a theory to a hard case shows you understand how it reasons, which is the point of this learning objective.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Theories of Property Rights",
+      "question_text": "Linux, Wikipedia, and Python were built largely by volunteers and released under licenses that give up exclusive control (GPL, CC BY-SA, PSF). In 2-3 sentences, explain why these projects challenge the utilitarian justification for strong IP rights, and give one response a utilitarian could make.",
+      "options": null,
+      "correct_answer": "These projects show that large amounts of high-quality software and knowledge can be produced without the incentive of exclusive rights. Contributors are motivated by reputation, learning, career signaling, solving their own problems, and corporate sponsorship (e.g., IBM and Red Hat paying Linux developers). That weakens the claim that society needs strong copyright or patents to get innovation. A utilitarian could respond that open source works well for infrastructure where users are also developers, while areas with high fixed costs, such as drug discovery or feature films, still need exclusive rights to recover their investment.",
+      "explanation": "Part 1: The utilitarian case for IP rests on an empirical claim: without exclusive rights, creation would fall. Successful volunteer and commons-based projects are counterexamples, because contributors are rewarded through reputation and intrinsic motivation, and companies fund them because shared infrastructure lowers their own costs. Part 2: An answer that only says 'open source is free' misses the point about incentives. An answer that cites the labor theory misreads the question, which is about outcomes, not natural rights. Part 3: This shows that explaining a theory means testing its factual assumptions, and it points to the FSF, Open Source Initiative, and Creative Commons as alternative frameworks.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": [
+        "incentive",
+        "volunteer",
+        "reputation",
+        "exclusive rights",
+        "open source",
+        "social benefit"
+      ]
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Theories of Property Rights",
+      "question_text": "Tavani distinguishes the Free Software Foundation (FSF, Richard Stallman, 1985) from the Open Source Initiative (OSI, Eric Raymond and Bruce Perens, 1998). What is the main difference?",
+      "options": [
+        "A) FSF software must be sold for a fee, while OSI software must be given away at no cost",
+        "B) The FSF treats software freedom (to run, study, change, and share code) as an ethical right and uses copyleft licenses like the GPL to keep derivatives free. The OSI makes a practical, business-friendly case that open code produces better and more reliable software, and accepts permissive licenses such as MIT and Apache",
+        "C) The FSF supports software patents, while the OSI opposes copyright entirely",
+        "D) There is no difference; they are two names for the same organization"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Stallman defines 'free' as in 'free speech,' not 'free beer.' He grounds the four freedoms ethically and uses the GPL's copyleft so that modified versions stay free. The OSI deliberately framed open source in terms of quality, security, and business value, and accepts permissive licenses that allow proprietary derivatives. Part 2: A confuses price with liberty, since free software can be sold. C reverses the positions; the FSF strongly opposes software patents, and both groups rely on copyright to enforce their licenses. D ignores a real philosophical split. Part 3: These movements are alternatives to the standard justifications for IP; one is rights-based and the other outcome-based, which mirrors the theory debate.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Theories of Property Rights",
+      "question_text": "The 1998 Copyright Term Extension Act added 20 years to copyrights, including existing ones, so the term became life plus 70 years. Works such as early Mickey Mouse cartoons stayed out of the public domain until 2024. The Supreme Court upheld the law in Eldred v. Ashcroft (2003). Evaluate the extension using BOTH the utilitarian theory and Locke's labor theory, including the Lockean proviso, and state whether you would recommend shortening copyright terms.",
+      "options": null,
+      "correct_answer": "Utilitarian view: extending terms for works that already exist cannot create any new incentive, because the work is already made, and a few extra decades of royalties after the author's death add almost nothing to an author's motivation when they are deciding to create. Meanwhile it delays entry into the public domain, raises costs for libraries, educators, and remix creators, and leaves many 'orphan works' with untraceable owners. On this analysis the costs outweigh the benefits. Labor view: Locke's theory grounds ownership in the creator's own labor, but under the CTEA the benefit mostly goes to corporate heirs, not the person who did the work. The proviso that 'enough and as good' be left for others is weakened when culture is locked up for more than 100 years. Recommendation: shorten terms toward the earlier 28-year renewable model, or require registration and renewal after a fixed term, so unclaimed works enter the public domain and active commercial owners can still keep rights.",
+      "explanation": "Part 1: The strongest answer applies each theory's own test. The utilitarian test asks whether the extra term produces more creation, and retroactive extension cannot. The labor test asks whether the reward goes to the laborer, and leaves enough for others, and long posthumous corporate ownership strains both conditions. Part 2: Answers that only say 'longer is fairer to creators' rely on the labor theory alone and skip the proviso. Answers that oppose all copyright ignore that both theories support some limited term. Part 3: Applying two theories to a real statute and recommending a policy is the synthesis this learning objective is aiming for.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": [
+        "public domain",
+        "incentive",
+        "utilitarian",
+        "labor",
+        "proviso",
+        "orphan works"
+      ]
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Theories of Property Rights",
+      "question_text": "A wildlife photographer wants to share her photos online. She wants (1) credit every time a photo is used, (2) to let nonprofit educators and remix artists build on her photos, and (3) to stop companies from using them in ads without paying her. Which Creative Commons license fits best?",
+      "options": [
+        "A) CC0 (public domain dedication), which waives all rights",
+        "B) CC BY-ND (Attribution-NoDerivatives), which allows commercial use but bans remixes",
+        "C) CC BY-SA (Attribution-ShareAlike), which allows commercial use if derivatives use the same license",
+        "D) CC BY-NC (Attribution-NonCommercial), which requires credit, allows remixes, and bans commercial use without separate permission"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: BY-NC meets all three goals: BY requires attribution (her personality interest), the lack of an ND term allows derivatives (the utilitarian benefit of sharing), and NC keeps commercial uses for paid licensing (her economic interest). Part 2: A gives up attribution and commercial control. B blocks the remix artists she wants to support and still allows ad use. C allows commercial ad use as long as the ad is shared under the same license. Part 3: Creative Commons, founded by Lawrence Lessig in 2001, works as a middle ground between 'all rights reserved' and no rights. It lets creators pick which of the interests identified by the labor, utilitarian, and personality theories to keep.",
+      "learning_objective": "Explain the theories behind property and intellectual property rights.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "AI and Social Issues",
+      "question_text": "True or False: Under current U.S. Copyright Office guidance and the court decision in Thaler v. Perlmutter, an image generated entirely by an AI system from a short text prompt, with no human creative control over its expressive elements, can be registered for copyright with the AI listed as the author.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. U.S. copyright requires human authorship. In Thaler v. Perlmutter, the courts upheld the Copyright Office's refusal to register 'A Recent Entrance to Paradise,' an image whose listed author was Stephen Thaler's AI system. Part 2: A human can still own copyright in their own contributions, such as selecting and arranging AI images or making substantial edits. That is why the 'Zarya of the Dawn' comic kept protection for its human-written text and arrangement but not for its Midjourney images. Part 3: Authorship is one of the clearest places where AI collides with traditional IP definitions and theories: if a machine does the 'labor,' who has a claim?",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "AI and Social Issues",
+      "question_text": "Large language models (LLMs) such as GPT-4 and Claude are built on natural language processing (NLP). Which description of how an LLM is created is most accurate?",
+      "options": [
+        "A) Engineers hand-write millions of grammar rules and a dictionary of approved replies",
+        "B) The model looks up each answer live in a database of copyrighted books and pastes the matching passage",
+        "C) The model is pretrained on very large text collections (web pages, books, code) to predict the next token, then fine-tuned with methods such as reinforcement learning from human feedback (RLHF)",
+        "D) The model is trained only on text its developer owns, so no IP questions come up"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Modern LLMs are transformer networks pretrained by self-supervised next-token prediction on billions to trillions of tokens of text, then aligned with instruction tuning and RLHF. That large-scale data collection is exactly where the IP and social questions begin. Part 2: A describes older rule-based NLP systems such as ELIZA (1966) or expert systems. B misunderstands generation; models produce text from learned statistical patterns, although they can sometimes reproduce memorized passages. D is false, since most frontier models are trained on scraped public web data that includes copyrighted material. Part 3: Knowing how LLMs are built is the first step in examining why they raise copyright, labor, privacy, and bias issues.",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "AI and Social Issues",
+      "question_text": "The New York Times sued OpenAI and Microsoft in December 2023, alleging that millions of its articles were used without permission to train GPT models and that ChatGPT sometimes reproduced articles almost word for word. Which fair-use factor is the Times' strongest argument that this use is NOT fair use?",
+      "options": [
+        "A) Factor 2 (nature of the work), because news articles are purely fictional",
+        "B) Factor 4 (effect on the market), because chatbot outputs that summarize or reproduce paywalled articles can replace subscriptions and also undercut a growing market for licensing content as AI training data",
+        "C) Factor 1 (purpose), because any commercial use is automatically unfair",
+        "D) None, because training on public web pages is always legal under the DMCA"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Courts often treat market harm (Factor 4) as the most important factor. Near-verbatim outputs that let users skip the paywall, plus the loss of a licensing market that other publishers are already paid for, give the Times its strongest claim. Part 2: A is wrong because news is factual, which actually makes copyright protection thinner; it is not fiction. C is wrong because commercial use counts against fair use but does not decide it, as Google Books (Authors Guild v. Google, 2015) shows. D is wrong because the DMCA does not grant permission to copy training data. Part 3: This case shows how AI turns abstract IP doctrine into a dispute over who captures the economic value of journalism, which is a social issue as well as a legal one.",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "AI and Social Issues",
+      "question_text": "A company trains an AI résumé-screening model on its last 10 years of hiring decisions, during which most engineers it hired were men. The model learns to rank résumés containing the word 'women's' (as in 'women's chess club captain') lower. Amazon reportedly scrapped a similar tool in 2018. What is the root cause of this social harm?",
+      "options": [
+        "A) The model's training labels encode past biased human decisions, so the model reproduces that historical discrimination, using words linked to gender as proxies for gender itself",
+        "B) The model is too small; adding more parameters would remove the bias automatically",
+        "C) The engineers intentionally programmed the model to discriminate against women",
+        "D) Résumé text is copyrighted, so the model cannot read it correctly"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Supervised models learn whatever pattern predicts their labels. If those labels reflect biased past hiring, the model learns the bias, and removing the gender field doesn't help because proxies such as women's colleges or clubs still carry the signal. Fixes include auditing for disparate impact (for example, the EEOC four-fifths rule), reweighting or relabeling data, and keeping humans in the review. Part 2: B is wrong because bigger models trained on the same biased labels learn the bias more precisely. C is wrong because algorithmic bias usually arises without intent, which makes it harder to detect. D confuses an IP question with a fairness question. Part 3: Bias in hiring, lending, and policing shows how AI connects to social issues of equality and discrimination, beyond IP alone.",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "AI and Social Issues",
+      "question_text": "An AI app lets users generate new songs 'in the style of' a famous living singer and produces a voice clone indistinguishable from hers. Which statement most accurately describes her legal protection?",
+      "options": [
+        "A) Copyright fully protects her vocal style, so every style imitation is infringement",
+        "B) Patent law protects her voice as a unique invention",
+        "C) She has no protection at all, because a voice is not property",
+        "D) Musical style is not copyrightable, but she can rely on right-of-publicity laws that protect commercial use of a person's identity, including Tennessee's ELVIS Act (2024), which explicitly covers AI voice clones, and on trademark or false-endorsement claims if consumers are misled about whether she is involved"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Copyright protects specific recordings and compositions, not a general vocal style. Her stronger protections are identity-based: state right-of-publicity laws, new AI-specific laws such as the ELVIS Act, and Lanham Act false-endorsement claims. The 2024 dispute over OpenAI's 'Sky' voice and its resemblance to Scarlett Johansson showed how fast these conflicts arise. Part 2: A overstates copyright's reach. B misapplies patent law, which covers inventions, not human traits. C ignores long-standing publicity and personality-based protections. Part 3: Voice cloning connects AI to personality theory and to social harms such as deepfakes, fraud, and lost income for performers.",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "AI and Social Issues",
+      "question_text": "True or False: Under current U.S. Federal Circuit law (Thaler v. Vidal, 2022), the AI system DABUS can be named as the sole inventor on a U.S. patent application for a food container it designed, because the Patent Act's novelty and non-obviousness requirements say nothing about who the inventor is.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. In Thaler v. Vidal, the Federal Circuit held that the Patent Act's use of 'individual' means a natural person, so an AI cannot be listed as an inventor; the Supreme Court declined to review the case in 2023. USPTO guidance from 2024 says AI-assisted inventions can be patented only when a human made a significant contribution to the conception of the invention. Part 2: The statement wrongly treats novelty and non-obviousness as the only requirements, ignoring the separate rule that inventors must be human. Part 3: Together with the copyright decisions, this shows that IP law is still built around human creators, which raises a social question about who should benefit from AI-driven innovation.",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "AI and Social Issues",
+      "question_text": "Which social concern about generative AI is most directly linked to the labor theory of property?",
+      "options": [
+        "A) LLMs use a lot of electricity during training",
+        "B) Writers, illustrators, and coders whose work was scraped to train commercial models received no consent, credit, or payment, even though the models are sold commercially and can compete with those same creators",
+        "C) AI chatbots sometimes 'hallucinate' false citations",
+        "D) Voice assistants misunderstand regional accents"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The labor theory says people have a claim to the products of their labor. Generative models are built from millions of hours of human creative work, and the commercial value goes to the AI company while the original creators are not paid. That is why artists' lawsuits (e.g., Andersen v. Stability AI) and licensing deals with publishers are framed as compensating labor. Part 2: A is an environmental issue. C is a reliability and misinformation issue. D is a fairness and accessibility issue. All are real social concerns, but none is mainly about who owns the products of labor. Part 3: Linking a specific AI harm to the right ethical theory is what examining AI and social issues requires, rather than just listing problems.",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "AI and Social Issues",
+      "question_text": "A publishing company wants to fine-tune an LLM to draft book summaries for its catalog. Which plan best limits both IP risk and social harm?",
+      "options": [
+        "A) Scrape every e-book it can find, including pirated 'shadow library' copies, because training is always fair use",
+        "B) Train only on books it owns or has licensed and remove pirated sources; honor robots.txt and authors' opt-out requests; test outputs for verbatim copying and block passages longer than a set threshold; label summaries as AI-generated; and have human editors review them before publication",
+        "C) Avoid all AI, because any AI use is automatically unethical",
+        "D) Use any data, but add a disclaimer saying 'the AI is responsible for any infringement'"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Plan B addresses each risk with a concrete control: licensed data (copyright and labor concerns), opt-out (creator autonomy), verbatim-output filtering (the market-substitution concern behind fair-use Factor 4), disclosure (honesty with readers), and human review (accuracy and accountability). Part 2: A is the riskiest; in Bartz v. Anthropic (2025) the court found that downloading pirated books to build a library was not protected even though training on lawfully acquired books was ruled fair use, and the case led to a reported $1.5 billion settlement. C rejects AI entirely instead of managing its risks. D is wrong because an AI cannot carry legal liability; the company that deploys it does. Part 3: Turning ethical concerns into specific operating controls is the kind of judgment this learning objective is meant to build.",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "AI and Social Issues",
+      "question_text": "Should artists be able to stop AI companies from training on their publicly posted artwork? Using at least TWO of the three IP theories (labor, utilitarian, personality), analyze the question and propose a concrete policy that balances creators' interests with AI innovation.",
+      "options": null,
+      "correct_answer": "Labor theory: the artist's skill and time produced the work, and an AI company that profits from copying it into a training set without consent or payment is taking the benefit of that labor, which supports an opt-in or compensation requirement. Personality theory: models that imitate a living artist's distinctive style, or generate work under her name, can distort and dilute her artistic identity, which supports attribution and integrity protections. Utilitarian theory: broad access to training data speeds up useful AI tools, but if uncompensated imitation reduces artists' income enough that fewer people create, total social welfare falls. Proposed policy: (1) a machine-readable opt-out standard (robots.txt / TDM reservation, as in the EU AI Act and DSM Directive Article 4) that developers must honor; (2) a collective licensing fund, similar to ASCAP/BMI royalties for music, that pays creators based on their share of the training data; (3) a ban on prompts and outputs that use a living artist's name to pass off imitations, plus required disclosure of training-data sources.",
+      "explanation": "Part 1: A strong answer applies each theory's own test. Labor asks who did the work and who profits. Personality asks whether the artist's identity is being distorted. Utilitarian asks whether the policy increases or reduces creation and benefit overall. It then turns that reasoning into concrete measures such as opt-out, licensing, and disclosure. Part 2: Answers that only say 'it's unfair' or 'it's innovation' never apply a theory. Answers that propose banning all AI training ignore the utilitarian benefits, and answers that allow unlimited scraping ignore the labor and personality harms. Part 3: This connects all three learning objectives: defining IP, applying its theories, and using them to examine a live AI social issue.",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": [
+        "labor",
+        "personality",
+        "utilitarian",
+        "opt-out",
+        "licensing",
+        "consent"
+      ]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "AI and Social Issues",
+      "question_text": "A national bank is considering an LLM-powered assistant that drafts loan-denial letters and answers customer questions about their credit decisions. As the bank's AI ethics lead, identify two specific social risks and recommend three concrete safeguards before launch.",
+      "options": null,
+      "correct_answer": "Risks: (1) Discrimination and fair lending. If the underlying credit model or the LLM's explanations reflect biased patterns, protected groups may be denied more often or given less helpful explanations, which risks violating the Equal Credit Opportunity Act (ECOA). (2) Hallucinated or inaccurate explanations. The LLM may state reasons for denial that the credit model did not actually use, which violates ECOA/Regulation B adverse-action notice requirements and misleads customers about how to improve their credit. Safeguards: (1) Generate denial reasons only from the credit model's actual top factors (for example, SHAP feature attributions), and let the LLM only reword them from approved templates. (2) Run quarterly disparate-impact audits comparing approval rates and letter quality across protected groups against the four-fifths rule, with a fairness review board able to block deployment. (3) Disclose that customers are talking to AI, give them a one-click route to a human loan officer, and log every conversation for compliance review while protecting customers' financial data.",
+      "explanation": "Part 1: High-stakes lending combines the core AI social issues: fairness (biased decisions), transparency (accurate adverse-action reasons), accountability (human escalation), and privacy (sensitive financial data). Each safeguard maps to a specific risk and can be measured. Part 2: Answers that propose general 'ethical AI principles' without mechanisms (grounded reason codes, audits with thresholds, human escalation) fail the concrete-answer standard. Answers that ignore ECOA and Regulation B miss the legal stakes. Part 3: Examining the connection between AI and social issues means turning concerns into controls before deployment, which is what responsible use of generative AI requires.",
+      "learning_objective": "Examine the connection between AI and social issues.",
+      "keywords": [
+        "bias",
+        "disparate impact",
+        "hallucination",
+        "adverse action",
+        "human review",
+        "audit"
+      ]
+    }
+  ]
+}

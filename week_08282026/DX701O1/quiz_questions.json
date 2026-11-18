@@ -1,0 +1,495 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 1 - Fixed Effects, Bootstrap Simulation & Data-Generating Processes",
+    "description": "A master's-level quiz (a fifth, distinct question set on these objectives) covering the within estimator and LSDV, unbalanced panels, heterogeneous slopes, Nickell bias, and unit-specific trends; inventing fixed-effects designs in sports, hospitals, and the sharing economy; bootstrap intervals (percentile vs. basic), the link to bagging, the number of replications, stratified and paired bootstraps, and checking coverage; and DGPs with heterogeneous effects, AR(1) errors, interactions, instruments, spurious trends, and simulation-based power analysis.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "What does the 'least squares dummy variable' (LSDV) approach to fixed effects do?",
+      "options": [
+        "A) It drops every categorical variable from the model",
+        "B) It adds one indicator (dummy) variable per entity (minus one if there is an intercept) to an OLS regression, so each entity gets its own intercept and the slope on X is estimated from within-entity variation",
+        "C) It replaces X with its group mean",
+        "D) It randomly assigns entities to groups"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: LSDV puts the fixed effects into the model as dummies. It gives the same slope as demeaning (the within estimator), but with thousands of entities the design matrix becomes huge, so demeaning or `linearmodels.PanelOLS(entity_effects=True)` is more efficient. Part 2: A removes information. C is the 'between' approach, which is the opposite of FE. D has no meaning here. Part 3: Knowing LSDV is one of the basic ways to perform FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Performing Fixed Effects",
+      "question_text": "True or False: When FE standard errors are clustered by entity, the TOTAL NUMBER OF OBSERVATIONS (rows) is what matters for reliable inference, so 10 states with 1 million rows give clustered SEs as reliable as 1,000 states would.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Clustered SEs rely on asymptotics in the NUMBER OF CLUSTERS G, not the number of rows. With 10 states and 1 million rows, there are effectively about 10 independent units of information, and clustered SEs can be badly biased (often too small). With few clusters (fewer than about 30-50), use the wild cluster bootstrap or small-G corrections. Part 2: Answering True assumes the row count drives precision, which is a common mistake. Part 3: Getting inference right is part of performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "You suspect the effect of discounts on sales differs by store region (urban, suburban, rural), and you have store fixed effects. Which specification lets the slope vary by region?",
+      "options": [
+        "A) `sales ~ discount + C(store)`, because it already allows different slopes",
+        "B) `sales ~ C(region) + C(store)`",
+        "C) `sales ~ discount * C(region) + C(store)`. The interaction terms give region-specific slopes. The main effect of `region` is absorbed by the store FE, because each store's region never changes, but the interaction is still identified",
+        "D) Fit a separate fixed effect for each discount level"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Interacting X with a variable that is constant within each store lets the within slope differ by group while the store FE still absorb each store's level. The main effect of a time-invariant variable cannot be estimated, but its interaction with a time-varying X can. Part 2: A forces one common slope. B leaves out the treatment. D models the levels, not the slopes. Part 3: Estimating heterogeneous effects within FE is a practical extension of performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "An analyst adds LAST period's outcome (Y_{t-1}) as a regressor in an entity-FE model with only T = 5 periods per firm. What problem arises?",
+      "options": [
+        "A) No problem, because FE handle everything",
+        "B) The model becomes a random-effects model",
+        "C) The entity effects can no longer be estimated",
+        "D) NICKELL BIAS: demeaning makes the lagged outcome correlated with the demeaned error, so the coefficient on Y_{t-1} (and possibly others) is biased, by roughly 1/T, which is serious when T is small. Use GMM estimators such as Arellano-Bond, which instrument the lag with deeper lags"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The within transformation subtracts each firm's mean, which includes Y_{t-1}'s own future values, so the demeaned lag correlates with the demeaned error. The bias shrinks as T grows, but at T = 5 it is substantial. Part 2: A ignores this well-known bias. B and C are false. Part 3: Knowing when FE produce biased dynamic estimates is advanced but practical knowledge.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Performing Fixed Effects",
+      "question_text": "Because it uses only variation around each entity's own mean, the fixed-effects estimator is also called the ___ estimator.",
+      "options": null,
+      "correct_answer": "Within",
+      "explanation": "Part 1: The 'within' estimator subtracts entity means from Y and X and runs OLS on the deviations. It contrasts with the 'between' estimator, which regresses the entity means on each other. Part 2: 'Between' is the opposite. 'Pooled' ignores the panel structure entirely. Part 3: Knowing this name helps you read FE output and the literature.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": [
+        "within",
+        "within-group",
+        "demeaned"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Performing Fixed Effects",
+      "question_text": "True or False: Fixed-effects regression requires a BALANCED panel, in which every entity is observed in every period. Entities with missing periods must be dropped.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. FE work with unbalanced panels; each entity is demeaned using its own available periods. The concern is WHY data are missing: if entities drop out for reasons related to the outcome (e.g., failing firms exit), attrition can bias the results, so investigate the missingness. Part 2: Answering True would throw away data unnecessarily. Part 3: Handling real, unbalanced panels is part of performing FE in practice.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "In a 200-county panel estimating the effect of broadband rollout on employment, counties that got broadband early were already on steeper growth paths before the rollout. Entity and year FE are included. What additional step addresses this?",
+      "options": [
+        "A) Add COUNTY-SPECIFIC LINEAR TRENDS (`C(county):year`) so each county's prior growth path is absorbed, and check the event-study leads (pre-period coefficients) before and after adding them. If the effect survives the trends, it is more credible. If it disappears, the original estimate was likely trend-driven",
+        "B) Remove the year fixed effects",
+        "C) Use only data from after the rollout",
+        "D) Nothing, because entity FE already absorb trends"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Entity FE remove stable LEVELS, not differing SLOPES over time. Unit-specific trends absorb pre-existing growth differences, though they can also absorb part of a gradually growing effect, so interpret them as a robustness check. Part 2: B removes control for common shocks. C loses the before/after comparison. D is the misconception the question targets. Part 3: Dealing with differential trends is an advanced skill when performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Which invented situation is the CLEAREST fixed-effects design?",
+      "options": [
+        "A) Comparing average salaries in two industries in one year",
+        "B) A survey asking people their favorite color once",
+        "C) The effect of sleep hours on a runner's race times, using 400 runners who each ran 15 races over 3 years, with runner fixed effects to remove stable fitness and genetics",
+        "D) The effect of national GDP on the global average temperature"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Each runner is observed many times, and sleep varies from race to race, so the within-runner comparison removes stable talent, which would otherwise confound sleep habits and race times. Part 2: A and B are one-time cross-sections. D has a single global series, so there are no entities to fix. Part 3: Recognizing the structure FE need is the first step in inventing an example.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "True or False: A well-written invented fixed-effects example should explicitly state WHERE the within-entity variation in the treatment comes from (e.g., schedule changes, staggered rollouts, price promotions).",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. FE estimates are only as credible as the reason X changes within units. If X changes for reasons that also affect Y, bias returns. Stating the source lets readers judge whether it is plausibly unrelated to shocks to Y. Part 2: Answering False ignores the main credibility question for FE designs. Part 3: Explaining the source of variation is a hallmark of a strong invented example.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "An analyst invents: 'Effect of nightly price on Airbnb bookings, with 10,000 listings over 365 days.' Which fixed effects and caution fit best?",
+      "options": [
+        "A) Price fixed effects, with no caution",
+        "B) Booking fixed effects",
+        "C) No fixed effects, because prices are set randomly",
+        "D) LISTING FE (stable location, size, and amenities, which drive both price and demand) plus DATE FE (weekends, holidays, and local events affecting all listings). Caution: hosts raise prices when they EXPECT high demand (simultaneity), so the within-listing price-booking relationship may still be biased toward zero or even positive. Use exogenous price variation, such as platform-run discount experiments"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Two-way FE handle stable listing quality and common date shocks, but price is set strategically in response to expected demand, which is classic simultaneity. A good invented example names this remaining threat and a remedy. Part 2: A and B put FE on the wrong variables. C makes a false assumption. Part 3: Naming the remaining threat in an invented design shows deep understanding.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "To estimate home-field advantage in soccer, you use 20 teams over 10 seasons, with each match as an observation. Which fixed-effects design is appropriate?",
+      "options": [
+        "A) Only a home dummy, with no FE",
+        "B) Match-score fixed effects",
+        "C) Referee fixed effects only",
+        "D) A home-team indicator with TEAM fixed effects (for both the home and away team, absorbing team strength) and SEASON fixed effects (rule changes, league-wide trends). The home coefficient then compares each team's results at home vs. away against similar opponents"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Team strength is a stable confounder of match outcomes. Including team effects for both sides separates the home advantage from simply having strong teams. Season FE capture changes across the league, such as games without fans during COVID, which is itself an interesting source of variation. Part 2: A confounds the estimate with team quality. B and C are incomplete or incoherent. Part 3: Building a multi-way FE design for sports is a rich invented example.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Invent a fixed-effects study in which the effect is likely HETEROGENEOUS across groups. Describe the panel, X and Y, the stable confounder removed by FE, the source of within variation, the specification that estimates group-specific slopes, and how you would test whether the slopes differ.",
+      "options": null,
+      "correct_answer": "Panel: 600 gyms (a national chain) observed monthly for 4 years. X = monthly marketing spend on social media ads; Y = new memberships. Stable confounder removed by gym FE: location attractiveness (urban core vs. suburb, nearby competitors), which drives both a manager's marketing budget and baseline sign-ups. Within variation: corporate rotates marketing budgets across regions by a quarterly schedule set at headquarters, independent of each gym's monthly demand. Heterogeneity: the effect may differ by market type (college town, suburban family area, downtown office area). Specification: `new_members ~ ad_spend * C(market_type) + C(gym) + C(month)`, with standard errors clustered by gym. The main effect of market_type is absorbed by the gym FE, while `ad_spend:market_type` gives the slope differences. Test: an F-test (Wald test) that all interaction coefficients are 0. If it rejects, report each market type's slope with a CI. Robustness: check lagged spend (ads may work with a delay) and month FE for seasonality (January resolutions).",
+      "explanation": "Part 1: A strong answer specifies the panel, a named stable confounder, a credible source of within variation, an FE specification with treatment x group interactions, a formal test of slope differences, and sensible robustness checks. Part 2: Answers that model heterogeneity by running separate unrelated regressions without testing, or that try to estimate the main effect of a time-invariant group variable alongside the unit FE, are incomplete or incorrect. Part 3: This fulfills the objective of inventing an FE example at an advanced level.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": [
+        "fixed effects",
+        "interaction",
+        "heterogeneous",
+        "within",
+        "F-test",
+        "cluster"
+      ]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "An invented hospital study estimates the effect of operating-room team familiarity (the number of prior surgeries together) on complication rates, with SURGEON fixed effects. What remaining confounder should the design address?",
+      "options": [
+        "A) PATIENT case mix varies from surgery to surgery within a surgeon: familiar teams may be scheduled for harder or easier cases. Control for patient risk scores (age, ASA class, procedure type), or add procedure fixed effects",
+        "B) The surgeon's medical school",
+        "C) The surgeon's stable skill level",
+        "D) The hospital's founding year"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Surgeon FE remove the things in B and C (stable surgeon traits). Case mix varies within each surgeon and could be correlated with team assignment, so it must be controlled. Procedure FE compare similar operations. Part 2: B and C are absorbed by surgeon FE. D does not vary within a hospital and is irrelevant here. Part 3: Spotting the confounders that FE do not remove completes the design of an invented example.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "A teammate proposes: 'Effect of a CEO's MBA degree on firm profits, using 2,000 firms over 15 years with firm fixed effects.' Most firms keep the same CEO for the whole period. What is the key design issue, and a better alternative?",
+      "options": [
+        "A) There is no issue, because firm FE handle everything",
+        "B) Use firm-by-year fixed effects",
+        "C) The MBA indicator changes within a firm ONLY when the CEO changes, so identification comes from CEO turnover. Turnover often happens after poor performance (selection), so profits may rebound regardless of the new CEO's MBA. Compare firms with similar pre-turnover performance, use event-study plots around turnovers, or exploit plausibly exogenous turnovers (e.g., CEO deaths, as in Bennedsen et al.)",
+        "D) Drop the fixed effects and compare firms with and without MBA CEOs"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: In FE designs, the 'treatment change' events must be examined carefully. CEO successions are typically triggered by poor results, which creates mean reversion that can look like an MBA effect. Exogenous shocks such as sudden deaths provide cleaner variation. Part 2: A ignores selection. B absorbs all variation, so nothing can be identified. D brings back confounding between firms. Part 3: Evaluating where an invented FE design's variation comes from, and finding a better source, is the advanced skill of this objective.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "BAGGING (bootstrap aggregating) in machine learning, as used in random forests, is related to the bootstrap because it:",
+      "options": [
+        "A) Uses the bootstrap to compute p-values",
+        "B) Trains a model on each of many BOOTSTRAP RESAMPLES of the training data and AVERAGES (or votes over) their predictions, reducing the variance of unstable learners such as deep decision trees",
+        "C) Removes outliers using bootstrap medians",
+        "D) Replaces cross-validation entirely"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The same resampling idea that measures the variability of a statistic can REDUCE the variability of predictions when the resample-trained models are averaged. The rows left out of each resample (about 36.8%) give out-of-bag error estimates. Part 2: A, C, and D misdescribe bagging. Part 3: Seeing the bootstrap's role in ML shows how widely bootstrap simulation is used.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Bootstrap Simulation",
+      "question_text": "The original estimate is theta-hat = 10. The 2.5th and 97.5th percentiles of the bootstrap distribution are 8 and 14. The BASIC (reverse-percentile) bootstrap interval is [2 * theta-hat - upper, 2 * theta-hat - lower]. What is the LOWER bound of the basic interval? Enter only the number.",
+      "options": null,
+      "correct_answer": "6",
+      "explanation": "Part 1: The basic interval is [2 * 10 - 14, 2 * 10 - 8] = [6, 12]. The percentile interval is [8, 14]. When the bootstrap distribution is skewed (here, stretched toward higher values), the two intervals differ. The basic interval reflects the skew in the opposite direction, assuming the estimator's error mirrors the bootstrap deviations. Part 2: Common mistakes are reporting the percentile bound (8) or mixing up the upper and lower percentiles (2 * 10 - 8 = 12). Part 3: Calculating different bootstrap CI types shows that the choice of interval matters for skewed statistics.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": [
+        "6",
+        "2 * 10 - 14",
+        "basic",
+        "reverse percentile"
+      ]
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Bootstrap Simulation",
+      "question_text": "True or False: For a bootstrap STANDARD ERROR, a few hundred replications (e.g., B = 200 to 500) are often enough, but for percentile CONFIDENCE INTERVALS, more replications (e.g., B = 2,000 to 10,000) are recommended, because tail percentiles are noisier to estimate.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The SE uses the whole distribution and stabilizes quickly. The 2.5th and 97.5th percentiles depend on few draws in the tails, so they need more resamples for stable bounds (Efron and Tibshirani). Higher moments such as skewness need even more. Part 2: Answering False ignores how Monte Carlo error depends on what you are estimating. Part 3: Choosing B appropriately is part of performing a bootstrap well.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "A before/after study measures the same 60 patients' cholesterol before and after a diet. How should you bootstrap the mean change?",
+      "options": [
+        "A) Resample the 60 'before' values and the 60 'after' values independently",
+        "B) Resample only the 'after' values",
+        "C) Pool all 120 values and resample them",
+        "D) Resample PATIENTS (keeping each patient's before-after PAIR together, i.e., resample the 60 differences), compute the mean change for each resample, and use the spread for the SE and CI. This keeps the within-patient correlation, which usually makes the estimate much more precise"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Paired data must be resampled as pairs, because the patient is the independent unit. Resampling the before and after values separately breaks the correlation and overstates the uncertainty, just as an unpaired t-test does for paired data. Part 2: A, B, and C all break or ignore the pairing. Part 3: Matching the resampling unit to the study design is a core bootstrap skill.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "A survey oversampled rural respondents (stratified sampling: 500 rural, 500 urban). How should you bootstrap a population estimate?",
+      "options": [
+        "A) Use a STRATIFIED bootstrap: resample within each stratum separately (500 from rural, 500 from urban, each with replacement), then combine using the population weights. This copies the sampling design, so the variance is not inflated by random changes in the mix of strata",
+        "B) Resample 1,000 respondents from the pooled data, ignoring strata",
+        "C) Bootstrap only the urban respondents",
+        "D) Stratification does not matter for the bootstrap"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The bootstrap should copy how the data were collected. Stratified resampling keeps the stratum sizes fixed, as in the real design. Survey weights then turn the stratum estimates into population estimates. Part 2: B lets the rural/urban mix vary across resamples, which adds spurious variance. C ignores half the data. D is false. Part 3: Respecting the sampling design is essential when performing bootstrap simulation.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "How can you check whether your bootstrap 95% CI procedure actually achieves about 95% coverage for your setting (e.g., small n with skewed data)?",
+      "options": [
+        "A) Run it once on the real data and check whether the interval looks reasonable",
+        "B) Increase B until the interval stops changing",
+        "C) Run a MONTE CARLO COVERAGE study: simulate many datasets (e.g., 1,000) from a DGP with a KNOWN true parameter and similar n and skewness; compute the bootstrap CI on each; and count the share of intervals that contain the truth. If it is well below 95%, try BCa, a transformation, or a parametric approach",
+        "D) Compare it with the t-interval and keep whichever is narrower"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Coverage is a property over repeated sampling, so it can only be checked when the truth is known, which requires simulating from a DGP. This combines the bootstrap with DGP thinking. Part 2: A cannot reveal coverage. B fixes Monte Carlo noise but not coverage. D picks precision over validity. Part 3: Validating a bootstrap procedure is the advanced use of bootstrap simulation.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Bootstrap Simulation",
+      "question_text": "True or False: When bootstrapping a model that includes preprocessing steps (e.g., standardization or feature selection), those steps should be REPEATED inside each bootstrap resample, rather than done once on the full data beforehand.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Preprocessing that depends on the data is part of the estimator. Doing it once on the full data removes its variability and can leak information, so the SEs come out too small. Refit the whole pipeline (scaler, selector, model) on each resample. Part 2: Answering False understates uncertainty, especially when feature selection is involved. Part 3: Bootstrapping the full pipeline is part of performing simulation correctly in practice.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Bootstrap Simulation",
+      "question_text": "In 3-4 sentences, explain the difference between the NONPARAMETRIC bootstrap and a MONTE CARLO simulation from a known DGP, and say when you would use each.",
+      "options": null,
+      "correct_answer": "A Monte Carlo simulation draws many datasets from a FULLY SPECIFIED DGP with KNOWN parameters (e.g., Y = 2 + 3X + Normal(0, 1)). Because the truth is known, it is used to study estimators: their bias, variance, CI coverage, and power. The nonparametric bootstrap draws resamples from the OBSERVED data (its empirical distribution) because the true DGP is unknown, and it is used to estimate the uncertainty (SE, CI) of a statistic computed from real data. So: use Monte Carlo to design and validate methods before or alongside an analysis, and use the bootstrap to quantify uncertainty in an actual dataset. They combine naturally: run a Monte Carlo study to check that a bootstrap CI procedure achieves 95% coverage.",
+      "explanation": "Part 1: A strong answer contrasts the known vs. unknown DGP, the purpose (evaluating methods vs. inference on real data), and what is resampled (the model vs. the observed data), and gives a concrete use of each, ideally how they combine. Part 2: Answers that treat the two as the same thing, or that miss the role of a known truth, are incomplete. Part 3: Separating these two kinds of simulation clarifies both the bootstrap and DGP objectives.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": [
+        "known",
+        "empirical distribution",
+        "Monte Carlo",
+        "coverage",
+        "uncertainty",
+        "real data"
+      ]
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "Which DGP has a HETEROGENEOUS treatment effect?",
+      "options": [
+        "A) `y = 2 + 3 * treat + noise`",
+        "B) `y = 2 + treat * (3 + 2 * age_std) + noise`, so the effect of treatment is 3 at average age and grows by 2 per standard deviation of age; different people have different effects",
+        "C) `y = 2 + noise`",
+        "D) `treat = 3 * y`"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: When the effect depends on a characteristic, the ATE is an average over the population's ages, and subgroup effects differ. A simulation like this shows that a regression of y on treat alone recovers the AVERAGE effect (about 3 if age_std has mean 0), while an interaction model recovers the gradient. Part 2: A has a constant effect. C has no effect. D reverses causation. Part 3: Building heterogeneity into a DGP is key to describing realistic data.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data-Generating Processes",
+      "question_text": "True or False: A DGP with AUTOCORRELATED errors, e.g., e_t = 0.7 * e_{t-1} + Normal(0, 1), makes OLS slope estimates BIASED even when X is exogenous, so the main problem is the coefficient rather than the standard errors.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Under exogeneity, serial correlation does NOT bias the OLS slope. The problem is inference: consecutive observations carry overlapping information, so the effective sample size is smaller than n, and default SEs are typically TOO SMALL. Simulating this AR(1) DGP shows the actual spread of the slope is larger than the reported SE, which is why Newey-West SEs or a block bootstrap are used. (Bias does arise if a lagged dependent variable is included along with autocorrelated errors.) Part 2: Answering True confuses incorrect inference with bias. Part 3: Describing DGPs with time dependence links to choosing correct inference methods.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "DGP: two INDEPENDENT random walks, `x_t = x_{t-1} + Normal(0, 1)` and `y_t = y_{t-1} + Normal(0, 1)`, over 500 periods. You regress y on x. What typically happens, and why?",
+      "options": [
+        "A) The slope is about 0 with a large p-value, because the series are independent",
+        "B) The regression fails",
+        "C) The slope is always exactly 1",
+        "D) A 'SPURIOUS REGRESSION': you often get a large R-squared and a 'significant' slope even though x and y are unrelated, because both wander with stochastic trends and default SEs assume independent errors. Differencing the series (regressing changes on changes) shows the true lack of a relationship"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Granger and Newbold (1974) showed that regressions between independent random walks reject the null most of the time. Simulating this DGP is a vivid lesson in why trends need care. Part 2: A is what you would expect from independent stationary series, but random walks behave differently. B and C are false. Part 3: Describing non-stationary DGPs reveals pitfalls hidden in real time-series data.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "DGP: `U = rng.normal(0, 1, n)` (unobserved); `Z = rng.binomial(1, 0.5, n)` (a lottery); `X = 0.5 * Z + 0.8 * U + noise`; `Y = 2 * X + 1.5 * U + noise`. What role does Z play, and what estimates the true effect of 2?",
+      "options": [
+        "A) Z is an INSTRUMENT: it affects X (relevance), is independent of U (randomized), and affects Y only through X (exclusion). OLS of Y on X is biased upward by U, while the IV/2SLS estimate, Cov(Y, Z) / Cov(X, Z), recovers about 2",
+        "B) Z is a confounder, so control for it",
+        "C) Z is a collider",
+        "D) Z is the outcome"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Writing an IV DGP makes the three conditions concrete. Cov(Y, Z) = 2 * Cov(X, Z), because U is independent of Z, so the ratio gives 2 exactly in large samples. OLS absorbs U's positive link to both X and Y. Part 2: B, C, and D mislabel the variable. Part 3: Describing DGPs that justify different identification strategies is the deep purpose of DGP thinking.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "You want to know how many customers an A/B test needs to detect a +2 percentage-point lift from a 10% baseline conversion rate. How can a DGP simulation answer this?",
+      "options": [
+        "A) It cannot; only closed-form formulas work",
+        "B) Write the DGP: control ~ Bernoulli(0.10) and treatment ~ Bernoulli(0.12). For each candidate n per group (e.g., 1,000, 2,000, 4,000), simulate 2,000 experiments, run the planned test on each, and record the share with p < 0.05 (the POWER). Choose the smallest n with power of 80% or more, which is about 3,800 per group here",
+        "C) Run one simulated experiment and check its p-value",
+        "D) Choose n = 100, because that is standard"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Simulation-based power analysis uses the known effect in the DGP to estimate how often a design detects it. This approach generalizes to complex designs where formulas are hard. For 10% vs 12%, the standard formula gives about 3,800 per group, which matches the simulation. Part 2: A is false. C gives one noisy result. D is arbitrary and badly underpowered. Part 3: Using DGPs for study design is a powerful application of describing them.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "A DGP has an interaction: sales = 100 + 5 * ad + 3 * discount + 2 * ad * discount + noise. What is the expected change in sales from increasing ad by 1 unit when discount = 4?",
+      "options": [
+        "A) 13, because the marginal effect of ad = 5 + 2 * discount = 5 + 2 * 4 = 13",
+        "B) 5, the main effect of ad",
+        "C) 10, the sum of the coefficients 5 + 3 + 2",
+        "D) 20, because 5 * 4 = 20"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: With an interaction, the effect of ad depends on discount: d(sales)/d(ad) = 5 + 2 * discount = 13 at discount = 4. Ads and discounts reinforce each other, so the effect is 5 with no discount and 13 at discount = 4. Part 2: B ignores the interaction. C adds unrelated coefficients. D multiplies the main effect by the discount level. Part 3: Reading conditional effects from a DGP with interactions is a key part of describing DGPs.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "Two analysts simulate the same causal question. Analyst 1's DGP has a constant effect and normal noise. Analyst 2's DGP adds heterogeneous effects, a group-level confounder, AR(1) errors within groups, and 10% non-random missing outcomes. Analyst 2's simulation shows that their planned estimator is biased by 30% and its CIs cover the truth only 70% of the time. What is the main lesson?",
+      "options": [
+        "A) Simple DGPs are always better",
+        "B) A method validated only on an overly SIMPLE DGP can give false confidence. DGPs should include the realistic complications expected in the real data (confounding structure, dependence, heterogeneity, missingness), so that estimator choice, SEs (e.g., cluster bootstrap), and missing-data handling are tested before being trusted on real data",
+        "C) Analyst 2 made a coding error",
+        "D) Simulations are pointless because they give different answers"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The value of a simulation depends on how realistic its DGP is. Building in the expected problems shows how much bias and how poor the coverage could be, and points to remedies such as FE for group confounders, clustered or block bootstraps for dependence, and imputation or bounds for missing data. Part 2: A misses the point. C has no basis. D misunderstands the purpose, since the differences ARE the insight. Part 3: Designing realistic DGPs to stress-test methods is the most advanced use of DGP thinking.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Data-Generating Processes",
+      "question_text": "Design a full simulation study that ties together all four objectives for this question: 'Does a hospital's adoption of an electronic early-warning system reduce in-hospital mortality?' Specify the panel DGP (including a stable hospital confounder, staggered adoption, and noise), the fixed-effects estimator, a bootstrap procedure for uncertainty, a coverage check, and what you would conclude about using this design on real data.",
+      "options": null,
+      "correct_answer": "DGP: 120 hospitals h over 24 quarters t. Stable quality q_h ~ Normal(0, 1); better hospitals adopt EARLIER: the adoption quarter is A_h = round(18 - 4 * q_h + Normal(0, 3)), clipped to [4, 24] or never. Treatment D_ht = 1 if t >= A_h. Common shock tau_t = 0.1 * t (improving care everywhere). Mortality: m_ht = 5.0 - 0.6 * q_h - 0.1 * t - 0.4 * D_ht + e_ht, with e_ht = 0.5 * e_h,t-1 + Normal(0, 0.3) (AR(1) within each hospital). True effect = -0.4 percentage points. Estimators: pooled OLS `m ~ D` is biased (early adopters are higher quality, so the estimate is too negative); two-way FE `m ~ D + C(hospital) + C(quarter)` removes q_h and tau_t and recovers about -0.4 here, because the effect is constant. If the effect grew over time, staggered TWFE could be biased, so also test the Callaway-Sant'Anna estimator. Uncertainty: a cluster bootstrap that resamples hospitals with all 24 quarters, B = 2,000, refits the TWFE model, and takes the 2.5th and 97.5th percentiles. Compare with SEs clustered by hospital. Coverage check: repeat the whole simulation 500 times and record the share of CIs that contain -0.4; expect about 95% for the cluster bootstrap and well below that for row-level or default SEs (because of the AR(1) errors). Also run an event-study version to confirm that the pre-adoption coefficients are about 0. Conclusion for real data: use hospital and quarter FE, cluster inference at the hospital level, check pre-trends, consider estimators robust to staggered adoption if effects may change over time, and acknowledge that time-varying confounders (e.g., concurrent quality initiatives) are not removed by FE.",
+      "explanation": "Part 1: A strong answer specifies a realistic panel DGP (a stable confounder correlated with adoption timing, common trends, serial correlation, and a known effect), compares pooled OLS with two-way FE, uses a cluster bootstrap, runs a Monte Carlo coverage check, adds an event-study pre-trend check, and draws careful lessons for real-data use, including the staggered-adoption caveat. Part 2: Answers that ignore adoption timing, use row-level resampling, or never compare against the known truth are incomplete. Part 3: This capstone design brings together fixed effects, inventing an FE design, bootstrap simulation, and DGP description.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": [
+        "staggered adoption",
+        "two-way fixed effects",
+        "cluster bootstrap",
+        "coverage",
+        "true effect",
+        "pre-trends"
+      ]
+    }
+  ]
+}

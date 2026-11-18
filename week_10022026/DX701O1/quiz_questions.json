@@ -1,0 +1,465 @@
+{
+  "quiz_metadata": {
+    "title": "DX701 O1 Fall 2026: Week 6 - Fixed Effects, Bootstrap Simulation & Data-Generating Processes",
+    "description": "A master's-level quiz on performing fixed-effects estimation (within transformation, group dummies, demeaning), inventing realistic situations where fixed effects remove time-invariant confounding, running bootstrap simulations for standard errors and confidence intervals (including cluster bootstrap), and describing and coding data-generating processes that link confounders, treatment, and outcome.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "What does a fixed-effects regression of Y on X with group (entity) fixed effects actually estimate?",
+      "options": [
+        "A) The relationship between X and Y WITHIN each group: it removes each group's average level (its own intercept), so every stable, time-invariant group characteristic, observed or not, is controlled for, and the slope comes only from variation around each group's mean",
+        "B) The relationship between the group averages of X and Y",
+        "C) A separate slope for every group, with no pooling",
+        "D) The effect of the group itself on Y"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Fixed effects give each group its own intercept (alpha_g), so the shared slope is identified from within-group changes only. Any confounder that is constant within a group, such as a store's location or a person's innate ability, is absorbed by alpha_g. Part 2: B is the 'between' estimator, the opposite of FE. C describes fitting separate regressions per group (like the group-specific slopes in the Week 2 coding quiz). D confuses the nuisance intercepts with the parameter of interest. Part 3: Knowing what FE identifies is the foundation for performing it.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Performing Fixed Effects",
+      "question_text": "True or False: Including a dummy variable for every group (least-squares dummy variables, LSDV) and demeaning X and Y within each group (the 'within' transformation) give the SAME slope estimate on X.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. By the Frisch-Waugh-Lovell theorem, partialling out the group dummies is equivalent to subtracting group means from X and Y, so `smf.ols('Y ~ X + C(group)')` and the regression of (Y - Y-bar_g) on (X - X-bar_g) give identical slopes. Only the degrees of freedom used for the standard errors need care. Part 2: Answering False misses that these are two ways of computing the same estimator; demeaning is simply faster when there are thousands of groups. Part 3: Knowing both implementations is part of performing fixed effects.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "Which statsmodels formula estimates a common slope of `sales` on `price` with store fixed effects for a DataFrame `df` with columns `store`, `price`, and `sales`?",
+      "options": [
+        "A) `smf.ols('sales ~ price', data=df)`",
+        "B) `smf.ols('sales ~ price + C(store)', data=df)`, which adds one dummy per store (minus a reference store), so the `price` coefficient is the within-store slope",
+        "C) `smf.ols('sales ~ price * C(store)', data=df)`",
+        "D) `smf.ols('store ~ price + sales', data=df)`"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: `C(store)` creates the store intercepts, so `price` is the shared within-store slope (the common slope estimated in the Week 2 coding quiz). Part 2: A is pooled OLS and ignores store differences. C interacts price with store, giving each store its OWN slope, which is not the common FE slope. D puts the store on the left-hand side as the outcome, which makes no sense. Part 3: Writing the correct specification is the practical skill of performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "You add individual fixed effects to a wage regression with `years_experience`, `union_member` (which changes over time for some workers), and `gender` (which never changes). What happens to the `gender` coefficient?",
+      "options": [
+        "A) It becomes more precise",
+        "B) It measures the gender effect within each person",
+        "C) It cannot be estimated: gender is constant within each individual, so it is perfectly collinear with the individual dummies (the demeaned gender is 0 for everyone) and drops out. FE absorbs all time-invariant variables, both the confounders and the ones you care about",
+        "D) It doubles in size"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Fixed effects identify only from within-unit variation. A variable that never varies within a unit has none, so its effect is absorbed into alpha_i. This is the cost of FE: you cannot estimate the effects of stable traits. Part 2: A and D describe effects that do not happen. B is impossible, because a person's gender has no within-person variation. Part 3: Knowing what FE can and cannot estimate is essential before running it.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Performing Fixed Effects",
+      "question_text": "Two stores: Store A has X = [1, 2, 3] and Y = [10, 12, 14]; Store B has X = [4, 5, 6] and Y = [4, 6, 8]. Demean X and Y within each store and compute the fixed-effects (within) slope of Y on X. Enter only the number.",
+      "options": null,
+      "correct_answer": "2",
+      "explanation": "Part 1: Store A means: X-bar = 2, Y-bar = 12, so the deviations are x = (-1, 0, 1) and y = (-2, 0, 2). Store B means: X-bar = 5, Y-bar = 6, giving the same deviations x = (-1, 0, 1) and y = (-2, 0, 2). Pooling the demeaned data: sum(x * y) = 4 + 4 = 8 and sum(x^2) = 2 + 2 = 4, so the slope = 8 / 4 = 2. Part 2: Pooled OLS ignoring stores gives about -1.09 (see the next question), because Store B has higher X but a much lower baseline Y. Forgetting to demean within store produces that wrong sign. Part 3: Computing the within transformation by hand shows exactly how FE removes group-level differences.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": ["2", "demean", "within", "8 / 4"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "Using the same two-store data, pooled OLS (no fixed effects) gives a slope of about -1.09, but the fixed-effects slope is +2. What explains the sign flip?",
+      "options": [
+        "A) A coding error in the pooled regression",
+        "B) Random sampling noise",
+        "C) The fixed-effects slope is biased",
+        "D) The pooled slope mixes WITHIN-store variation (positive) with BETWEEN-store differences: Store B has higher X and a much lower baseline Y (a store-level confounder such as location). This is Simpson's paradox. FE removes the store baselines and recovers the within-store relationship"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Pooled sum(x * y) = -19 and sum(x^2) = 17.5, so the slope is -1.09. That number is driven by the gap between the stores, not by changes within either store. In both stores, Y rises by 2 per unit of X. A store-level confounder that is correlated with X biases the pooled estimate, and the store dummies remove it. Part 2: A and B are wrong, since the result is exact and deterministic. C reverses the bias: FE is the unbiased estimate under the DGP where store baselines differ. Part 3: Seeing FE fix Simpson's paradox shows why the method matters.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Performing Fixed Effects",
+      "question_text": "True or False: Fixed effects remove bias from ALL confounders, including those that change over time within a group (e.g., a store's changing local unemployment).",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Entity fixed effects remove only confounders that are CONSTANT within the entity. Time-varying confounders, such as local unemployment that changes month to month and affects both price and sales, remain and must be controlled directly, absorbed with time fixed effects (if they are common across entities), or handled with another design. Part 2: Answering True overstates FE; it is a fix for unobserved heterogeneity, not a cure-all. Part 3: Knowing the limits of FE is part of applying it correctly.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Performing Fixed Effects",
+      "question_text": "A panel of 500 hospitals over 10 years estimates the effect of nurse staffing on patient mortality with hospital fixed effects. National policy changes and COVID affected all hospitals in certain years. Which specification and standard errors are most appropriate?",
+      "options": [
+        "A) Two-way fixed effects (hospital AND year dummies), so stable hospital traits and shocks common to each year are both removed, with standard errors CLUSTERED by hospital, because each hospital's errors are correlated across its 10 years",
+        "B) Hospital fixed effects only, with default OLS standard errors",
+        "C) Pooled OLS with robust standard errors",
+        "D) Year fixed effects only, clustered by year"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Hospital FE handle stable differences (case mix, location), and year FE handle shocks shared by all hospitals (COVID, policy). Repeated observations of the same hospital share unobserved shocks, so clustering by hospital gives honest standard errors. Part 2: B ignores both the common shocks and the serial correlation. C ignores hospital heterogeneity. D removes year shocks but leaves hospital confounding, and 10 clusters are too few for reliable clustered SEs. Part 3: Choosing a full FE specification with matching inference is the advanced application of performing FE.",
+      "learning_objective": "Perform fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Which research situation is the BEST fit for fixed effects?",
+      "options": [
+        "A) A one-time cross-sectional survey of 1,000 different people",
+        "B) Monthly data on 200 coffee shops over 3 years, estimating the effect of a shop's own price changes on its sales, where each shop has a stable but unmeasured location quality that affects both its prices and its sales",
+        "C) A randomized experiment with a single post-treatment measurement",
+        "D) Daily data on one stock's returns"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: FE need repeated observations of the same units AND a time-invariant unobserved confounder. Location quality pushes prices and sales up together, and shop fixed effects remove it, so the slope comes from each shop's own price changes. Part 2: A has only one observation per unit, so there is no within variation. C is already unconfounded thanks to randomization. D has only one unit, so there are no groups to fix. Part 3: Recognizing the structure FE require is step one in inventing a good example.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "A student designs this example: 'Effect of study hours on exam scores, using 40 students each observed in 6 courses. Student fixed effects.' Which unobserved confounder do the student fixed effects remove?",
+      "options": [
+        "A) Course difficulty, which varies by course",
+        "B) Whether the exam was curved in a particular week",
+        "C) Stable student traits such as innate ability, motivation, and prior preparation, which raise both how much a student studies and how well they score in every course. Comparing each student with themselves removes them",
+        "D) The exam score itself"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Student FE compare each student's high-study courses with their own low-study courses, so traits that stay constant for that student cancel out. Part 2: A varies by course, not by student, so it would need COURSE fixed effects (a second dimension). B is a time-varying shock. D is the outcome, not a confounder. Part 3: Pairing each FE dimension with the confounder it removes makes an invented example convincing.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "True or False: A valid fixed-effects example only needs many groups; the treatment variable does not need to vary WITHIN groups.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. FE identify the effect only from within-group variation. If every observation in a group has the same treatment value (e.g., a state policy that never changes during the sample), the treatment is absorbed by the group dummy and its effect cannot be estimated. Part 2: Answering True overlooks the most common design failure in invented FE examples. Part 3: A good example states explicitly how the treatment changes within each unit over time or across settings.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "You want to estimate how app notifications per week affect user engagement minutes, using 10,000 users over 52 weeks. Which set of fixed effects best fits the example, and why?",
+      "options": [
+        "A) No fixed effects; the sample is large enough",
+        "B) Notification fixed effects",
+        "C) Engagement fixed effects",
+        "D) User fixed effects (stable heavy vs. light users get different notification volumes and engage differently) plus week fixed effects (holidays and app-wide releases affect everyone in a week), so the effect is identified from a user's own week-to-week changes in notifications relative to the overall weekly pattern"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: User FE remove the stable confounder (baseline engagement drives targeting), and week FE remove common shocks. What remains is the within-user, within-week variation in notifications. Part 2: A confuses sample size with bias removal. B and C put fixed effects on the treatment and the outcome, which is not how FE work. Part 3: Designing a two-way FE example with confounders named for each dimension is the core skill of this objective.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "In an invented example of 50 states over 20 years on minimum wage (X) and teen employment (Y) with state fixed effects, which threat REMAINS even after adding the fixed effects?",
+      "options": [
+        "A) Time-varying state conditions, such as a state-specific recession that leads legislators to delay a minimum-wage increase while also lowering teen employment. State FE only remove factors that are constant within a state",
+        "B) Each state's permanent industrial structure",
+        "C) Differences in state geography",
+        "D) A state's long-run political culture, if it is stable"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: State FE remove the stable characteristics in B, C, and D. A state-specific business cycle changes over time and affects both the policy and the outcome, so it remains a confounder. Possible fixes are controls for the state unemployment rate, state-specific trends, or a difference-in-differences or event-study design. Part 2: B, C, and D are exactly what state FE absorb. Part 3: Naming the remaining threat shows a complete understanding of the invented example.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "Invent your own fixed-effects example from a domain you know, such as healthcare, retail, sports, or education. State (1) the units and time periods, (2) the treatment X and outcome Y, (3) the time-invariant confounder that the fixed effects remove, (4) the source of within-unit variation in X, (5) the regression formula, and (6) one remaining threat.",
+      "options": null,
+      "correct_answer": "Example: (1) Units: 300 NBA players observed in each game across 2 seasons, about 160 games per player. (2) X = minutes of rest before the game (days since the last game); Y = points scored. (3) Player fixed effects remove stable talent and position: stars may get more rest days because of load management AND score more, which would confound a pooled regression. (4) Within-player variation comes from the schedule: back-to-back games vs. 2-3 rest days vary for each player across the season. (5) `smf.ols('points ~ rest_days + C(player_id) + C(season)', data=df)` with standard errors clustered by player, optionally adding opponent fixed effects for opponent strength. (6) Remaining threat: a time-varying confounder such as a minor injury, which could increase rest days and lower scoring at the same time, biasing the estimate. Control for injury reports or exclude games right after an injury.",
+      "explanation": "Part 1: A strong answer identifies a repeated-measures structure, names a specific stable confounder, explains where within-unit variation in X comes from, writes a correct FE formula with clustered SEs, and identifies a time-varying threat. Part 2: Answers without within-unit variation in X, without a named confounder, or that claim FE remove every bias are incomplete. Part 3: This directly fulfills the objective of inventing an FE situation.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": ["fixed effects", "time-invariant", "confounder", "within", "C(", "cluster"]
+    },
+    {
+      "number": 15,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Inventing a Fixed Effects Example",
+      "question_text": "A teammate proposes: 'Estimate the effect of having a hospital's Magnet nursing certification on mortality, using hospital fixed effects and 10 years of data. Note: only 3% of hospitals changed certification status during the decade.' What is the main weakness of this design?",
+      "options": [
+        "A) Fixed effects cannot be used with hospitals",
+        "B) The effect is identified ONLY from the 3% of hospitals that switched, which gives large standard errors. Those switchers may also differ from typical hospitals (e.g., they were improving anyway), so the result may not generalize and may be confounded by trends before the switch. Check for pre-trends (event-study plot) and report how many units identify the estimate",
+        "C) Ten years is too long for fixed effects",
+        "D) Mortality is not a valid outcome"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Hospitals that never change status contribute nothing to the FE estimate of the certification effect. With few switchers, the estimate is noisy and depends on why those hospitals switched, possibly because quality was already rising, which is a time-varying confounder. Part 2: A, C, and D are false restrictions on FE. Part 3: Judging how much within-unit variation an invented FE design actually has is the advanced use of this objective.",
+      "learning_objective": "Invent your own example situation that uses fixed effects",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "What is the basic procedure of a nonparametric bootstrap for estimating the standard error of a statistic?",
+      "options": [
+        "A) Collect many new samples from the population",
+        "B) Sample n rows WITHOUT replacement once",
+        "C) Repeatedly (e.g., B = 1,000-10,000 times) draw a sample of size n WITH replacement from the observed data, compute the statistic on each resample, and use the standard deviation of those B estimates as the standard error (and their percentiles for a CI)",
+        "D) Shuffle the outcome labels and refit the model"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The bootstrap treats the sample as a stand-in for the population. Resampling with replacement mimics drawing new samples, so the spread of the recomputed statistic approximates its sampling variability, with no formula needed. Part 2: A is not possible in practice. B just returns the original data in a different order. D describes a permutation test, which is used to test a null hypothesis rather than estimate an SE. Part 3: This is the core algorithm of bootstrap simulation.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Bootstrap Simulation",
+      "question_text": "In a bootstrap, each resample is drawn from the original data ___ replacement, so some rows appear several times and others not at all.",
+      "options": null,
+      "correct_answer": "With",
+      "explanation": "Part 1: Sampling WITH replacement creates variation between resamples. On average, about 63.2% of the unique rows appear in each resample and about 36.8% are left out. In NumPy: `rng.choice(n, size=n, replace=True)` or `df.sample(frac=1, replace=True)`. Part 2: 'Without' replacement at size n just reproduces the same data in a different order, so the statistic would never change. Part 3: This one detail is what makes bootstrap simulation work.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": ["with", "replacement", "replace=True"]
+    },
+    {
+      "number": 18,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Bootstrap Simulation",
+      "question_text": "True or False: The bootstrap is especially useful for statistics with no simple standard-error formula, such as the median, skewness, a ratio of means, or the difference between two regression slopes.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. For the mean, SE = s / sqrt(n) is available. For the median, skewness, or complex estimators, analytic SEs are hard or rely on strong assumptions, and the bootstrap gets them by simulation. The Week 2 coding quiz bootstrapped both a variance and a skewness. Part 2: Answering False underrates the bootstrap's main practical advantage. Part 3: Knowing when to bootstrap is part of performing it well.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "A sample of n = 144 delivery times has a standard deviation of 12 minutes. You bootstrap the MEAN 10,000 times. About what standard deviation should the 10,000 bootstrap means have?",
+      "options": [
+        "A) 12 minutes",
+        "B) 0.083 minutes",
+        "C) 144 minutes",
+        "D) About 1 minute, because the bootstrap SE of the mean should be close to the analytic SE s / sqrt(n) = 12 / sqrt(144) = 12 / 12 = 1"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: For the mean, the bootstrap reproduces the classic result, so its SE is about 1 minute (with tiny simulation noise). Checking a bootstrap against a known formula is a good sanity test of your code. Part 2: A is the spread of individual times, not of the mean. B divides by n instead of sqrt(n). C is n itself. Part 3: Checking bootstrap output against theory confirms the simulation was done correctly.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "You have panel data: 50 schools, each with 40 students. To bootstrap the SE of a school-level policy effect, how should you resample?",
+      "options": [
+        "A) Resample whole SCHOOLS (clusters) with replacement, keeping all of each chosen school's students together (a cluster or block bootstrap), because students within a school are not independent",
+        "B) Resample individual students from the pooled 2,000",
+        "C) Resample within each school only",
+        "D) Bootstrapping is impossible with panel data"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The bootstrap must copy the way the data were sampled. If schools are the independent units, resampling students treats 2,000 correlated observations as independent and understates the SE, just as non-clustered standard errors do. Part 2: B breaks the cluster structure. C keeps the same set of schools, so it misses the variation between schools. D is false. Part 3: Matching the resampling unit to the dependence in the data is a key practical choice in bootstrap simulation.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Bootstrap Simulation",
+      "question_text": "You computed 10,000 bootstrap estimates of a median income difference, stored in `boot`. How do you form a 95% percentile confidence interval?",
+      "options": [
+        "A) `boot.mean() +/- boot.std()`",
+        "B) `np.percentile(boot, [2.5, 97.5])`, which takes the 2.5th and 97.5th percentiles of the bootstrap distribution",
+        "C) `np.percentile(boot, [5, 95])`",
+        "D) `boot.min(), boot.max()`"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The percentile method cuts 2.5% from each tail of the bootstrap distribution and does not assume normality, which is useful for skewed statistics such as medians. Part 2: A is a ±1 SD interval, which gives only about 68% coverage. C is a 90% interval. D depends on the most extreme resamples and covers about 100%, making it very unstable. Part 3: Turning bootstrap output into a CI is the final step of bootstrap simulation.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Bootstrap Simulation",
+      "question_text": "True or False: Running more bootstrap replications (e.g., B = 100,000 instead of 1,000) reduces the true sampling uncertainty of your estimate, because the confidence interval comes from more data.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. More replications only reduce SIMULATION noise (Monte Carlo error), so the bootstrap SE settles closer to its ideal value. The real sampling uncertainty depends on n, the original sample size, which more resampling cannot increase. This is why the Week 2 skewness answers varied from run to run with a small B. Part 2: Answering True confuses B (simulation draws) with n (real observations). Part 3: Separating these two sources of error is essential for interpreting bootstrap results.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Bootstrap Simulation",
+      "question_text": "A retailer has 18 months of data from 60 stores and wants a 95% CI for the fixed-effects slope of weekly sales on price. Their analyst bootstrapped 500 times by resampling individual store-weeks, got a very narrow CI, and the skewness of the bootstrap estimates changed noticeably between runs. Analyze what went wrong and write a corrected bootstrap plan, including code-level steps.",
+      "options": null,
+      "correct_answer": "Problems: (1) Wrong resampling unit. Store-weeks from the same store share shocks (serial correlation), so resampling them individually treats correlated rows as independent and understates the SE, which explains the overly narrow CI. (2) B = 500 is too few for stable tail percentiles and higher moments like skewness, so Monte Carlo noise makes the results change between runs. Corrected plan: (a) Set a seed with `rng = np.random.default_rng(42)`. (b) For b in 1..B with B = 5,000-10,000: draw 60 store IDs WITH replacement using `rng.choice(stores, size=60, replace=True)`; build the resample by concatenating ALL weeks of each drawn store, giving duplicates a new cluster ID so that each copy gets its own fixed effect; fit `smf.ols('sales ~ price + C(store_boot) + C(week)', data=sample)`; and store the price coefficient. (c) SE = np.std(boot, ddof=1), and 95% CI = np.percentile(boot, [2.5, 97.5]). (d) Check that the bootstrap SE is close to the cluster-robust SE from statsmodels (`cov_type='cluster'`), and plot a histogram of `boot` to check for skewness. (e) Report the seed, B, the resampling unit, and the CI.",
+      "explanation": "Part 1: A strong answer identifies the dependence problem (resample clusters, not rows), the Monte Carlo problem (increase B), and gives concrete, reproducible steps, including relabeling duplicated clusters for FE and checking against cluster-robust SEs. Part 2: Answers that only say 'use more replications' fix the noise but not the bias in the SE. Answers that ignore fixed effects in the resamples are incomplete. Part 3: This combines performing FE with performing a correct bootstrap.",
+      "learning_objective": "Perform bootstrap simulation",
+      "keywords": ["cluster", "replacement", "store", "replications", "percentile", "seed"]
+    },
+    {
+      "number": 24,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "What is a data-generating process (DGP)?",
+      "options": [
+        "A) The software used to collect data",
+        "B) The formula for R-squared",
+        "C) The true (often assumed) set of causal rules and randomness that produces the observed data, e.g., 'Z ~ Uniform(0, 1); X = 1 + 3Z + noise; Y = 2000 + 50,000Z - 1,000X + noise'. It specifies which variables cause which, with what functional form and error",
+        "D) The process of cleaning data before modeling"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A DGP is the model of how the world creates the data. Writing it down, as in the Week 2 firefighters notebook, makes the true effects known, so you can see whether an estimator recovers them. Part 2: A and D concern data handling, not generation. B is a fit statistic. Part 3: Being able to describe a DGP is the fourth learning objective and the basis of simulation-based learning.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Data-Generating Processes",
+      "question_text": "True or False: A key advantage of simulating data from a DGP that you wrote yourself is that you KNOW the true causal effect, so you can check whether a method (pooled OLS, fixed effects, matching) recovers it.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. With real data, the true effect is unknown. With a simulated DGP, you set it, for example -1,000 damage per firefighter, and compare each estimator's output with that value, which shows bias and variance directly. Part 2: Answering False misses why every course notebook starts with `rng = np.random.default_rng(42)` and explicit equations. Part 3: This is the main reason DGPs are used in learning causal inference.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "The firefighters DGP is: Z_severity ~ Uniform(0, 1); X_firefighters = round(1 + 3 * Z + Normal(0, 3)); Y_damage = 2000 + 50,000 * Z - 1,000 * X + Normal(0, 6000). What is the TRUE causal effect of one more firefighter on damage?",
+      "options": [
+        "A) +50,000",
+        "B) +3",
+        "C) 0, because firefighters are only correlated with damage",
+        "D) -1,000: in the Y equation, holding severity fixed, each additional firefighter reduces damage by 1,000"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The coefficient on X in the Y equation is the causal effect, because it describes what happens to Y when X changes and Z is held fixed. Part 2: A is the effect of severity on damage. B is the effect of severity on firefighters. C ignores the direct X -> Y term in the DGP. Part 3: Reading true effects directly from a DGP is the core skill in describing one.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "Using the same firefighters DGP, you regress Y_damage on X_firefighters ONLY, leaving out severity. What will the slope look like compared with -1,000?",
+      "options": [
+        "A) Exactly -1,000",
+        "B) More negative than -1,000",
+        "C) Biased UPWARD (less negative, possibly positive): severity raises both the number of firefighters (+3 per unit) and damage (+50,000 per unit), so the omitted Z makes more firefighters look associated with MORE damage",
+        "D) Undefined"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: OVB = beta_Z * Cov(X, Z) / Var(X), which is positive here because both links are positive. That is the classic 'more firefighters, more damage' illusion from the notebook. Adding Z, or randomizing X, recovers about -1,000. Part 2: A ignores confounding. B gets the direction of the bias wrong. D is false, since the regression runs. Part 3: Predicting how a DGP's structure biases a naive estimate shows real understanding of the DGP.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "short_answer",
+      "section": "Data-Generating Processes",
+      "question_text": "Describe your own example of a data-generating process in 2-4 sentences or equations: name a confounder, a treatment, and an outcome, give their equations with coefficients and noise, and state the true causal effect.",
+      "options": null,
+      "correct_answer": "Example: Z_income ~ Normal(60, 15) (household income in $1,000s). X_gym_visits = 2 + 0.05 * Z_income + Normal(0, 1) per week, because richer people can afford memberships. Y_health_score = 50 + 0.3 * Z_income + 4 * X_gym_visits + Normal(0, 5). Here income is a confounder because it raises both gym visits and health. The TRUE causal effect of one extra weekly gym visit is +4 health points, while regressing Y on X alone would overstate it.",
+      "explanation": "Part 1: A strong answer specifies a distribution for the confounder, an equation for the treatment that depends on the confounder, an equation for the outcome that depends on both, explicit noise terms, and states the true effect and the expected bias of a naive regression. Part 2: Answers that describe variables in words without equations, or that omit the noise terms or the true effect, do not fully describe a DGP. Part 3: This directly fulfills the objective of describing a DGP example.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": ["confounder", "treatment", "outcome", "noise", "true effect", "equation"]
+    },
+    {
+      "number": 29,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "In the 'random number of firefighters' version of the DGP, X_firefighters = rng.integers(1, 6) regardless of severity. Why does the simple regression of Y on X now recover about -1,000?",
+      "options": [
+        "A) Because the sample size got larger",
+        "B) Because severity was removed from the Y equation",
+        "C) Because the noise was set to zero",
+        "D) Because randomizing X deletes the Z -> X arrow, so X is independent of severity. Severity still affects Y, but it is now just noise uncorrelated with X, so it causes no bias, only a larger residual variance"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Randomization breaks the back-door path X <- Z -> Y by making X independent of Z. Z remains in the Y equation, so the R-squared is lower, but the slope is unbiased. This is why RCTs work. Part 2: A does not fix bias. B and C are false, since severity and noise are both still in the DGP. Part 3: Changing one arrow in a DGP and predicting the result shows a complete understanding of how DGPs shape estimates.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Data-Generating Processes",
+      "question_text": "You want to show a skeptical manager that store fixed effects fix a pricing analysis. Which DGP-based simulation is the most convincing?",
+      "options": [
+        "A) Simulate 100 stores over 52 weeks: store_quality ~ Normal(0, 1) is a fixed trait; price = 10 + 2 * store_quality + Normal(0, 1) varies weekly; sales = 500 + 80 * store_quality - 15 * price + Normal(0, 20). Fit pooled OLS and store-FE models across 1,000 replications and show that pooled OLS centers far from -15 (biased upward), while FE centers on -15, with a bootstrap or replication-based CI",
+        "B) Fit one fixed-effects model on real data and report its p-value",
+        "C) Simulate data where price is random, then show both models agree",
+        "D) Simulate data with no store differences at all"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: This DGP builds in the exact problem FE solve (a time-invariant confounder that affects both price and sales) and a known true effect (-15). Repeating the simulation shows the bias of pooled OLS and the unbiasedness of FE as distributions, not a single lucky run. Part 2: B cannot show bias, because the true effect is unknown in real data. C and D remove the confounding, so both models would succeed and nothing would be demonstrated. Part 3: Designing a DGP that tests a method combines fixed effects, simulation, and DGP thinking from all four objectives.",
+      "learning_objective": "Describe an example of a data-generating process",
+      "keywords": []
+    }
+  ]
+}

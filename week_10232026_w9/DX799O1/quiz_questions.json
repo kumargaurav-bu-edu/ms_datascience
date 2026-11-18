@@ -1,0 +1,470 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 9 - Gradient Boosting, Learning Rate, Tree Depth & Regularization",
+    "description": "Tests how gradient boosting works, building a gradient-boosting regressor by fitting weak learners to residuals, how the learning rate trades off against the number of estimators, how tree depth and the number of estimators drive underfitting and overfitting, and how to regularize boosting by limiting tree complexity, setting minimum samples per leaf, and subsampling, as covered in the Week 9 learning objectives.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "How Gradient Boosting Works",
+      "question_text": "Which statement best describes how gradient boosting builds its model?",
+      "options": [
+        "A) It trains many deep trees in parallel on bootstrap samples and averages their predictions",
+        "B) It trains one very deep tree and then prunes it back",
+        "C) It adds shallow trees (weak learners) one at a time, and each new tree is fit to the errors (negative gradients of the loss) left by all the previous trees, so the ensemble corrects its own mistakes step by step",
+        "D) It fits a single linear regression and then adds polynomial terms until the training error is zero"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Gradient boosting is a sequential, additive model: F_m(x) = F_{m-1}(x) + learning_rate * h_m(x), where each weak learner h_m is trained on what the current ensemble still gets wrong. For squared-error loss, those negative gradients are exactly the residuals y - F_{m-1}(x). Part 2: A describes random forest (bagging), where trees are independent and averaged. B describes cost-complexity pruning of a single tree. D is not an ensemble method. Part 3: The 'sequential correction of errors' idea is the core of the first learning objective.",
+      "learning_objective": "Explain how gradient boost works.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "How Gradient Boosting Works",
+      "question_text": "In gradient boosting for regression with squared-error loss, each new tree is trained to predict the ___ of the current model, i.e., y minus the current prediction.",
+      "options": null,
+      "correct_answer": "Residuals (pseudo-residuals / negative gradient)",
+      "explanation": "Part 1: For L = (1/2)(y - F)^2, the negative gradient with respect to F is y - F, which is the residual. That is why gradient boosting with squared error is often described as 'fitting trees to residuals.' For other losses (e.g., log-loss for classification), the trees fit pseudo-residuals, the negative gradient of that loss. Part 2: 'Targets' or 'labels' would mean refitting y itself, which every tree would learn the same way, so the trees would not add anything new. 'Weights' describes AdaBoost's reweighting of samples, a different boosting algorithm. Part 3: Knowing what each tree is trained on is the key mechanism behind how gradient boosting works.",
+      "learning_objective": "Explain how gradient boost works.",
+      "keywords": ["residual", "residuals", "pseudo-residual", "negative gradient", "error"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "How Gradient Boosting Works",
+      "question_text": "True or False: Like random forest, gradient boosting builds its trees independently of each other, so all of the trees can be trained at the same time in parallel.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. In gradient boosting, tree m is fit to the residuals of trees 1 to m-1, so it cannot be built until they exist. The trees are therefore built sequentially. (Libraries such as XGBoost and LightGBM parallelize the split search WITHIN a tree, not across trees.) Part 2: Answering True carries over random forest's design, where each tree uses its own bootstrap sample and does not depend on the others. Part 3: Sequential versus independent trees is the main difference between boosting and random forest, one of this week's 'Think About It' questions.",
+      "learning_objective": "Explain how gradient boost works.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "How Gradient Boosting Works",
+      "question_text": "Which comparison of gradient boosting and random forest is correct?",
+      "options": [
+        "A) Both are tree ensembles. Random forest averages deep, independent trees to reduce VARIANCE, while gradient boosting adds shallow, dependent trees one after another to reduce BIAS",
+        "B) Random forest reduces bias and gradient boosting reduces variance",
+        "C) Both methods train exactly one tree",
+        "D) Gradient boosting uses bootstrap sampling with replacement for every tree by default, and random forest uses no randomness at all"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Random forest starts with low-bias, high-variance deep trees and averages them (with bootstrap and random feature subsets) to cancel out variance. Gradient boosting starts with high-bias weak learners (e.g., depth 3) and adds them in sequence so that each one reduces the remaining bias. Part 2: B reverses the roles. C ignores the fact that both are ensembles. D reverses the randomness: random forest relies on bootstrap sampling and feature subsampling, while gradient boosting uses all rows by default (subsample=1.0) and only optionally subsamples without replacement (stochastic gradient boosting). Part 3: Comparing the two in terms of bias and variance answers the week's question about how they are similar and how they differ.",
+      "learning_objective": "Explain how gradient boost works.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "How Gradient Boosting Works",
+      "question_text": "Why is it called GRADIENT boosting?",
+      "options": [
+        "A) Because the trees are drawn with a color gradient in the plot",
+        "B) Because it uses the gradient of the features to choose split points",
+        "C) Because it only works with linear models trained by gradient descent",
+        "D) Because each step moves the model's predictions in the direction of the negative gradient of the loss function, like gradient descent but in 'function space.' Each tree approximates that gradient and the learning rate is the step size"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Friedman (2001) framed boosting as gradient descent on the loss: compute the negative gradient of the loss at the current predictions, fit a tree to it, and take a step of size learning_rate. This lets the same algorithm work with any differentiable loss (squared error, absolute error, Huber, log-loss). Part 2: A is not a real reason. B confuses split selection, which uses loss reduction, with gradients of the inputs. C is wrong because the weak learners are trees, not linear models. Part 3: Understanding the gradient-descent view explains why gradient boosting is so general.",
+      "learning_objective": "Explain how gradient boost works.",
+      "keywords": []
+    },
+    {
+      "number": 6,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "How Gradient Boosting Works",
+      "question_text": "A credit-risk team has tabular data on 50,000 loan applicants (income, debt-to-income ratio, utilization, delinquencies) and wants the best predictive accuracy for default. A single decision tree gets AUC = 0.71, and a random forest gets AUC = 0.80. Why might gradient boosting do better, and what is the main risk?",
+      "options": [
+        "A) Gradient boosting always beats random forest, so there is no risk",
+        "B) Gradient boosting cannot be used for classification, so the team should stay with random forest",
+        "C) Gradient boosting keeps correcting the remaining errors, so it can capture subtle interactions (e.g., high utilization together with recent delinquencies) that averaging misses, and on tabular data it often reaches a higher AUC (e.g., about 0.83). The main risk is overfitting if there are too many trees, too high a learning rate, or too much depth, so it needs early stopping on a validation set",
+        "D) Gradient boosting reduces variance more than random forest, so it needs no tuning"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Because each tree targets the remaining error, boosting can reduce bias further than averaging, which is why boosted trees (e.g., XGBoost, LightGBM) often win on tabular credit data. The flip side is that the model keeps fitting the training data as more trees are added, so it is more prone to overfitting than random forest without careful tuning. Part 2: A overclaims; it depends on the data and on tuning. B is false, since log-loss boosting is standard for classification. D gets the bias-variance role backward and ignores the need for tuning. Part 3: Explaining when and why boosting helps, and what it costs, applies the first learning objective to a real decision.",
+      "learning_objective": "Explain how gradient boost works.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Building Boosting by Fitting Residuals",
+      "question_text": "For gradient-boosting regression with squared-error loss, what is the initial prediction F_0 before any tree is added?",
+      "options": [
+        "A) Zero for every sample",
+        "B) The mean of the training target y, the single constant that minimizes squared error",
+        "C) The median of the features",
+        "D) A random value drawn for each sample"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Boosting starts from the best constant prediction for the loss. For squared error that is the mean of y; for absolute error it would be the median, and for log-loss the log-odds of the positive class rate. scikit-learn's default `init` does exactly this. Part 2: A works but wastes early trees just moving the predictions up to the mean. C confuses features with the target. D adds noise without any benefit. Part 3: F_0 is the first step in building a boosting model by hand.",
+      "learning_objective": "Construct a gradient-boosting regression model by iteratively fitting weak learners to residuals.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Building Boosting by Fitting Residuals",
+      "question_text": "True or False: In each boosting round, the new tree's predictions are multiplied by the learning rate before being added to the running prediction: F_m(x) = F_{m-1}(x) + learning_rate * h_m(x).",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The learning rate (shrinkage) scales each tree's contribution so that no single tree overcorrects. With learning_rate = 0.1, each tree moves the predictions only 10% of the way toward fixing the current residuals. Part 2: Answering False would mean adding each tree at full strength (learning_rate = 1), which Friedman showed tends to overfit and generalize worse. Part 3: This update rule is the core line of code when you build a boosting regressor by hand.",
+      "learning_objective": "Construct a gradient-boosting regression model by iteratively fitting weak learners to residuals.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Building Boosting by Fitting Residuals",
+      "question_text": "Three training samples have targets y = [3, 5, 10]. Start with F_0 = mean(y). The first tree (a depth-1 stump) splits the samples into {3, 5} and {10} and predicts the mean residual in each leaf. With learning_rate = 0.1, what is the updated prediction F_1 for the third sample (y = 10)?",
+      "options": null,
+      "correct_answer": "6.4",
+      "explanation": "Part 1: F_0 = (3 + 5 + 10) / 3 = 6. Residuals = [3 - 6, 5 - 6, 10 - 6] = [-3, -1, 4]. The leaf containing only the third sample predicts 4, so F_1 = 6 + 0.1 * 4 = 6.4. (The other leaf predicts (-3 + -1) / 2 = -2, so the first two samples move to 6 - 0.2 = 5.8.) Part 2: A common mistake is to add the full residual (6 + 4 = 10), which ignores the learning rate, or to use the raw target 10 as the leaf value instead of the residual. Part 3: This hand calculation is one complete boosting iteration: compute residuals, fit a tree to them, shrink, and add.",
+      "learning_objective": "Construct a gradient-boosting regression model by iteratively fitting weak learners to residuals.",
+      "keywords": ["6.4", "residual", "4", "0.1", "mean 6"]
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Building Boosting by Fitting Residuals",
+      "question_text": "A student writes a manual boosting loop. Which order of steps inside the loop is correct?",
+      "options": [
+        "A) (1) Fit a tree to y; (2) set the prediction to the tree's output; (3) repeat",
+        "B) (1) Compute residuals r = y - F; (2) fit a shallow DecisionTreeRegressor(max_depth=3) to (X, r); (3) update F = F + learning_rate * tree.predict(X); (4) store the tree; (5) repeat for n_estimators rounds",
+        "C) (1) Fit a tree to the residuals once; (2) multiply its predictions by n_estimators",
+        "D) (1) Update F; (2) compute the residuals; (3) fit the tree to y after the loop ends"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Each round must use the CURRENT residuals, fit the weak learner to them, and then add the shrunken prediction. The stored trees are later summed (times the learning rate) on top of F_0 to predict new data. Part 2: A refits y each time, so the model never corrects anything. C treats boosting as one tree scaled up, which loses the sequential correction. D updates F before there is a tree to update it with. Part 3: Getting this loop right is exactly the 'construct by iteratively fitting weak learners to residuals' objective.",
+      "learning_objective": "Construct a gradient-boosting regression model by iteratively fitting weak learners to residuals.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Building Boosting by Fitting Residuals",
+      "question_text": "While building a boosting model for house prices by hand, you track training RMSE after each round: 100,000 (F_0), then 82,000, 68,500, 58,000, and so on. Why does training error keep falling as trees are added?",
+      "options": [
+        "A) Because each tree is trained on a fresh, independent dataset",
+        "B) Because the learning rate increases every round",
+        "C) Because later trees ignore the residuals",
+        "D) Because each tree fits the remaining residuals, and adding a shrunken version of it reduces the squared error on the training data. With enough trees the training error approaches 0, which is why validation error must be watched for overfitting"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Each round is a step of gradient descent on the training loss, so as long as the tree captures some pattern in the residuals, the training error drops. That makes training error a poor guide for choosing n_estimators; validation error is the right guide. Part 2: A describes bagging, not boosting. B is wrong because the learning rate is fixed (unless you use a schedule). C contradicts how the algorithm works. Part 3: Watching the training error fall round by round makes the residual-fitting process, and its risk of overfitting, concrete.",
+      "learning_objective": "Construct a gradient-boosting regression model by iteratively fitting weak learners to residuals.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Building Boosting by Fitting Residuals",
+      "question_text": "Your manual boosting loop (100 trees, max_depth = 3, learning_rate = 0.1) gives a validation RMSE of 41,200 on house prices. scikit-learn's GradientBoostingRegressor with the same settings gives 38,900. What is the most likely cause of the gap, and how do you check it?",
+      "options": [
+        "A) Your loop probably differs in a detail such as the starting value (not using mean(y) for F_0), forgetting to add F_0 when predicting new data, or fitting trees with a different split criterion (scikit-learn uses criterion='friedman_mse'). Compare the staged predictions round by round (`staged_predict`) against your loop to find where they first diverge",
+        "B) scikit-learn secretly uses more trees",
+        "C) Manual boosting can never match a library",
+        "D) The validation set must be wrong"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A correct manual implementation of the same algorithm should give nearly identical results. Small gaps usually come from F_0, from leaving F_0 out at prediction time, or from tree-fitting details such as the split criterion, min_samples_leaf, or random_state when there are ties. Comparing staged predictions shows the exact round where the two models first differ. Part 2: B and D blame the tool or the data without any evidence. C is false; the algorithm is simple enough to reproduce. Part 3: Debugging a hand-built model against a reference implementation is a strong test of understanding the construction step by step.",
+      "learning_objective": "Construct a gradient-boosting regression model by iteratively fitting weak learners to residuals.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Learning Rate Effects",
+      "question_text": "What does a SMALLER learning rate (e.g., 0.01 instead of 0.1) do in gradient boosting?",
+      "options": [
+        "A) It makes each tree deeper",
+        "B) Each tree contributes less, so the model moves toward a solution more slowly and needs more trees (more weak learners, longer training, a more complex model), but it often generalizes slightly better",
+        "C) It reduces the number of trees needed",
+        "D) It has no effect if n_estimators is fixed"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The learning rate is the step size. Smaller steps mean more steps (trees) to reach the same training fit. The week's overview notes that this makes training slower and the model more complex, but potentially more accurate, because many small corrections average out noise better than a few large ones. Part 2: A confuses the learning rate with max_depth. C reverses the relationship. D is wrong because, with n_estimators fixed, a smaller rate leaves the model UNDERFIT, since it hasn't moved far enough. Part 3: This is the basic learning-rate tradeoff the third objective asks you to compare.",
+      "learning_objective": "Compare the impact of different learning rates on model performance and complexity.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Learning Rate Effects",
+      "question_text": "True or False: As a rule of thumb, cutting the learning rate in half roughly doubles the number of trees needed to reach the same training error.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Because each tree's contribution is scaled by the learning rate, the total amount of 'movement' is roughly learning_rate * n_estimators. Halving one requires about doubling the other. That is why the two parameters are tuned together, typically by fixing a small learning rate and choosing n_estimators by early stopping. Part 2: Answering False treats the two parameters as independent. Part 3: This inverse relationship is central to comparing how learning rates affect complexity.",
+      "learning_objective": "Compare the impact of different learning rates on model performance and complexity.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Learning Rate Effects",
+      "question_text": "A learning-rate sweep on a churn dataset, with early stopping, gives: lr = 1.0 -> best validation AUC 0.79 at 15 trees; lr = 0.1 -> 0.84 at 220 trees; lr = 0.01 -> 0.845 at 2,300 trees. Which conclusion is best?",
+      "options": [
+        "A) lr = 1.0 is best because it trains fastest",
+        "B) lr = 0.01 is always the right choice because it has the highest AUC",
+        "C) lr = 0.1 is usually the practical choice: it is within 0.005 AUC of lr = 0.01 with about 10 times fewer trees (faster training and scoring, a smaller model), while lr = 1.0 overshoots and generalizes noticeably worse",
+        "D) The learning rate does not matter, since all three AUCs are above 0.75"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Smaller learning rates give diminishing returns in accuracy but grow model size and training cost roughly in proportion. The practical choice balances AUC against complexity, scoring latency, and how often the model is retrained. Part 2: A ignores a 0.05 drop in AUC from large, overshooting steps. B ignores 10 times the trees for a gain of 0.005, which may be within noise. D ignores real differences in performance. Part 3: Weighing performance against complexity across learning rates is exactly what the objective asks for.",
+      "learning_objective": "Compare the impact of different learning rates on model performance and complexity.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Learning Rate Effects",
+      "question_text": "You fix n_estimators = 100 and compare learning_rate = 0.01 and learning_rate = 0.5. Training RMSE: 0.01 -> 18.4, 0.5 -> 2.1. Validation RMSE: 0.01 -> 18.9, 0.5 -> 9.7. What is going on?",
+      "options": [
+        "A) With only 100 trees, lr = 0.01 is UNDERFITTING (training and validation errors are both high and close together), because 100 tiny steps are not enough. lr = 0.5 fits much better but shows a large train-validation gap (2.1 vs. 9.7), a sign of overfitting. Raise n_estimators for 0.01, or use a moderate rate such as 0.1 with early stopping",
+        "B) lr = 0.01 is overfitting",
+        "C) lr = 0.5 is underfitting",
+        "D) Both models are perfectly tuned"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: High, similar training and validation errors are the signature of underfitting: the model has not taken enough total steps. A tiny training error with a much larger validation error is the signature of overfitting. The learning rate and n_estimators must be tuned together. Part 2: B and C swap the diagnoses. D ignores both warning signs. Part 3: This compares how learning rates affect performance AND complexity when the number of trees is held fixed.",
+      "learning_objective": "Compare the impact of different learning rates on model performance and complexity.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Learning Rate Effects",
+      "question_text": "Why does a very HIGH learning rate (e.g., 1.0) often generalize worse in gradient boosting?",
+      "options": [
+        "A) It forces every tree to have depth 1",
+        "B) It disables the residual computation",
+        "C) It automatically adds L2 regularization",
+        "D) Each tree corrects the full residual, including its noise, so the model overreacts to individual training points and can overshoot. Early trees dominate and later trees mostly fit noise, giving a more variable model"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Shrinkage works as regularization: small steps let many trees each contribute a little, which averages out each tree's errors. With lr = 1.0, a single tree's quirks (overfitting to a few noisy residuals) go into the model at full strength. Part 2: A confuses the learning rate with max_depth. B is false, since residuals are always computed. C is wrong because the learning rate is not an L2 penalty, although both reduce variance. Part 3: Understanding WHY high learning rates hurt is part of comparing their impact on performance.",
+      "learning_objective": "Compare the impact of different learning rates on model performance and complexity.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Learning Rate Effects",
+      "question_text": "A fraud team must retrain its gradient-boosting model every night within 20 minutes and score transactions in under 5 ms. A grid search shows that lr = 0.005 with 6,000 trees gives AUC 0.912 but takes 75 minutes to train and 14 ms to score, while lr = 0.05 with 600 trees gives AUC 0.908 in 8 minutes and 2 ms. What should they do?",
+      "options": [
+        "A) Use lr = 0.005, because accuracy is all that matters",
+        "B) Use lr = 0.05 with 600 trees, chosen by early stopping. It meets both the training-time and latency limits at a cost of only 0.004 AUC. Confirm that the 0.004 gap is within cross-validation noise and check the dollar impact on fraud caught at the operating threshold",
+        "C) Use lr = 1.0 to make training even faster",
+        "D) Drop boosting and use a single decision tree"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: A smaller learning rate gives slightly better accuracy at the cost of many more trees, which raises both training time and scoring latency. When operational limits are hard, the moderate rate that meets them with nearly the same AUC is the right choice. Checking the business impact at the operating threshold makes the decision defensible. Part 2: A breaks both operational limits. C trades away accuracy for speed the team does not need. D gives up a large amount of accuracy. Part 3: This applies the comparison of learning rates to real limits on performance and complexity.",
+      "learning_objective": "Compare the impact of different learning rates on model performance and complexity.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Tree Depth and Number of Estimators",
+      "question_text": "The week's overview notes that 1,000 samples could in principle be fit perfectly by a tree with about 10 levels. Why is that?",
+      "options": [
+        "A) Because every tree has exactly 1,000 leaves",
+        "B) Because depth 10 always gives the lowest validation error",
+        "C) Because 10 levels means 10 features are used",
+        "D) Because a binary tree of depth d can have up to 2^d leaves, and 2^10 = 1,024 is at least 1,000, so each sample could get its own leaf. That would memorize the training data and very likely overfit"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Each level can double the number of leaves, so depth 10 allows up to 1,024 leaves, enough to isolate every one of 1,000 samples and reach zero training error. That is perfect memorization, which fits this particular dataset but not new data from the same population. Part 2: A misstates the leaf count, which is a maximum, not a fixed number. B confuses training fit with generalization. C is wrong because depth counts levels of splits, which may reuse the same features. Part 3: This leaf-count arithmetic is why depth controls the risk of overfitting.",
+      "learning_objective": "Evaluate how tree depth and number of estimators impact the risks of underfitting or overfitting.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Tree Depth and Number of Estimators",
+      "question_text": "True or False: In gradient boosting, adding more estimators (trees) can never cause overfitting, because each tree is shallow and weak.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Each tree is weak, but boosting keeps fitting whatever residual is left, and once the real signal has been captured, later trees start fitting noise. Validation error typically falls, flattens, and then rises. This is why early stopping (`n_iter_no_change`, `validation_fraction` in scikit-learn) is used. Part 2: Answering True applies random forest's behavior, where adding trees does not cause overfitting, to boosting, where it can. Part 3: Knowing that n_estimators can cause overfitting is central to this learning objective.",
+      "learning_objective": "Evaluate how tree depth and number of estimators impact the risks of underfitting or overfitting.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Tree Depth and Number of Estimators",
+      "question_text": "A depth sweep (learning_rate = 0.1, early stopping) on a housing dataset gives: depth 1 -> train RMSE 52k, validation RMSE 53k; depth 3 -> 31k / 34k; depth 6 -> 18k / 33k; depth 12 -> 2k / 41k. How should this be interpreted?",
+      "options": [
+        "A) Depth 12 is best because it has the lowest training error",
+        "B) Depth 1 (stumps) underfits: errors are high and similar, and the model is additive, so it cannot capture interactions. Depth 3 to 6 gives the best validation error, with depth 3 slightly more stable (smaller train-validation gap). Depth 12 overfits badly (2k vs. 41k)",
+        "C) All depths perform the same",
+        "D) Depth 1 overfits and depth 12 underfits"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Shallow trees have high bias: a depth-1 stump uses one feature per tree, so the ensemble cannot model interactions such as size x location. Deep trees each fit noise, which shows up as a large train-validation gap. The best region is where validation error is lowest and the gap is modest, typically depth 3 to 6 for boosting. Part 2: A uses training error, which always favors deeper trees. C ignores clear differences. D reverses both diagnoses. Part 3: Reading a depth sweep for underfitting and overfitting is exactly what this objective asks.",
+      "learning_objective": "Evaluate how tree depth and number of estimators impact the risks of underfitting or overfitting.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Tree Depth and Number of Estimators",
+      "question_text": "You plot training and validation log-loss against the number of trees (using `staged_predict_proba`). Training loss falls the whole time. Validation loss falls until about 350 trees, stays flat until 450, and then rises slowly. Which n_estimators should you choose, and why?",
+      "options": [
+        "A) 1,000, because training loss is still falling",
+        "B) 10, because fewer trees are always safer",
+        "C) About 350, where validation loss reaches its minimum. Before that the model underfits, and after about 450 it starts overfitting as extra trees fit noise. Early stopping automates this choice",
+        "D) It doesn't matter, because validation loss is irrelevant"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The minimum of the validation curve shows where adding trees stops helping generalization. Choosing about 350 (or anywhere on the flat region up to 450, preferring fewer trees for a simpler model) balances bias and variance. Part 2: A follows the training loss into overfitting. B stops far too early, while the model is still underfitting. D ignores the only reliable signal of generalization. Part 3: Using validation curves to choose n_estimators is a core way to evaluate the risks of underfitting and overfitting.",
+      "learning_objective": "Evaluate how tree depth and number of estimators impact the risks of underfitting or overfitting.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Tree Depth and Number of Estimators",
+      "question_text": "How do tree depth and the number of estimators interact?",
+      "options": [
+        "A) Deeper trees capture more structure per tree, so the model reaches its best validation error with FEWER trees but begins overfitting sooner. Shallower trees need MORE trees to capture the same structure, but overfitting usually starts more gradually",
+        "B) They are independent; changing depth never changes the best number of trees",
+        "C) Deeper trees always need more estimators",
+        "D) Depth only matters for random forest, not for boosting"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Each deep tree removes a large share of the residual, so fewer rounds are needed and the model can overfit quickly. Shallow trees take smaller bites of the residual, so they need more rounds but give a smoother path through the bias-variance tradeoff. That is why depth and n_estimators (along with the learning rate) are tuned together. Part 2: B ignores this interaction. C reverses it. D is false; depth is one of the most important boosting hyperparameters. Part 3: Seeing how depth and the number of trees interact is necessary for judging the overall risk of underfitting or overfitting.",
+      "learning_objective": "Evaluate how tree depth and number of estimators impact the risks of underfitting or overfitting.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Tree Depth and Number of Estimators",
+      "question_text": "An insurer's gradient-boosting model predicts claim costs. With max_depth = 8 and n_estimators = 2,000 (learning_rate = 0.1), training R^2 = 0.99 but test R^2 = 0.61. Diagnose the problem and recommend a concrete tuning plan for depth and number of estimators, including how you would validate it.",
+      "options": null,
+      "correct_answer": "Diagnosis: severe overfitting. Training R^2 of 0.99 against test R^2 of 0.61 is a large gap, caused by deep trees (each can have up to 2^8 = 256 leaves and fits noise in individual claims) combined with far too many rounds at a learning rate of 0.1. Plan: (1) Reduce max_depth and sweep it over {2, 3, 4, 5}. (2) Stop choosing n_estimators by hand: set n_estimators = 5,000 as an upper limit with early stopping (n_iter_no_change = 50, validation_fraction = 0.15), so training stops where validation loss is lowest. (3) Optionally lower learning_rate to 0.05 and let early stopping pick the number of trees. (4) Validate with 5-fold cross-validation on the training data, comparing mean validation R^2 and the train-validation gap, then report the chosen model's R^2 once on the untouched test set. A good result is a validation R^2 near 0.70 with a gap under 0.10.",
+      "explanation": "Part 1: A strong answer identifies overfitting from the train-test gap, links it to excessive depth and too many trees, and proposes a systematic sweep with early stopping and cross-validation, keeping the test set for the final evaluation only. Part 2: Answers that suggest adding more trees, increasing depth, or tuning on the test set make the problem worse or leak information. Answers that only say 'regularize' without naming the parameters are not concrete enough. Part 3: This applies the evaluation of depth and the number of estimators to a real business model.",
+      "learning_objective": "Evaluate how tree depth and number of estimators impact the risks of underfitting or overfitting.",
+      "keywords": ["overfitting", "max_depth", "early stopping", "cross-validation", "validation", "n_estimators"]
+    },
+    {
+      "number": 25,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Regularizing Gradient Boosting",
+      "question_text": "Which three regularization techniques for gradient boosting are described in this week's overview?",
+      "options": [
+        "A) Dropout, batch normalization, and weight decay",
+        "B) Increasing the learning rate, adding deeper trees, and removing validation data",
+        "C) One-hot encoding, standard scaling, and PCA",
+        "D) (1) Penalizing or limiting tree complexity, e.g., the number of leaves (max_leaf_nodes, or gamma in XGBoost); (2) setting a minimum number of samples per leaf (min_samples_leaf); (3) training each weak learner on a random subsample of rows (subsample < 1.0)"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: All three limit how closely each tree can fit the training data. Fewer leaves means simpler trees; a minimum leaf size stops leaves from being built around one or two outliers; and subsampling adds randomness that decorrelates the trees and reduces variance. Part 2: A lists neural-network techniques. B lists changes that INCREASE overfitting. C lists preprocessing steps, which are not boosting regularization. Part 3: These are the specific techniques the fifth learning objective asks you to apply.",
+      "learning_objective": "Apply regularization techniques in gradient boosting, including limiting tree complexity, setting sample thresholds, and subsampling.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Regularizing Gradient Boosting",
+      "question_text": "True or False: Setting subsample = 0.7 in scikit-learn's GradientBoostingRegressor means each tree is trained on a random 70% of the training rows, drawn without replacement. This is called stochastic gradient boosting, and it usually reduces variance and speeds up training.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Friedman's stochastic gradient boosting (2002) showed that fitting each tree on a random fraction of the data, typically 50-80%, injects randomness that reduces overfitting, much like bagging does in random forest. Each tree also trains faster on fewer rows, and the left-out rows allow out-of-bag estimates of improvement (`oob_improvement_`). Part 2: Answering False might come from confusing this with bootstrap sampling with replacement, which random forest uses. Part 3: Subsampling is one of the three regularization techniques this objective covers.",
+      "learning_objective": "Apply regularization techniques in gradient boosting, including limiting tree complexity, setting sample thresholds, and subsampling.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regularizing Gradient Boosting",
+      "question_text": "In a dataset of 5,000 retail transactions, a few extreme refund amounts create leaves containing only 1 or 2 samples, and the model's predictions jump wildly near those values. Which parameter change targets this most directly?",
+      "options": [
+        "A) Raise min_samples_leaf (e.g., from 1 to 30) so every leaf must contain at least 30 transactions. Leaf predictions then average over more samples, which makes them stable and stops trees from isolating individual outliers",
+        "B) Raise max_depth from 3 to 10",
+        "C) Raise the learning rate from 0.1 to 1.0",
+        "D) Set subsample = 1.0"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A minimum number of samples per leaf is the 'sample threshold' form of regularization. It stops a split that would put a handful of outliers in their own leaf, so each leaf's value is an average over enough data to be reliable. Part 2: B makes isolating outliers easier. C makes each noisy tree count for more. D removes subsampling, which reduces regularization. Part 3: Matching a specific overfitting symptom to the right regularization parameter is the core skill this objective asks for.",
+      "learning_objective": "Apply regularization techniques in gradient boosting, including limiting tree complexity, setting sample thresholds, and subsampling.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regularizing Gradient Boosting",
+      "question_text": "XGBoost's objective includes the regularization term Omega(tree) = gamma * T + 0.5 * lambda * sum of w_j^2, where T is the number of leaves and w_j are the leaf weights. What does increasing gamma do?",
+      "options": [
+        "A) It increases the learning rate",
+        "B) It forces every tree to have exactly gamma leaves",
+        "C) It adds a fixed penalty for every additional leaf, so a split is made only if it reduces the loss by more than gamma. This prunes low-value splits and produces simpler trees, which directly penalizes complexity in terms of the number of leaves",
+        "D) It increases the subsample rate"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: gamma (min_split_loss) is a complexity penalty: every new leaf costs gamma, so only splits whose gain exceeds that cost survive. lambda adds L2 shrinkage to the leaf weights, which further damps extreme predictions. This is the 'penalize the number of leaves' technique from the overview, in a formal version. Part 2: A confuses gamma with eta (the learning rate). B misreads a penalty as a fixed count. D confuses it with the subsample parameter. Part 3: Knowing how the complexity penalty works lets you apply it intentionally.",
+      "learning_objective": "Apply regularization techniques in gradient boosting, including limiting tree complexity, setting sample thresholds, and subsampling.",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Regularizing Gradient Boosting",
+      "question_text": "True or False: Regularization in gradient boosting (fewer leaves, a larger min_samples_leaf, subsampling) always lowers BOTH training error and validation error.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Regularization deliberately limits how closely the model can fit the training data, so training error usually goes UP. The goal is to lower VALIDATION error by reducing variance. Too much regularization (e.g., min_samples_leaf = 500 on 2,000 rows) causes underfitting, where both errors rise. Part 2: Answering True confuses better generalization with better training fit. Part 3: Applying regularization well means tuning its strength while watching the validation curve, not the training error.",
+      "learning_objective": "Apply regularization techniques in gradient boosting, including limiting tree complexity, setting sample thresholds, and subsampling.",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Regularizing Gradient Boosting",
+      "question_text": "A hospital builds a gradient-boosting classifier to predict 30-day readmission from 8,000 patient records (about 12% positive). The default model (max_depth = 3, learning_rate = 0.1, n_estimators = 500, subsample = 1.0, min_samples_leaf = 1) gives training AUC 0.95 and validation AUC 0.72. Propose a specific regularization plan using all three techniques from this week, with concrete parameter ranges and a validation strategy.",
+      "options": null,
+      "correct_answer": "Diagnosis: overfitting (a 0.23 AUC gap). Plan: (1) Limit tree complexity: keep max_depth at 2 to 3, or set max_leaf_nodes to 4 to 8. (In XGBoost or LightGBM, use gamma 0.5-2 and lambda 1-10.) (2) Sample thresholds: set min_samples_leaf to 20-100. With only about 960 readmissions, leaves of 1 or 2 patients are memorizing individuals. (3) Subsampling: set subsample to 0.6-0.8 (stochastic gradient boosting), and optionally max_features = 0.7 so each split considers fewer features. (4) Pair this with learning_rate = 0.05, n_estimators up to 2,000, and early stopping (n_iter_no_change = 50). Validation: use stratified 5-fold cross-validation to keep the 12% positive rate in every fold, and run a randomized search over the ranges above, scoring on mean validation AUC. Choose the setting with the highest validation AUC whose train-validation gap is under 0.05, then evaluate once on a held-out test set and check calibration (Brier score) before the model is used in clinical decisions.",
+      "explanation": "Part 1: A strong answer diagnoses overfitting from the AUC gap and applies all three regularization techniques (complexity limits, a minimum leaf size, and row and feature subsampling) with realistic parameter ranges. It adds early stopping, uses stratified cross-validation because of the class imbalance, and keeps a clean test set. Part 2: Answers that increase depth, tune on the test set, or name 'regularization' without specific parameters do not meet the standard. Ignoring the 12% positive rate risks folds with too few readmissions. Part 3: This fully applies the fifth objective to a high-stakes healthcare model.",
+      "learning_objective": "Apply regularization techniques in gradient boosting, including limiting tree complexity, setting sample thresholds, and subsampling.",
+      "keywords": ["min_samples_leaf", "subsample", "max_depth", "early stopping", "stratified", "cross-validation"]
+    }
+  ]
+}

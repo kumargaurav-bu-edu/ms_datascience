@@ -1,0 +1,490 @@
+{
+  "quiz_metadata": {
+    "title": "DX799 O1 Fall 2026: Week 2 - Lasso, Ridge & Elastic Net Regularization",
+    "description": "A master's-level capstone quiz on performing ridge (L2), lasso (L1), and elastic net regression with scikit-learn; comparing the effect of the penalty strength lambda (alpha) on coefficients, sparsity, and CV error (regularization paths, the 1-SE rule); analyzing how regularization changes performance across metrics (train/test RMSE, R-squared, number of nonzero features, stability under small samples and multicollinearity); and designing a strategy for choosing among the three based on dataset characteristics, using the Lending Club and Taiwan results from the Week 2 homework.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Performing Lasso, Ridge & Elastic Net",
+      "question_text": "Which penalty term does each method add to the OLS sum of squared residuals?",
+      "options": [
+        "A) Ridge adds lambda * sum(|beta_j|), and lasso adds lambda * sum(beta_j^2)",
+        "B) Ridge adds lambda * sum(beta_j^2) (L2). Lasso adds lambda * sum(|beta_j|) (L1). Elastic net adds a mix: lambda * [alpha * sum(|beta_j|) + (1 - alpha) / 2 * sum(beta_j^2)], where alpha is `l1_ratio` in scikit-learn",
+        "C) All three add lambda * n",
+        "D) None of them adds a penalty; they only rescale the data"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The L2 penalty shrinks all coefficients smoothly toward zero. The L1 penalty can set some EXACTLY to zero, which selects features. Elastic net blends the two, controlled by `l1_ratio`. Note that scikit-learn calls the penalty strength `alpha` (lambda in textbooks). Part 2: A swaps the two penalties. C and D are not regularization. Part 3: Knowing each penalty is the starting point for performing these methods.",
+      "learning_objective": "Perform lasso, ridge, and elastic net regression techniques to analyze a dataset.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Performing Lasso, Ridge & Elastic Net",
+      "question_text": "True or False: Predictors should be STANDARDIZED before fitting ridge, lasso, or elastic net, because the penalty treats all coefficients on the same scale, and a variable measured in large units would otherwise be penalized differently from one measured in small units.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The size of a coefficient depends on the predictor's units. Without scaling, `annual_inc` in dollars would get a tiny coefficient and almost no penalty, while `revol_util` in percent would be penalized heavily, so the penalty would arbitrarily favor some features. Put `StandardScaler` in a pipeline so it is fit only on training folds. Part 2: Answering False ignores that the penalty is not scale-invariant (unlike OLS predictions). Part 3: Standardizing is a required step in performing regularized regression correctly.",
+      "learning_objective": "Perform lasso, ridge, and elastic net regression techniques to analyze a dataset.",
+      "keywords": []
+    },
+    {
+      "number": 3,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Lasso, Ridge & Elastic Net",
+      "question_text": "Which scikit-learn code correctly fits a lasso model with its alpha chosen by 5-fold cross-validation, without leaking test data?",
+      "options": [
+        "A) `Lasso(alpha=1).fit(X_test, y_test)`",
+        "B) `LassoCV(cv=5).fit(StandardScaler().fit_transform(X_all), y_all)`, then score it on `X_test`",
+        "C) `make_pipeline(StandardScaler(), LassoCV(alphas=np.logspace(-4, 1, 50), cv=5)).fit(X_train, y_train)`, then evaluate the fitted pipeline once on `X_test, y_test`",
+        "D) `LinearRegression(penalty='l1').fit(X_train, y_train)`"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: The pipeline fits the scaler and chooses alpha using only the training data, and the CV selects alpha across a log-spaced grid. The test set is touched once at the end for an honest estimate. Part 2: A trains on the test set. B scales using ALL the data, including the test rows, which leaks information. D uses a parameter `LinearRegression` does not have. Part 3: Writing a correct, leakage-free pipeline is the practical core of performing these methods.",
+      "learning_objective": "Perform lasso, ridge, and elastic net regression techniques to analyze a dataset.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Performing Lasso, Ridge & Elastic Net",
+      "question_text": "Why can LASSO set coefficients exactly to zero while RIDGE only shrinks them toward zero?",
+      "options": [
+        "A) Ridge uses a larger lambda",
+        "B) Lasso's constraint region (a diamond, |b1| + |b2| <= t) has CORNERS on the axes, so the elliptical contours of the loss often first touch it at a corner where a coefficient equals 0. Ridge's region (a circle, b1^2 + b2^2 <= t) is smooth, so the touching point is rarely exactly on an axis",
+        "C) Lasso deletes variables at random",
+        "D) Ridge cannot handle more than 10 variables"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Geometrically, the L1 penalty's sharp corners make sparse solutions likely. Algebraically, the absolute-value penalty has a constant slope near 0, so small coefficients are pushed all the way to zero (soft-thresholding). The L2 penalty's slope vanishes near 0, so coefficients only shrink. Part 2: A is false; even a large ridge lambda never gives exact zeros. C and D are false. Part 3: Understanding why lasso selects features explains its behavior when you perform it.",
+      "learning_objective": "Perform lasso, ridge, and elastic net regression techniques to analyze a dataset.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Performing Lasso, Ridge & Elastic Net",
+      "question_text": "In scikit-learn's `ElasticNet`, the parameter that sets the MIX between the L1 and L2 penalties (1.0 = pure lasso, 0.0 = pure ridge) is called ___.",
+      "options": null,
+      "correct_answer": "l1_ratio",
+      "explanation": "Part 1: `l1_ratio` controls the share of the penalty that is L1, and `alpha` controls the overall strength. In the Week 2 homework, `ElasticNetCV` chose l1_ratio = 0.9, which is almost pure lasso, meaning the data favored sparsity. Part 2: `alpha` is the overall strength, not the mix. `lambda` is the textbook name for alpha. Part 3: Knowing both elastic net parameters is required to tune it.",
+      "learning_objective": "Perform lasso, ridge, and elastic net regression techniques to analyze a dataset.",
+      "keywords": [
+        "l1_ratio",
+        "l1 ratio",
+        "mixing"
+      ]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Performing Lasso, Ridge & Elastic Net",
+      "question_text": "True or False: The INTERCEPT is normally penalized in ridge and lasso, just like the slope coefficients.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. The intercept only sets the overall level of predictions. Penalizing it would pull predictions toward 0 for no reason, and the result would depend on how Y is centered. scikit-learn leaves the intercept unpenalized (`fit_intercept=True`) and penalizes only the slopes. Part 2: Answering True would make the model's predictions shift when you simply add a constant to Y. Part 3: Knowing which parameters are penalized avoids confusion when interpreting fitted models.",
+      "learning_objective": "Perform lasso, ridge, and elastic net regression techniques to analyze a dataset.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Performing Lasso, Ridge & Elastic Net",
+      "question_text": "On Taiwan, the six monthly bill amounts are correlated at 0.80-0.95. OLS gave BILL_AMT1 = +0.308 with alternating signs on the other months. Ridge gave +0.265 with similar but shrunken signs. Lasso gave +0.245 and set BILL_AMT4 exactly to 0. What does this show about how the penalties handle collinear groups?",
+      "options": [
+        "A) The sign flips under OLS are a symptom of multicollinearity (weights that offset and cancel). RIDGE spreads the shrinkage across the correlated group, giving more stable but still nonzero coefficients. LASSO tends to keep one or a few members (here, the most recent month) and zero out others somewhat arbitrarily. Elastic net combines both, tending to keep or drop correlated variables together (the 'grouping effect')",
+        "B) Lasso is wrong because it dropped a variable",
+        "C) Ridge creates the multicollinearity",
+        "D) All three models are identical"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: This is the textbook difference. L2 handles collinear groups stably by sharing the weight. L1 picks a representative, and which one it picks can change with small changes in the data. Elastic net is designed to retain the group. Business reading: the latest bill carries most of the signal. Part 2: B misreads deliberate selection as an error. C reverses cause and effect. D ignores the different coefficients. Part 3: Interpreting coefficient behavior on real collinear data is an advanced skill in performing these methods.",
+      "learning_objective": "Perform lasso, ridge, and elastic net regression techniques to analyze a dataset.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Effects of the Lambda Parameter",
+      "question_text": "What happens to ridge and lasso coefficients as lambda (alpha) increases from 0 toward a very large value?",
+      "options": [
+        "A) The coefficients grow without limit",
+        "B) Nothing changes",
+        "C) The coefficients shrink toward zero. At lambda = 0, the solution equals OLS. As lambda grows, ridge coefficients approach 0 but never reach it, while lasso coefficients hit exactly 0 one by one until all are 0 (an intercept-only model)",
+        "D) The coefficients become random"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Lambda sets the price of large coefficients. A small lambda gives low bias and high variance (close to OLS). A large lambda gives high bias and low variance, eventually predicting just the mean. The regularization path plots this trajectory. Part 2: A, B, and D misdescribe the effect. Part 3: Describing how lambda affects coefficients is the foundation of comparing lambda values.",
+      "learning_objective": "Compare the effects of different lambda parameters on model outcomes.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Effects of the Lambda Parameter",
+      "question_text": "True or False: Setting lambda = 0 in ridge or lasso gives a model in which every slope coefficient is exactly zero (an intercept-only model).",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. With lambda = 0 there is NO penalty, so the objective is just the sum of squared residuals, which is OLS. The intercept-only model is the opposite end of the path: a VERY LARGE lambda. That is why CV curves flatten at very small alpha and match the OLS error, as on the full Lending Club training set, where the smallest alpha was within one SE of the best. Part 2: Answering True reverses the two ends of the lambda range. Part 3: Knowing both ends (lambda = 0 gives OLS; a very large lambda gives the mean only) anchors any comparison of lambda values.",
+      "learning_objective": "Compare the effects of different lambda parameters on model outcomes.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Effects of the Lambda Parameter",
+      "question_text": "A plot of 5-fold CV RMSE against log(alpha) is U-shaped: high at very small alpha, lowest in the middle, and rising steeply at large alpha. What does each part of the curve represent?",
+      "options": [
+        "A) The left side means underfitting, and the right side means overfitting",
+        "B) The left side (small alpha) means high VARIANCE or overfitting, close to OLS, which fits noise. The bottom is the best bias-variance balance. The right side (large alpha) means high BIAS or underfitting, where coefficients are shrunk so much that real signal is lost (the RMSE approaches the SD of the target)",
+        "C) The curve shape is random",
+        "D) Only the right side matters"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The CV curve shows the bias-variance trade-off directly. In the homework, lasso's CV RMSE at the largest alpha was 4.76, roughly the target SD of 4.76, meaning the model predicted only the mean. Part 2: A reverses the two sides. C and D ignore the structure. Part 3: Reading CV curves is how you compare the effects of different lambda values.",
+      "learning_objective": "Compare the effects of different lambda parameters on model outcomes.",
+      "keywords": []
+    },
+    {
+      "number": 11,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Effects of the Lambda Parameter",
+      "question_text": "For Lending Club lasso, the CV-best alpha was 0.000464 (CV RMSE 3.6014 +/- 0.0045), and the 1-SE alpha was 0.01. What does choosing the 1-SE alpha do, and why might you prefer it?",
+      "options": [
+        "A) It picks the LARGEST alpha (the simplest, sparsest model) whose CV error is within one standard error of the minimum (at most 3.6014 + 0.0045 = 3.6059). Accuracy is statistically indistinguishable, but the model has fewer nonzero features and more stable coefficients",
+        "B) It always gives lower test error than the best alpha",
+        "C) It gives the OLS solution",
+        "D) It removes all features"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The 1-SE rule (Hastie, Tibshirani, and Friedman) trades a negligible, non-significant increase in error for parsimony. It is valuable when interpretability, or the cost of collecting variables, matters. In `glmnet`, this is `lambda.1se`. Part 2: B is not guaranteed; the error may be slightly higher. C describes alpha = 0. D describes a very large alpha. Part 3: Choosing between alpha values with a principled rule is a key part of comparing lambda parameters.",
+      "learning_objective": "Compare the effects of different lambda parameters on model outcomes.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Effects of the Lambda Parameter",
+      "question_text": "With one standardized predictor (x'x = n = 100) and an OLS coefficient beta_OLS = 2.0, the ridge estimate is beta_ridge = beta_OLS * n / (n + lambda). What is beta_ridge when lambda = 25? Enter only the number.",
+      "options": null,
+      "correct_answer": "1.6",
+      "explanation": "Part 1: beta_ridge = 2.0 * 100 / (100 + 25) = 2.0 * 0.8 = 1.6. Ridge shrinks by a factor of n / (n + lambda), so it never reaches exactly 0. By contrast, lasso (soft-thresholding) gives sign(beta) * max(|beta| - lambda / (2n), 0), which can be exactly 0. Part 2: Common mistakes are subtracting lambda (2.0 - 25), dividing by lambda (2.0 / 25 = 0.08), or using n / lambda. Part 3: Calculating the shrinkage factor shows concretely how lambda affects the coefficients.",
+      "learning_objective": "Compare the effects of different lambda parameters on model outcomes.",
+      "keywords": [
+        "1.6",
+        "0.8",
+        "100 / 125",
+        "shrinkage"
+      ]
+    },
+    {
+      "number": 13,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Effects of the Lambda Parameter",
+      "question_text": "On Taiwan, the CV-best ridge alpha was 100, while the CV-best lasso alpha was 0.000464. A teammate says, 'Ridge applies 200,000 times more regularization.' What is wrong with this comparison?",
+      "options": [
+        "A) Nothing; larger alpha always means more shrinkage across methods",
+        "B) Ridge alpha values are always 100",
+        "C) Lasso does not use alpha",
+        "D) Alpha is on different SCALES for each method: the L1 and L2 penalties have different units (|beta| vs beta^2), and scikit-learn's Lasso divides the loss by 2n while Ridge does not. Alpha values are comparable only WITHIN a method. Compare the methods by their effect (CV error, how much the coefficients shrank, sparsity), not by the raw alpha"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: In scikit-learn, Ridge minimizes ||y - Xb||^2 + alpha * ||b||^2, while Lasso minimizes (1 / 2n) * ||y - Xb||^2 + alpha * ||b||_1, so the numbers are not on a common scale. Part 2: A assumes the scales match. B and C are false. Part 3: Comparing lambda effects correctly means comparing outcomes, not raw parameter values across methods.",
+      "learning_objective": "Compare the effects of different lambda parameters on model outcomes.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Effects of the Lambda Parameter",
+      "question_text": "On the lasso regularization path for Taiwan (215 features), a few coefficients leave zero first as alpha decreases, most stay near zero until alpha is about 1e-3, and the CV-chosen alpha (0.0007) keeps 153 of 215 features. Which interpretation is best?",
+      "options": [
+        "A) The first features to leave zero (e.g., education categories and the most recent bill) carry the strongest independent signal. Most of the remaining features add small, partly redundant contributions. At the CV-chosen alpha, lasso drops 62 features (29%), many of them redundant bill and payment interactions, with no loss of accuracy. A larger (1-SE) alpha would keep fewer features if simplicity is a priority",
+        "B) The order in which features enter is random",
+        "C) All 215 features are equally important",
+        "D) The model should use alpha = 1, where all coefficients are 0"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The path is a ranking by importance under regularization. Features that survive larger penalties are the most robust predictors. CV picks where on the path to stop, and the 1-SE rule moves toward sparsity. Part 2: B and C ignore the information in the path. D underfits, since every coefficient would be 0. Part 3: Reading regularization paths to compare lambda values is the advanced skill of this objective.",
+      "learning_objective": "Compare the effects of different lambda parameters on model outcomes.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Regularization & Performance Metrics",
+      "question_text": "In the homework's test-set comparison for Lending Club (108 features, 20,000 training rows), OLS, ridge, lasso, and elastic net all had a test RMSE of about 3.603 and R-squared of about 0.432. Why did regularization barely help?",
+      "options": [
+        "A) Regularization is never useful",
+        "B) The code had a bug",
+        "C) The alpha values were too large",
+        "D) With about 185 training rows per feature, OLS was not overfitting (train RMSE 3.563 vs test 3.603), so there was little variance for the penalty to remove. Regularization mainly helps when variance is high: few rows per feature, many features, or strong collinearity"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Regularization trades bias for lower variance. If the variance is already low, the trade gives little benefit, so all methods tie. A train/test gap close to zero is the clue. Part 2: A overgeneralizes. B and C are unsupported, since the CV-chosen alphas were small and close to OLS. Part 3: Explaining when regularization changes performance is the core of this objective.",
+      "learning_objective": "Analyze how different regularization approaches affect model performance across various metrics.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Regularization & Performance Metrics",
+      "question_text": "True or False: Regularization usually INCREASES the training error compared with OLS, even when it DECREASES the test error.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. OLS minimizes training error by definition, so any penalty makes the training fit slightly worse (higher bias). The benefit comes from lower variance, which shows up as better performance on unseen data. That is why models should be compared on test or CV error, not training error. Part 2: Answering False misunderstands what regularization trades off. Part 3: Separating training and test metrics is essential when analyzing performance.",
+      "learning_objective": "Analyze how different regularization approaches affect model performance across various metrics.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regularization & Performance Metrics",
+      "question_text": "In the training-size experiment, with only 300 training rows, the test RMSE for Lending Club was: OLS 34.46, ridge 4.14, lasso 3.95 (target SD of about 4.76). What does this show?",
+      "options": [
+        "A) With 108 features and only 300 rows (about 2.8 rows per feature), OLS fits noise badly, so its test error is 7 times the SD of the target, worse than predicting the mean. Ridge and lasso control the variance and stay near the target SD. This is the clearest evidence of regularization's benefit",
+        "B) OLS is always worse than ridge",
+        "C) Lasso is always the best method",
+        "D) 300 rows is enough for any model"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: When the number of rows per feature is low, OLS variance explodes, because coefficients fit noise and blow up on new data. Penalties restrain this. By 2,000 to 5,000 rows, the gap closed and all methods tied. Part 2: B and C overgeneralize; at 20,000 rows, they tie. D contradicts the evidence. Part 3: Analyzing how performance changes with sample size shows when regularization pays off.",
+      "learning_objective": "Analyze how different regularization approaches affect model performance across various metrics.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regularization & Performance Metrics",
+      "question_text": "On Taiwan, OLS used 215 of 215 features (test RMSE 0.7046), ridge used 215 (0.7036), and lasso used only 153 (0.7033). Which metric gives the most important practical difference here?",
+      "options": [
+        "A) Test RMSE, because 0.7033 is clearly far better than 0.7046",
+        "B) R-squared, because 0.4322 vs 0.4301 is a big jump",
+        "C) The NUMBER OF NONZERO FEATURES (model complexity): lasso matches the best accuracy with 29% fewer features, which makes the model simpler to explain, cheaper to maintain, and less exposed to data-quality problems in the dropped inputs. The 0.0013 RMSE difference is negligible",
+        "D) Training time only"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: When accuracy ties within noise, sparsity becomes the deciding metric, so look beyond RMSE alone. Part 2: A and B overstate tiny differences that are within sampling noise. D matters little for linear models of this size. Part 3: Weighing several metrics (accuracy, sparsity, stability) is the core of analyzing regularization's effect on performance.",
+      "learning_objective": "Analyze how different regularization approaches affect model performance across various metrics.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Regularization & Performance Metrics",
+      "question_text": "True or False: Lasso is always the most accurate of the three methods, because it removes irrelevant features.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. When MANY features each have small, real effects (a 'dense' signal), ridge often predicts better, because lasso may drop useful variables. When features are highly correlated, lasso's somewhat arbitrary choice can hurt stability, and elastic net or ridge may do better. Lasso shines when the true signal is SPARSE. Part 2: Answering True overgeneralizes Taiwan's result, where lasso was best or tied in every training-size row. Part 3: Knowing that the best method depends on the data is central to analyzing regularization's performance.",
+      "learning_objective": "Analyze how different regularization approaches affect model performance across various metrics.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Regularization & Performance Metrics",
+      "question_text": "You refit lasso on 20 bootstrap resamples of the Taiwan training data. Test RMSE barely changes (0.703 +/- 0.001), but the SET of selected bill-month features changes noticeably from resample to resample. Which metric does this reveal, and what is its implication?",
+      "options": [
+        "A) Lasso's accuracy is unstable",
+        "B) SELECTION STABILITY is low for collinear features: lasso chooses among interchangeable bill months somewhat arbitrarily. Predictions are stable, but statements like 'BILL_AMT4 doesn't matter' are not reliable. Report selection frequencies, use elastic net for grouping, or combine the collinear block before interpreting",
+        "C) The bootstrap is invalid",
+        "D) Ridge would select fewer features"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Prediction accuracy and the stability of interpretation are DIFFERENT metrics. Lasso can predict well while its variable selection varies, especially when predictors are correlated. Stability selection (Meinshausen and Buhlmann) formalizes this check. Part 2: A misreads stable RMSE. C is false. D is wrong, since ridge selects no features at all; it keeps them all. Part 3: Including stability as a metric is part of a thorough performance analysis.",
+      "learning_objective": "Analyze how different regularization approaches affect model performance across various metrics.",
+      "keywords": []
+    },
+    {
+      "number": 21,
+      "level": 3,
+      "question_type": "interpretation",
+      "section": "Regularization & Performance Metrics",
+      "question_text": "Interpret this summary for a stakeholder: Lending Club (n_train = 20,000, 108 features): OLS test RMSE 3.6037, ridge 3.6033, lasso 3.6031 (107/108 features), elastic net 3.6030. Training-size experiment at n = 300: OLS 34.46, ridge 4.14, lasso 3.95. What should they conclude about regularization for this dataset, and what metrics support it?",
+      "options": null,
+      "correct_answer": "At the full training size, all four models tie: test RMSE differences of about 0.0007 are far below sampling noise, R-squared is about 0.432 for all, and train RMSE (about 3.56) is close to test RMSE (about 3.60), so OLS is not overfitting and the penalty has little variance to remove. Lasso keeping 107 of 108 features shows that nearly all features carry signal (a dense signal), so sparsity gives no simplification here either. The small-sample experiment shows regularization's real value: with only 300 rows (about 2.8 per feature), OLS fails (RMSE 34.5, about 7 times the target SD), while ridge and lasso stay near 4. Conclusion: for this large Lending Club dataset, regularization is 'insurance', harmless and slightly safer, and it matters a lot when data are scarce, features are added, or the model is retrained on small segments, such as a single state or loan purpose.",
+      "explanation": "Part 1: A strong answer reads the tie correctly (differences within noise, no train/test gap), notes the near-total feature retention, uses the small-sample results to show when the penalty matters, and gives an actionable conclusion for stakeholders. Part 2: Answers that declare elastic net 'the best' because of a 0.0007 difference, or that ignore the small-sample evidence, misread the metrics. Part 3: This is a full multi-metric analysis of regularization.",
+      "learning_objective": "Analyze how different regularization approaches affect model performance across various metrics.",
+      "keywords": [
+        "test RMSE",
+        "overfitting",
+        "sample size",
+        "variance",
+        "107",
+        "insurance"
+      ]
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Designing an Optimal Strategy",
+      "question_text": "Which dataset characteristic most favors LASSO?",
+      "options": [
+        "A) Many candidate features, but you expect only a FEW to truly matter (a sparse signal), and you want an interpretable model that automatically drops irrelevant inputs",
+        "B) All features are important, with small effects",
+        "C) Groups of highly correlated features that should all be kept",
+        "D) Only 2 features and 10,000 rows"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Lasso's L1 penalty selects features, which matches sparse problems such as screening 500 marketing variables to find the 15 that drive churn. Part 2: B (a dense signal) favors ridge. C favors elastic net or ridge. D needs no regularization at all. Part 3: Matching data characteristics to a method is the core of designing a modeling strategy.",
+      "learning_objective": "Design an optimal modeling strategy that selects between lasso, ridge, or elastic net regression techniques based on dataset characteristics.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Designing an Optimal Strategy",
+      "question_text": "Which situation most favors ELASTIC NET over pure lasso?",
+      "options": [
+        "A) A single predictor",
+        "B) p > n, with GROUPS of correlated predictors (e.g., genes in the same pathway, or six correlated monthly bills). Lasso would pick one variable per group arbitrarily and can select at most n variables, while elastic net's L2 part keeps correlated groups together and its L1 part still gives sparsity",
+        "C) Perfectly uncorrelated predictors with a dense signal",
+        "D) No predictors at all"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Zou and Hastie (2005) introduced elastic net to fix lasso's two limits: instability within correlated groups, and selecting at most n variables when p > n. Tuning l1_ratio by CV lets the data choose the mix. Part 2: A and D are trivial cases. C would favor ridge or OLS. Part 3: Knowing when elastic net is preferred completes the strategy toolkit.",
+      "learning_objective": "Design an optimal modeling strategy that selects between lasso, ridge, or elastic net regression techniques based on dataset characteristics.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Designing an Optimal Strategy",
+      "question_text": "True or False: A good strategy is to tune `ElasticNetCV` over a grid of l1_ratio values (e.g., [0.1, 0.5, 0.7, 0.9, 0.95, 1.0]) together with alpha, because this lets cross-validation choose between ridge-like, lasso-like, and mixed penalties from the data.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Elastic net covers both lasso (l1_ratio = 1) and models close to ridge (small l1_ratio; scikit-learn's ElasticNet warns that values near 0 are unreliable, so use `Ridge` for pure L2). Tuning both parameters by CV is an evidence-based way to choose. In the homework, CV chose 0.9, which is almost pure lasso. Part 2: Answering False would mean choosing the penalty by habit rather than evidence. Part 3: Letting CV decide the mix is a practical way to design the strategy.",
+      "learning_objective": "Design an optimal modeling strategy that selects between lasso, ridge, or elastic net regression techniques based on dataset characteristics.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Designing an Optimal Strategy",
+      "question_text": "A hospital predicts length of stay from 40 lab and vital-sign features (n = 30,000). Clinicians believe MOST features contribute a little, several labs are moderately correlated, and they do not need feature selection. Which method fits best?",
+      "options": [
+        "A) Lasso, because it is always the best",
+        "B) Unpenalized OLS with 40 features, because n is large",
+        "C) RIDGE: the signal is believed to be dense (many small effects), the correlated labs are handled stably by L2 shrinkage, and no sparsity is needed. Verify with CV against lasso and elastic net, and expect similar results given n = 30,000",
+        "D) Drop all correlated labs first"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Ridge matches dense signals and correlated predictors, and with a large n, all methods may tie, so CV comparison confirms the choice. Part 2: A ignores the dense prior. B may be fine, but it gives up the stability ridge provides with correlated features. D throws away information that ridge can use. Part 3: Turning domain knowledge about the data into a method choice is the essence of strategy design.",
+      "learning_objective": "Design an optimal modeling strategy that selects between lasso, ridge, or elastic net regression techniques based on dataset characteristics.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Designing an Optimal Strategy",
+      "question_text": "A marketing team has 1,200 customers and 3,000 candidate features (web clicks, demographics, product interactions) to predict annual spend. They want a short list of drivers for a campaign. Which strategy is best?",
+      "options": [
+        "A) OLS with all 3,000 features",
+        "B) Ridge, then report all 3,000 coefficients",
+        "C) Choose 50 features at random",
+        "D) Because p > n and the team needs SPARSITY, use lasso or elastic net (since clickstream features are often correlated), with `ElasticNetCV` tuning alpha and l1_ratio. Use the 1-SE alpha for a shorter list, check selection stability with bootstrap resamples, and validate on a held-out test set"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: OLS cannot be fit when p > n. Ridge would keep all 3,000 features, which does not meet the goal of a short list. Lasso or elastic net give sparse, validated models, and the stability checks protect against arbitrary picks among correlated features. Part 2: A is infeasible. B does not meet the business need. C is unprincipled. Part 3: Combining the data shape (p > n), the goal (sparsity), and correlation into a validated plan is strategic design.",
+      "learning_objective": "Design an optimal modeling strategy that selects between lasso, ridge, or elastic net regression techniques based on dataset characteristics.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Designing an Optimal Strategy",
+      "question_text": "True or False: When all regularized models tie with OLS on test error (as on the full Lending Club training set), the best strategy may still be to deploy a regularized model, because it protects against variance if the model is later retrained on smaller samples or with more features.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. The homework's training-size experiment showed OLS failing at 300 rows, while ridge and lasso stayed stable. In production, models are often retrained on subsets (one region, a new product) or with new features, so a lightly regularized model, with alpha chosen by CV, costs essentially nothing in accuracy and adds robustness. Part 2: Answering False ignores how deployment conditions change. Part 3: Thinking beyond a single test split is part of designing an optimal strategy.",
+      "learning_objective": "Design an optimal modeling strategy that selects between lasso, ridge, or elastic net regression techniques based on dataset characteristics.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Designing an Optimal Strategy",
+      "question_text": "Your capstone combines Lending Club (low collinearity, max VIF of about 2.5, dense signal, 185 rows per feature) and Taiwan (strong collinearity among bill and payment months, many redundant interaction features, 111 rows per feature). What strategy follows from these characteristics?",
+      "options": [
+        "A) Use the same untuned lasso for both",
+        "B) Use OLS for both, because n is large",
+        "C) Use ridge for Taiwan and lasso for Lending Club",
+        "D) Lending Club: lightly regularized RIDGE (or OLS) for stable, interpretable coefficients, since the signal is dense and lasso keeps 107/108 anyway. Taiwan: LASSO or ELASTIC NET, which drop redundant interaction and bill features (153/215 kept) with no loss of accuracy; check selection stability for the collinear block. In both cases, tune alpha (and l1_ratio) by CV inside a pipeline, use the 1-SE rule if simplicity matters, and confirm on the same held-out test set"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The evidence matches theory. A dense, low-collinearity dataset gains little from sparsity, while a dataset with many redundant, collinear features benefits from L1-based pruning. Tuning and validation keep the decision evidence-based. Part 2: A ignores the differences between the datasets and skips tuning. B ignores Taiwan's redundancy and future retraining risk. C reverses the match. Part 3: Making a strategy specific to each dataset's characteristics is the advanced application of this objective.",
+      "learning_objective": "Design an optimal modeling strategy that selects between lasso, ridge, or elastic net regression techniques based on dataset characteristics.",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Designing an Optimal Strategy",
+      "question_text": "A real-estate startup has 2,500 home sales and 400 engineered features (square footage, many correlated room-size variables, 150 one-hot neighborhood dummies, and interaction terms). They need accurate price predictions AND a short explanation of the top price drivers for agents. Design a regularization strategy, including diagnostics, tuning, validation, and the final recommendation.",
+      "options": null,
+      "correct_answer": "(1) Diagnostics: rows per feature = 2,500 / 400, about 6, which is low, so OLS will have high variance. Compute VIFs and correlations; expect strong collinearity among the room-size variables. Many interactions suggest that only some of them matter. (2) Preprocessing: log-transform price; split the data 80/20 by sale date to mimic future predictions; build a pipeline with `StandardScaler` and one-hot encoding fit on the training data only. (3) Candidates: `RidgeCV`, `LassoCV`, and `ElasticNetCV` with l1_ratio in [0.1, 0.5, 0.7, 0.9, 1.0], alpha on a log grid from 1e-4 to 1e2, and 5-fold CV. Use OLS as a baseline. (4) Compare metrics: CV and test RMSE (in dollars, back-transformed), MAE, R-squared, the number of nonzero features, and selection stability across 50 bootstrap resamples. (5) Expected result: elastic net (l1_ratio around 0.5 to 0.9) is likely best, giving sparsity for the explanation while keeping correlated room-size variables together. Use the 1-SE alpha to shorten the driver list. (6) Recommendation: deploy elastic net for predictions; present the top 10 standardized coefficients that are stable across bootstraps (e.g., square footage, neighborhood, bathrooms) as the drivers for agents; document the alpha and l1_ratio and retrain with CV quarterly. If ridge has clearly better accuracy, use ridge for pricing and the elastic net subset only for explanation.",
+      "explanation": "Part 1: A strong answer diagnoses rows per feature and collinearity, uses a leakage-free pipeline with a realistic time-based split, tunes all three methods with CV (including l1_ratio), compares several metrics including sparsity and stability, and makes a reasoned recommendation tied to the two business goals. Part 2: Answers that pick one method without comparing, skip scaling, or ignore the explanation requirement are incomplete. Part 3: This is a full design of a modeling strategy.",
+      "learning_objective": "Design an optimal modeling strategy that selects between lasso, ridge, or elastic net regression techniques based on dataset characteristics.",
+      "keywords": [
+        "rows per feature",
+        "collinearity",
+        "ElasticNetCV",
+        "l1_ratio",
+        "cross-validation",
+        "sparsity"
+      ]
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Designing an Optimal Strategy",
+      "question_text": "Write a decision framework (a set of if-then rules plus validation steps) that a data scientist could follow to choose between ridge, lasso, and elastic net for ANY new tabular regression dataset. Justify each rule with the property of the penalty that makes it appropriate.",
+      "options": null,
+      "correct_answer": "Step 0 (always): standardize the features inside a pipeline, hold out a test set, and tune alpha by CV on a log grid. Rule 1: if p > n, avoid OLS; use lasso or elastic net (if sparsity is wanted) or ridge (if a dense signal is expected). Reason: the penalties make the problem solvable; lasso alone selects at most n features, so prefer elastic net when there are many correlated features. Rule 2: if the signal is believed to be SPARSE (few true drivers) and interpretability or feature reduction matters, use lasso. Reason: the L1 penalty's corners set coefficients exactly to zero. Rule 3: if many features each contribute a little (DENSE) and the features are correlated, use ridge. Reason: the L2 penalty shrinks smoothly and spreads weight across correlated features, giving stable coefficients without dropping signal. Rule 4: if there are GROUPS of highly correlated features and sparsity is also wanted, use elastic net. Reason: the L2 part produces the grouping effect and the L1 part produces sparsity; tune l1_ratio by CV. Rule 5: if rows per feature are high (e.g., more than 100), VIFs are low, and the train/test gap is small, expect all methods to tie; choose by secondary goals (ridge for stable coefficients, lasso for simplicity) and keep light regularization as insurance against retraining on small samples. Validation: compare all candidates on the same CV and test sets using RMSE or MAE, R-squared, the number of nonzero features, and bootstrap selection stability; apply the 1-SE rule when simplicity matters; and check how performance degrades on smaller training subsets.",
+      "explanation": "Part 1: A strong answer gives clear, conditional rules covering p > n, sparse vs dense signals, correlated groups, and large-n ties; justifies each with the penalty's mathematical behavior (L1 corners, L2 smooth shrinkage, the grouping effect); and specifies a validation process across several metrics. Part 2: Answers that give one method for all cases, or rules without reasons or validation, are incomplete. Part 3: This is the most general form of the strategy-design objective and draws on all four learning objectives.",
+      "learning_objective": "Design an optimal modeling strategy that selects between lasso, ridge, or elastic net regression techniques based on dataset characteristics.",
+      "keywords": [
+        "sparse",
+        "dense",
+        "correlated",
+        "p > n",
+        "grouping effect",
+        "cross-validation"
+      ]
+    }
+  ]
+}

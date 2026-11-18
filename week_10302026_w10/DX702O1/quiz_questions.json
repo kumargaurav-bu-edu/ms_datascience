@@ -1,0 +1,470 @@
+{
+  "quiz_metadata": {
+    "title": "DX702 O1 Fall 2026: Week 10 - Fixed Effects, Random Effects, and Regression Extensions",
+    "description": "A master's-level quiz on applying fixed effects and two-way fixed effects (within variation, demeaning, dummy encoding, within R-squared), understanding random effects and clustered standard errors (distributional assumptions, partial pooling, hierarchical models), and reviewing heteroskedasticity and nonlinear regression from The Effect, Chapters 13 and 16.",
+    "version": "1.0",
+    "total_questions": 30
+  },
+  "questions": [
+    {
+      "number": 1,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "What does a fixed effects model control for when it gives each group (e.g., each hospital) its own intercept?",
+      "options": [
+        "A) Only the observed control variables included in the regression",
+        "B) Every confounder that varies over time within a hospital",
+        "C) Every characteristic of the hospital that does not change over the sample period, whether measured or not (e.g., location, founding culture, catchment population)",
+        "D) Random measurement error in the outcome variable"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A separate intercept per group absorbs everything constant within that group, observed or unobserved, so time-invariant confounders can no longer bias the coefficient on the treatment. Part 2: A is too narrow; the point of fixed effects is that they also handle unobserved group traits. B is the main limitation: confounders that change within a group over time are NOT controlled. D is noise, which fixed effects do not remove. Part 3: Knowing exactly which back doors fixed effects close is the starting point for applying them correctly.",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": []
+    },
+    {
+      "number": 2,
+      "level": 1,
+      "question_type": "fill_in",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "Fixed effects estimation throws away differences BETWEEN groups and uses only the variation of X and Y around each group's own mean. This is called ___ variation.",
+      "options": null,
+      "correct_answer": "Within (within-group) variation",
+      "explanation": "Part 1: Fixed effects use within variation: how a unit's X and Y move relative to that unit's own average (e.g., a student's grades in semesters when they worked more hours versus fewer). Part 2: 'Between' variation, comparing one group's average with another's, is exactly what fixed effects remove, because those comparisons are contaminated by time-invariant confounders. 'Total' variation is within plus between. Part 3: The within/between distinction is the central idea Huntington-Klein uses to explain how fixed effects identify an effect.",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": ["within", "within-group", "within group", "within-unit"]
+    },
+    {
+      "number": 3,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "True or False: Estimating a fixed effects model by (a) subtracting each group's mean from X and Y and regressing demeaned Y on demeaned X, or (b) regressing Y on X plus one dummy variable per group, gives the same coefficient on X.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. By the Frisch-Waugh-Lovell theorem, including group dummies is algebraically the same as partialling out group means, so the slope on X is identical. Part 2: Answering False usually comes from expecting the dummies to change the estimate. What differs is the reported R-squared (the dummy version counts variation explained by the dummies; the demeaned version reports within R-squared) and, if you demean by hand, the degrees-of-freedom correction for the standard errors. Part 3: Knowing both ways to estimate the model lets you apply fixed effects with whichever tool fits the data size (dummies for few groups, demeaning or `linearmodels.PanelOLS` for many).",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": []
+    },
+    {
+      "number": 4,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "In a panel of 50 U.S. states observed from 2010 to 2022, which specification is a two-way fixed effects (TWFE) model?",
+      "options": [
+        "A) Y_st = alpha_s + gamma_t + beta * X_st + e_st, with a separate intercept for each state AND each year",
+        "B) Y_st = alpha_s + beta * X_st + e_st, with state intercepts only",
+        "C) Y_st = beta_0 + beta * X_st + e_st, with a single common intercept",
+        "D) Y_st = alpha_s * gamma_t * X_st, a product of state and year terms"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: TWFE includes both unit (state) fixed effects, which absorb time-invariant state traits, and time (year) fixed effects, which absorb shocks common to all states in a year, such as a recession or a federal policy change. Part 2: B is one-way (state) FE, which leaves national year shocks uncontrolled. C is pooled OLS, which controls for neither. D is not a linear FE specification at all. Part 3: Recognizing the TWFE structure is the first step in applying it to panel data with two grouping dimensions.",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": []
+    },
+    {
+      "number": 5,
+      "level": 2,
+      "question_type": "calculation",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "Two stores are each observed twice. Store A: (X = 1, Y = 2) and (X = 3, Y = 6). Store B: (X = 5, Y = 20) and (X = 7, Y = 22). Demean X and Y within each store and compute the fixed effects (within) slope = sum(x_dm * y_dm) / sum(x_dm^2). Give the slope as a number.",
+      "options": null,
+      "correct_answer": "1.5",
+      "explanation": "Part 1: Store A means: X = 2, Y = 4, so the demeaned values are x = (-1, 1) and y = (-2, 2). Store B means: X = 6, Y = 21, so x = (-1, 1) and y = (-1, 1). Sum of x*y = 2 + 2 + 1 + 1 = 6, and sum of x^2 = 4, so the slope = 1.5. Part 2: Pooled OLS on all four points gives 74 / 20 = 3.7, because it mixes in the between-store gap (store B has both higher X and much higher Y, perhaps because of a better location). Fixed effects remove that between-store confounding. Part 3: Doing the demeaning by hand shows concretely how fixed effects isolate within variation.",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": ["1.5", "demean", "within", "store mean", "3.7"]
+    },
+    {
+      "number": 6,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "A fixed effects regression of employee productivity on hours of training, with worker fixed effects, reports an overall R-squared of 0.92 and a within R-squared of 0.04. How should you interpret this?",
+      "options": [
+        "A) The model is excellent because 92% of the variation in productivity is explained by training",
+        "B) Most of the 0.92 comes from the worker dummies capturing stable differences between workers; training explains only about 4% of the variation in productivity within a worker over time",
+        "C) The within R-squared shows the training coefficient is biased",
+        "D) A low within R-squared means the fixed effects should be dropped"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The overall R-squared includes the variation explained by the worker intercepts, which is usually large because people differ a lot in baseline productivity. Within R-squared measures how much of each worker's movement around their own mean the time-varying regressors (training) explain. Part 2: A wrongly credits training with the dummies' explanatory power. C confuses fit with bias; a low R-squared does not imply a biased coefficient. D is wrong because the fixed effects are there to remove confounding, not to raise fit. Part 3: Interpreting coefficients and the two R-squared values correctly is part of applying fixed effects models.",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": []
+    },
+    {
+      "number": 7,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "A researcher uses individual fixed effects to estimate how marriage affects wages. She also wants the coefficient on each worker's race, which does not change over time. What happens?",
+      "options": [
+        "A) The race coefficient is estimated more precisely because fixed effects reduce noise",
+        "B) Race is estimated without bias because fixed effects remove confounding",
+        "C) The race coefficient cannot be estimated, because race is perfectly collinear with the individual fixed effects and has no within-person variation, so it is absorbed into the intercepts",
+        "D) Race must be demeaned twice to be estimated"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A variable that is constant within each unit is a linear combination of the unit dummies, so it has zero within variation. The software either drops it or reports it as collinear, and its effect is absorbed into the individual intercepts. Part 2: A and B assume fixed effects can still identify time-invariant variables, which they cannot. D is not a real technique; demeaning a constant always gives zero. Part 3: This is a key cost of fixed effects. If you need effects of time-invariant traits, you need random effects, a hierarchical model, or a different design.",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": []
+    },
+    {
+      "number": 8,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "A fixed effects model of city crime rates on police staffing (with city fixed effects) gives a coefficient of -0.8. Which interpretation is correct?",
+      "options": [
+        "A) Cities with more police have 0.8 fewer crimes than cities with less police",
+        "B) Police staffing explains 80% of differences in crime between cities",
+        "C) Staffing causes crime to rise by 0.8 in every city",
+        "D) Within the same city, a year with one more officer per 1,000 residents than that city's own average is associated with 0.8 fewer crimes per 1,000 residents than the city's average, assuming no time-varying confounders"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: A fixed effects coefficient is a within-unit comparison: how Y changes when X moves away from that same unit's typical level. The causal reading requires that nothing else changing over time within the city (e.g., a new mayor, an economic downturn) drives both staffing and crime. Part 2: A is a between-city comparison, which fixed effects remove. B confuses a coefficient with an R-squared. C reverses the sign and assumes the effect is identical everywhere without saying so. Part 3: Huntington-Klein stresses this within interpretation when applying fixed effects.",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": []
+    },
+    {
+      "number": 9,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "A health economist studies whether a hospital's adoption of electronic health records (EHR) reduces 30-day readmissions, using 300 hospitals from 2012 to 2022. Hospitals adopted EHR in different years, and a 2016 federal penalty program lowered readmissions everywhere at once. Which plan is best?",
+      "options": [
+        "A) Pooled OLS of readmissions on an EHR dummy, because the large sample removes bias",
+        "B) Hospital fixed effects only, because year shocks average out",
+        "C) Year fixed effects only, because the hospitals are similar",
+        "D) TWFE with hospital and year fixed effects, standard errors clustered by hospital, and, because adoption is staggered, a check with a heterogeneity-robust estimator (e.g., Callaway-Sant'Anna) or an event-study plot of effects by year since adoption"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Hospital FE absorb stable differences (size, patient mix, teaching status). Year FE absorb the 2016 penalty and other national shocks. Clustering by hospital accounts for serial correlation in each hospital's errors. With staggered adoption, plain TWFE can be biased when effects change over time, so a robust estimator or event study is the recommended check. Part 2: A ignores both kinds of confounding. B leaves the 2016 shock to be confused with EHR adoption, because many hospitals adopted around then. C leaves stable hospital differences uncontrolled. Part 3: This applies two-way fixed effects to a realistic policy setting and includes the known limitation of TWFE with staggered treatment timing.",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": []
+    },
+    {
+      "number": 10,
+      "level": 3,
+      "question_type": "scenario",
+      "section": "Fixed Effects and Two-Way FE",
+      "question_text": "A retail chain asks whether store-level self-checkout kiosks (installed in some stores in different months) increased monthly sales. You have 120 stores x 36 months of sales, kiosk status, local unemployment, and promotions. Describe the fixed effects specification you would run, what each set of fixed effects removes, how you would compute standard errors, and one threat that fixed effects do NOT address.",
+      "options": null,
+      "correct_answer": "Specification: log(sales_st) = alpha_s + gamma_t + beta * kiosk_st + delta1 * unemployment_st + delta2 * promo_st + e_st. Store fixed effects alpha_s remove stable store traits such as size, location, and neighborhood income. Month fixed effects gamma_t remove chain-wide shocks such as the holiday season, national advertising, and inflation. Beta is the within-store percent change in sales after kiosks are installed, relative to other stores in the same month. Standard errors: cluster by store, since a store's errors are correlated over 36 months. Threat not addressed: time-varying confounding. For example, if managers installed kiosks in stores they expected to grow, such as right before a remodel or after a competitor closed, beta is biased. Check this with an event-study plot of leads and lags around installation month and test for pre-trends; also use a staggered-adoption-robust estimator.",
+      "explanation": "Part 1: A strong answer writes out the TWFE equation, explains what the unit and time fixed effects each absorb, interprets beta as a within effect, clusters SEs at the store level, and names a time-varying confounder with a concrete diagnostic (event-study pre-trends). Part 2: Answers that use pooled OLS, cluster at the month level, or claim fixed effects remove all confounding are incorrect. Part 3: This is a complete application of two-way fixed effects, including its interpretation and its limits.",
+      "learning_objective": "Apply fixed effects and two-way fixed effects models.",
+      "keywords": ["store fixed effects", "month fixed effects", "cluster", "within", "time-varying", "pre-trend"]
+    },
+    {
+      "number": 11,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "What key assumption does a random effects model make that a fixed effects model does not?",
+      "options": [
+        "A) The outcome variable must be binary",
+        "B) The group-specific intercepts are draws from a distribution (usually normal) and are uncorrelated with the regressors X",
+        "C) Every group has the same intercept",
+        "D) There are no time-invariant variables in the data"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Random effects treat each group's intercept as a random draw, alpha_j ~ N(mu, tau^2), and require Cov(alpha_j, X) = 0. If that holds, the estimator can use both within and between variation and is more efficient than fixed effects. Part 2: A is about logit/probit, not random effects. C describes pooled OLS. D is the reverse: random effects CAN estimate time-invariant variables, which is one of their advantages. Part 3: This distributional and no-correlation assumption is what defines random effects and what sets them apart from fixed effects.",
+      "learning_objective": "Understand random effects.",
+      "keywords": []
+    },
+    {
+      "number": 12,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "True or False: If the unobserved group effect is correlated with the treatment variable (e.g., more motivated students choose to take more tutoring), a random effects estimate of the tutoring effect will be biased, while a fixed effects estimate will not be biased by that time-invariant motivation.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. Random effects assume the group effect is uncorrelated with X, so when that fails, the between-group comparison it uses brings in confounding from motivation. Fixed effects remove all time-invariant group traits and rely only on within variation, so stable motivation cannot bias them. Part 2: Answering False misses why researchers default to fixed effects for causal questions: the random effects assumption is strong and often implausible. Part 3: Understanding when random effects become biased is the central part of this learning objective.",
+      "learning_objective": "Understand random effects.",
+      "keywords": []
+    },
+    {
+      "number": 13,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "Why do analysts use clustered standard errors when observations are grouped, such as students within classrooms?",
+      "options": [
+        "A) Error terms within the same cluster are often correlated (shared teacher, shared room), so standard errors that assume independent errors are usually too small. Clustered SEs allow arbitrary correlation within each cluster",
+        "B) Clustering removes bias from the coefficient estimates",
+        "C) Clustering increases the sample size",
+        "D) Clustering forces every cluster to have the same intercept"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: Clustered (cluster-robust) SEs allow any correlation pattern among errors within a cluster while assuming independence across clusters. Ignoring positive within-cluster correlation overstates how much independent information you have, which gives SEs that are too small and too many false positives. Part 2: B is wrong because clustering changes only the SEs, not the point estimates. C is backward: the effective sample size moves toward the number of clusters. D describes pooled OLS. Part 3: Clustered SEs are the alternative Huntington-Klein presents for handling correlated errors in grouped data.",
+      "learning_objective": "Understand random effects.",
+      "keywords": []
+    },
+    {
+      "number": 14,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "A Hausman test comparing fixed effects and random effects estimates of the wage effect of union membership gives p = 0.001. What should you conclude?",
+      "options": [
+        "A) Random effects are preferred because they are more efficient",
+        "B) Both models are equally valid; choose either",
+        "C) Union membership has no effect on wages",
+        "D) The FE and RE coefficients differ significantly, which suggests the individual effects are correlated with union membership. The random effects assumption is likely violated, so use fixed effects"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: The Hausman test's null is that RE and FE estimates are the same (both consistent, RE more efficient). Rejecting it (p = 0.001) suggests RE is inconsistent because Cov(alpha_i, X) is not zero, so FE is preferred. Part 2: A is the right choice only when the test does NOT reject. B ignores the test result. C confuses a specification test with a test of the effect itself. Part 3: The Hausman test puts into practice the assumption that defines random effects.",
+      "learning_objective": "Understand random effects.",
+      "keywords": []
+    },
+    {
+      "number": 15,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "Which statement correctly describes how a random effects estimate relates to the fixed effects and pooled OLS estimates?",
+      "options": [
+        "A) Random effects is a weighted combination of within and between variation. It moves toward fixed effects as within-group variation dominates (large groups, large between-group variance tau^2) and toward pooled OLS as tau^2 approaches 0",
+        "B) Random effects always equals fixed effects",
+        "C) Random effects always equals pooled OLS",
+        "D) Random effects uses only between-group variation"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: The RE (GLS) estimator subtracts only a fraction theta of each group's mean, quasi-demeaning, where theta = 1 - sqrt(sigma^2 / (sigma^2 + T * tau^2)). When theta = 1 it equals FE (full demeaning); when theta = 0 it equals pooled OLS. Part 2: B and C are only the two extreme cases. D describes the between estimator, which regresses group means on group means. Part 3: Seeing random effects as a compromise between FE and pooled OLS explains both why it is efficient and why it is vulnerable to bias.",
+      "learning_objective": "Understand random effects.",
+      "keywords": []
+    },
+    {
+      "number": 16,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "In a random effects (multilevel) model of patient satisfaction across clinics, the overall mean is 70, the between-clinic variance is tau^2 = 4, and the within-clinic variance is sigma^2 = 36. A clinic with 9 surveyed patients has a raw average of 80. Using the shrinkage weight lambda = tau^2 / (tau^2 + sigma^2 / n), what is the random effects estimate of that clinic's mean?",
+      "options": [
+        "A) 80, because random effects use each clinic's raw mean",
+        "B) 70, because random effects ignore clinic data",
+        "C) 75, because lambda = 4 / (4 + 36 / 9) = 0.5, so the estimate = 70 + 0.5 * (80 - 70) = 75",
+        "D) 72.5, because lambda = 0.25"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: Random effects partially pool: each group estimate is a weighted average of its own mean and the overall mean, with weight lambda on its own data. Here sigma^2 / n = 36 / 9 = 4, so lambda = 4 / 8 = 0.5, giving an estimate of 75. Part 2: A is the fixed effects (no pooling) answer. B is complete pooling. D uses the wrong weight; 0.25 would require sigma^2 / n = 12, i.e., n = 3. Part 3: Shrinkage is the practical meaning of random effects. Small or noisy groups are pulled toward the mean, which reduces overreaction to a lucky or unlucky sample.",
+      "learning_objective": "Understand random effects.",
+      "keywords": []
+    },
+    {
+      "number": 17,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "An education study has 2,000 students in only 6 schools and clusters standard errors by school. What is the main concern?",
+      "options": [
+        "A) Clustering by school will make the coefficients biased",
+        "B) Cluster-robust SEs are unreliable with few clusters (a common rule of thumb is fewer than about 30-50), usually too small. Use a small-cluster correction such as the wild cluster bootstrap, or cluster at a level with more groups if that is justified",
+        "C) 2,000 students guarantees accurate SEs no matter how many clusters there are",
+        "D) Schools should be dropped and the data treated as independent"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Cluster-robust SEs are justified as the number of CLUSTERS grows, not the number of observations. With 6 clusters, the variance estimate is very noisy and biased downward, which leads to over-rejection. The wild cluster bootstrap (e.g., Cameron, Gelbach, and Miller 2008) is the standard fix. Part 2: A is wrong because clustering does not change the coefficients. C confuses the number of observations with the number of clusters. D ignores the within-school correlation, which makes the SEs even worse. Part 3: Knowing when clustered SEs fail is part of understanding these alternatives to fixed effects for grouped data.",
+      "learning_objective": "Understand random effects.",
+      "keywords": []
+    },
+    {
+      "number": 18,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "True or False: Like fixed effects, a random effects model cannot estimate the coefficient on a variable that never changes within a group, such as a hospital's teaching status.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Random effects do not remove the group means completely (they quasi-demean), so between-group variation remains and time-invariant variables like teaching status can be estimated, as long as the random effects assumption holds. Part 2: Answering True applies the fixed effects limitation (perfect collinearity with the group dummies) to random effects. Part 3: This is one of the main reasons researchers consider random effects or hierarchical models even though they rest on a stronger assumption.",
+      "learning_objective": "Understand random effects.",
+      "keywords": []
+    },
+    {
+      "number": 19,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "A school district wants to (1) estimate how tutoring hours affect test scores and (2) predict each school's baseline score from school funding per pupil. Some schools have only 8 students in the data. The district also worries that motivated schools offer more tutoring. Which model best meets both goals?",
+      "options": [
+        "A) A hierarchical (multilevel) model with a random school intercept that depends on funding per pupil, alpha_j = gamma_0 + gamma_1 * funding_j + u_j, plus the school mean of tutoring hours as a control (the Mundlak / correlated random effects approach) so the tutoring coefficient matches the within-school fixed effects estimate",
+        "B) School fixed effects only, which estimate the funding coefficient directly",
+        "C) Pooled OLS with no school structure",
+        "D) A separate regression for each school, with the funding coefficients averaged"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: A hierarchical model lets the school intercept be partly predicted by observed traits (funding) and partly random (u_j). Small schools are shrunk toward their predicted value rather than the grand mean. Adding the school mean of tutoring absorbs the correlation between motivation and tutoring, so the tutoring effect is identified from within-school variation, the same as FE. Part 2: B cannot estimate funding, which is constant within each school. C ignores both the confounding and the clustering. D overfits schools with 8 students and cannot estimate funding within a single school. Part 3: This is the hierarchical random effects extension, where group-specific variation is partly predictable from observed characteristics.",
+      "learning_objective": "Understand random effects.",
+      "keywords": []
+    },
+    {
+      "number": 20,
+      "level": 3,
+      "question_type": "short_answer",
+      "section": "Random Effects and Clustered SEs",
+      "question_text": "A hospital network compares 40 hospitals on surgical complication rates. A hospital with only 12 surgeries had a 25% complication rate, while the network average is 8%. Leadership wants to rank hospitals. In 2-4 sentences, explain why a random effects (partial pooling) estimate is better than the raw rate for this ranking, and what assumption it relies on.",
+      "options": null,
+      "correct_answer": "With only 12 surgeries, the raw 25% rate is very noisy; three bad outcomes could easily be chance. A random effects or multilevel model shrinks each hospital's rate toward the network mean of 8%, more strongly for hospitals with few surgeries, giving more stable estimates. This reduces the chance of falsely labeling a small hospital the worst performer. The assumption is that hospital effects come from a common distribution (e.g., normal on the logit scale) and are unrelated to the predictors in the model. Patient risk should be adjusted for as a control, since high-risk case mix could otherwise be mistaken for poor quality.",
+      "explanation": "Part 1: Partial pooling weights each hospital's own data by its reliability, tau^2 / (tau^2 + sigma^2 / n). Small-n hospitals get pulled toward the mean, which reduces regression-to-the-mean errors in rankings. Part 2: Answers that recommend fixed effects or raw rates ignore sampling noise, and answers that leave out the distributional and no-correlation assumption ignore the cost of random effects. Part 3: This is a practical, high-stakes use of random effects and shows both their benefit (stability) and their assumption.",
+      "learning_objective": "Understand random effects.",
+      "keywords": ["shrink", "partial pooling", "small sample", "noisy", "distribution", "risk adjust"]
+    },
+    {
+      "number": 21,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "In a residuals-versus-fitted plot, what pattern indicates heteroskedasticity?",
+      "options": [
+        "A) Residuals scattered in an even horizontal band around zero",
+        "B) A perfectly straight upward line of points",
+        "C) All residuals exactly equal to zero",
+        "D) A fan or funnel shape, where the spread of residuals widens (or narrows) as the fitted values increase"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: Heteroskedasticity means Var(e | X) changes with X. The classic sign is a funnel: small residuals at low fitted values and large residuals at high ones, as when spending varies far more among high-income households. Part 2: A is the homoskedastic pattern you hope to see. B suggests a misspecified model (the residuals still contain a trend). C would mean a perfect fit, which is unrealistic. Part 3: Spotting heteroskedasticity visually is the first step in this week's review of regression assumptions (The Effect, Chapter 13).",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": []
+    },
+    {
+      "number": 22,
+      "level": 1,
+      "question_type": "true_false",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "True or False: Heteroskedasticity-robust (Huber-White, e.g., HC1/HC3) standard errors change the OLS coefficient estimates.",
+      "options": null,
+      "correct_answer": "False",
+      "explanation": "Part 1: False. Robust SEs leave the OLS coefficients unchanged and only recompute the variance estimate with a 'sandwich' formula that allows the error variance to differ across observations. Part 2: Answering True confuses robust SEs with weighted least squares, which does reweight observations and changes the coefficients. Part 3: Under heteroskedasticity OLS stays unbiased but its default SEs are wrong, and robust SEs are the standard fix.",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": []
+    },
+    {
+      "number": 23,
+      "level": 1,
+      "question_type": "multiple_choice",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "Why is a logit or probit model often preferred over a linear probability model (OLS on a 0/1 outcome) when modeling loan default?",
+      "options": [
+        "A) Logit always gives larger coefficients",
+        "B) Logit and probit keep predicted probabilities between 0 and 1 and allow the effect of X on the probability to change with the baseline level, while OLS can predict values below 0 or above 1",
+        "C) OLS cannot be estimated on a binary outcome",
+        "D) Logit models do not need any assumptions"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: Logit and probit pass a linear index through an S-shaped link function, so predictions stay within [0, 1] and marginal effects are largest near p = 0.5 and smaller near 0 or 1. A linear probability model assumes a constant marginal effect and can predict impossible probabilities, such as -0.08 for a very safe borrower. Part 2: A is wrong because logit coefficients are on the log-odds scale and are not comparable to OLS coefficients in size. C is wrong because OLS on a 0/1 outcome is the linear probability model and runs fine (with built-in heteroskedasticity). D is wrong because logit assumes a functional form. Part 3: Choosing a nonlinear model for a bounded outcome is a core part of the nonlinear-regression review.",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": []
+    },
+    {
+      "number": 24,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "A regression of log(salary) on years of experience gives a coefficient of 0.07. How should it be interpreted?",
+      "options": [
+        "A) Each extra year of experience raises salary by $0.07",
+        "B) Each extra year raises salary by 70%",
+        "C) Each extra year of experience is associated with about a 7% higher salary (exactly e^0.07 - 1 = 7.25%)",
+        "D) A 1% increase in experience raises salary by 0.07%"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: In a log-linear model, a one-unit change in X changes Y by about 100 * beta percent; the exact figure is 100 * (e^beta - 1). For 0.07, that is about 7% (exactly 7.25%). Part 2: A reads the coefficient as if Y were in levels. B multiplies by 1,000 instead of 100. D is the log-log (elasticity) interpretation, which would require log(experience) as the regressor. Part 3: Interpreting log transformations correctly is one of the main topics in the nonlinear-regression review.",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": []
+    },
+    {
+      "number": 25,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "A marketing model gives Sales = 50 + 4 * AdSpend - 0.2 * AdSpend^2 (ad spend in $1,000s). What is the marginal effect of ad spend at AdSpend = 5, and at what level does extra spending stop raising sales?",
+      "options": [
+        "A) Marginal effect = 4 - 2 * 0.2 * 5 = 2 sales per extra $1,000; sales peak at AdSpend = 4 / (2 * 0.2) = 10, i.e., $10,000",
+        "B) Marginal effect = 4 at every level; sales never peak",
+        "C) Marginal effect = 4 - 0.2 = 3.8; peak at AdSpend = 20",
+        "D) Marginal effect = -0.2; spending always reduces sales"
+      ],
+      "correct_answer": "A",
+      "explanation": "Part 1: With a quadratic term, the marginal effect is the derivative: dY/dX = beta_1 + 2 * beta_2 * X = 4 - 0.4X, which equals 2 at X = 5. It reaches zero at X = -beta_1 / (2 * beta_2) = 10. Part 2: B ignores the squared term. C forgets to multiply by 2X. D reports only the curvature coefficient as if it were the whole effect. Part 3: Polynomial terms are the most common way to model nonlinear relationships within OLS, and their coefficients must be read through the derivative.",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": []
+    },
+    {
+      "number": 26,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "A logit model of credit-card default has a coefficient of 0.6 on 'number of late payments last year.' For a customer whose predicted default probability is 0.20, what is the approximate marginal effect of one more late payment on the probability of default?",
+      "options": [
+        "A) 0.60, i.e., 60 percentage points",
+        "B) 0.20, the same as the baseline probability",
+        "C) e^0.6 = 1.82 percentage points",
+        "D) beta * p * (1 - p) = 0.6 * 0.20 * 0.80 = 0.096, about 9.6 percentage points"
+      ],
+      "correct_answer": "D",
+      "explanation": "Part 1: For logit, dP/dX = beta * p * (1 - p), so the marginal effect depends on the customer's baseline risk: 0.6 * 0.16 = 0.096 at p = 0.20. At p = 0.5 it would be 0.15. Part 2: A reads a log-odds coefficient as a probability change. B confuses the baseline probability with the effect. C uses the odds ratio (1.82 times the odds, an 82% increase in the odds), which is not a change in probability. Part 3: Converting nonlinear-model coefficients into marginal effects is necessary for explaining them to a credit-risk team.",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": []
+    },
+    {
+      "number": 27,
+      "level": 2,
+      "question_type": "multiple_choice",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "A Breusch-Pagan test on a regression of household electricity use on income gives p < 0.001. What is the correct conclusion and next step?",
+      "options": [
+        "A) The coefficients are biased, so the model must be discarded",
+        "B) There is evidence that the error variance depends on the regressors (heteroskedasticity). Keep the OLS coefficients, but report heteroskedasticity-robust SEs, and consider a log transformation of electricity use, which often stabilizes the variance",
+        "C) Income has no effect on electricity use",
+        "D) The errors are normally distributed"
+      ],
+      "correct_answer": "B",
+      "explanation": "Part 1: The Breusch-Pagan test regresses squared residuals on the regressors; a significant result means the variance changes with X. OLS remains unbiased, but default SEs are invalid, so use robust SEs. A log of the outcome often turns multiplicative noise into roughly constant variance. Part 2: A confuses heteroskedasticity with bias. C confuses a test of the error variance with a test of the slope. D is wrong because Breusch-Pagan does not test normality. Part 3: This is the standard diagnose-then-fix workflow for heteroskedasticity.",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": []
+    },
+    {
+      "number": 28,
+      "level": 2,
+      "question_type": "true_false",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "True or False: A linear probability model (OLS with a 0/1 outcome) always has heteroskedastic errors, because the error variance p(X) * (1 - p(X)) changes with X.",
+      "options": null,
+      "correct_answer": "True",
+      "explanation": "Part 1: True. For a binary outcome, Var(Y | X) = p(X)(1 - p(X)), which changes whenever p(X) does, and in a useful model p(X) changes with X. So the linear probability model is heteroskedastic by construction and needs robust SEs. Part 2: Answering False treats the linear probability model like a continuous-outcome regression with constant variance. Part 3: This links the two review topics: binary outcomes create heteroskedasticity, which motivates either robust SEs or a nonlinear model such as logit or probit.",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": []
+    },
+    {
+      "number": 29,
+      "level": 3,
+      "question_type": "multiple_choice",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "A housing analyst regresses sale price (dollars) on square footage for 5,000 homes. The residuals fan out sharply for larger homes, and the relationship curves upward. She must report a defensible effect of size on price to a mortgage lender. Which plan is best?",
+      "options": [
+        "A) Drop all homes over 3,000 square feet so the residuals look even",
+        "B) Keep the linear model in dollars and report default SEs, since OLS is unbiased",
+        "C) Model log(price) on log(square footage), and add a squared term if the curve remains. Report heteroskedasticity-robust (HC3) SEs, check the residual plot again, and present the result as an elasticity (e.g., a 10% larger home is associated with about an X% higher price)",
+        "D) Switch to a logit model, because price is nonlinear"
+      ],
+      "correct_answer": "C",
+      "explanation": "Part 1: A log-log model addresses both problems: multiplicative price noise becomes roughly constant variance, and the coefficient becomes an interpretable elasticity. Robust SEs protect inference against any remaining heteroskedasticity, and re-checking the residual plot confirms the fix. Part 2: A throws away valid data and creates selection bias. B ignores the misspecified curve and gives invalid SEs. D misuses logit, which is for binary outcomes, not continuous prices. Part 3: This combines both review topics, heteroskedasticity and nonlinear functional form, in a realistic modeling decision.",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": []
+    },
+    {
+      "number": 30,
+      "level": 3,
+      "question_type": "analysis",
+      "section": "Heteroskedasticity and Nonlinear Models",
+      "question_text": "A telecom company models monthly churn (1 = churned, 0 = stayed) with customer-level data across 25 regions, using monthly price, tenure, and region. A junior analyst ran plain OLS with default SEs. Write a concise modeling plan that fixes the functional form, the standard errors, and the regional structure, and explain how you would report the price effect to executives.",
+      "options": null,
+      "correct_answer": "(1) Functional form: replace the linear probability model with a logit of churn on price, tenure, and tenure^2. Churn is binary, so a linear probability model can predict probabilities outside [0, 1] and is heteroskedastic by construction. (2) Regional structure: add region fixed effects to absorb stable regional differences such as competitor density and network quality; or, to estimate effects of region-level traits, use a random-intercept (hierarchical) logit. (3) Standard errors: cluster by region, since customers in the same region share shocks. With only 25 clusters, check the results with a wild cluster bootstrap. (4) Reporting: convert the price coefficient into an average marginal effect, e.g., 'each $5 increase in monthly price raises the probability of churning by about 1.8 percentage points on average,' and show predicted churn curves by tenure group, since logit effects are larger for customers near a 50% churn risk.",
+      "explanation": "Part 1: A strong plan (a) chooses logit or probit for a binary outcome, (b) handles the grouped structure with fixed or random effects, (c) clusters SEs at the region level and notes the small number of clusters, and (d) translates log-odds coefficients into marginal effects in percentage points that executives can act on. Part 2: Plans that keep OLS with default SEs, ignore regional clustering, or report raw log-odds coefficients to executives are incomplete. Part 3: This brings together all three objectives (fixed effects, random effects and clustering, heteroskedasticity, and nonlinear models) in one applied workflow.",
+      "learning_objective": "Review heteroskedasticity and nonlinear regression.",
+      "keywords": ["logit", "marginal effect", "cluster", "fixed effects", "heteroskedasticity", "percentage points"]
+    }
+  ]
+}
