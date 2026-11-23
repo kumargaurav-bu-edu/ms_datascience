@@ -69,3 +69,8 @@ E. A readiness assessment:
 Be strict. A correct implementation is not sufficient for an Exemplary assessment. I must demonstrate meaningful interpretation, quantitative evidence, and relevance to the central research problem.
 
 Do not invent results or suggest conclusions unsupported by the notebook.
+
+1. Word report draft (8–10 pages) — the actual deliverable, not started
+2. Unified evidence-to-conclusion matrix across the four weeks
+3. AI-use appendix + references
+4. Rubric self-audit
